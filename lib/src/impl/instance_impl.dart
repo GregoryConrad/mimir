@@ -5,7 +5,8 @@ class _MeiliInstanceImpl with MeiliInstance {
     // Create the directory for this instance
     await Directory(path).create();
 
-    // TODO do initialization of the rust thread for this instance
+    // TODO do initialization in rust for this instance
+    //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/252#issuecomment-1002322865
 
     return _MeiliInstanceImpl._(name, path);
   }
