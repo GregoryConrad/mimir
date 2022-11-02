@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:embedded_meilisearch/src/index.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart' as pp;
 
 part 'impl/instance_impl.dart';
 
@@ -12,12 +10,9 @@ part 'impl/instance_impl.dart';
 /// You will often only need one instance, but you can
 /// make more if you so choose
 mixin MeiliInstance {
-  /// Creates the default MeiliInstance instance
-  static Future<MeiliInstance> get defaultInstance => getInstance('default');
-
-  /// Creates a MeiliInstance with the given name and (optional) path
-  static Future<MeiliInstance> getInstance(String name, [String? path]) =>
-      _MeiliInstanceImpl.getInstance(name, path);
+  /// Creates a MeiliInstance from the given name and path
+  static Future<MeiliInstance> from(String name, String path) =>
+      _MeiliInstanceImpl.from(name, path);
 
   /// The path-friendly name of this instance
   String get name;

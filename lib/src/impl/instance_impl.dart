@@ -1,27 +1,11 @@
 part of '../instance.dart';
 
 class _MeiliInstanceImpl with MeiliInstance {
-  static Future<_MeiliInstanceImpl> getInstance(
-    String name, [
-    String? path,
-  ]) async {
+  static Future<_MeiliInstanceImpl> from(String name, String path) async {
     // Create the directory for this instance
-    if (path == null) {
-      try {
-        final appSupportDir = await pp.getApplicationSupportDirectory();
-        path = p.join(appSupportDir.path, 'embedded_meili', name);
-        await Directory(path).create();
-      } on pp.MissingPlatformDirectoryException {
-        throw UnsupportedError(
-          'Looks like this platform does not have an application support '
-          'directory. Please call '
-          'MeiliInstance.getInstance(\'$name\', someWriteableDir) '
-          'manually.',
-        );
-      }
-    }
+    await Directory(path).create();
 
-    // TODO do initialization of the rust thread for this instance path and name
+    // TODO do initialization of the rust thread for this instance
 
     return _MeiliInstanceImpl._(name, path);
   }
@@ -33,8 +17,6 @@ class _MeiliInstanceImpl with MeiliInstance {
 
   @override
   final String path;
-
-  // TODO milli version/dumps?
 
   @override
   Future<MeiliIndex> getIndex(String name) => MeiliIndex.from(this, name);
