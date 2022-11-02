@@ -1,6 +1,12 @@
 part of '../index.dart';
 
 class _MeiliIndexImpl with MeiliIndex {
+  static Future<_MeiliIndexImpl> from(
+      MeiliInstance instance, String name) async {
+    // TODO init the index in rust
+    return _MeiliIndexImpl._(instance, name);
+  }
+
   const _MeiliIndexImpl._(this.instance, this.name);
 
   @override
@@ -8,12 +14,6 @@ class _MeiliIndexImpl with MeiliIndex {
 
   @override
   final String name;
-
-  static Future<_MeiliIndexImpl> from(
-      MeiliInstance instance, String name) async {
-    // TODO init the index in rust
-    return _MeiliIndexImpl._(instance, name);
-  }
 
   @override
   Future<void> addDocuments(List<MeiliDocument> documents) {

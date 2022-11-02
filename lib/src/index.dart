@@ -4,7 +4,7 @@ part 'impl/index_impl.dart';
 
 typedef MeiliDocument = Map<String, dynamic>;
 
-/// Represents an index in milli, the engine of meilisearch
+/// Represents an index in milli (the engine of Meilisearch)
 ///
 /// An index consists of documents, which is what searching is based off of
 mixin MeiliIndex {
@@ -18,7 +18,7 @@ mixin MeiliIndex {
   /// The path-friendly name (id) of this index
   String get name;
 
-  /// Searches against the documents in this index
+  /// Perform a search against the documents of this index
   Future<List<MeiliDocument>> search(
     String? query, {
     int? limit,
@@ -61,5 +61,6 @@ class MeiliIndexSettings {
 
   /// Copies this settings object into a new settings object
   /// with the given changes
+  /// TODO no nullable fields! That will mess up copyWith
   MeiliIndexSettings copyWith() => const MeiliIndexSettings();
 }

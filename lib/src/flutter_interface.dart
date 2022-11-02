@@ -9,7 +9,7 @@ extension FlutterMeiliInterface on MeiliInterface {
     return getInstanceForName(defaultName);
   }
 
-  /// Creates a MeiliInstance with the given name for Flutter
+  /// Creates a MeiliInstance with the given path-friendly name for Flutter
   Future<MeiliInstance> getInstanceForName(String name) async {
     try {
       const defaultSubDir = 'embedded_meili';
@@ -20,7 +20,7 @@ extension FlutterMeiliInterface on MeiliInterface {
       throw UnsupportedError(
         'Looks like this platform does not have an application support '
         'directory. Please call '
-        'Meili.getInstance(\'$name\', someWriteableDir) '
+        'Meili.getInstance(\'$name\', someDirectory) '
         'manually.',
       );
     }
