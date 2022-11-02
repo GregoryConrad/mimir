@@ -3,6 +3,11 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as pp;
 
+/// Represents an instance (essentially a group of indices)
+/// of milli (the engine of meilisearch)
+///
+/// You will often only need one instance, but you can
+/// make more if you so choose
 class MeiliInstance {
   const MeiliInstance._(this.name, this.path);
 
@@ -13,9 +18,16 @@ class MeiliInstance {
   static Future<MeiliInstance> getInstance(String name, [String? path]) async {
     // Create the directory for this instance
     if (path == null) {
-      final appSupportDir = await pp.getApplicationSupportDirectory();
-      path = p.join(appSupportDir.path, 'embedded_meili', name);
-      await Directory(path).create();
+      try {
+        final appSupportDir = await pp.getApplicationSupportDirectory();
+        path = p.join(appSupportDir.path, 'embedded_meili', name);
+        await Directory(path).create();
+      } on pp.MissingPlatformDirectoryException {
+        throw UnsupportedError(
+          'Looks like this platform does not have an application support '
+          'directory. Please call MeiliInstance.getInstance(\'$name\', some_dir) manually',
+        );
+      }
     }
 
     // TODO do initialization of the rust thread for this instance path and name
@@ -29,6 +41,7 @@ class MeiliInstance {
   // TODO milli version/dumps
 
   /// Returns the index with the given name (id)
+  ///
   /// The name of the index must be filesystem-path safe
   /// When in doubt, just stick with a-z, A-Z, 0-9, -, and _ for the name
   MeiliIndex getIndex(String name) => _MeiliIndex(this, name);
@@ -37,6 +50,7 @@ class MeiliInstance {
 typedef Document = Map<String, dynamic>;
 
 /// Represents an index in milli, the engine of meilisearch
+///
 /// An index consists of documents, which is what search is based off of
 abstract class MeiliIndex {
   const MeiliIndex._(this.instance, this.name);
