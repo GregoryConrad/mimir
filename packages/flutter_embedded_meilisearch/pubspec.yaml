@@ -22,6 +22,6 @@ dependency_overrides:
     path: ../embedded_meilisearch
 
 dev_dependencies:
-  analyzer: ^4.6.0
+  analyzer: ^5.2.0
   flutter_test:
     sdk: flutter
