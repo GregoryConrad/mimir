@@ -1,1 +1,1 @@
-/Users/gconrad/Documents/embedded_meilisearch/README.md
+README.md
