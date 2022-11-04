@@ -11,10 +11,10 @@ import 'package:meta/meta.dart';
 import 'dart:ffi' as ffi;
 
 abstract class EmbeddedMilli {
-  /// Documentation on a simple adder function.
-  Future<int> simpleAdder1({required int a, required int b, dynamic hint});
+  /// Initializes an instance of milli (represented by just a directory)
+  Future<void> initInstance({required String instanceDir, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kSimpleAdder1ConstMeta;
+  FlutterRustBridgeTaskConstMeta get kInitInstanceConstMeta;
 }
 
 class EmbeddedMilliImpl implements EmbeddedMilli {
@@ -24,36 +24,34 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
   /// Only valid on web/WASM platforms.
   factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) => EmbeddedMilliImpl(module as ExternalLibrary);
   EmbeddedMilliImpl.raw(this._platform);
-  Future<int> simpleAdder1({required int a, required int b, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_simple_adder_1(port_, api2wire_i32(a), api2wire_i32(b)),
-        parseSuccessData: _wire2api_i32,
-        constMeta: kSimpleAdder1ConstMeta,
+  Future<void> initInstance({required String instanceDir, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_init_instance(port_, _platform.api2wire_String(instanceDir)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kInitInstanceConstMeta,
         argValues: [
-          a,
-          b
+          instanceDir
         ],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kSimpleAdder1ConstMeta => const FlutterRustBridgeTaskConstMeta(
-        debugName: "simple_adder_1",
+  FlutterRustBridgeTaskConstMeta get kInitInstanceConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "init_instance",
         argNames: [
-          "a",
-          "b"
+          "instanceDir"
         ],
       );
 
 // Section: wire2api
 
-  int _wire2api_i32(dynamic raw) {
-    return raw as int;
+  void _wire2api_unit(dynamic raw) {
+    return;
   }
 }
 
 // Section: api2wire
 
 @protected
-int api2wire_i32(int raw) {
+int api2wire_u8(int raw) {
   return raw;
 }
 
@@ -61,6 +59,17 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   EmbeddedMilliPlatform(ffi.DynamicLibrary dylib) : super(EmbeddedMilliWire(dylib));
 // Section: api2wire
 
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_String(String raw) {
+    return api2wire_uint_8_list(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_uint_8_list(Uint8List raw) {
+    final ans = inner.new_uint_8_list_0(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
 // Section: api_fill_to_wire
 
 }
@@ -93,20 +102,29 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _store_dart_post_cobjectPtr = _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>('store_dart_post_cobject');
   late final _store_dart_post_cobject = _store_dart_post_cobjectPtr.asFunction<void Function(DartPostCObjectFnType)>();
 
-  void wire_simple_adder_1(
+  void wire_init_instance(
     int port_,
-    int a,
-    int b,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
   ) {
-    return _wire_simple_adder_1(
+    return _wire_init_instance(
       port_,
-      a,
-      b,
+      instance_dir,
     );
   }
 
-  late final _wire_simple_adder_1Ptr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32, ffi.Int32)>>('wire_simple_adder_1');
-  late final _wire_simple_adder_1 = _wire_simple_adder_1Ptr.asFunction<void Function(int, int, int)>();
+  late final _wire_init_instancePtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_init_instance');
+  late final _wire_init_instance = _wire_init_instancePtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
+    int len,
+  ) {
+    return _new_uint_8_list_0(
+      len,
+    );
+  }
+
+  late final _new_uint_8_list_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_uint_8_list> Function(ffi.Int32)>>('new_uint_8_list_0');
+  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr.asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
   void free_WireSyncReturnStruct(
     WireSyncReturnStruct val,
@@ -118,6 +136,13 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
 
   late final _free_WireSyncReturnStructPtr = _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturnStruct)>>('free_WireSyncReturnStruct');
   late final _free_WireSyncReturnStruct = _free_WireSyncReturnStructPtr.asFunction<void Function(WireSyncReturnStruct)>();
+}
+
+class wire_uint_8_list extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;

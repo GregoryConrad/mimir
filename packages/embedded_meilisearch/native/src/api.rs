@@ -1,26 +1,32 @@
-use std::sync::Mutex;
+use std::{collections::HashMap, sync::Mutex};
 
 use lazy_static::lazy_static;
 
 lazy_static! {
-    static ref API: Mutex<u64> = Mutex::new(1234);
+    /// The mapping of paths to instances
+    static ref INSTANCES: Mutex<HashMap<String, Instance>> = Mutex::new(HashMap::new());
 }
 
-// From https://github.com/fzyzcjy/flutter_rust_bridge/issues/252#issuecomment-1002322865
-/*
-lazy_static! {
-    static ref API: Mutex<Option<Api>> = Mutex::new(None);
-}
-pub fn init_api(input_app_dir: String) -> Result<()> {
-    *API.lock() = Some(Api::new(input_app_dir));
-    Ok(())
-}
-pub fn pr_search(capacity: u32, query: String) -> Result<Vec<PrSearchResult>> {
-    Ok((*API.lock()).as_ref().unwrap().pr_search(capacity, &query))
-}
- */
+struct Index {}
 
-/// Documentation on a simple adder function.
-pub fn simple_adder_1(a: i32, b: i32) -> i32 {
-    a + b
+struct Instance {
+    indexes: Mutex<HashMap<String, Mutex<Index>>>,
 }
+
+/// Initializes an instance of milli (represented by just a directory)
+pub fn init_instance(instance_dir: String) {
+    let mut instances = INSTANCES.lock().unwrap();
+
+    if instances.contains_key(&instance_dir) {
+        return;
+    }
+
+    let new_instance = Instance {
+        indexes: Mutex::new(HashMap::new()),
+    };
+
+    instances.insert(instance_dir.clone(), new_instance);
+}
+
+// TODO init index
+// TODO methods on index

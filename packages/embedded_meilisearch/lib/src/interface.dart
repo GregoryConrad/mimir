@@ -12,10 +12,15 @@ const Meili = MeiliInterface();
 class MeiliInterface {
   const MeiliInterface();
 
-  /// Creates a MeiliInstance with the given name and path
+  /// Creates a MeiliInstance from the given [instancePath] and [dylibPath]
   ///
-  /// The path has to point to a directory; a directory will be created
-  /// for you at the given path if one does not already exist
-  Future<MeiliInstance> getInstance(String name, String path) =>
-      MeiliInstance.from(name, path);
+  /// The [instancePath] has to point to a directory; a directory will be
+  /// created for you at the given path if one does not already exist.
+  ///
+  /// The [dylibPath] has to point to the path of the dynamic library
+  Future<MeiliInstance> getInstance({
+    required String instancePath,
+    required String dylibPath,
+  }) =>
+      MeiliInstance.from(path: instancePath, dylibPath: dylibPath);
 }

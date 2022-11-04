@@ -1,8 +1,5 @@
-import 'dart:io';
-
+import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
 import 'package:embedded_meilisearch/src/index.dart';
-
-part 'impl/instance_impl.dart';
 
 /// Represents an instance (essentially a group of indices)
 /// in milli (the engine that powers Meilisearch).
@@ -15,17 +12,15 @@ part 'impl/instance_impl.dart';
 /// With this approach, its easier on constrained resources (no http server)
 /// and more simple (no management of the server needed).
 mixin MeiliInstance {
-  /// Creates a MeiliInstance from the given name and path
-  static Future<MeiliInstance> from(String name, String path) =>
-      _MeiliInstanceImpl.from(name, path);
-
-  /// The path-friendly name of this instance
-  String get name;
+  /// Creates a MeiliInstance from the given [path] and [dylibPath]
+  static Future<MeiliInstance> from({
+    required String path,
+    required String dylibPath,
+  }) =>
+      MeiliInstanceImpl.from(path, dylibPath);
 
   /// The file-system path for the directory of this instance
   String get path;
-
-  // TODO milli version/dumps?
 
   /// Gets the index with the given name (also acts as its id).
   /// One will be created for you if an index with the same name

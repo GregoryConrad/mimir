@@ -1,24 +1,32 @@
-part of '../instance.dart';
+import 'dart:ffi';
+import 'dart:io';
 
-class _MeiliInstanceImpl with MeiliInstance {
-  static Future<_MeiliInstanceImpl> from(String name, String path) async {
+import 'package:embedded_meilisearch/bridge_generated.dart';
+import 'package:embedded_meilisearch/src/impl/index_impl.dart';
+import 'package:embedded_meilisearch/src/instance.dart';
+
+class MeiliInstanceImpl with MeiliInstance {
+  static Future<MeiliInstanceImpl> from(String path, String dylibPath) async {
     // Create the directory for this instance
     await Directory(path).create();
 
-    // TODO do initialization in rust for this instance
-    //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/252#issuecomment-1002322865
+    // Create an instance of the ffi wrapper
+    final dylib = DynamicLibrary.open(dylibPath);
+    final milli = EmbeddedMilliImpl(dylib);
+    await milli.initInstance(instanceDir: path);
 
-    return _MeiliInstanceImpl._(name, path);
+    // If all went well, return this instance
+    return MeiliInstanceImpl._(path, milli);
   }
 
-  const _MeiliInstanceImpl._(this.name, this.path);
+  const MeiliInstanceImpl._(this.path, this.milli);
 
-  @override
-  final String name;
+  final EmbeddedMilli milli;
 
   @override
   final String path;
 
   @override
-  Future<MeiliIndex> getIndex(String name) => MeiliIndex.from(this, name);
+  Future<MeiliIndexImpl> getIndex(String name) =>
+      MeiliIndexImpl.from(this, name);
 }

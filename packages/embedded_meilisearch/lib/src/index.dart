@@ -1,20 +1,10 @@
-import 'package:embedded_meilisearch/src/instance.dart';
-
-part 'impl/index_impl.dart';
-
+/// Represents a document in a milli index
 typedef MeiliDocument = Map<String, dynamic>;
 
 /// Represents an index in milli (the engine of Meilisearch)
 ///
 /// An index consists of documents, which is what searching is based off of
 mixin MeiliIndex {
-  /// Creates a MeiliIndex from the given instance and path-friendly name
-  static Future<MeiliIndex> from(MeiliInstance instance, String name) =>
-      _MeiliIndexImpl.from(instance, name);
-
-  /// The corresponding MeiliInstance for this index
-  MeiliInstance get instance;
-
   /// The path-friendly name (id) of this index
   String get name;
 

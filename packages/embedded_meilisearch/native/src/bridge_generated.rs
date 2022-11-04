@@ -19,21 +19,16 @@ use flutter_rust_bridge::*;
 
 // Section: wire functions
 
-fn wire_simple_adder_1_impl(
-    port_: MessagePort,
-    a: impl Wire2Api<i32> + UnwindSafe,
-    b: impl Wire2Api<i32> + UnwindSafe,
-) {
+fn wire_init_instance_impl(port_: MessagePort, instance_dir: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "simple_adder_1",
+            debug_name: "init_instance",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_a = a.wire2api();
-            let api_b = b.wire2api();
-            move |task_callback| Ok(simple_adder_1(api_a, api_b))
+            let api_instance_dir = instance_dir.wire2api();
+            move |task_callback| Ok(init_instance(api_instance_dir))
         },
     )
 }
@@ -57,11 +52,13 @@ where
         (!self.is_null()).then(|| self.wire2api())
     }
 }
-impl Wire2Api<i32> for i32 {
-    fn wire2api(self) -> i32 {
+
+impl Wire2Api<u8> for u8 {
+    fn wire2api(self) -> u8 {
         self
     }
 }
+
 // Section: impl IntoDart
 
 // Section: executor

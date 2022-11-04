@@ -1,16 +1,18 @@
-part of '../index.dart';
+import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
+import 'package:embedded_meilisearch/src/index.dart';
 
-class _MeiliIndexImpl with MeiliIndex {
-  static Future<_MeiliIndexImpl> from(
-      MeiliInstance instance, String name) async {
+class MeiliIndexImpl with MeiliIndex {
+  static Future<MeiliIndexImpl> from(
+    MeiliInstanceImpl instance,
+    String name,
+  ) async {
     // TODO init the index in rust
-    return _MeiliIndexImpl._(instance, name);
+    return MeiliIndexImpl._(instance, name);
   }
 
-  const _MeiliIndexImpl._(this.instance, this.name);
+  const MeiliIndexImpl._(this.instance, this.name);
 
-  @override
-  final MeiliInstance instance;
+  final MeiliInstanceImpl instance;
 
   @override
   final String name;
