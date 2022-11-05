@@ -20,6 +20,8 @@ pub fn init_instance(instance_dir: String) {
     if instances.contains_key(&instance_dir) {
         return;
     }
+    
+    // TODO create instance_dir recursively
 
     let new_instance = Instance {
         indexes: Mutex::new(HashMap::new()),

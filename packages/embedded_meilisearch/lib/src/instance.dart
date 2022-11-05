@@ -1,3 +1,4 @@
+import 'package:embedded_meilisearch/bridge_generated.dart';
 import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
 import 'package:embedded_meilisearch/src/index.dart';
 
@@ -12,12 +13,12 @@ import 'package:embedded_meilisearch/src/index.dart';
 /// With this approach, its easier on constrained resources (no http server)
 /// and more simple (no management of the server needed).
 mixin MeiliInstance {
-  /// Creates a MeiliInstance from the given [path] and [dylibPath]
+  /// Creates a MeiliInstance from the given [path] and [milli]
   static Future<MeiliInstance> from({
     required String path,
-    required String dylibPath,
+    required EmbeddedMilli milli,
   }) =>
-      MeiliInstanceImpl.from(path, dylibPath);
+      MeiliInstanceImpl.from(path, milli);
 
   /// The file-system path for the directory of this instance
   String get path;
