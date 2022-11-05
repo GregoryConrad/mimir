@@ -28,7 +28,7 @@ fn wire_init_instance_impl(port_: MessagePort, instance_dir: impl Wire2Api<Strin
         },
         move || {
             let api_instance_dir = instance_dir.wire2api();
-            move |task_callback| Ok(init_instance(api_instance_dir))
+            move |task_callback| init_instance(api_instance_dir)
         },
     )
 }

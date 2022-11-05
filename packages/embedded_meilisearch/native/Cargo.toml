@@ -12,3 +12,4 @@ flutter_rust_bridge_codegen = "1.49.0"
 [dependencies]
 lazy_static = "1.4.0"
 flutter_rust_bridge = "1.49.0"
+anyhow = "1.0.66"
