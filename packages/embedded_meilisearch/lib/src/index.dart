@@ -1,3 +1,5 @@
+import 'package:embedded_meilisearch/bridge_generated.dart';
+
 /// Represents a document in a milli index
 typedef MeiliDocument = Map<String, dynamic>;
 
@@ -8,16 +10,22 @@ mixin MeiliIndex {
   /// The path-friendly name (id) of this index
   String get name;
 
-  /// Perform a search against the documents of this index
+  /// Perform a search against the documents of this index.
+  ///
+  /// Searches based on the provided [query], if not null.
+  /// Returns at most [limit] documents (if not null; otherwise all matches).
+  /// Uses the provided [matchingStrategy] (if not null) to get to [limit]
+  /// documents (if not already there).
+  /// Sorts the results based on relevance, or the [sortCriteria] if not null.
   Future<List<MeiliDocument>> search(
     String? query, {
     int? limit,
-    // TODO clean API for doing filters/facets
-    // TODO sort?
+    TermsMatchingStrategy? matchingStrategy,
+    List<SortAscDesc>? sortCriteria,
   });
 
-  /// Gets the given document from the index
-  Future<MeiliDocument> getDocument(String id);
+  /// Gets the given document from the index, if it exists
+  Future<MeiliDocument?> getDocument(String id);
 
   /// Gets all documents from the index
   Future<List<MeiliDocument>> getDocuments();
@@ -35,8 +43,7 @@ mixin MeiliIndex {
   Future<void> deleteDocument(String id) => deleteDocuments([id]);
 
   /// Deletes the documents with the given [ids] from the index
-  /// If [ids] is null, deletes all documents in the index
-  Future<void> deleteDocuments(List<String>? ids);
+  Future<void> deleteDocuments(List<String> ids);
 
   /// Gets the settings of this index
   Future<MeiliIndexSettings> getSettings();
@@ -46,6 +53,7 @@ mixin MeiliIndex {
 }
 
 /// Represents the settings of a MeiliIndex
+/// TODO move to just the Rust file and delete here
 class MeiliIndexSettings {
   /// Creates the settings for a MeiliIndex
   const MeiliIndexSettings();

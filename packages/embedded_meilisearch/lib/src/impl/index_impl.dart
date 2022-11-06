@@ -36,27 +36,37 @@ class MeiliIndexImpl with MeiliIndex {
   }
 
   @override
-  Future<void> deleteDocuments(List<String>? ids) {
-    // TODO: implement deleteDocuments
-    throw UnimplementedError();
+  Future<void> deleteDocuments(List<String> ids) {
+    return milli.deleteDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      documentIds: ids,
+    );
   }
 
   @override
   Future<void> setDocuments(List<MeiliDocument> documents) async {
-    await deleteDocuments(null);
-    await addDocuments(documents);
+    return milli.setDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
+    );
   }
 
   @override
-  Future<MeiliDocument> getDocument(String id) {
-    // TODO: implement getDocument
-    throw UnimplementedError();
+  Future<MeiliDocument?> getDocument(String id) {
+    return milli
+        .getDocument(instanceDir: instanceDir, indexName: name, documentId: id)
+        .then((s) => s == null ? null : json.decode(s));
   }
 
   @override
-  Future<List<MeiliDocument>> getDocuments() {
-    // TODO: implement getDocuments
-    throw UnimplementedError();
+  Future<List<MeiliDocument>> getDocuments() async {
+    final jsonDocs = await milli.getDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+    );
+    return jsonDocs.map((s) => json.decode(s)).cast<MeiliDocument>().toList();
   }
 
   @override
@@ -75,8 +85,19 @@ class MeiliIndexImpl with MeiliIndex {
   Future<List<MeiliDocument>> search(
     String? query, {
     int? limit,
-  }) {
-    // TODO: implement search
-    throw UnimplementedError();
+    TermsMatchingStrategy? matchingStrategy,
+    List<SortAscDesc>? sortCriteria,
+  }) async {
+    final jsonDocs = await milli.searchDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      query: query,
+      limit: limit,
+      matchingStrategy: matchingStrategy,
+      sortCriteria: sortCriteria,
+      // TODO filter using a Rust enum. See for more:
+      //  https://docs.meilisearch.com/reference/api/search.html#filter
+    );
+    return jsonDocs.map((s) => json.decode(s)).cast<MeiliDocument>().toList();
   }
 }
