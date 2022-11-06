@@ -40,12 +40,15 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
     ensure_instance_initialized(instance_dir.clone())?;
     let instances = INSTANCES.read().unwrap();
     let instance = instances.get(&instance_dir).unwrap();
-    let mut indexes = instance.indexes.write().unwrap();
+    let indexes = instance.indexes.read().unwrap();
 
-    let path = Path::new(&instance_dir).join(&index_name);
-    let options = EnvOpenOptions::new();
-    let index = Index::new(options, &path).unwrap();
-    indexes.insert(index_name.clone(), Mutex::new(index));
+    if !indexes.contains_key(&index_name) {
+        let mut indexes = instance.indexes.write().unwrap();
+        let path = Path::new(&instance_dir).join(&index_name);
+        let options = EnvOpenOptions::new();
+        let index = Index::new(options, &path).unwrap();
+        indexes.insert(index_name.clone(), Mutex::new(index));
+    }
 
     Ok(())
 }
