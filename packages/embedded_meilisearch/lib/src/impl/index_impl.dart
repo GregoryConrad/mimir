@@ -1,3 +1,4 @@
+import 'package:embedded_meilisearch/bridge_generated.dart';
 import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
 import 'package:embedded_meilisearch/src/index.dart';
 
@@ -6,7 +7,10 @@ class MeiliIndexImpl with MeiliIndex {
     MeiliInstanceImpl instance,
     String name,
   ) async {
-    // TODO init the index in rust
+    await instance.milli.ensureIndexInitialized(
+      instanceDir: instance.path,
+      indexName: name,
+    );
     return MeiliIndexImpl._(instance, name);
   }
 
@@ -16,6 +20,9 @@ class MeiliIndexImpl with MeiliIndex {
 
   @override
   final String name;
+
+  String get instanceDir => instance.path;
+  EmbeddedMilli get milli => instance.milli;
 
   @override
   Future<void> addDocuments(List<MeiliDocument> documents) {

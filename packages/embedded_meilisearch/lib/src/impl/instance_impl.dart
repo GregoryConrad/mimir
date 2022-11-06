@@ -7,7 +7,7 @@ class MeiliInstanceImpl with MeiliInstance {
     String path,
     EmbeddedMilli milli,
   ) async {
-    await milli.initInstance(instanceDir: path);
+    await milli.ensureInstanceInitialized(instanceDir: path);
     return MeiliInstanceImpl._(path, milli);
   }
 

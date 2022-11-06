@@ -11,10 +11,15 @@ import 'package:meta/meta.dart';
 import 'dart:ffi' as ffi;
 
 abstract class EmbeddedMilli {
-  /// Initializes an instance of milli (represented by just a directory)
-  Future<void> initInstance({required String instanceDir, dynamic hint});
+  /// Ensures an instance of milli (represented by just a directory) is initialized
+  Future<void> ensureInstanceInitialized({required String instanceDir, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kInitInstanceConstMeta;
+  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
+
+  /// Ensures a milli index is initialized
+  Future<void> ensureIndexInitialized({required String instanceDir, required String indexName, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta;
 }
 
 class EmbeddedMilliImpl implements EmbeddedMilli {
@@ -24,20 +29,39 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
   /// Only valid on web/WASM platforms.
   factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) => EmbeddedMilliImpl(module as ExternalLibrary);
   EmbeddedMilliImpl.raw(this._platform);
-  Future<void> initInstance({required String instanceDir, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_init_instance(port_, _platform.api2wire_String(instanceDir)),
+  Future<void> ensureInstanceInitialized({required String instanceDir, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_ensure_instance_initialized(port_, _platform.api2wire_String(instanceDir)),
         parseSuccessData: _wire2api_unit,
-        constMeta: kInitInstanceConstMeta,
+        constMeta: kEnsureInstanceInitializedConstMeta,
         argValues: [
           instanceDir
         ],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kInitInstanceConstMeta => const FlutterRustBridgeTaskConstMeta(
-        debugName: "init_instance",
+  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "ensure_instance_initialized",
         argNames: [
           "instanceDir"
+        ],
+      );
+
+  Future<void> ensureIndexInitialized({required String instanceDir, required String indexName, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_ensure_index_initialized(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kEnsureIndexInitializedConstMeta,
+        argValues: [
+          instanceDir,
+          indexName
+        ],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "ensure_index_initialized",
+        argNames: [
+          "instanceDir",
+          "indexName"
         ],
       );
 
@@ -102,18 +126,33 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _store_dart_post_cobjectPtr = _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>('store_dart_post_cobject');
   late final _store_dart_post_cobject = _store_dart_post_cobjectPtr.asFunction<void Function(DartPostCObjectFnType)>();
 
-  void wire_init_instance(
+  void wire_ensure_instance_initialized(
     int port_,
     ffi.Pointer<wire_uint_8_list> instance_dir,
   ) {
-    return _wire_init_instance(
+    return _wire_ensure_instance_initialized(
       port_,
       instance_dir,
     );
   }
 
-  late final _wire_init_instancePtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_init_instance');
-  late final _wire_init_instance = _wire_init_instancePtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+  late final _wire_ensure_instance_initializedPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_instance_initialized');
+  late final _wire_ensure_instance_initialized = _wire_ensure_instance_initializedPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_ensure_index_initialized(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
+    ffi.Pointer<wire_uint_8_list> index_name,
+  ) {
+    return _wire_ensure_index_initialized(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire_ensure_index_initializedPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_index_initialized');
+  late final _wire_ensure_index_initialized = _wire_ensure_index_initializedPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
