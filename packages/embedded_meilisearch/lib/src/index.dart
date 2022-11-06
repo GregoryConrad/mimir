@@ -34,8 +34,9 @@ mixin MeiliIndex {
   /// Deletes the given document from the index
   Future<void> deleteDocument(String id) => deleteDocuments([id]);
 
-  /// Deletes the given documents from the index
-  Future<void> deleteDocuments(List<String> ids);
+  /// Deletes the documents with the given [ids] from the index
+  /// If [ids] is null, deletes all documents in the index
+  Future<void> deleteDocuments(List<String>? ids);
 
   /// Gets the settings of this index
   Future<MeiliIndexSettings> getSettings();

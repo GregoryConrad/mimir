@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:embedded_meilisearch/bridge_generated.dart';
 import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
 import 'package:embedded_meilisearch/src/index.dart';
@@ -26,20 +28,23 @@ class MeiliIndexImpl with MeiliIndex {
 
   @override
   Future<void> addDocuments(List<MeiliDocument> documents) {
-    // TODO: implement addDocuments
-    throw UnimplementedError();
+    return milli.addDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
+    );
   }
 
   @override
-  Future<void> deleteDocuments(List<String> ids) {
+  Future<void> deleteDocuments(List<String>? ids) {
     // TODO: implement deleteDocuments
     throw UnimplementedError();
   }
 
   @override
-  Future<void> setDocuments(List<MeiliDocument> documents) {
-    // TODO: implement setDocuments
-    throw UnimplementedError();
+  Future<void> setDocuments(List<MeiliDocument> documents) async {
+    await deleteDocuments(null);
+    await addDocuments(documents);
   }
 
   @override

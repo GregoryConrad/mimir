@@ -11,15 +11,21 @@ import 'package:meta/meta.dart';
 import 'dart:ffi' as ffi;
 
 abstract class EmbeddedMilli {
-  /// Ensures an instance of milli (represented by just a directory) is initialized
+  /// Ensures an instance of milli (represented by just a directory) is initialized.
   Future<void> ensureInstanceInitialized({required String instanceDir, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
 
-  /// Ensures a milli index is initialized
+  /// Ensures a milli index is initialized.
   Future<void> ensureIndexInitialized({required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta;
+
+  /// Adds the given list of documents to the specified milli index.
+  /// Replaces documents that already exist in the index based on document ids.
+  Future<void> addDocuments({required String instanceDir, required String indexName, required List<String> jsonDocuments, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta;
 }
 
 class EmbeddedMilliImpl implements EmbeddedMilli {
@@ -65,6 +71,27 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         ],
       );
 
+  Future<void> addDocuments({required String instanceDir, required String indexName, required List<String> jsonDocuments, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_add_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_StringList(jsonDocuments)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kAddDocumentsConstMeta,
+        argValues: [
+          instanceDir,
+          indexName,
+          jsonDocuments
+        ],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
+        debugName: "add_documents",
+        argNames: [
+          "instanceDir",
+          "indexName",
+          "jsonDocuments"
+        ],
+      );
+
 // Section: wire2api
 
   void _wire2api_unit(dynamic raw) {
@@ -86,6 +113,15 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   @protected
   ffi.Pointer<wire_uint_8_list> api2wire_String(String raw) {
     return api2wire_uint_8_list(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_StringList> api2wire_StringList(List<String> raw) {
+    final ans = inner.new_StringList_0(raw.length);
+    for (var i = 0; i < raw.length; i++) {
+      ans.ref.ptr[i] = api2wire_String(raw[i]);
+    }
+    return ans;
   }
 
   @protected
@@ -154,6 +190,34 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _wire_ensure_index_initializedPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_index_initialized');
   late final _wire_ensure_index_initialized = _wire_ensure_index_initializedPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
+  void wire_add_documents(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
+    ffi.Pointer<wire_uint_8_list> index_name,
+    ffi.Pointer<wire_StringList> json_documents,
+  ) {
+    return _wire_add_documents(
+      port_,
+      instance_dir,
+      index_name,
+      json_documents,
+    );
+  }
+
+  late final _wire_add_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>>('wire_add_documents');
+  late final _wire_add_documents = _wire_add_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
+
+  ffi.Pointer<wire_StringList> new_StringList_0(
+    int len,
+  ) {
+    return _new_StringList_0(
+      len,
+    );
+  }
+
+  late final _new_StringList_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_StringList> Function(ffi.Int32)>>('new_StringList_0');
+  late final _new_StringList_0 = _new_StringList_0Ptr.asFunction<ffi.Pointer<wire_StringList> Function(int)>();
+
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
   ) {
@@ -179,6 +243,13 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
 
 class wire_uint_8_list extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+class wire_StringList extends ffi.Struct {
+  external ffi.Pointer<ffi.Pointer<wire_uint_8_list>> ptr;
 
   @ffi.Int32()
   external int len;
