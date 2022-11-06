@@ -93,7 +93,9 @@ class MeiliIndexImpl with MeiliIndex {
       indexName: name,
       query: query,
       limit: limit,
-      matchingStrategy: matchingStrategy,
+      // TODO remove the ?? Last below once following resolved
+      //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
+      matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
       sortCriteria: sortCriteria,
       // TODO filter using a Rust enum. See for more:
       //  https://docs.meilisearch.com/reference/api/search.html#filter

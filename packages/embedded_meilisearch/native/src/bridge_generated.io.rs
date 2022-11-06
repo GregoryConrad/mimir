@@ -74,7 +74,7 @@ pub extern "C" fn wire_search_documents(
     index_name: *mut wire_uint_8_list,
     query: *mut wire_uint_8_list,
     limit: *mut u32,
-    matching_strategy: *mut Option<i32>,
+    matching_strategy: i32,
     sort_criteria: *mut wire_list_sort_asc_desc,
 ) {
     wire_search_documents_impl(

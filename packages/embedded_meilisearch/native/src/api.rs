@@ -224,9 +224,16 @@ pub fn search_documents(
     index_name: String,
     query: Option<String>,
     limit: Option<u32>,
-    matching_strategy: Option<TermsMatchingStrategy>,
+    // Uncomment the following line once the following is resolved:
+    // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
+    // matching_strategy: Option<TermsMatchingStrategy>,
+    matching_strategy: TermsMatchingStrategy,
     sort_criteria: Option<Vec<SortAscDesc>>,
 ) -> Result<Vec<String>> {
+    // Delete the following line once the following is resolved:
+    // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
+    let matching_strategy = Some(matching_strategy);
+
     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);

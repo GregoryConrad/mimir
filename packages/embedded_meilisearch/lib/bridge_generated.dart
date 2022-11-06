@@ -51,7 +51,7 @@ abstract class EmbeddedMilli {
   FlutterRustBridgeTaskConstMeta get kGetDocumentsConstMeta;
 
   /// Performs a search against the index and returns the documents found
-  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, TermsMatchingStrategy? matchingStrategy, List<SortAscDesc>? sortCriteria, dynamic hint});
+  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, required TermsMatchingStrategy matchingStrategy, List<SortAscDesc>? sortCriteria, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta;
 }
@@ -233,8 +233,8 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         ],
       );
 
-  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, TermsMatchingStrategy? matchingStrategy, List<SortAscDesc>? sortCriteria, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_search_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_opt_String(query), _platform.api2wire_opt_box_autoadd_u32(limit), _platform.api2wire_opt_terms_matching_strategy(matchingStrategy), _platform.api2wire_opt_list_sort_asc_desc(sortCriteria)),
+  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, required TermsMatchingStrategy matchingStrategy, List<SortAscDesc>? sortCriteria, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_search_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_opt_String(query), _platform.api2wire_opt_box_autoadd_u32(limit), api2wire_terms_matching_strategy(matchingStrategy), _platform.api2wire_opt_list_sort_asc_desc(sortCriteria)),
         parseSuccessData: _wire2api_StringList,
         constMeta: kSearchDocumentsConstMeta,
         argValues: [
@@ -354,11 +354,6 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   @protected
   ffi.Pointer<wire_list_sort_asc_desc> api2wire_opt_list_sort_asc_desc(List<SortAscDesc>? raw) {
     return raw == null ? ffi.nullptr : api2wire_list_sort_asc_desc(raw);
-  }
-
-  @protected
-  int api2wire_opt_terms_matching_strategy(TermsMatchingStrategy? raw) {
-    return raw == null ? ffi.nullptr : api2wire_terms_matching_strategy(raw);
   }
 
   @protected
@@ -530,7 +525,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_uint_8_list> index_name,
     ffi.Pointer<wire_uint_8_list> query,
     ffi.Pointer<ffi.Uint32> limit,
-    ffi.Pointer<Option_i32> matching_strategy,
+    int matching_strategy,
     ffi.Pointer<wire_list_sort_asc_desc> sort_criteria,
   ) {
     return _wire_search_documents(
@@ -544,8 +539,8 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_search_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Uint32>, ffi.Pointer<Option_i32>, ffi.Pointer<wire_list_sort_asc_desc>)>>('wire_search_documents');
-  late final _wire_search_documents = _wire_search_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Uint32>, ffi.Pointer<Option_i32>, ffi.Pointer<wire_list_sort_asc_desc>)>();
+  late final _wire_search_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Uint32>, ffi.Int32, ffi.Pointer<wire_list_sort_asc_desc>)>>('wire_search_documents');
+  late final _wire_search_documents = _wire_search_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Uint32>, int, ffi.Pointer<wire_list_sort_asc_desc>)>();
 
   ffi.Pointer<wire_StringList> new_StringList_0(
     int len,
@@ -616,8 +611,6 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _free_WireSyncReturnStructPtr = _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturnStruct)>>('free_WireSyncReturnStruct');
   late final _free_WireSyncReturnStruct = _free_WireSyncReturnStructPtr.asFunction<void Function(WireSyncReturnStruct)>();
 }
-
-class Option_i32 extends ffi.Opaque {}
 
 class wire_uint_8_list extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> ptr;

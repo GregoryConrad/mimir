@@ -159,7 +159,7 @@ fn wire_search_documents_impl(
     index_name: impl Wire2Api<String> + UnwindSafe,
     query: impl Wire2Api<Option<String>> + UnwindSafe,
     limit: impl Wire2Api<Option<u32>> + UnwindSafe,
-    matching_strategy: impl Wire2Api<Option<TermsMatchingStrategy>> + UnwindSafe,
+    matching_strategy: impl Wire2Api<TermsMatchingStrategy> + UnwindSafe,
     sort_criteria: impl Wire2Api<Option<Vec<SortAscDesc>>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
