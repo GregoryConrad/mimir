@@ -5,18 +5,7 @@ import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
 import 'package:embedded_meilisearch/src/index.dart';
 
 class MeiliIndexImpl with MeiliIndex {
-  static Future<MeiliIndexImpl> from(
-    MeiliInstanceImpl instance,
-    String name,
-  ) async {
-    await instance.milli.ensureIndexInitialized(
-      instanceDir: instance.path,
-      indexName: name,
-    );
-    return MeiliIndexImpl._(instance, name);
-  }
-
-  const MeiliIndexImpl._(this.instance, this.name);
+  const MeiliIndexImpl(this.instance, this.name);
 
   final MeiliInstanceImpl instance;
 

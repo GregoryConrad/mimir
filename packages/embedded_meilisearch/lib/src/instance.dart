@@ -20,5 +20,5 @@ mixin MeiliInstance {
   ///
   /// The name of the index must be filesystem-path safe.
   /// When in doubt, just stick with a-z, A-Z, 0-9, -, and _ for the name.
-  Future<MeiliIndex> getIndex(String name);
+  MeiliIndex getIndex(String name);
 }

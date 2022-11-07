@@ -21,9 +21,9 @@ class MeiliInterface {
   /// created for you at the given path if one does not already exist.
   ///
   /// [milli] is the ffi wrapper that is used internally to call the Rust APIs
-  Future<MeiliInstance> getInstance({
+  MeiliInstance getInstance({
     required String path,
     required EmbeddedMilli milli,
   }) =>
-      MeiliInstanceImpl.from(path, milli);
+      MeiliInstanceImpl(path, milli);
 }
