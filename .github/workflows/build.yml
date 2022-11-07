@@ -1,0 +1,147 @@
+# Modified from https://github.com/rrousselGit/riverpod/blob/master/.github/workflows/build.yml
+name: Build & Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    # runs the CI everyday at 10AM
+    - cron: "0 10 * * *"
+
+jobs:
+  # General build, check, and test steps
+  build_and_test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        flutter_channel: [stable]
+        package_path:
+          - packages/embedded_meilisearch
+          - packages/embedded_meilisearch/example
+          - packages/flutter_embedded_meilisearch
+          - packages/flutter_embedded_meilisearch/example
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.package_path }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.flutter_channel }}
+
+      - name: Install base package dependencies
+        working-directory: ./packages/embedded_meilisearch
+        run: flutter pub get
+
+      - name: Build Rust code (embedded_milli)
+        working-directory: ./packages/embedded_meilisearch/native
+        run: cargo build
+
+      - name: Install current package dependencies
+        run: flutter pub get
+
+      - name: Check format
+        run: flutter format --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Run Flutter tests
+        if: ${{ contains(matrix.package_path, 'flutter') }}
+        run: flutter test
+
+      - name: Run Dart tests
+        if: ${{ !contains(matrix.package_path, 'flutter') }}
+        run: dart test
+
+
+  # TODO For integration tests, maybe see:
+  # https://github.com/fzyzcjy/flutter_rust_bridge/blob/master/.github/workflows/flutter_ios_test.yml
+
+  # TODO Flutter desktop integration tests
+  desktop_integration_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        flutter_channel: [stable]
+        package_path:
+          - packages/flutter_embedded_meilisearch
+          - packages/flutter_embedded_meilisearch/example
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.package_path }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.flutter_channel }}
+
+      - name: Install current package dependencies
+        run: flutter pub get
+
+
+  # TODO Flutter iOS integration tests
+  ios_integration_tests:
+    strategy:
+      matrix:
+        os: [macos-latest]
+        flutter_channel: [stable]
+        package_path:
+          - packages/flutter_embedded_meilisearch
+          - packages/flutter_embedded_meilisearch/example
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.package_path }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.flutter_channel }}
+
+      - name: Install current package dependencies
+        run: flutter pub get
+
+
+  # TODO Flutter Android integration tests
+  android_integration_tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        flutter_channel: [stable]
+        package_path:
+          - packages/flutter_embedded_meilisearch
+          - packages/flutter_embedded_meilisearch/example
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.package_path }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.flutter_channel }}
+
+      - name: Install current package dependencies
+        run: flutter pub get

@@ -21,10 +21,17 @@ fn main() {
         ..Default::default() // use defaults for the rest
     };
 
-    // Generate Rust API for ffi
+    // Generate Rust & Dart ffi bridges
     let configs = config_parse(raw_opts);
     let all_symbols = get_symbols_if_no_duplicates(&configs).unwrap();
     for config in configs.iter() {
         frb_codegen(config, &all_symbols).unwrap();
     }
+
+    // Format the generated Dart code
+    std::process::Command::new("flutter")
+        .arg("format")
+        .arg("..")
+        .spawn()
+        .expect("Failed to format the generated dart code");
 }

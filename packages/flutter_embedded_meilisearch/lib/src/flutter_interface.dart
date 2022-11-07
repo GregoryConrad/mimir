@@ -26,6 +26,6 @@ extension FlutterMeiliInterface on MeiliInterface {
   }
 
   /// Creates a MeiliInstance from the given path for Flutter
-  Future<MeiliInstance> getInstanceForPath(String path) =>
+  MeiliInstance getInstanceForPath(String path) =>
       getInstance(path: path, milli: createFlutterWrapper());
 }

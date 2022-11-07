@@ -15,43 +15,69 @@ part 'bridge_generated.freezed.dart';
 
 abstract class EmbeddedMilli {
   /// Ensures an instance of milli (represented by just a directory) is initialized.
-  Future<void> ensureInstanceInitialized({required String instanceDir, dynamic hint});
+  Future<void> ensureInstanceInitialized(
+      {required String instanceDir, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
 
   /// Ensures a milli index is initialized.
-  Future<void> ensureIndexInitialized({required String instanceDir, required String indexName, dynamic hint});
+  Future<void> ensureIndexInitialized(
+      {required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta;
 
   /// Adds the given list of documents to the specified milli index.
   /// Replaces documents that already exist in the index based on document ids.
-  Future<void> addDocuments({required String instanceDir, required String indexName, required List<String> jsonDocuments, dynamic hint});
+  Future<void> addDocuments(
+      {required String instanceDir,
+      required String indexName,
+      required List<String> jsonDocuments,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta;
 
   /// Deletes the documents with the given ids from the milli index.
-  Future<void> deleteDocuments({required String instanceDir, required String indexName, required List<String> documentIds, dynamic hint});
+  Future<void> deleteDocuments(
+      {required String instanceDir,
+      required String indexName,
+      required List<String> documentIds,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDeleteDocumentsConstMeta;
 
   /// Replaces all documents in the index with the given documents
-  Future<void> setDocuments({required String instanceDir, required String indexName, required List<String> jsonDocuments, dynamic hint});
+  Future<void> setDocuments(
+      {required String instanceDir,
+      required String indexName,
+      required List<String> jsonDocuments,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta;
 
   /// Returns the document with the specified id from the index, if one exists
-  Future<String?> getDocument({required String instanceDir, required String indexName, required String documentId, dynamic hint});
+  Future<String?> getDocument(
+      {required String instanceDir,
+      required String indexName,
+      required String documentId,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetDocumentConstMeta;
 
   /// Returns all documents stored in the index.
-  Future<List<String>> getDocuments({required String instanceDir, required String indexName, dynamic hint});
+  Future<List<String>> getDocuments(
+      {required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetDocumentsConstMeta;
 
   /// Performs a search against the index and returns the documents found
-  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, required TermsMatchingStrategy matchingStrategy, List<SortAscDesc>? sortCriteria, dynamic hint});
+  Future<List<String>> searchDocuments(
+      {required String instanceDir,
+      required String indexName,
+      String? query,
+      int? limit,
+      required TermsMatchingStrategy matchingStrategy,
+      List<SortAscDesc>? sortCriteria,
+      dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta;
 }
@@ -89,152 +115,181 @@ enum TermsMatchingStrategy {
 
 class EmbeddedMilliImpl implements EmbeddedMilli {
   final EmbeddedMilliPlatform _platform;
-  factory EmbeddedMilliImpl(ExternalLibrary dylib) => EmbeddedMilliImpl.raw(EmbeddedMilliPlatform(dylib));
+  factory EmbeddedMilliImpl(ExternalLibrary dylib) =>
+      EmbeddedMilliImpl.raw(EmbeddedMilliPlatform(dylib));
 
   /// Only valid on web/WASM platforms.
-  factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) => EmbeddedMilliImpl(module as ExternalLibrary);
+  factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) =>
+      EmbeddedMilliImpl(module as ExternalLibrary);
   EmbeddedMilliImpl.raw(this._platform);
-  Future<void> ensureInstanceInitialized({required String instanceDir, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_ensure_instance_initialized(port_, _platform.api2wire_String(instanceDir)),
+  Future<void> ensureInstanceInitialized(
+          {required String instanceDir, dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_ensure_instance_initialized(
+            port_, _platform.api2wire_String(instanceDir)),
         parseSuccessData: _wire2api_unit,
         constMeta: kEnsureInstanceInitializedConstMeta,
-        argValues: [
-          instanceDir
-        ],
+        argValues: [instanceDir],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "ensure_instance_initialized",
-        argNames: [
-          "instanceDir"
-        ],
+        argNames: ["instanceDir"],
       );
 
-  Future<void> ensureIndexInitialized({required String instanceDir, required String indexName, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_ensure_index_initialized(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName)),
+  Future<void> ensureIndexInitialized(
+          {required String instanceDir,
+          required String indexName,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_ensure_index_initialized(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName)),
         parseSuccessData: _wire2api_unit,
         constMeta: kEnsureIndexInitializedConstMeta,
-        argValues: [
-          instanceDir,
-          indexName
-        ],
+        argValues: [instanceDir, indexName],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "ensure_index_initialized",
-        argNames: [
-          "instanceDir",
-          "indexName"
-        ],
+        argNames: ["instanceDir", "indexName"],
       );
 
-  Future<void> addDocuments({required String instanceDir, required String indexName, required List<String> jsonDocuments, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_add_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_StringList(jsonDocuments)),
+  Future<void> addDocuments(
+          {required String instanceDir,
+          required String indexName,
+          required List<String> jsonDocuments,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_add_documents(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName),
+            _platform.api2wire_StringList(jsonDocuments)),
         parseSuccessData: _wire2api_unit,
         constMeta: kAddDocumentsConstMeta,
-        argValues: [
-          instanceDir,
-          indexName,
-          jsonDocuments
-        ],
+        argValues: [instanceDir, indexName, jsonDocuments],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "add_documents",
-        argNames: [
-          "instanceDir",
-          "indexName",
-          "jsonDocuments"
-        ],
+        argNames: ["instanceDir", "indexName", "jsonDocuments"],
       );
 
-  Future<void> deleteDocuments({required String instanceDir, required String indexName, required List<String> documentIds, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_delete_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_StringList(documentIds)),
+  Future<void> deleteDocuments(
+          {required String instanceDir,
+          required String indexName,
+          required List<String> documentIds,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_delete_documents(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName),
+            _platform.api2wire_StringList(documentIds)),
         parseSuccessData: _wire2api_unit,
         constMeta: kDeleteDocumentsConstMeta,
-        argValues: [
-          instanceDir,
-          indexName,
-          documentIds
-        ],
+        argValues: [instanceDir, indexName, documentIds],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kDeleteDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kDeleteDocumentsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "delete_documents",
-        argNames: [
-          "instanceDir",
-          "indexName",
-          "documentIds"
-        ],
+        argNames: ["instanceDir", "indexName", "documentIds"],
       );
 
-  Future<void> setDocuments({required String instanceDir, required String indexName, required List<String> jsonDocuments, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_set_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_StringList(jsonDocuments)),
+  Future<void> setDocuments(
+          {required String instanceDir,
+          required String indexName,
+          required List<String> jsonDocuments,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_set_documents(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName),
+            _platform.api2wire_StringList(jsonDocuments)),
         parseSuccessData: _wire2api_unit,
         constMeta: kSetDocumentsConstMeta,
-        argValues: [
-          instanceDir,
-          indexName,
-          jsonDocuments
-        ],
+        argValues: [instanceDir, indexName, jsonDocuments],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "set_documents",
-        argNames: [
-          "instanceDir",
-          "indexName",
-          "jsonDocuments"
-        ],
+        argNames: ["instanceDir", "indexName", "jsonDocuments"],
       );
 
-  Future<String?> getDocument({required String instanceDir, required String indexName, required String documentId, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_get_document(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_String(documentId)),
+  Future<String?> getDocument(
+          {required String instanceDir,
+          required String indexName,
+          required String documentId,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_get_document(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName),
+            _platform.api2wire_String(documentId)),
         parseSuccessData: _wire2api_opt_String,
         constMeta: kGetDocumentConstMeta,
-        argValues: [
-          instanceDir,
-          indexName,
-          documentId
-        ],
+        argValues: [instanceDir, indexName, documentId],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kGetDocumentConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kGetDocumentConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "get_document",
-        argNames: [
-          "instanceDir",
-          "indexName",
-          "documentId"
-        ],
+        argNames: ["instanceDir", "indexName", "documentId"],
       );
 
-  Future<List<String>> getDocuments({required String instanceDir, required String indexName, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_get_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName)),
+  Future<List<String>> getDocuments(
+          {required String instanceDir,
+          required String indexName,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_get_documents(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName)),
         parseSuccessData: _wire2api_StringList,
         constMeta: kGetDocumentsConstMeta,
-        argValues: [
-          instanceDir,
-          indexName
-        ],
+        argValues: [instanceDir, indexName],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kGetDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kGetDocumentsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "get_documents",
-        argNames: [
-          "instanceDir",
-          "indexName"
-        ],
+        argNames: ["instanceDir", "indexName"],
       );
 
-  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, required TermsMatchingStrategy matchingStrategy, List<SortAscDesc>? sortCriteria, dynamic hint}) => _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_search_documents(port_, _platform.api2wire_String(instanceDir), _platform.api2wire_String(indexName), _platform.api2wire_opt_String(query), _platform.api2wire_opt_box_autoadd_u32(limit), api2wire_terms_matching_strategy(matchingStrategy), _platform.api2wire_opt_list_sort_asc_desc(sortCriteria)),
+  Future<List<String>> searchDocuments(
+          {required String instanceDir,
+          required String indexName,
+          String? query,
+          int? limit,
+          required TermsMatchingStrategy matchingStrategy,
+          List<SortAscDesc>? sortCriteria,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_search_documents(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName),
+            _platform.api2wire_opt_String(query),
+            _platform.api2wire_opt_box_autoadd_u32(limit),
+            api2wire_terms_matching_strategy(matchingStrategy),
+            _platform.api2wire_opt_list_sort_asc_desc(sortCriteria)),
         parseSuccessData: _wire2api_StringList,
         constMeta: kSearchDocumentsConstMeta,
         argValues: [
@@ -248,7 +303,8 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
         debugName: "search_documents",
         argNames: [
           "instanceDir",
@@ -310,7 +366,8 @@ int api2wire_u8(int raw) {
 }
 
 class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
-  EmbeddedMilliPlatform(ffi.DynamicLibrary dylib) : super(EmbeddedMilliWire(dylib));
+  EmbeddedMilliPlatform(ffi.DynamicLibrary dylib)
+      : super(EmbeddedMilliWire(dylib));
 // Section: api2wire
 
   @protected
@@ -333,7 +390,8 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
-  ffi.Pointer<wire_list_sort_asc_desc> api2wire_list_sort_asc_desc(List<SortAscDesc> raw) {
+  ffi.Pointer<wire_list_sort_asc_desc> api2wire_list_sort_asc_desc(
+      List<SortAscDesc> raw) {
     final ans = inner.new_list_sort_asc_desc_0(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       _api_fill_to_wire_sort_asc_desc(raw[i], ans.ref.ptr[i]);
@@ -352,7 +410,8 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
-  ffi.Pointer<wire_list_sort_asc_desc> api2wire_opt_list_sort_asc_desc(List<SortAscDesc>? raw) {
+  ffi.Pointer<wire_list_sort_asc_desc> api2wire_opt_list_sort_asc_desc(
+      List<SortAscDesc>? raw) {
     return raw == null ? ffi.nullptr : api2wire_list_sort_asc_desc(raw);
   }
 
@@ -364,7 +423,8 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 // Section: api_fill_to_wire
 
-  void _api_fill_to_wire_sort_asc_desc(SortAscDesc apiObj, wire_SortAscDesc wireObj) {
+  void _api_fill_to_wire_sort_asc_desc(
+      SortAscDesc apiObj, wire_SortAscDesc wireObj) {
     if (apiObj is SortAscDesc_Asc) {
       wireObj.tag = 0;
       wireObj.kind = inner.inflate_SortAscDesc_Asc();
@@ -389,13 +449,18 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
 /// generated by flutter_rust_bridge
 class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   /// Holds the symbol lookup function.
-  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) _lookup;
+  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+      _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
-  EmbeddedMilliWire(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
+  EmbeddedMilliWire(ffi.DynamicLibrary dynamicLibrary)
+      : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
-  EmbeddedMilliWire.fromLookup(ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup) : _lookup = lookup;
+  EmbeddedMilliWire.fromLookup(
+      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+          lookup)
+      : _lookup = lookup;
 
   void store_dart_post_cobject(
     DartPostCObjectFnType ptr,
@@ -405,8 +470,11 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _store_dart_post_cobjectPtr = _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>('store_dart_post_cobject');
-  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr.asFunction<void Function(DartPostCObjectFnType)>();
+  late final _store_dart_post_cobjectPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
+          'store_dart_post_cobject');
+  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
+      .asFunction<void Function(DartPostCObjectFnType)>();
 
   void wire_ensure_instance_initialized(
     int port_,
@@ -418,8 +486,13 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_ensure_instance_initializedPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_instance_initialized');
-  late final _wire_ensure_instance_initialized = _wire_ensure_instance_initializedPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+  late final _wire_ensure_instance_initializedPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_ensure_instance_initialized');
+  late final _wire_ensure_instance_initialized =
+      _wire_ensure_instance_initializedPtr
+          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_ensure_index_initialized(
     int port_,
@@ -433,8 +506,14 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_ensure_index_initializedPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_index_initialized');
-  late final _wire_ensure_index_initialized = _wire_ensure_index_initializedPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+  late final _wire_ensure_index_initializedPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_index_initialized');
+  late final _wire_ensure_index_initialized =
+      _wire_ensure_index_initializedPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_add_documents(
     int port_,
@@ -450,8 +529,16 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_add_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>>('wire_add_documents');
-  late final _wire_add_documents = _wire_add_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
+  late final _wire_add_documentsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_StringList>)>>('wire_add_documents');
+  late final _wire_add_documents = _wire_add_documentsPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
 
   void wire_delete_documents(
     int port_,
@@ -467,8 +554,16 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_delete_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>>('wire_delete_documents');
-  late final _wire_delete_documents = _wire_delete_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
+  late final _wire_delete_documentsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_StringList>)>>('wire_delete_documents');
+  late final _wire_delete_documents = _wire_delete_documentsPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
 
   void wire_set_documents(
     int port_,
@@ -484,8 +579,16 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_set_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>>('wire_set_documents');
-  late final _wire_set_documents = _wire_set_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
+  late final _wire_set_documentsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_StringList>)>>('wire_set_documents');
+  late final _wire_set_documents = _wire_set_documentsPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
 
   void wire_get_document(
     int port_,
@@ -501,8 +604,16 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_get_documentPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>>('wire_get_document');
-  late final _wire_get_document = _wire_get_documentPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+  late final _wire_get_documentPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_document');
+  late final _wire_get_document = _wire_get_documentPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_get_documents(
     int port_,
@@ -516,8 +627,13 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_get_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>>('wire_get_documents');
-  late final _wire_get_documents = _wire_get_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+  late final _wire_get_documentsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_documents');
+  late final _wire_get_documents = _wire_get_documentsPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_search_documents(
     int port_,
@@ -539,8 +655,25 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _wire_search_documentsPtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Uint32>, ffi.Int32, ffi.Pointer<wire_list_sort_asc_desc>)>>('wire_search_documents');
-  late final _wire_search_documents = _wire_search_documentsPtr.asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Uint32>, int, ffi.Pointer<wire_list_sort_asc_desc>)>();
+  late final _wire_search_documentsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Int32,
+              ffi.Pointer<wire_list_sort_asc_desc>)>>('wire_search_documents');
+  late final _wire_search_documents = _wire_search_documentsPtr.asFunction<
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<ffi.Uint32>,
+          int,
+          ffi.Pointer<wire_list_sort_asc_desc>)>();
 
   ffi.Pointer<wire_StringList> new_StringList_0(
     int len,
@@ -550,8 +683,11 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_StringList_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_StringList> Function(ffi.Int32)>>('new_StringList_0');
-  late final _new_StringList_0 = _new_StringList_0Ptr.asFunction<ffi.Pointer<wire_StringList> Function(int)>();
+  late final _new_StringList_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_StringList> Function(ffi.Int32)>>(
+      'new_StringList_0');
+  late final _new_StringList_0 = _new_StringList_0Ptr
+      .asFunction<ffi.Pointer<wire_StringList> Function(int)>();
 
   ffi.Pointer<ffi.Uint32> new_box_autoadd_u32_0(
     int value,
@@ -561,8 +697,11 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_box_autoadd_u32_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>('new_box_autoadd_u32_0');
-  late final _new_box_autoadd_u32_0 = _new_box_autoadd_u32_0Ptr.asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
+  late final _new_box_autoadd_u32_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>(
+          'new_box_autoadd_u32_0');
+  late final _new_box_autoadd_u32_0 = _new_box_autoadd_u32_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
 
   ffi.Pointer<wire_list_sort_asc_desc> new_list_sort_asc_desc_0(
     int len,
@@ -572,8 +711,12 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_list_sort_asc_desc_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_list_sort_asc_desc> Function(ffi.Int32)>>('new_list_sort_asc_desc_0');
-  late final _new_list_sort_asc_desc_0 = _new_list_sort_asc_desc_0Ptr.asFunction<ffi.Pointer<wire_list_sort_asc_desc> Function(int)>();
+  late final _new_list_sort_asc_desc_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_list_sort_asc_desc> Function(
+              ffi.Int32)>>('new_list_sort_asc_desc_0');
+  late final _new_list_sort_asc_desc_0 = _new_list_sort_asc_desc_0Ptr
+      .asFunction<ffi.Pointer<wire_list_sort_asc_desc> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
@@ -583,22 +726,32 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _new_uint_8_list_0Ptr = _lookup<ffi.NativeFunction<ffi.Pointer<wire_uint_8_list> Function(ffi.Int32)>>('new_uint_8_list_0');
-  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr.asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
+  late final _new_uint_8_list_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_uint_8_list> Function(
+              ffi.Int32)>>('new_uint_8_list_0');
+  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
+      .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
   ffi.Pointer<SortAscDescKind> inflate_SortAscDesc_Asc() {
     return _inflate_SortAscDesc_Asc();
   }
 
-  late final _inflate_SortAscDesc_AscPtr = _lookup<ffi.NativeFunction<ffi.Pointer<SortAscDescKind> Function()>>('inflate_SortAscDesc_Asc');
-  late final _inflate_SortAscDesc_Asc = _inflate_SortAscDesc_AscPtr.asFunction<ffi.Pointer<SortAscDescKind> Function()>();
+  late final _inflate_SortAscDesc_AscPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<SortAscDescKind> Function()>>(
+          'inflate_SortAscDesc_Asc');
+  late final _inflate_SortAscDesc_Asc = _inflate_SortAscDesc_AscPtr
+      .asFunction<ffi.Pointer<SortAscDescKind> Function()>();
 
   ffi.Pointer<SortAscDescKind> inflate_SortAscDesc_Desc() {
     return _inflate_SortAscDesc_Desc();
   }
 
-  late final _inflate_SortAscDesc_DescPtr = _lookup<ffi.NativeFunction<ffi.Pointer<SortAscDescKind> Function()>>('inflate_SortAscDesc_Desc');
-  late final _inflate_SortAscDesc_Desc = _inflate_SortAscDesc_DescPtr.asFunction<ffi.Pointer<SortAscDescKind> Function()>();
+  late final _inflate_SortAscDesc_DescPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<SortAscDescKind> Function()>>(
+          'inflate_SortAscDesc_Desc');
+  late final _inflate_SortAscDesc_Desc = _inflate_SortAscDesc_DescPtr
+      .asFunction<ffi.Pointer<SortAscDescKind> Function()>();
 
   void free_WireSyncReturnStruct(
     WireSyncReturnStruct val,
@@ -608,8 +761,11 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     );
   }
 
-  late final _free_WireSyncReturnStructPtr = _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturnStruct)>>('free_WireSyncReturnStruct');
-  late final _free_WireSyncReturnStruct = _free_WireSyncReturnStructPtr.asFunction<void Function(WireSyncReturnStruct)>();
+  late final _free_WireSyncReturnStructPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(WireSyncReturnStruct)>>(
+          'free_WireSyncReturnStruct');
+  late final _free_WireSyncReturnStruct = _free_WireSyncReturnStructPtr
+      .asFunction<void Function(WireSyncReturnStruct)>();
 }
 
 class wire_uint_8_list extends ffi.Struct {
@@ -654,5 +810,6 @@ class wire_list_sort_asc_desc extends ffi.Struct {
   external int len;
 }
 
-typedef DartPostCObjectFnType = ffi.Pointer<ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
+typedef DartPostCObjectFnType = ffi.Pointer<
+    ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
 typedef DartPort = ffi.Int64;

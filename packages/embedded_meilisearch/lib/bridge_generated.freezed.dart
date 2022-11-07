@@ -11,7 +11,8 @@ part of 'bridge_generated.dart';
 
 T _$identity<T>(T value) => value;
 
-final _privateConstructorUsedError = UnsupportedError('It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$SortAscDesc {
@@ -56,18 +57,22 @@ mixin _$SortAscDesc {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SortAscDescCopyWith<SortAscDesc> get copyWith => throw _privateConstructorUsedError;
+  $SortAscDescCopyWith<SortAscDesc> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $SortAscDescCopyWith<$Res> {
-  factory $SortAscDescCopyWith(SortAscDesc value, $Res Function(SortAscDesc) then) = _$SortAscDescCopyWithImpl<$Res, SortAscDesc>;
+  factory $SortAscDescCopyWith(
+          SortAscDesc value, $Res Function(SortAscDesc) then) =
+      _$SortAscDescCopyWithImpl<$Res, SortAscDesc>;
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class _$SortAscDescCopyWithImpl<$Res, $Val extends SortAscDesc> implements $SortAscDescCopyWith<$Res> {
+class _$SortAscDescCopyWithImpl<$Res, $Val extends SortAscDesc>
+    implements $SortAscDescCopyWith<$Res> {
   _$SortAscDescCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -90,16 +95,23 @@ class _$SortAscDescCopyWithImpl<$Res, $Val extends SortAscDesc> implements $Sort
 }
 
 /// @nodoc
-abstract class _$$SortAscDesc_AscCopyWith<$Res> implements $SortAscDescCopyWith<$Res> {
-  factory _$$SortAscDesc_AscCopyWith(_$SortAscDesc_Asc value, $Res Function(_$SortAscDesc_Asc) then) = __$$SortAscDesc_AscCopyWithImpl<$Res>;
+abstract class _$$SortAscDesc_AscCopyWith<$Res>
+    implements $SortAscDescCopyWith<$Res> {
+  factory _$$SortAscDesc_AscCopyWith(
+          _$SortAscDesc_Asc value, $Res Function(_$SortAscDesc_Asc) then) =
+      __$$SortAscDesc_AscCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$SortAscDesc_AscCopyWithImpl<$Res> extends _$SortAscDescCopyWithImpl<$Res, _$SortAscDesc_Asc> implements _$$SortAscDesc_AscCopyWith<$Res> {
-  __$$SortAscDesc_AscCopyWithImpl(_$SortAscDesc_Asc _value, $Res Function(_$SortAscDesc_Asc) _then) : super(_value, _then);
+class __$$SortAscDesc_AscCopyWithImpl<$Res>
+    extends _$SortAscDescCopyWithImpl<$Res, _$SortAscDesc_Asc>
+    implements _$$SortAscDesc_AscCopyWith<$Res> {
+  __$$SortAscDesc_AscCopyWithImpl(
+      _$SortAscDesc_Asc _value, $Res Function(_$SortAscDesc_Asc) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -130,7 +142,10 @@ class _$SortAscDesc_Asc implements SortAscDesc_Asc {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$SortAscDesc_Asc && (identical(other.field0, field0) || other.field0 == field0));
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SortAscDesc_Asc &&
+            (identical(other.field0, field0) || other.field0 == field0));
   }
 
   @override
@@ -139,7 +154,8 @@ class _$SortAscDesc_Asc implements SortAscDesc_Asc {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SortAscDesc_AscCopyWith<_$SortAscDesc_Asc> get copyWith => __$$SortAscDesc_AscCopyWithImpl<_$SortAscDesc_Asc>(this, _$identity);
+  _$$SortAscDesc_AscCopyWith<_$SortAscDesc_Asc> get copyWith =>
+      __$$SortAscDesc_AscCopyWithImpl<_$SortAscDesc_Asc>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -211,20 +227,28 @@ abstract class SortAscDesc_Asc implements SortAscDesc {
   String get field0;
   @override
   @JsonKey(ignore: true)
-  _$$SortAscDesc_AscCopyWith<_$SortAscDesc_Asc> get copyWith => throw _privateConstructorUsedError;
+  _$$SortAscDesc_AscCopyWith<_$SortAscDesc_Asc> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SortAscDesc_DescCopyWith<$Res> implements $SortAscDescCopyWith<$Res> {
-  factory _$$SortAscDesc_DescCopyWith(_$SortAscDesc_Desc value, $Res Function(_$SortAscDesc_Desc) then) = __$$SortAscDesc_DescCopyWithImpl<$Res>;
+abstract class _$$SortAscDesc_DescCopyWith<$Res>
+    implements $SortAscDescCopyWith<$Res> {
+  factory _$$SortAscDesc_DescCopyWith(
+          _$SortAscDesc_Desc value, $Res Function(_$SortAscDesc_Desc) then) =
+      __$$SortAscDesc_DescCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String field0});
 }
 
 /// @nodoc
-class __$$SortAscDesc_DescCopyWithImpl<$Res> extends _$SortAscDescCopyWithImpl<$Res, _$SortAscDesc_Desc> implements _$$SortAscDesc_DescCopyWith<$Res> {
-  __$$SortAscDesc_DescCopyWithImpl(_$SortAscDesc_Desc _value, $Res Function(_$SortAscDesc_Desc) _then) : super(_value, _then);
+class __$$SortAscDesc_DescCopyWithImpl<$Res>
+    extends _$SortAscDescCopyWithImpl<$Res, _$SortAscDesc_Desc>
+    implements _$$SortAscDesc_DescCopyWith<$Res> {
+  __$$SortAscDesc_DescCopyWithImpl(
+      _$SortAscDesc_Desc _value, $Res Function(_$SortAscDesc_Desc) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -255,7 +279,10 @@ class _$SortAscDesc_Desc implements SortAscDesc_Desc {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$SortAscDesc_Desc && (identical(other.field0, field0) || other.field0 == field0));
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SortAscDesc_Desc &&
+            (identical(other.field0, field0) || other.field0 == field0));
   }
 
   @override
@@ -264,7 +291,8 @@ class _$SortAscDesc_Desc implements SortAscDesc_Desc {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SortAscDesc_DescCopyWith<_$SortAscDesc_Desc> get copyWith => __$$SortAscDesc_DescCopyWithImpl<_$SortAscDesc_Desc>(this, _$identity);
+  _$$SortAscDesc_DescCopyWith<_$SortAscDesc_Desc> get copyWith =>
+      __$$SortAscDesc_DescCopyWithImpl<_$SortAscDesc_Desc>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -336,5 +364,6 @@ abstract class SortAscDesc_Desc implements SortAscDesc {
   String get field0;
   @override
   @JsonKey(ignore: true)
-  _$$SortAscDesc_DescCopyWith<_$SortAscDesc_Desc> get copyWith => throw _privateConstructorUsedError;
+  _$$SortAscDesc_DescCopyWith<_$SortAscDesc_Desc> get copyWith =>
+      throw _privateConstructorUsedError;
 }
