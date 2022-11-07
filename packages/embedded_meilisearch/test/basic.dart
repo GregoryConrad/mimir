@@ -12,11 +12,11 @@ void main() {
     const dylibPath = 'native/target/debug/libembedded_milli.dylib';
     final milli = Meili.createWrapper(DynamicLibrary.open(dylibPath));
 
-    final instance = await Meili.getInstance(
+    final instance = Meili.getInstance(
       path: instanceDir.path,
       milli: milli,
     );
-    final index = await instance.getIndex('movies');
+    final index = instance.getIndex('movies');
 
     final allDocs = [
       {
