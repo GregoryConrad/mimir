@@ -39,13 +39,13 @@ jobs:
         with:
           channel: ${{ matrix.flutter_channel }}
       
+      - name: Install dependencies
+        run: flutter pub get
+
       - name: Build Rust code (embedded_milli)
         if: matrix.package_path == 'packages/embedded_meilisearch'
         working-directory: ./native
         run: cargo build
-
-      - name: Install dependencies
-        run: flutter pub get
 
       - name: Check format
         run: flutter format --set-exit-if-changed .
