@@ -38,7 +38,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: ${{ matrix.flutter_channel }}
-        
+
       - name: Install base package dependencies
         working-directory: ./packages/embedded_meilisearch
         run: flutter pub get
@@ -46,7 +46,7 @@ jobs:
       - name: Build Rust code (embedded_milli)
         working-directory: ./packages/embedded_meilisearch/native
         run: cargo build
-      
+
       - name: Install current package dependencies
         run: flutter pub get
 
