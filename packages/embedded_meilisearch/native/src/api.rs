@@ -14,7 +14,7 @@ use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed::EnvOpenOptions,
     update::{IndexDocuments, IndexDocumentsConfig, IndexDocumentsMethod, IndexerConfig},
-    AscDesc, Index, Member, Search,
+    AscDesc, Index, Member, Search, SearchResult,
 };
 
 lazy_static! {
@@ -257,9 +257,25 @@ pub fn search_documents(
             .collect();
         search.sort_criteria(criteria)
     });
-    let result = search.execute()?;
 
-    todo!()
+    // Get the documents based on the search results
+    let SearchResult { documents_ids, .. } = search.execute()?;
+    let field_ids_map = index.fields_ids_map(&rtxn)?;
+    let mut documents = Vec::new();
+    for (_id, obkv) in index.documents(&rtxn, documents_ids)? {
+        let mut document = serde_json::Map::new();
+        for (key, value) in obkv.iter() {
+            let value = serde_json::from_slice(value)?;
+            let key = field_ids_map
+                .name(key)
+                .expect("Missing field name")
+                .to_string();
+            document.insert(key, value);
+        }
+        let document = serde_json::to_string(&document)?;
+        documents.push(document);
+    }
+    Ok(documents)
 }
 
 // pub fn template(
