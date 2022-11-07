@@ -66,14 +66,14 @@ jobs:
       # TODO mobile & desktop integration tests
       # Maybe? https://github.com/fzyzcjy/flutter_rust_bridge/blob/master/.github/workflows/flutter_ios_test.yml
 
-      - name: Run Flutter desktop integration tests
-        if: contains(matrix.package_path, 'flutter')
-        run: echo
+      # - name: Run Flutter desktop integration tests
+      #   if: contains(matrix.package_path, 'flutter')
+      #   run: echo
 
-      - name: Run Flutter iOS integration tests
-        if: contains(matrix.package_path, 'flutter') && matrix.os == 'macos-latest'
-        run: echo
+      # - name: Run Flutter iOS integration tests
+      #   if: contains(matrix.package_path, 'flutter') && matrix.os == 'macos-latest'
+      #   run: echo
 
-      - name: Run Flutter Android integration tests
-        if: contains(matrix.package_path, 'flutter') && matrix.os == 'ubuntu-latest'
-        run: echo
+      # - name: Run Flutter Android integration tests
+      #   if: contains(matrix.package_path, 'flutter') && matrix.os == 'ubuntu-latest'
+      #   run: echo
