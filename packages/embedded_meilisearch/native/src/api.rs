@@ -65,6 +65,7 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
         // Now that we have the write lock, check that we actually need to do anything
         if !indexes.contains_key(&index_name) {
             let path = Path::new(&instance_dir).join(&index_name);
+            create_dir_all(&path)?;
             let options = EnvOpenOptions::new();
             let index = Index::new(options, &path).unwrap();
             indexes.insert(index_name.clone(), Mutex::new(index));
