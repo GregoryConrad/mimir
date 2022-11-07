@@ -33,11 +33,16 @@ pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
     // If this instance does not yet exist, create it
     if !instances.contains_key(&instance_dir) {
         let mut instances = INSTANCES.write().unwrap();
-        create_dir_all(&instance_dir)?;
-        let new_instance = Instance {
-            indexes: RwLock::new(HashMap::new()),
-        };
-        instances.insert(instance_dir.clone(), new_instance);
+
+        // Perhaps the instance was initialized while we were waiting to get the lock
+        // Now that we have the write lock, check that we actually need to do anything
+        if !instances.contains_key(&instance_dir) {
+            create_dir_all(&instance_dir)?;
+            let new_instance = Instance {
+                indexes: RwLock::new(HashMap::new()),
+            };
+            instances.insert(instance_dir.clone(), new_instance);
+        }
     }
 
     Ok(())
@@ -53,10 +58,15 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
     // If this index does not yet exist, create it
     if !indexes.contains_key(&index_name) {
         let mut indexes = instance.indexes.write().unwrap();
-        let path = Path::new(&instance_dir).join(&index_name);
-        let options = EnvOpenOptions::new();
-        let index = Index::new(options, &path).unwrap();
-        indexes.insert(index_name.clone(), Mutex::new(index));
+
+        // Perhaps the index was initialized while we were waiting to get the lock
+        // Now that we have the write lock, check that we actually need to do anything
+        if !indexes.contains_key(&index_name) {
+            let path = Path::new(&instance_dir).join(&index_name);
+            let options = EnvOpenOptions::new();
+            let index = Index::new(options, &path).unwrap();
+            indexes.insert(index_name.clone(), Mutex::new(index));
+        }
     }
 
     Ok(())
