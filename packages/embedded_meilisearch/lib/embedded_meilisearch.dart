@@ -7,5 +7,6 @@ export 'src/interface_ffi.dart'
     if (dart.library.html) 'src/impl/interface_ffi.web.dart';
 
 // Rust FFI related
-export 'bridge_generated.dart' show EmbeddedMilli;
+export 'bridge_generated.dart'
+    show EmbeddedMilli, SortAscDesc, TermsMatchingStrategy;
 export 'package:flutter_rust_bridge/flutter_rust_bridge.dart' show WasmModule;

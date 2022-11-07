@@ -1,4 +1,5 @@
 import 'package:embedded_meilisearch/bridge_generated.dart';
+import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
 import 'package:embedded_meilisearch/src/instance.dart';
 
 /// The exposed API to interact with embedded_meilisearch
@@ -24,5 +25,5 @@ class MeiliInterface {
     required String path,
     required EmbeddedMilli milli,
   }) =>
-      MeiliInstance.from(path: path, milli: milli);
+      MeiliInstanceImpl.from(path, milli);
 }
