@@ -15,6 +15,341 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+mixin _$MeiliIndexSettings {
+  List<String> get searchableAttributes => throw _privateConstructorUsedError;
+  List<String> get filterableAttributes => throw _privateConstructorUsedError;
+  List<String> get rankingRules => throw _privateConstructorUsedError;
+  List<String> get stopWords => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            List<String> searchableAttributes,
+            List<String> filterableAttributes,
+            List<String> rankingRules,
+            List<String> stopWords)
+        raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            List<String> searchableAttributes,
+            List<String> filterableAttributes,
+            List<String> rankingRules,
+            List<String> stopWords)?
+        raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            List<String> searchableAttributes,
+            List<String> filterableAttributes,
+            List<String> rankingRules,
+            List<String> stopWords)?
+        raw,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MeiliIndexSettings_Raw value) raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MeiliIndexSettings_Raw value)? raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MeiliIndexSettings_Raw value)? raw,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $MeiliIndexSettingsCopyWith<MeiliIndexSettings> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MeiliIndexSettingsCopyWith<$Res> {
+  factory $MeiliIndexSettingsCopyWith(
+          MeiliIndexSettings value, $Res Function(MeiliIndexSettings) then) =
+      _$MeiliIndexSettingsCopyWithImpl<$Res, MeiliIndexSettings>;
+  @useResult
+  $Res call(
+      {List<String> searchableAttributes,
+      List<String> filterableAttributes,
+      List<String> rankingRules,
+      List<String> stopWords});
+}
+
+/// @nodoc
+class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
+    implements $MeiliIndexSettingsCopyWith<$Res> {
+  _$MeiliIndexSettingsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? searchableAttributes = null,
+    Object? filterableAttributes = null,
+    Object? rankingRules = null,
+    Object? stopWords = null,
+  }) {
+    return _then(_value.copyWith(
+      searchableAttributes: null == searchableAttributes
+          ? _value.searchableAttributes
+          : searchableAttributes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      filterableAttributes: null == filterableAttributes
+          ? _value.filterableAttributes
+          : filterableAttributes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      rankingRules: null == rankingRules
+          ? _value.rankingRules
+          : rankingRules // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      stopWords: null == stopWords
+          ? _value.stopWords
+          : stopWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
+    implements $MeiliIndexSettingsCopyWith<$Res> {
+  factory _$$MeiliIndexSettings_RawCopyWith(_$MeiliIndexSettings_Raw value,
+          $Res Function(_$MeiliIndexSettings_Raw) then) =
+      __$$MeiliIndexSettings_RawCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<String> searchableAttributes,
+      List<String> filterableAttributes,
+      List<String> rankingRules,
+      List<String> stopWords});
+}
+
+/// @nodoc
+class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
+    extends _$MeiliIndexSettingsCopyWithImpl<$Res, _$MeiliIndexSettings_Raw>
+    implements _$$MeiliIndexSettings_RawCopyWith<$Res> {
+  __$$MeiliIndexSettings_RawCopyWithImpl(_$MeiliIndexSettings_Raw _value,
+      $Res Function(_$MeiliIndexSettings_Raw) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? searchableAttributes = null,
+    Object? filterableAttributes = null,
+    Object? rankingRules = null,
+    Object? stopWords = null,
+  }) {
+    return _then(_$MeiliIndexSettings_Raw(
+      searchableAttributes: null == searchableAttributes
+          ? _value._searchableAttributes
+          : searchableAttributes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      filterableAttributes: null == filterableAttributes
+          ? _value._filterableAttributes
+          : filterableAttributes // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      rankingRules: null == rankingRules
+          ? _value._rankingRules
+          : rankingRules // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      stopWords: null == stopWords
+          ? _value._stopWords
+          : stopWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
+  const _$MeiliIndexSettings_Raw(
+      {required final List<String> searchableAttributes,
+      required final List<String> filterableAttributes,
+      required final List<String> rankingRules,
+      required final List<String> stopWords})
+      : _searchableAttributes = searchableAttributes,
+        _filterableAttributes = filterableAttributes,
+        _rankingRules = rankingRules,
+        _stopWords = stopWords;
+
+  final List<String> _searchableAttributes;
+  @override
+  List<String> get searchableAttributes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchableAttributes);
+  }
+
+  final List<String> _filterableAttributes;
+  @override
+  List<String> get filterableAttributes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_filterableAttributes);
+  }
+
+  final List<String> _rankingRules;
+  @override
+  List<String> get rankingRules {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_rankingRules);
+  }
+
+  final List<String> _stopWords;
+  @override
+  List<String> get stopWords {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_stopWords);
+  }
+
+  @override
+  String toString() {
+    return 'MeiliIndexSettings.raw(searchableAttributes: $searchableAttributes, filterableAttributes: $filterableAttributes, rankingRules: $rankingRules, stopWords: $stopWords)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MeiliIndexSettings_Raw &&
+            const DeepCollectionEquality()
+                .equals(other._searchableAttributes, _searchableAttributes) &&
+            const DeepCollectionEquality()
+                .equals(other._filterableAttributes, _filterableAttributes) &&
+            const DeepCollectionEquality()
+                .equals(other._rankingRules, _rankingRules) &&
+            const DeepCollectionEquality()
+                .equals(other._stopWords, _stopWords));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_searchableAttributes),
+      const DeepCollectionEquality().hash(_filterableAttributes),
+      const DeepCollectionEquality().hash(_rankingRules),
+      const DeepCollectionEquality().hash(_stopWords));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MeiliIndexSettings_RawCopyWith<_$MeiliIndexSettings_Raw> get copyWith =>
+      __$$MeiliIndexSettings_RawCopyWithImpl<_$MeiliIndexSettings_Raw>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            List<String> searchableAttributes,
+            List<String> filterableAttributes,
+            List<String> rankingRules,
+            List<String> stopWords)
+        raw,
+  }) {
+    return raw(
+        searchableAttributes, filterableAttributes, rankingRules, stopWords);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            List<String> searchableAttributes,
+            List<String> filterableAttributes,
+            List<String> rankingRules,
+            List<String> stopWords)?
+        raw,
+  }) {
+    return raw?.call(
+        searchableAttributes, filterableAttributes, rankingRules, stopWords);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            List<String> searchableAttributes,
+            List<String> filterableAttributes,
+            List<String> rankingRules,
+            List<String> stopWords)?
+        raw,
+    required TResult orElse(),
+  }) {
+    if (raw != null) {
+      return raw(
+          searchableAttributes, filterableAttributes, rankingRules, stopWords);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MeiliIndexSettings_Raw value) raw,
+  }) {
+    return raw(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MeiliIndexSettings_Raw value)? raw,
+  }) {
+    return raw?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MeiliIndexSettings_Raw value)? raw,
+    required TResult orElse(),
+  }) {
+    if (raw != null) {
+      return raw(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
+  const factory MeiliIndexSettings_Raw(
+      {required final List<String> searchableAttributes,
+      required final List<String> filterableAttributes,
+      required final List<String> rankingRules,
+      required final List<String> stopWords}) = _$MeiliIndexSettings_Raw;
+
+  @override
+  List<String> get searchableAttributes;
+  @override
+  List<String> get filterableAttributes;
+  @override
+  List<String> get rankingRules;
+  @override
+  List<String> get stopWords;
+  @override
+  @JsonKey(ignore: true)
+  _$$MeiliIndexSettings_RawCopyWith<_$MeiliIndexSettings_Raw> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$SortAscDesc {
   String get field0 => throw _privateConstructorUsedError;
   @optionalTypeArgs

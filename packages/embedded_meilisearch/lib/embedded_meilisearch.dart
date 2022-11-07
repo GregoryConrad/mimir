@@ -8,5 +8,5 @@ export 'src/interface_ffi.dart'
 
 // Rust FFI related
 export 'bridge_generated.dart'
-    show EmbeddedMilli, SortAscDesc, TermsMatchingStrategy;
+    show EmbeddedMilli, SortAscDesc, TermsMatchingStrategy, MeiliIndexSettings;
 export 'package:flutter_rust_bridge/flutter_rust_bridge.dart' show WasmModule;

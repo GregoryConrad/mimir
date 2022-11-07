@@ -291,14 +291,44 @@ pub fn search_documents(
     Ok(documents)
 }
 
-// pub fn template(
-//     instance_dir: String,
-//     index_name: String,
-// ) -> Result<()> {
-//     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
-//     let instances = get_instances!();
-//     let indexes = get_indexes!(instances, instance_dir);
-//     let index = get_index!(indexes, index_name);
-//
-//     todo!()
-// }
+/// The settings of a milli index.
+// This is created as an enum so we get freezed support.
+// Regular created classes do not have equals, copyWith, etc.
+pub enum MeiliIndexSettings {
+    /// The settings of a milli index.
+    // Name is "Raw" so we get MeiliIndexSettings.raw constructor in Dart
+    Raw {
+        searchable_attributes: Vec<String>,
+        filterable_attributes: Vec<String>,
+        ranking_rules: Vec<String>,
+        stop_words: Vec<String>,
+        // TODO:
+        // synonyms: Vec<String>,
+        // distinctAttribute: ,
+        // typoTolerance
+    },
+}
+
+/// Gets the settings of the specified index
+pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliIndexSettings> {
+    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    let instances = get_instances!();
+    let indexes = get_indexes!(instances, instance_dir);
+    let index = get_index!(indexes, index_name);
+
+    todo!()
+}
+
+/// Sets the settings of the specified index
+pub fn set_settings(
+    instance_dir: String,
+    index_name: String,
+    settings: MeiliIndexSettings,
+) -> Result<()> {
+    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    let instances = get_instances!();
+    let indexes = get_indexes!(instances, instance_dir);
+    let index = get_index!(indexes, index_name);
+
+    todo!()
+}

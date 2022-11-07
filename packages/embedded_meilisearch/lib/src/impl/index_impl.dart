@@ -60,14 +60,19 @@ class MeiliIndexImpl with MeiliIndex {
 
   @override
   Future<MeiliIndexSettings> getSettings() {
-    // TODO: implement getSettings
-    throw UnimplementedError();
+    return milli.getSettings(
+      instanceDir: instanceDir,
+      indexName: name,
+    );
   }
 
   @override
   Future<void> setSettings(MeiliIndexSettings settings) {
-    // TODO: implement setSettings
-    throw UnimplementedError();
+    return milli.setSettings(
+      instanceDir: instanceDir,
+      indexName: name,
+      settings: settings,
+    );
   }
 
   @override

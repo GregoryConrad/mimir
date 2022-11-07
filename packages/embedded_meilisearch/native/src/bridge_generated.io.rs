@@ -88,6 +88,25 @@ pub extern "C" fn wire_search_documents(
     )
 }
 
+#[no_mangle]
+pub extern "C" fn wire_get_settings(
+    port_: i64,
+    instance_dir: *mut wire_uint_8_list,
+    index_name: *mut wire_uint_8_list,
+) {
+    wire_get_settings_impl(port_, instance_dir, index_name)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_set_settings(
+    port_: i64,
+    instance_dir: *mut wire_uint_8_list,
+    index_name: *mut wire_uint_8_list,
+    settings: *mut wire_MeiliIndexSettings,
+) {
+    wire_set_settings_impl(port_, instance_dir, index_name, settings)
+}
+
 // Section: allocate functions
 
 #[no_mangle]
@@ -97,6 +116,11 @@ pub extern "C" fn new_StringList_0(len: i32) -> *mut wire_StringList {
         len,
     };
     support::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_meili_index_settings_0() -> *mut wire_MeiliIndexSettings {
+    support::new_leak_box_ptr(wire_MeiliIndexSettings::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -139,6 +163,12 @@ impl Wire2Api<Vec<String>> for *mut wire_StringList {
         vec.into_iter().map(Wire2Api::wire2api).collect()
     }
 }
+impl Wire2Api<MeiliIndexSettings> for *mut wire_MeiliIndexSettings {
+    fn wire2api(self) -> MeiliIndexSettings {
+        let wrap = unsafe { support::box_from_leak_ptr(self) };
+        Wire2Api::<MeiliIndexSettings>::wire2api(*wrap).into()
+    }
+}
 
 impl Wire2Api<Vec<SortAscDesc>> for *mut wire_list_sort_asc_desc {
     fn wire2api(self) -> Vec<SortAscDesc> {
@@ -147,6 +177,23 @@ impl Wire2Api<Vec<SortAscDesc>> for *mut wire_list_sort_asc_desc {
             support::vec_from_leak_ptr(wrap.ptr, wrap.len)
         };
         vec.into_iter().map(Wire2Api::wire2api).collect()
+    }
+}
+impl Wire2Api<MeiliIndexSettings> for wire_MeiliIndexSettings {
+    fn wire2api(self) -> MeiliIndexSettings {
+        match self.tag {
+            0 => unsafe {
+                let ans = support::box_from_leak_ptr(self.kind);
+                let ans = support::box_from_leak_ptr(ans.Raw);
+                MeiliIndexSettings::Raw {
+                    searchable_attributes: ans.searchable_attributes.wire2api(),
+                    filterable_attributes: ans.filterable_attributes.wire2api(),
+                    ranking_rules: ans.ranking_rules.wire2api(),
+                    stop_words: ans.stop_words.wire2api(),
+                }
+            },
+            _ => unreachable!(),
+        }
     }
 }
 
@@ -201,6 +248,27 @@ pub struct wire_uint_8_list {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_MeiliIndexSettings {
+    tag: i32,
+    kind: *mut MeiliIndexSettingsKind,
+}
+
+#[repr(C)]
+pub union MeiliIndexSettingsKind {
+    Raw: *mut wire_MeiliIndexSettings_Raw,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_MeiliIndexSettings_Raw {
+    searchable_attributes: *mut wire_StringList,
+    filterable_attributes: *mut wire_StringList,
+    ranking_rules: *mut wire_StringList,
+    stop_words: *mut wire_StringList,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_SortAscDesc {
     tag: i32,
     kind: *mut SortAscDescKind,
@@ -234,6 +302,27 @@ impl<T> NewWithNullPtr for *mut T {
     fn new_with_null_ptr() -> Self {
         std::ptr::null_mut()
     }
+}
+
+impl NewWithNullPtr for wire_MeiliIndexSettings {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            tag: -1,
+            kind: core::ptr::null_mut(),
+        }
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn inflate_MeiliIndexSettings_Raw() -> *mut MeiliIndexSettingsKind {
+    support::new_leak_box_ptr(MeiliIndexSettingsKind {
+        Raw: support::new_leak_box_ptr(wire_MeiliIndexSettings_Raw {
+            searchable_attributes: core::ptr::null_mut(),
+            filterable_attributes: core::ptr::null_mut(),
+            ranking_rules: core::ptr::null_mut(),
+            stop_words: core::ptr::null_mut(),
+        }),
+    })
 }
 
 impl NewWithNullPtr for wire_SortAscDesc {
