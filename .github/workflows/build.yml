@@ -41,10 +41,8 @@ jobs:
       
       - name: Build Rust code (embedded_milli)
         if: matrix.package_path == 'packages/embedded_meilisearch'
-        run: |
-          cd native
-          cargo build
-          cd ..
+        working-directory: ./native
+        run: cargo build
 
       - name: Install dependencies
         run: flutter pub get
