@@ -1,48 +1,72 @@
-part of '../index.dart';
+import 'dart:convert';
 
-class _MeiliIndexImpl with MeiliIndex {
-  static Future<_MeiliIndexImpl> from(
-      MeiliInstance instance, String name) async {
-    // TODO init the index in rust
-    return _MeiliIndexImpl._(instance, name);
+import 'package:embedded_meilisearch/bridge_generated.dart';
+import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
+import 'package:embedded_meilisearch/src/index.dart';
+
+class MeiliIndexImpl with MeiliIndex {
+  static Future<MeiliIndexImpl> from(
+    MeiliInstanceImpl instance,
+    String name,
+  ) async {
+    await instance.milli.ensureIndexInitialized(
+      instanceDir: instance.path,
+      indexName: name,
+    );
+    return MeiliIndexImpl._(instance, name);
   }
 
-  const _MeiliIndexImpl._(this.instance, this.name);
+  const MeiliIndexImpl._(this.instance, this.name);
 
-  @override
-  final MeiliInstance instance;
+  final MeiliInstanceImpl instance;
 
   @override
   final String name;
 
+  String get instanceDir => instance.path;
+  EmbeddedMilli get milli => instance.milli;
+
   @override
   Future<void> addDocuments(List<MeiliDocument> documents) {
-    // TODO: implement addDocuments
-    throw UnimplementedError();
+    return milli.addDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
+    );
   }
 
   @override
   Future<void> deleteDocuments(List<String> ids) {
-    // TODO: implement deleteDocuments
-    throw UnimplementedError();
+    return milli.deleteDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      documentIds: ids,
+    );
   }
 
   @override
-  Future<void> setDocuments(List<MeiliDocument> documents) {
-    // TODO: implement setDocuments
-    throw UnimplementedError();
+  Future<void> setDocuments(List<MeiliDocument> documents) async {
+    return milli.setDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
+    );
   }
 
   @override
-  Future<MeiliDocument> getDocument(String id) {
-    // TODO: implement getDocument
-    throw UnimplementedError();
+  Future<MeiliDocument?> getDocument(String id) {
+    return milli
+        .getDocument(instanceDir: instanceDir, indexName: name, documentId: id)
+        .then((s) => s == null ? null : json.decode(s));
   }
 
   @override
-  Future<List<MeiliDocument>> getDocuments() {
-    // TODO: implement getDocuments
-    throw UnimplementedError();
+  Future<List<MeiliDocument>> getDocuments() async {
+    final jsonDocs = await milli.getDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+    );
+    return jsonDocs.map((s) => json.decode(s)).cast<MeiliDocument>().toList();
   }
 
   @override
@@ -61,8 +85,21 @@ class _MeiliIndexImpl with MeiliIndex {
   Future<List<MeiliDocument>> search(
     String? query, {
     int? limit,
-  }) {
-    // TODO: implement search
-    throw UnimplementedError();
+    TermsMatchingStrategy? matchingStrategy,
+    List<SortAscDesc>? sortCriteria,
+  }) async {
+    final jsonDocs = await milli.searchDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      query: query,
+      limit: limit,
+      // TODO remove the ?? Last below once following resolved
+      //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
+      matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
+      sortCriteria: sortCriteria,
+      // TODO filter using a Rust enum. See for more:
+      //  https://docs.meilisearch.com/reference/api/search.html#filter
+    );
+    return jsonDocs.map((s) => json.decode(s)).cast<MeiliDocument>().toList();
   }
 }

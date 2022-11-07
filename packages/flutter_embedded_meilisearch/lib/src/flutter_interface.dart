@@ -1,4 +1,4 @@
-import 'package:embedded_meilisearch/embedded_meilisearch.dart';
+import 'package:flutter_embedded_meilisearch/flutter_embedded_meilisearch.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as pp;
 
@@ -16,14 +16,16 @@ extension FlutterMeiliInterface on MeiliInterface {
       const defaultSubDir = 'embedded_meili';
       final appSupportDir = await pp.getApplicationSupportDirectory();
       final path = p.join(appSupportDir.path, defaultSubDir, name);
-      return getInstance(name, path);
+      return getInstanceForPath(path);
     } on pp.MissingPlatformDirectoryException {
       throw UnsupportedError(
         'Looks like this platform does not have an application support '
-        'directory. Please call '
-        'Meili.getInstance(\'$name\', someDirectory) '
-        'manually.',
+        'directory. Please call Meili.getInstanceForPath(someDirPath) instead.',
       );
     }
   }
+
+  /// Creates a MeiliInstance from the given path for Flutter
+  Future<MeiliInstance> getInstanceForPath(String path) =>
+      getInstance(path: path, milli: createFlutterWrapper());
 }
