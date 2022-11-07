@@ -30,9 +30,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
       - uses: subosito/flutter-action@v2
         with:
           channel: ${{ matrix.flutter_channel }}
+      
+      - name: Build Rust code (embedded_milli)
+        if: matrix.package_path == 'packages/embedded_meilisearch'
+        run: |
+          cd native
+          cargo build
+          cd ..
 
       - name: Install dependencies
         run: flutter pub get
