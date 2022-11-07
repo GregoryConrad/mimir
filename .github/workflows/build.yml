@@ -43,8 +43,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Rust code (embedded_milli)
-        if: matrix.package_path == 'packages/embedded_meilisearch'
-        working-directory: ./native
+        working-directory: ./packages/embedded_meilisearch/native
         run: cargo build
 
       - name: Check format
