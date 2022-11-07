@@ -44,11 +44,11 @@ jobs:
         run: flutter analyze
 
       - name: Run Flutter tests
-        if: contains(matrix.package_path, 'flutter')
+        if: ${{ contains(matrix.package_path, 'flutter') }}
         run: flutter test
 
       - name: Run Dart tests
-        if: ! contains(matrix.package_path, 'flutter')
+        if: ${{ !contains(matrix.package_path, 'flutter') }}
         run: dart test
 
       # TODO mobile & desktop integration tests
