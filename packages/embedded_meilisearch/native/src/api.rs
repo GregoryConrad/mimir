@@ -32,6 +32,7 @@ pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
 
     // If this instance does not yet exist, create it
     if !instances.contains_key(&instance_dir) {
+        drop(instances);
         let mut instances = INSTANCES.write().unwrap();
 
         // Perhaps the instance was initialized while we were waiting to get the lock
@@ -57,6 +58,7 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
 
     // If this index does not yet exist, create it
     if !indexes.contains_key(&index_name) {
+        drop(indexes);
         let mut indexes = instance.indexes.write().unwrap();
 
         // Perhaps the index was initialized while we were waiting to get the lock
