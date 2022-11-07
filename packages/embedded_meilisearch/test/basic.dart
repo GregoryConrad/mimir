@@ -5,12 +5,13 @@ import 'package:embedded_meilisearch/embedded_meilisearch.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final instanceDir = Directory('').createTempSync('testInstanceTemp-');
+  final instanceDir = Directory.systemTemp.createTempSync('testInstanceTemp-');
+
   test('Basic integration test with movies', () async {
     // TODO the dylibPath might be .so in CI/linux. might need to do Platform.isX
     const dylibPath = 'native/target/debug/libembedded_milli.dylib';
-
     final milli = Meili.createWrapper(DynamicLibrary.open(dylibPath));
+
     final instance = await Meili.getInstance(
       path: instanceDir.path,
       milli: milli,
@@ -54,5 +55,6 @@ void main() {
       reason: 'Search for horry should only return harry',
     );
   });
+
   instanceDir.deleteSync();
 }
