@@ -48,7 +48,11 @@ void main() {
     ];
     await index.addDocuments(allDocs);
     final foundDocs = await index.search('horry');
-    assert(foundDocs == [allDocs[3]], 'Search for horry should return harry');
+    expect(
+      foundDocs,
+      [allDocs[3]],
+      reason: 'Search for horry should only return harry',
+    );
   });
   instanceDir.deleteSync();
 }
