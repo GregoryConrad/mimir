@@ -1,0 +1,67 @@
+# Modified from https://github.com/rrousselGit/riverpod/blob/master/.github/workflows/build.yml
+name: Build & Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    # runs the CI everyday at 10AM
+    - cron: "0 10 * * *"
+
+jobs:
+  build_and_test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        flutter_channel: [stable]
+        package_path:
+          - packages/embedded_meilisearch
+          - packages/embedded_meilisearch/example
+          - packages/flutter_embedded_meilisearch
+          - packages/flutter_embedded_meilisearch/example
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.package_path }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ matrix.flutter_channel }}
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Check format
+        run: flutter format --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Run Flutter tests
+        if: contains(matrix.package_path, 'flutter')
+        run: flutter test
+
+      - name: Run Dart tests
+        if: !contains(matrix.package_path, 'flutter')
+        run: dart test
+
+      # TODO mobile & desktop integration tests
+      # Maybe? https://github.com/fzyzcjy/flutter_rust_bridge/blob/master/.github/workflows/flutter_ios_test.yml
+
+      - name: Run Flutter desktop integration tests
+        if: contains(matrix.package_path, 'flutter')
+        run: echo
+
+      - name: Run Flutter iOS integration tests
+        if: contains(matrix.package_path, 'flutter') && matrix.os == 'macos-latest'
+        run: echo
+
+      - name: Run Flutter Android integration tests
+        if: contains(matrix.package_path, 'flutter') && matrix.os == 'ubuntu-latest'
+        run: echo
