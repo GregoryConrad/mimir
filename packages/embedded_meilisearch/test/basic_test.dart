@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:embedded_meilisearch/embedded_meilisearch.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -36,16 +33,10 @@ const allDocs = [
 ];
 
 void main() {
-  late Directory dir;
-  setUp(() => dir = createTmpDir());
-  tearDown(() => dir.deleteSync(recursive: true));
-
   test('Basic functionality', () async {
     // Test data taken from the example at:
     // https://github.com/meilisearch/milli/blob/main/README.md
-    final instance = Meili.getInstance(path: dir.path, milli: milli);
-    final index = instance.getIndex('movies');
-
+    final index = useTestIndex();
     await index.addDocuments(allDocs);
     final foundDocs = await index.search('horry');
     expect(
