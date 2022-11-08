@@ -113,7 +113,7 @@ pub fn add_documents(
 
     // Create a batch builder to convert json_documents into milli's format
     let mut builder = DocumentsBatchBuilder::new(Vec::new());
-    for doc in json_documents.iter() {
+    for doc in json_documents {
         let doc: serde_json::Value = serde_json::from_str(&doc)?;
         let doc = doc
             .as_object()
@@ -164,7 +164,15 @@ pub fn delete_documents(
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let mut wtxn = index.write_txn()?;
+    let mut builder = update::DeleteDocuments::new(&mut wtxn, &index)?;
+    for doc_id in document_ids {
+        builder.delete_external_id(&doc_id);
+    }
+    builder.execute()?;
+    wtxn.commit()?;
+
+    Ok(())
 }
 
 /// Deletes all the documents from the milli index
@@ -269,7 +277,7 @@ pub fn search_documents(
     let index = get_index!(indexes, index_name);
 
     // Create the search
-    let mut rtxn = index.read_txn()?;
+    let rtxn = index.read_txn()?;
     let mut search = Search::new(&rtxn, &index);
 
     // Configure the search based on given parameters
