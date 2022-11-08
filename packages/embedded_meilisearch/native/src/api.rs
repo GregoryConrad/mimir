@@ -163,7 +163,13 @@ pub fn delete_documents(
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let mut wtxn = index.write_txn()?;
+    let builder = milli::update::DeleteDocuments::new(&mut wtxn, &index);
+
+    builder.execute()?;
+    wtxn.commit()?;
+
+    Ok(())
 }
 
 /// Deletes all the documents from the milli index
