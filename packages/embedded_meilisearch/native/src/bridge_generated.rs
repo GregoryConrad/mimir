@@ -275,7 +275,6 @@ impl Wire2Api<TermsMatchingStrategy> for i32 {
         }
     }
 }
-
 impl Wire2Api<u32> for u32 {
     fn wire2api(self) -> u32 {
         self
@@ -291,26 +290,19 @@ impl Wire2Api<u8> for u8 {
 
 impl support::IntoDart for MeiliIndexSettings {
     fn into_dart(self) -> support::DartAbi {
-        match self {
-            Self::Raw {
-                searchable_fields,
-                filterable_fields,
-                sortable_fields,
-                ranking_rules,
-                stop_words,
-                synonyms,
-                typo_tolerance,
-            } => vec![
-                0.into_dart(),
-                searchable_fields.into_dart(),
-                filterable_fields.into_dart(),
-                sortable_fields.into_dart(),
-                ranking_rules.into_dart(),
-                stop_words.into_dart(),
-                synonyms.into_dart(),
-                typo_tolerance.into_dart(),
-            ],
-        }
+        vec![
+            self.searchable_fields.into_dart(),
+            self.filterable_fields.into_dart(),
+            self.sortable_fields.into_dart(),
+            self.ranking_rules.into_dart(),
+            self.stop_words.into_dart(),
+            self.synonyms.into_dart(),
+            self.typos_enabled.into_dart(),
+            self.min_word_size_for_one_typo.into_dart(),
+            self.min_word_size_for_two_typos.into_dart(),
+            self.disallow_typos_on_words.into_dart(),
+            self.disallow_typos_on_fields.into_dart(),
+        ]
         .into_dart()
     }
 }
@@ -322,20 +314,6 @@ impl support::IntoDart for Synonyms {
     }
 }
 impl support::IntoDartExceptPrimitive for Synonyms {}
-
-impl support::IntoDart for TypoTolerance {
-    fn into_dart(self) -> support::DartAbi {
-        vec![
-            self.enabled.into_dart(),
-            self.min_word_size_for_one_typo.into_dart(),
-            self.min_word_size_for_two_typos.into_dart(),
-            self.disable_on_words.into_dart(),
-            self.disable_on_fields.into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl support::IntoDartExceptPrimitive for TypoTolerance {}
 
 // Section: executor
 

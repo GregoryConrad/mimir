@@ -331,16 +331,6 @@ pub struct Synonyms {
     pub synonyms: Vec<String>,
 }
 
-/// Represents the typo tolerance settings of an index
-#[frb(dart_metadata=("freezed"))]
-pub struct TypoTolerance {
-    pub enabled: bool,
-    pub min_word_size_for_one_typo: u8,
-    pub min_word_size_for_two_typos: u8,
-    pub disable_on_words: Vec<String>,
-    pub disable_on_fields: Vec<String>,
-}
-
 /// The settings of a milli index
 #[frb(dart_metadata=("freezed"))]
 pub struct MeiliIndexSettings {
@@ -350,7 +340,11 @@ pub struct MeiliIndexSettings {
     pub ranking_rules: Vec<String>,
     pub stop_words: Vec<String>,
     pub synonyms: Vec<Synonyms>,
-    pub typo_tolerance: TypoTolerance,
+    pub typos_enabled: bool,
+    pub min_word_size_for_one_typo: u8,
+    pub min_word_size_for_two_typos: u8,
+    pub disallow_typos_on_words: Vec<String>,
+    pub disallow_typos_on_fields: Vec<String>,
 }
 
 /// Gets the settings of the specified index
@@ -390,23 +384,30 @@ pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliInd
         synonyms: index
             .synonyms(&rtxn)?
             .into_iter()
-            .map(|(word, synonyms)| (word[0].clone(), synonyms[0].clone()))
+            .map(|(word, synonyms)| {
+                (
+                    word[0].clone(),
+                    synonyms
+                        .iter()
+                        .flat_map(|v| v.iter())
+                        .map(String::from)
+                        .collect(),
+                )
+            })
             .map(|(word, synonyms)| Synonyms { word, synonyms })
             .collect(),
-        typo_tolerance: TypoTolerance {
-            enabled: index.authorize_typos(&rtxn)?,
-            min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?,
-            min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?,
-            disable_on_words: index
-                .exact_words(&rtxn)?
-                .map(|words| words.stream().into_strs())
-                .unwrap_or_else(|| Ok(Vec::new()))?,
-            disable_on_fields: index
-                .exact_attributes(&rtxn)?
-                .into_iter()
-                .map(String::from)
-                .collect(),
-        },
+        typos_enabled: index.authorize_typos(&rtxn)?,
+        min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?,
+        min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?,
+        disallow_typos_on_words: index
+            .exact_words(&rtxn)?
+            .map(|words| words.stream().into_strs())
+            .unwrap_or_else(|| Ok(Vec::new()))?,
+        disallow_typos_on_fields: index
+            .exact_attributes(&rtxn)?
+            .into_iter()
+            .map(String::from)
+            .collect(),
     })
 }
 
@@ -429,7 +430,11 @@ pub fn set_settings(
         ranking_rules,
         stop_words,
         synonyms,
-        typo_tolerance,
+        typos_enabled,
+        min_word_size_for_one_typo,
+        min_word_size_for_two_typos,
+        disallow_typos_on_words,
+        disallow_typos_on_fields,
     } = settings;
 
     // Set up the settings update
@@ -447,11 +452,11 @@ pub fn set_settings(
     builder.set_criteria(ranking_rules);
     builder.set_stop_words(stop_words.into_iter().collect());
     builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
-    builder.set_autorize_typos(typo_tolerance.enabled);
-    builder.set_min_word_len_one_typo(typo_tolerance.min_word_size_for_one_typo);
-    builder.set_min_word_len_two_typos(typo_tolerance.min_word_size_for_two_typos);
-    builder.set_exact_words(typo_tolerance.disable_on_words.into_iter().collect());
-    builder.set_exact_attributes(typo_tolerance.disable_on_fields.into_iter().collect());
+    builder.set_autorize_typos(typos_enabled);
+    builder.set_min_word_len_one_typo(min_word_size_for_one_typo);
+    builder.set_min_word_len_two_typos(min_word_size_for_two_typos);
+    builder.set_exact_words(disallow_typos_on_words.into_iter().collect());
+    builder.set_exact_attributes(disallow_typos_on_fields.into_iter().collect());
 
     // Execute the settings update
     builder.execute(|_| {}, || false)?;

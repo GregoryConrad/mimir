@@ -58,15 +58,15 @@ void main() {
       synonyms: [
         Synonyms(word: 'a', synonyms: ['b']),
         Synonyms(word: 'b', synonyms: ['a']),
-        Synonyms(word: 'c', synonyms: ['d', 'e']),
+        Synonyms(word: 'x', synonyms: ['a']),
+        Synonyms(word: 'c', synonyms: ['d', 'e', 'f']),
+        Synonyms(word: 'y', synonyms: ['d', 'e', 'f']),
       ],
-      typoTolerance: TypoTolerance(
-        enabled: true,
-        disableOnWords: ['importantWord'],
-        disableOnFields: ['importantField'],
-        minWordSizeForOneTypo: 3,
-        minWordSizeForTwoTypos: 4,
-      ),
+      typosEnabled: true,
+      disallowTyposOnWords: ['importantword1', 'foobar'],
+      disallowTyposOnFields: ['importantField'],
+      minWordSizeForOneTypo: 3,
+      minWordSizeForTwoTypos: 4,
     );
     final newSettings = originalSettings.copyWith(
       filterableFields: [],
@@ -82,22 +82,26 @@ void main() {
         'sort',
         'exactness',
       ],
-      typoTolerance: TypoTolerance(
-        enabled: false,
-        disableOnWords: [],
-        disableOnFields: [],
-        minWordSizeForOneTypo: 4,
-        minWordSizeForTwoTypos: 5,
-      ),
+      typosEnabled: false,
+      disallowTyposOnWords: [],
+      disallowTyposOnFields: [],
+      minWordSizeForOneTypo: 4,
+      minWordSizeForTwoTypos: 5,
     );
 
     await index.setSettings(originalSettings);
     final actualSettings = await index.getSettings();
-    expect(actualSettings, originalSettings);
+    expect(
+      ComparableMeiliIndexSettings.from(actualSettings),
+      ComparableMeiliIndexSettings.from(originalSettings),
+    );
 
     await index.setSettings(newSettings);
     final actualNewSettings = await index.getSettings();
-    expect(actualNewSettings, newSettings);
+    expect(
+      ComparableMeiliIndexSettings.from(actualNewSettings),
+      ComparableMeiliIndexSettings.from(newSettings),
+    );
   });
 
   test('Use multiple instances', () {

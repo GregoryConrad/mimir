@@ -123,11 +123,6 @@ pub extern "C" fn new_box_autoadd_meili_index_settings_0() -> *mut wire_MeiliInd
 }
 
 #[no_mangle]
-pub extern "C" fn new_box_autoadd_typo_tolerance_0() -> *mut wire_TypoTolerance {
-    support::new_leak_box_ptr(wire_TypoTolerance::new_with_null_ptr())
-}
-
-#[no_mangle]
 pub extern "C" fn new_box_autoadd_u32_0(value: u32) -> *mut u32 {
     support::new_leak_box_ptr(value)
 }
@@ -183,12 +178,6 @@ impl Wire2Api<MeiliIndexSettings> for *mut wire_MeiliIndexSettings {
         Wire2Api::<MeiliIndexSettings>::wire2api(*wrap).into()
     }
 }
-impl Wire2Api<TypoTolerance> for *mut wire_TypoTolerance {
-    fn wire2api(self) -> TypoTolerance {
-        let wrap = unsafe { support::box_from_leak_ptr(self) };
-        Wire2Api::<TypoTolerance>::wire2api(*wrap).into()
-    }
-}
 
 impl Wire2Api<Vec<SortBy>> for *mut wire_list_sort_by {
     fn wire2api(self) -> Vec<SortBy> {
@@ -210,21 +199,18 @@ impl Wire2Api<Vec<Synonyms>> for *mut wire_list_synonyms {
 }
 impl Wire2Api<MeiliIndexSettings> for wire_MeiliIndexSettings {
     fn wire2api(self) -> MeiliIndexSettings {
-        match self.tag {
-            0 => unsafe {
-                let ans = support::box_from_leak_ptr(self.kind);
-                let ans = support::box_from_leak_ptr(ans.Raw);
-                MeiliIndexSettings::Raw {
-                    searchable_fields: ans.searchable_fields.wire2api(),
-                    filterable_fields: ans.filterable_fields.wire2api(),
-                    sortable_fields: ans.sortable_fields.wire2api(),
-                    ranking_rules: ans.ranking_rules.wire2api(),
-                    stop_words: ans.stop_words.wire2api(),
-                    synonyms: ans.synonyms.wire2api(),
-                    typo_tolerance: ans.typo_tolerance.wire2api(),
-                }
-            },
-            _ => unreachable!(),
+        MeiliIndexSettings {
+            searchable_fields: self.searchable_fields.wire2api(),
+            filterable_fields: self.filterable_fields.wire2api(),
+            sortable_fields: self.sortable_fields.wire2api(),
+            ranking_rules: self.ranking_rules.wire2api(),
+            stop_words: self.stop_words.wire2api(),
+            synonyms: self.synonyms.wire2api(),
+            typos_enabled: self.typos_enabled.wire2api(),
+            min_word_size_for_one_typo: self.min_word_size_for_one_typo.wire2api(),
+            min_word_size_for_two_typos: self.min_word_size_for_two_typos.wire2api(),
+            disallow_typos_on_words: self.disallow_typos_on_words.wire2api(),
+            disallow_typos_on_fields: self.disallow_typos_on_fields.wire2api(),
         }
     }
 }
@@ -251,18 +237,6 @@ impl Wire2Api<Synonyms> for wire_Synonyms {
         Synonyms {
             word: self.word.wire2api(),
             synonyms: self.synonyms.wire2api(),
-        }
-    }
-}
-
-impl Wire2Api<TypoTolerance> for wire_TypoTolerance {
-    fn wire2api(self) -> TypoTolerance {
-        TypoTolerance {
-            enabled: self.enabled.wire2api(),
-            min_word_size_for_one_typo: self.min_word_size_for_one_typo.wire2api(),
-            min_word_size_for_two_typos: self.min_word_size_for_two_typos.wire2api(),
-            disable_on_words: self.disable_on_words.wire2api(),
-            disable_on_fields: self.disable_on_fields.wire2api(),
         }
     }
 }
@@ -300,6 +274,22 @@ pub struct wire_list_synonyms {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_MeiliIndexSettings {
+    searchable_fields: *mut wire_StringList,
+    filterable_fields: *mut wire_StringList,
+    sortable_fields: *mut wire_StringList,
+    ranking_rules: *mut wire_StringList,
+    stop_words: *mut wire_StringList,
+    synonyms: *mut wire_list_synonyms,
+    typos_enabled: bool,
+    min_word_size_for_one_typo: u8,
+    min_word_size_for_two_typos: u8,
+    disallow_typos_on_words: *mut wire_StringList,
+    disallow_typos_on_fields: *mut wire_StringList,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_Synonyms {
     word: *mut wire_uint_8_list,
     synonyms: *mut wire_StringList,
@@ -307,43 +297,9 @@ pub struct wire_Synonyms {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_TypoTolerance {
-    enabled: bool,
-    min_word_size_for_one_typo: u8,
-    min_word_size_for_two_typos: u8,
-    disable_on_words: *mut wire_StringList,
-    disable_on_fields: *mut wire_StringList,
-}
-
-#[repr(C)]
-#[derive(Clone)]
 pub struct wire_uint_8_list {
     ptr: *mut u8,
     len: i32,
-}
-
-#[repr(C)]
-#[derive(Clone)]
-pub struct wire_MeiliIndexSettings {
-    tag: i32,
-    kind: *mut MeiliIndexSettingsKind,
-}
-
-#[repr(C)]
-pub union MeiliIndexSettingsKind {
-    Raw: *mut wire_MeiliIndexSettings_Raw,
-}
-
-#[repr(C)]
-#[derive(Clone)]
-pub struct wire_MeiliIndexSettings_Raw {
-    searchable_fields: *mut wire_StringList,
-    filterable_fields: *mut wire_StringList,
-    sortable_fields: *mut wire_StringList,
-    ranking_rules: *mut wire_StringList,
-    stop_words: *mut wire_StringList,
-    synonyms: *mut wire_list_synonyms,
-    typo_tolerance: *mut wire_TypoTolerance,
 }
 
 #[repr(C)]
@@ -386,25 +342,19 @@ impl<T> NewWithNullPtr for *mut T {
 impl NewWithNullPtr for wire_MeiliIndexSettings {
     fn new_with_null_ptr() -> Self {
         Self {
-            tag: -1,
-            kind: core::ptr::null_mut(),
-        }
-    }
-}
-
-#[no_mangle]
-pub extern "C" fn inflate_MeiliIndexSettings_Raw() -> *mut MeiliIndexSettingsKind {
-    support::new_leak_box_ptr(MeiliIndexSettingsKind {
-        Raw: support::new_leak_box_ptr(wire_MeiliIndexSettings_Raw {
             searchable_fields: core::ptr::null_mut(),
             filterable_fields: core::ptr::null_mut(),
             sortable_fields: core::ptr::null_mut(),
             ranking_rules: core::ptr::null_mut(),
             stop_words: core::ptr::null_mut(),
             synonyms: core::ptr::null_mut(),
-            typo_tolerance: core::ptr::null_mut(),
-        }),
-    })
+            typos_enabled: Default::default(),
+            min_word_size_for_one_typo: Default::default(),
+            min_word_size_for_two_typos: Default::default(),
+            disallow_typos_on_words: core::ptr::null_mut(),
+            disallow_typos_on_fields: core::ptr::null_mut(),
+        }
+    }
 }
 
 impl NewWithNullPtr for wire_SortBy {
@@ -439,18 +389,6 @@ impl NewWithNullPtr for wire_Synonyms {
         Self {
             word: core::ptr::null_mut(),
             synonyms: core::ptr::null_mut(),
-        }
-    }
-}
-
-impl NewWithNullPtr for wire_TypoTolerance {
-    fn new_with_null_ptr() -> Self {
-        Self {
-            enabled: Default::default(),
-            min_word_size_for_one_typo: Default::default(),
-            min_word_size_for_two_typos: Default::default(),
-            disable_on_words: core::ptr::null_mut(),
-            disable_on_fields: core::ptr::null_mut(),
         }
     }
 }

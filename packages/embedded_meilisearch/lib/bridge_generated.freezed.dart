@@ -22,63 +22,11 @@ mixin _$MeiliIndexSettings {
   List<String> get rankingRules => throw _privateConstructorUsedError;
   List<String> get stopWords => throw _privateConstructorUsedError;
   List<Synonyms> get synonyms => throw _privateConstructorUsedError;
-  TypoTolerance get typoTolerance => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<String>? searchableFields,
-            List<String> filterableFields,
-            List<String> sortableFields,
-            List<String> rankingRules,
-            List<String> stopWords,
-            List<Synonyms> synonyms,
-            TypoTolerance typoTolerance)
-        raw,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<String>? searchableFields,
-            List<String> filterableFields,
-            List<String> sortableFields,
-            List<String> rankingRules,
-            List<String> stopWords,
-            List<Synonyms> synonyms,
-            TypoTolerance typoTolerance)?
-        raw,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<String>? searchableFields,
-            List<String> filterableFields,
-            List<String> sortableFields,
-            List<String> rankingRules,
-            List<String> stopWords,
-            List<Synonyms> synonyms,
-            TypoTolerance typoTolerance)?
-        raw,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MeiliIndexSettings_Raw value) raw,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MeiliIndexSettings_Raw value)? raw,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MeiliIndexSettings_Raw value)? raw,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  bool get typosEnabled => throw _privateConstructorUsedError;
+  int get minWordSizeForOneTypo => throw _privateConstructorUsedError;
+  int get minWordSizeForTwoTypos => throw _privateConstructorUsedError;
+  List<String> get disallowTyposOnWords => throw _privateConstructorUsedError;
+  List<String> get disallowTyposOnFields => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MeiliIndexSettingsCopyWith<MeiliIndexSettings> get copyWith =>
@@ -98,7 +46,11 @@ abstract class $MeiliIndexSettingsCopyWith<$Res> {
       List<String> rankingRules,
       List<String> stopWords,
       List<Synonyms> synonyms,
-      TypoTolerance typoTolerance});
+      bool typosEnabled,
+      int minWordSizeForOneTypo,
+      int minWordSizeForTwoTypos,
+      List<String> disallowTyposOnWords,
+      List<String> disallowTyposOnFields});
 }
 
 /// @nodoc
@@ -120,7 +72,11 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
     Object? rankingRules = null,
     Object? stopWords = null,
     Object? synonyms = null,
-    Object? typoTolerance = null,
+    Object? typosEnabled = null,
+    Object? minWordSizeForOneTypo = null,
+    Object? minWordSizeForTwoTypos = null,
+    Object? disallowTyposOnWords = null,
+    Object? disallowTyposOnFields = null,
   }) {
     return _then(_value.copyWith(
       searchableFields: freezed == searchableFields
@@ -147,20 +103,36 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
           ? _value.synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
               as List<Synonyms>,
-      typoTolerance: null == typoTolerance
-          ? _value.typoTolerance
-          : typoTolerance // ignore: cast_nullable_to_non_nullable
-              as TypoTolerance,
+      typosEnabled: null == typosEnabled
+          ? _value.typosEnabled
+          : typosEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      minWordSizeForOneTypo: null == minWordSizeForOneTypo
+          ? _value.minWordSizeForOneTypo
+          : minWordSizeForOneTypo // ignore: cast_nullable_to_non_nullable
+              as int,
+      minWordSizeForTwoTypos: null == minWordSizeForTwoTypos
+          ? _value.minWordSizeForTwoTypos
+          : minWordSizeForTwoTypos // ignore: cast_nullable_to_non_nullable
+              as int,
+      disallowTyposOnWords: null == disallowTyposOnWords
+          ? _value.disallowTyposOnWords
+          : disallowTyposOnWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      disallowTyposOnFields: null == disallowTyposOnFields
+          ? _value.disallowTyposOnFields
+          : disallowTyposOnFields // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
+abstract class _$$_MeiliIndexSettingsCopyWith<$Res>
     implements $MeiliIndexSettingsCopyWith<$Res> {
-  factory _$$MeiliIndexSettings_RawCopyWith(_$MeiliIndexSettings_Raw value,
-          $Res Function(_$MeiliIndexSettings_Raw) then) =
-      __$$MeiliIndexSettings_RawCopyWithImpl<$Res>;
+  factory _$$_MeiliIndexSettingsCopyWith(_$_MeiliIndexSettings value,
+          $Res Function(_$_MeiliIndexSettings) then) =
+      __$$_MeiliIndexSettingsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -170,15 +142,19 @@ abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
       List<String> rankingRules,
       List<String> stopWords,
       List<Synonyms> synonyms,
-      TypoTolerance typoTolerance});
+      bool typosEnabled,
+      int minWordSizeForOneTypo,
+      int minWordSizeForTwoTypos,
+      List<String> disallowTyposOnWords,
+      List<String> disallowTyposOnFields});
 }
 
 /// @nodoc
-class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
-    extends _$MeiliIndexSettingsCopyWithImpl<$Res, _$MeiliIndexSettings_Raw>
-    implements _$$MeiliIndexSettings_RawCopyWith<$Res> {
-  __$$MeiliIndexSettings_RawCopyWithImpl(_$MeiliIndexSettings_Raw _value,
-      $Res Function(_$MeiliIndexSettings_Raw) _then)
+class __$$_MeiliIndexSettingsCopyWithImpl<$Res>
+    extends _$MeiliIndexSettingsCopyWithImpl<$Res, _$_MeiliIndexSettings>
+    implements _$$_MeiliIndexSettingsCopyWith<$Res> {
+  __$$_MeiliIndexSettingsCopyWithImpl(
+      _$_MeiliIndexSettings _value, $Res Function(_$_MeiliIndexSettings) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -190,9 +166,13 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
     Object? rankingRules = null,
     Object? stopWords = null,
     Object? synonyms = null,
-    Object? typoTolerance = null,
+    Object? typosEnabled = null,
+    Object? minWordSizeForOneTypo = null,
+    Object? minWordSizeForTwoTypos = null,
+    Object? disallowTyposOnWords = null,
+    Object? disallowTyposOnFields = null,
   }) {
-    return _then(_$MeiliIndexSettings_Raw(
+    return _then(_$_MeiliIndexSettings(
       searchableFields: freezed == searchableFields
           ? _value._searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
@@ -217,31 +197,53 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
           ? _value._synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
               as List<Synonyms>,
-      typoTolerance: null == typoTolerance
-          ? _value.typoTolerance
-          : typoTolerance // ignore: cast_nullable_to_non_nullable
-              as TypoTolerance,
+      typosEnabled: null == typosEnabled
+          ? _value.typosEnabled
+          : typosEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      minWordSizeForOneTypo: null == minWordSizeForOneTypo
+          ? _value.minWordSizeForOneTypo
+          : minWordSizeForOneTypo // ignore: cast_nullable_to_non_nullable
+              as int,
+      minWordSizeForTwoTypos: null == minWordSizeForTwoTypos
+          ? _value.minWordSizeForTwoTypos
+          : minWordSizeForTwoTypos // ignore: cast_nullable_to_non_nullable
+              as int,
+      disallowTyposOnWords: null == disallowTyposOnWords
+          ? _value._disallowTyposOnWords
+          : disallowTyposOnWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      disallowTyposOnFields: null == disallowTyposOnFields
+          ? _value._disallowTyposOnFields
+          : disallowTyposOnFields // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
-  const _$MeiliIndexSettings_Raw(
+class _$_MeiliIndexSettings implements _MeiliIndexSettings {
+  const _$_MeiliIndexSettings(
       {final List<String>? searchableFields,
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
       required final List<String> stopWords,
       required final List<Synonyms> synonyms,
-      required this.typoTolerance})
+      required this.typosEnabled,
+      required this.minWordSizeForOneTypo,
+      required this.minWordSizeForTwoTypos,
+      required final List<String> disallowTyposOnWords,
+      required final List<String> disallowTyposOnFields})
       : _searchableFields = searchableFields,
         _filterableFields = filterableFields,
         _sortableFields = sortableFields,
         _rankingRules = rankingRules,
         _stopWords = stopWords,
-        _synonyms = synonyms;
+        _synonyms = synonyms,
+        _disallowTyposOnWords = disallowTyposOnWords,
+        _disallowTyposOnFields = disallowTyposOnFields;
 
   final List<String>? _searchableFields;
   @override
@@ -288,18 +290,35 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   }
 
   @override
-  final TypoTolerance typoTolerance;
+  final bool typosEnabled;
+  @override
+  final int minWordSizeForOneTypo;
+  @override
+  final int minWordSizeForTwoTypos;
+  final List<String> _disallowTyposOnWords;
+  @override
+  List<String> get disallowTyposOnWords {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_disallowTyposOnWords);
+  }
+
+  final List<String> _disallowTyposOnFields;
+  @override
+  List<String> get disallowTyposOnFields {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_disallowTyposOnFields);
+  }
 
   @override
   String toString() {
-    return 'MeiliIndexSettings.raw(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typoTolerance: $typoTolerance)';
+    return 'MeiliIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MeiliIndexSettings_Raw &&
+            other is _$_MeiliIndexSettings &&
             const DeepCollectionEquality()
                 .equals(other._searchableFields, _searchableFields) &&
             const DeepCollectionEquality()
@@ -311,8 +330,16 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             const DeepCollectionEquality()
                 .equals(other._stopWords, _stopWords) &&
             const DeepCollectionEquality().equals(other._synonyms, _synonyms) &&
-            (identical(other.typoTolerance, typoTolerance) ||
-                other.typoTolerance == typoTolerance));
+            (identical(other.typosEnabled, typosEnabled) ||
+                other.typosEnabled == typosEnabled) &&
+            (identical(other.minWordSizeForOneTypo, minWordSizeForOneTypo) ||
+                other.minWordSizeForOneTypo == minWordSizeForOneTypo) &&
+            (identical(other.minWordSizeForTwoTypos, minWordSizeForTwoTypos) ||
+                other.minWordSizeForTwoTypos == minWordSizeForTwoTypos) &&
+            const DeepCollectionEquality()
+                .equals(other._disallowTyposOnWords, _disallowTyposOnWords) &&
+            const DeepCollectionEquality()
+                .equals(other._disallowTyposOnFields, _disallowTyposOnFields));
   }
 
   @override
@@ -324,108 +351,34 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
       const DeepCollectionEquality().hash(_rankingRules),
       const DeepCollectionEquality().hash(_stopWords),
       const DeepCollectionEquality().hash(_synonyms),
-      typoTolerance);
+      typosEnabled,
+      minWordSizeForOneTypo,
+      minWordSizeForTwoTypos,
+      const DeepCollectionEquality().hash(_disallowTyposOnWords),
+      const DeepCollectionEquality().hash(_disallowTyposOnFields));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MeiliIndexSettings_RawCopyWith<_$MeiliIndexSettings_Raw> get copyWith =>
-      __$$MeiliIndexSettings_RawCopyWithImpl<_$MeiliIndexSettings_Raw>(
+  _$$_MeiliIndexSettingsCopyWith<_$_MeiliIndexSettings> get copyWith =>
+      __$$_MeiliIndexSettingsCopyWithImpl<_$_MeiliIndexSettings>(
           this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<String>? searchableFields,
-            List<String> filterableFields,
-            List<String> sortableFields,
-            List<String> rankingRules,
-            List<String> stopWords,
-            List<Synonyms> synonyms,
-            TypoTolerance typoTolerance)
-        raw,
-  }) {
-    return raw(searchableFields, filterableFields, sortableFields, rankingRules,
-        stopWords, synonyms, typoTolerance);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<String>? searchableFields,
-            List<String> filterableFields,
-            List<String> sortableFields,
-            List<String> rankingRules,
-            List<String> stopWords,
-            List<Synonyms> synonyms,
-            TypoTolerance typoTolerance)?
-        raw,
-  }) {
-    return raw?.call(searchableFields, filterableFields, sortableFields,
-        rankingRules, stopWords, synonyms, typoTolerance);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<String>? searchableFields,
-            List<String> filterableFields,
-            List<String> sortableFields,
-            List<String> rankingRules,
-            List<String> stopWords,
-            List<Synonyms> synonyms,
-            TypoTolerance typoTolerance)?
-        raw,
-    required TResult orElse(),
-  }) {
-    if (raw != null) {
-      return raw(searchableFields, filterableFields, sortableFields,
-          rankingRules, stopWords, synonyms, typoTolerance);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MeiliIndexSettings_Raw value) raw,
-  }) {
-    return raw(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MeiliIndexSettings_Raw value)? raw,
-  }) {
-    return raw?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MeiliIndexSettings_Raw value)? raw,
-    required TResult orElse(),
-  }) {
-    if (raw != null) {
-      return raw(this);
-    }
-    return orElse();
-  }
 }
 
-abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
-  const factory MeiliIndexSettings_Raw(
-      {final List<String>? searchableFields,
-      required final List<String> filterableFields,
-      required final List<String> sortableFields,
-      required final List<String> rankingRules,
-      required final List<String> stopWords,
-      required final List<Synonyms> synonyms,
-      required final TypoTolerance typoTolerance}) = _$MeiliIndexSettings_Raw;
+abstract class _MeiliIndexSettings implements MeiliIndexSettings {
+  const factory _MeiliIndexSettings(
+          {final List<String>? searchableFields,
+          required final List<String> filterableFields,
+          required final List<String> sortableFields,
+          required final List<String> rankingRules,
+          required final List<String> stopWords,
+          required final List<Synonyms> synonyms,
+          required final bool typosEnabled,
+          required final int minWordSizeForOneTypo,
+          required final int minWordSizeForTwoTypos,
+          required final List<String> disallowTyposOnWords,
+          required final List<String> disallowTyposOnFields}) =
+      _$_MeiliIndexSettings;
 
   @override
   List<String>? get searchableFields;
@@ -440,10 +393,18 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
   @override
   List<Synonyms> get synonyms;
   @override
-  TypoTolerance get typoTolerance;
+  bool get typosEnabled;
+  @override
+  int get minWordSizeForOneTypo;
+  @override
+  int get minWordSizeForTwoTypos;
+  @override
+  List<String> get disallowTyposOnWords;
+  @override
+  List<String> get disallowTyposOnFields;
   @override
   @JsonKey(ignore: true)
-  _$$MeiliIndexSettings_RawCopyWith<_$MeiliIndexSettings_Raw> get copyWith =>
+  _$$_MeiliIndexSettingsCopyWith<_$_MeiliIndexSettings> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -794,5 +755,144 @@ abstract class SortBy_Desc implements SortBy {
   @override
   @JsonKey(ignore: true)
   _$$SortBy_DescCopyWith<_$SortBy_Desc> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$Synonyms {
+  String get word => throw _privateConstructorUsedError;
+  List<String> get synonyms => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SynonymsCopyWith<Synonyms> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SynonymsCopyWith<$Res> {
+  factory $SynonymsCopyWith(Synonyms value, $Res Function(Synonyms) then) =
+      _$SynonymsCopyWithImpl<$Res, Synonyms>;
+  @useResult
+  $Res call({String word, List<String> synonyms});
+}
+
+/// @nodoc
+class _$SynonymsCopyWithImpl<$Res, $Val extends Synonyms>
+    implements $SynonymsCopyWith<$Res> {
+  _$SynonymsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? word = null,
+    Object? synonyms = null,
+  }) {
+    return _then(_value.copyWith(
+      word: null == word
+          ? _value.word
+          : word // ignore: cast_nullable_to_non_nullable
+              as String,
+      synonyms: null == synonyms
+          ? _value.synonyms
+          : synonyms // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_SynonymsCopyWith<$Res> implements $SynonymsCopyWith<$Res> {
+  factory _$$_SynonymsCopyWith(
+          _$_Synonyms value, $Res Function(_$_Synonyms) then) =
+      __$$_SynonymsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String word, List<String> synonyms});
+}
+
+/// @nodoc
+class __$$_SynonymsCopyWithImpl<$Res>
+    extends _$SynonymsCopyWithImpl<$Res, _$_Synonyms>
+    implements _$$_SynonymsCopyWith<$Res> {
+  __$$_SynonymsCopyWithImpl(
+      _$_Synonyms _value, $Res Function(_$_Synonyms) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? word = null,
+    Object? synonyms = null,
+  }) {
+    return _then(_$_Synonyms(
+      word: null == word
+          ? _value.word
+          : word // ignore: cast_nullable_to_non_nullable
+              as String,
+      synonyms: null == synonyms
+          ? _value._synonyms
+          : synonyms // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Synonyms implements _Synonyms {
+  const _$_Synonyms({required this.word, required final List<String> synonyms})
+      : _synonyms = synonyms;
+
+  @override
+  final String word;
+  final List<String> _synonyms;
+  @override
+  List<String> get synonyms {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_synonyms);
+  }
+
+  @override
+  String toString() {
+    return 'Synonyms(word: $word, synonyms: $synonyms)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Synonyms &&
+            (identical(other.word, word) || other.word == word) &&
+            const DeepCollectionEquality().equals(other._synonyms, _synonyms));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, word, const DeepCollectionEquality().hash(_synonyms));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SynonymsCopyWith<_$_Synonyms> get copyWith =>
+      __$$_SynonymsCopyWithImpl<_$_Synonyms>(this, _$identity);
+}
+
+abstract class _Synonyms implements Synonyms {
+  const factory _Synonyms(
+      {required final String word,
+      required final List<String> synonyms}) = _$_Synonyms;
+
+  @override
+  String get word;
+  @override
+  List<String> get synonyms;
+  @override
+  @JsonKey(ignore: true)
+  _$$_SynonymsCopyWith<_$_Synonyms> get copyWith =>
       throw _privateConstructorUsedError;
 }
