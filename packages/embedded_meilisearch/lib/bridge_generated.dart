@@ -51,15 +51,6 @@ abstract class EmbeddedMilli {
 
   FlutterRustBridgeTaskConstMeta get kDeleteAllDocumentsConstMeta;
 
-  /// Replaces all documents in the index with the given documents
-  Future<void> setDocuments(
-      {required String instanceDir,
-      required String indexName,
-      required List<String> jsonDocuments,
-      dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta;
-
   /// Returns the document with the specified id from the index, if one exists
   Future<String?> getDocument(
       {required String instanceDir,
@@ -231,29 +222,6 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "delete_all_documents",
         argNames: ["instanceDir", "indexName"],
-      );
-
-  Future<void> setDocuments(
-          {required String instanceDir,
-          required String indexName,
-          required List<String> jsonDocuments,
-          dynamic hint}) =>
-      _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_set_documents(
-            port_,
-            _platform.api2wire_String(instanceDir),
-            _platform.api2wire_String(indexName),
-            _platform.api2wire_StringList(jsonDocuments)),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kSetDocumentsConstMeta,
-        argValues: [instanceDir, indexName, jsonDocuments],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "set_documents",
-        argNames: ["instanceDir", "indexName", "jsonDocuments"],
       );
 
   Future<String?> getDocument(
@@ -609,31 +577,6 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
       _wire_delete_all_documentsPtr.asFunction<
           void Function(int, ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_set_documents(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> instance_dir,
-    ffi.Pointer<wire_uint_8_list> index_name,
-    ffi.Pointer<wire_StringList> json_documents,
-  ) {
-    return _wire_set_documents(
-      port_,
-      instance_dir,
-      index_name,
-      json_documents,
-    );
-  }
-
-  late final _wire_set_documentsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Int64,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_StringList>)>>('wire_set_documents');
-  late final _wire_set_documents = _wire_set_documentsPtr.asFunction<
-      void Function(int, ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
 
   void wire_get_document(
     int port_,
