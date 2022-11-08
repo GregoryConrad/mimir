@@ -34,6 +34,14 @@ class MeiliIndexImpl with MeiliIndex {
   }
 
   @override
+  Future<void> deleteAllDocuments() {
+    return milli.deleteAllDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+    );
+  }
+
+  @override
   Future<void> setDocuments(List<MeiliDocument> documents) async {
     return milli.setDocuments(
       instanceDir: instanceDir,
@@ -50,8 +58,8 @@ class MeiliIndexImpl with MeiliIndex {
   }
 
   @override
-  Future<List<MeiliDocument>> getDocuments() async {
-    final jsonDocs = await milli.getDocuments(
+  Future<List<MeiliDocument>> getAllDocuments() async {
+    final jsonDocs = await milli.getAllDocuments(
       instanceDir: instanceDir,
       indexName: name,
     );
@@ -73,19 +81,19 @@ class MeiliIndexImpl with MeiliIndex {
   @override
   Future<List<MeiliDocument>> search(
     String? query, {
-    int? limit,
+    int? resultsLimit,
     TermsMatchingStrategy? matchingStrategy,
-    List<SortAscDesc>? sortCriteria,
+    List<SortBy>? sortBy,
   }) async {
     final jsonDocs = await milli.searchDocuments(
       instanceDir: instanceDir,
       indexName: name,
       query: query,
-      limit: limit,
+      limit: resultsLimit,
       // TODO remove the ?? Last below once following resolved
       //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
       matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
-      sortCriteria: sortCriteria,
+      sortCriteria: sortBy,
       // TODO filter using a Rust enum. See for more:
       //  https://docs.meilisearch.com/reference/api/search.html#filter
     );

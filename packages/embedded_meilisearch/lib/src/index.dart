@@ -13,25 +13,22 @@ mixin MeiliIndex {
   /// Perform a search against the documents of this index.
   ///
   /// Searches based on the provided [query], if not null.
-  /// Returns at most [limit] documents (if not null; otherwise all matches).
-  /// Uses the provided [matchingStrategy] (if not null) to get to [limit]
+  /// Returns at most [resultsLimit] documents (if not null; otherwise all matches).
+  /// Uses the provided [matchingStrategy] (if not null) to get to [resultsLimit]
   /// documents (if not already there).
-  /// Sorts the results based on relevance, or the [sortCriteria] if not null.
+  /// Sorts the results based on relevance, or the [sortBy] if not null.
   Future<List<MeiliDocument>> search(
     String? query, {
-    int? limit,
+    int? resultsLimit,
     TermsMatchingStrategy? matchingStrategy,
-    List<SortAscDesc>? sortCriteria,
+    List<SortBy>? sortBy,
   });
 
   /// Gets the given document from the index, if it exists
   Future<MeiliDocument?> getDocument(String id);
 
   /// Gets all documents from the index
-  Future<List<MeiliDocument>> getDocuments();
-
-  /// Replaces all documents in the index with the given documents
-  Future<void> setDocuments(List<MeiliDocument> documents);
+  Future<List<MeiliDocument>> getAllDocuments();
 
   /// Adds the given document to the index
   Future<void> addDocument(MeiliDocument document) => addDocuments([document]);
@@ -44,6 +41,12 @@ mixin MeiliIndex {
 
   /// Deletes the documents with the given [ids] from the index
   Future<void> deleteDocuments(List<String> ids);
+
+  /// Deletes all documents in the index
+  Future<void> deleteAllDocuments();
+
+  /// Replaces all documents in the index with the given documents
+  Future<void> setDocuments(List<MeiliDocument> documents);
 
   /// Gets the settings of this index
   Future<MeiliIndexSettings> getSettings();

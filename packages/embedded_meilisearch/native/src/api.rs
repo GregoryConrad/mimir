@@ -166,6 +166,19 @@ pub fn delete_documents(
     todo!()
 }
 
+/// Deletes all the documents from the milli index
+pub fn delete_all_documents(
+    instance_dir: String,
+    index_name: String,
+) -> Result<()> {
+    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    let instances = get_instances!();
+    let indexes = get_indexes!(instances, instance_dir);
+    let index = get_index!(indexes, index_name);
+
+    todo!()
+}
+
 /// Replaces all documents in the index with the given documents
 pub fn set_documents(
     instance_dir: String,
@@ -195,7 +208,7 @@ pub fn get_document(
 }
 
 /// Returns all documents stored in the index.
-pub fn get_documents(instance_dir: String, index_name: String) -> Result<Vec<String>> {
+pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec<String>> {
     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
@@ -224,9 +237,9 @@ pub enum _TermsMatchingStrategy {
     All,
 }
 
-/// Whether to sort a field in ascending or descending order
+/// Whether to sort by a field in ascending or descending order
 /// See https://docs.meilisearch.com/reference/api/search.html#sort
-pub enum SortAscDesc {
+pub enum SortBy {
     Asc(String),
     Desc(String),
 }
@@ -241,7 +254,7 @@ pub fn search_documents(
     // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
     // matching_strategy: Option<TermsMatchingStrategy>,
     matching_strategy: TermsMatchingStrategy,
-    sort_criteria: Option<Vec<SortAscDesc>>,
+    sort_criteria: Option<Vec<SortBy>>,
 ) -> Result<Vec<String>> {
     // Delete the following line once the following is resolved:
     // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
@@ -264,8 +277,8 @@ pub fn search_documents(
         let criteria = criteria
             .iter()
             .map(|criterion| match criterion {
-                SortAscDesc::Asc(field) => AscDesc::Asc(Member::Field(field.clone())),
-                SortAscDesc::Desc(field) => AscDesc::Desc(Member::Field(field.clone())),
+                SortBy::Asc(field) => AscDesc::Asc(Member::Field(field.clone())),
+                SortBy::Desc(field) => AscDesc::Desc(Member::Field(field.clone())),
             })
             .collect();
         search.sort_criteria(criteria)
