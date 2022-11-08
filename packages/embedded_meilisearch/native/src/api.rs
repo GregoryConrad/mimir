@@ -13,7 +13,7 @@ use lazy_static::lazy_static;
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed::EnvOpenOptions,
-    update, AscDesc, Criterion, Index, Member, Search, SearchResult,
+    update, AscDesc, Criterion, DocumentId, FieldsIdsMap, Index, Member, Search, SearchResult,
 };
 
 lazy_static! {
@@ -97,6 +97,29 @@ macro_rules! get_index {
     };
 }
 
+fn milli_document_to_json(doc: obkv::KvReaderU16, fields_ids_map: &FieldsIdsMap) -> Result<String> {
+    let mut document = serde_json::Map::new();
+    for (key, value) in doc.iter() {
+        let value = serde_json::from_slice(value)?;
+        let key = fields_ids_map
+            .name(key)
+            .expect("Missing field name")
+            .to_string();
+        document.insert(key, value);
+    }
+    Ok(serde_json::to_string(&document)?)
+}
+
+fn convert_milli_documents(
+    milli_documents: Vec<(DocumentId, obkv::KvReaderU16)>,
+    fields_ids_map: &FieldsIdsMap,
+) -> Result<Vec<String>> {
+    milli_documents
+        .into_iter()
+        .map(|(_, doc)| milli_document_to_json(doc, fields_ids_map))
+        .collect::<Result<Vec<String>>>()
+}
+
 /// Adds the given list of documents to the specified milli index.
 /// Replaces documents that already exist in the index based on document ids.
 pub fn add_documents(
@@ -111,7 +134,7 @@ pub fn add_documents(
 
     // Create a batch builder to convert json_documents into milli's format
     let mut builder = DocumentsBatchBuilder::new(Vec::new());
-    for doc in json_documents.iter() {
+    for doc in json_documents {
         let doc: serde_json::Value = serde_json::from_str(&doc)?;
         let doc = doc
             .as_object()
@@ -162,7 +185,15 @@ pub fn delete_documents(
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let mut wtxn = index.write_txn()?;
+    let mut builder = update::DeleteDocuments::new(&mut wtxn, &index)?;
+    for doc_id in document_ids {
+        builder.delete_external_id(&doc_id);
+    }
+    builder.execute()?;
+    wtxn.commit()?;
+
+    Ok(())
 }
 
 /// Deletes all the documents from the milli index
@@ -180,20 +211,6 @@ pub fn delete_all_documents(instance_dir: String, index_name: String) -> Result<
     Ok(())
 }
 
-/// Replaces all documents in the index with the given documents
-pub fn set_documents(
-    instance_dir: String,
-    index_name: String,
-    json_documents: Vec<String>,
-) -> Result<()> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
-
-    todo!()
-}
-
 /// Returns the document with the specified id from the index, if one exists
 pub fn get_document(
     instance_dir: String,
@@ -205,7 +222,15 @@ pub fn get_document(
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let rtxn = index.read_txn()?;
+    let fields_ids_map = index.fields_ids_map(&rtxn)?;
+    let external_ids = index.external_documents_ids(&rtxn)?;
+    let internal_id = external_ids.get(document_id).ok_or(anyhow::anyhow!(
+        "Failed to find internal document id from user's document id"
+    ))?;
+    let milli_documents = index.documents(&rtxn, vec![internal_id])?;
+    convert_milli_documents(milli_documents, &fields_ids_map)
+        .map(|docs| docs.first().map(String::from))
 }
 
 /// Returns all documents stored in the index.
@@ -215,7 +240,13 @@ pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let rtxn = index.read_txn()?;
+    let fields_ids_map = index.fields_ids_map(&rtxn)?;
+    let milli_documents = index
+        .all_documents(&rtxn)?
+        .map(|r| r.map_err(anyhow::Error::from))
+        .collect::<Result<Vec<(DocumentId, obkv::KvReaderU16)>>>()?;
+    convert_milli_documents(milli_documents, &fields_ids_map)
 }
 
 /// Re-export TermsMatchingStrategy from milli to use in search
@@ -287,22 +318,9 @@ pub fn search_documents(
 
     // Get the documents based on the search results
     let SearchResult { documents_ids, .. } = search.execute()?;
-    let field_ids_map = index.fields_ids_map(&rtxn)?;
-    let mut documents = Vec::new();
-    for (_id, obkv) in index.documents(&rtxn, documents_ids)? {
-        let mut document = serde_json::Map::new();
-        for (key, value) in obkv.iter() {
-            let value = serde_json::from_slice(value)?;
-            let key = field_ids_map
-                .name(key)
-                .expect("Missing field name")
-                .to_string();
-            document.insert(key, value);
-        }
-        let document = serde_json::to_string(&document)?;
-        documents.push(document);
-    }
-    Ok(documents)
+    let fields_ids_map = index.fields_ids_map(&rtxn)?;
+    let milli_documents = index.documents(&rtxn, documents_ids)?;
+    convert_milli_documents(milli_documents, &fields_ids_map)
 }
 
 /// Represents the synonyms of a given word

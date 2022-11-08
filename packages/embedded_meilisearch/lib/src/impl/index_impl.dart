@@ -43,11 +43,8 @@ class MeiliIndexImpl with MeiliIndex {
 
   @override
   Future<void> setDocuments(List<MeiliDocument> documents) async {
-    return milli.setDocuments(
-      instanceDir: instanceDir,
-      indexName: name,
-      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
-    );
+    await deleteAllDocuments();
+    return addDocuments(documents);
   }
 
   @override
