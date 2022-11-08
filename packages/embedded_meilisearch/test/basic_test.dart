@@ -99,4 +99,8 @@ void main() {
     final actualNewSettings = await index.getSettings();
     expect(actualNewSettings, newSettings);
   });
+
+  test('Use multiple instances', () {
+    for (final _ in Iterable.generate(100)) useTestIndex();
+  });
 }
