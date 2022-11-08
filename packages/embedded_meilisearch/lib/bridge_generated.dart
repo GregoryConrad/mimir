@@ -101,11 +101,11 @@ abstract class EmbeddedMilli {
 class MeiliIndexSettings with _$MeiliIndexSettings {
   /// The settings of a milli index.
   const factory MeiliIndexSettings.raw({
-    required List<String> searchableFields,
+    List<String>? searchableFields,
     required List<String> filterableFields,
     required List<String> sortableFields,
     required List<String> rankingRules,
-    required List<String> stopWords,
+    List<String>? stopWords,
     required List<Synonyms> synonyms,
     required TypoTolerance typoTolerance,
   }) = MeiliIndexSettings_Raw;
@@ -443,11 +443,11 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     switch (raw[0]) {
       case 0:
         return MeiliIndexSettings_Raw(
-          searchableFields: _wire2api_StringList(raw[1]),
+          searchableFields: _wire2api_opt_StringList(raw[1]),
           filterableFields: _wire2api_StringList(raw[2]),
           sortableFields: _wire2api_StringList(raw[3]),
           rankingRules: _wire2api_StringList(raw[4]),
-          stopWords: _wire2api_StringList(raw[5]),
+          stopWords: _wire2api_opt_StringList(raw[5]),
           synonyms: _wire2api_list_synonyms(raw[6]),
           typoTolerance: _wire2api_box_autoadd_typo_tolerance(raw[7]),
         );
@@ -458,6 +458,10 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
 
   String? _wire2api_opt_String(dynamic raw) {
     return raw == null ? null : _wire2api_String(raw);
+  }
+
+  List<String>? _wire2api_opt_StringList(dynamic raw) {
+    return raw == null ? null : _wire2api_StringList(raw);
   }
 
   Synonyms _wire2api_synonyms(dynamic raw) {
@@ -588,6 +592,11 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
+  ffi.Pointer<wire_StringList> api2wire_opt_StringList(List<String>? raw) {
+    return raw == null ? ffi.nullptr : api2wire_StringList(raw);
+  }
+
+  @protected
   ffi.Pointer<ffi.Uint32> api2wire_opt_box_autoadd_u32(int? raw) {
     return raw == null ? ffi.nullptr : api2wire_box_autoadd_u32(raw);
   }
@@ -622,7 +631,7 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
       wireObj.tag = 0;
       wireObj.kind = inner.inflate_MeiliIndexSettings_Raw();
       wireObj.kind.ref.Raw.ref.searchable_fields =
-          api2wire_StringList(apiObj.searchableFields);
+          api2wire_opt_StringList(apiObj.searchableFields);
       wireObj.kind.ref.Raw.ref.filterable_fields =
           api2wire_StringList(apiObj.filterableFields);
       wireObj.kind.ref.Raw.ref.sortable_fields =
@@ -630,7 +639,7 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
       wireObj.kind.ref.Raw.ref.ranking_rules =
           api2wire_StringList(apiObj.rankingRules);
       wireObj.kind.ref.Raw.ref.stop_words =
-          api2wire_StringList(apiObj.stopWords);
+          api2wire_opt_StringList(apiObj.stopWords);
       wireObj.kind.ref.Raw.ref.synonyms =
           api2wire_list_synonyms(apiObj.synonyms);
       wireObj.kind.ref.Raw.ref.typo_tolerance =

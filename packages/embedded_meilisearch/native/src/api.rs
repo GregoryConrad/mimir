@@ -1,9 +1,8 @@
 use std::{
-    collections::{HashMap, HashSet},
+    collections::HashMap,
     convert::TryInto,
     fs::create_dir_all,
     io::Cursor,
-    iter::FromIterator,
     path::Path,
     sync::{Mutex, RwLock},
 };
@@ -299,11 +298,11 @@ pub struct Synonyms {
 
 /// Represents the typo tolerance settings of an index
 pub struct TypoTolerance {
-    enabled: bool,
-    min_word_size_for_one_typo: u8,
-    min_word_size_for_two_typos: u8,
-    disable_on_words: Vec<String>,
-    disable_on_fields: Vec<String>,
+    pub enabled: bool,
+    pub min_word_size_for_one_typo: u8,
+    pub min_word_size_for_two_typos: u8,
+    pub disable_on_words: Vec<String>,
+    pub disable_on_fields: Vec<String>,
 }
 
 /// The settings of a milli index
@@ -313,11 +312,11 @@ pub enum MeiliIndexSettings {
     /// The settings of a milli index.
     // Name is "Raw" so we get MeiliIndexSettings.raw constructor in Dart
     Raw {
-        searchable_fields: Vec<String>,
+        searchable_fields: Option<Vec<String>>,
         filterable_fields: Vec<String>,
         sortable_fields: Vec<String>,
         ranking_rules: Vec<String>,
-        stop_words: Vec<String>,
+        stop_words: Option<Vec<String>>,
         synonyms: Vec<Synonyms>,
         typo_tolerance: TypoTolerance,
     },
@@ -330,7 +329,24 @@ pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliInd
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let rtxn = index.read_txn()?;
+    Ok(MeiliIndexSettings::Raw {
+        searchable_fields: index
+            .searchable_fields(&rtxn)?
+            .map(|fields| fields.into_iter().map(String::from).collect()),
+        filterable_fields: index.filterable_fields(&rtxn)?.into_iter().collect(),
+        sortable_fields: index.sortable_fields(&rtxn)?.into_iter().collect(),
+        ranking_rules: todo!(),
+        stop_words: todo!(),
+        synonyms: todo!(),
+        typo_tolerance: TypoTolerance {
+            enabled: index.authorize_typos(&rtxn)?,
+            min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?,
+            min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?,
+            disable_on_words: todo!(),
+            disable_on_fields: todo!(),
+        },
+    })
 }
 
 /// Sets the settings of the specified index
@@ -379,17 +395,17 @@ pub fn set_settings(
     let mut builder = update::Settings::new(&mut wtxn, &index, &indexer_config);
 
     // Copy over the given settings
-    builder.set_searchable_fields(searchable_fields);
+    searchable_fields.map(|fields| builder.set_searchable_fields(fields));
     builder.set_filterable_fields(filterable_fields.into_iter().collect());
     builder.set_sortable_fields(sortable_fields.into_iter().collect());
     builder.set_criteria(ranking_rules);
-    builder.set_stop_words(stop_words.into_iter().collect());
+    stop_words.map(|words| builder.set_stop_words(words.into_iter().collect()));
     builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
     builder.set_autorize_typos(typo_tolerance.enabled);
     builder.set_min_word_len_one_typo(typo_tolerance.min_word_size_for_one_typo);
     builder.set_min_word_len_two_typos(typo_tolerance.min_word_size_for_two_typos);
-    builder.set_exact_words(typo_tolerance.disable_on_words);
-    builder.set_exact_attributes(typo_tolerance.disable_on_fields);
+    builder.set_exact_words(typo_tolerance.disable_on_words.into_iter().collect());
+    builder.set_exact_attributes(typo_tolerance.disable_on_fields.into_iter().collect());
 
     // Execute the settings update
     builder.execute(|_| {}, || false)?;

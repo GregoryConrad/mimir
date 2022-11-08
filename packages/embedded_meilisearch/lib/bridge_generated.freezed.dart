@@ -16,21 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MeiliIndexSettings {
-  List<String> get searchableFields => throw _privateConstructorUsedError;
+  List<String>? get searchableFields => throw _privateConstructorUsedError;
   List<String> get filterableFields => throw _privateConstructorUsedError;
   List<String> get sortableFields => throw _privateConstructorUsedError;
   List<String> get rankingRules => throw _privateConstructorUsedError;
-  List<String> get stopWords => throw _privateConstructorUsedError;
+  List<String>? get stopWords => throw _privateConstructorUsedError;
   List<Synonyms> get synonyms => throw _privateConstructorUsedError;
   TypoTolerance get typoTolerance => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<String> searchableFields,
+            List<String>? searchableFields,
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords,
+            List<String>? stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)
         raw,
@@ -39,11 +39,11 @@ mixin _$MeiliIndexSettings {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<String> searchableFields,
+            List<String>? searchableFields,
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords,
+            List<String>? stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -52,11 +52,11 @@ mixin _$MeiliIndexSettings {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<String> searchableFields,
+            List<String>? searchableFields,
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords,
+            List<String>? stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -92,11 +92,11 @@ abstract class $MeiliIndexSettingsCopyWith<$Res> {
       _$MeiliIndexSettingsCopyWithImpl<$Res, MeiliIndexSettings>;
   @useResult
   $Res call(
-      {List<String> searchableFields,
+      {List<String>? searchableFields,
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
-      List<String> stopWords,
+      List<String>? stopWords,
       List<Synonyms> synonyms,
       TypoTolerance typoTolerance});
 }
@@ -114,19 +114,19 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? searchableFields = null,
+    Object? searchableFields = freezed,
     Object? filterableFields = null,
     Object? sortableFields = null,
     Object? rankingRules = null,
-    Object? stopWords = null,
+    Object? stopWords = freezed,
     Object? synonyms = null,
     Object? typoTolerance = null,
   }) {
     return _then(_value.copyWith(
-      searchableFields: null == searchableFields
+      searchableFields: freezed == searchableFields
           ? _value.searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
       filterableFields: null == filterableFields
           ? _value.filterableFields
           : filterableFields // ignore: cast_nullable_to_non_nullable
@@ -139,10 +139,10 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
           ? _value.rankingRules
           : rankingRules // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      stopWords: null == stopWords
+      stopWords: freezed == stopWords
           ? _value.stopWords
           : stopWords // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
       synonyms: null == synonyms
           ? _value.synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
@@ -164,11 +164,11 @@ abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<String> searchableFields,
+      {List<String>? searchableFields,
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
-      List<String> stopWords,
+      List<String>? stopWords,
       List<Synonyms> synonyms,
       TypoTolerance typoTolerance});
 }
@@ -184,19 +184,19 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? searchableFields = null,
+    Object? searchableFields = freezed,
     Object? filterableFields = null,
     Object? sortableFields = null,
     Object? rankingRules = null,
-    Object? stopWords = null,
+    Object? stopWords = freezed,
     Object? synonyms = null,
     Object? typoTolerance = null,
   }) {
     return _then(_$MeiliIndexSettings_Raw(
-      searchableFields: null == searchableFields
+      searchableFields: freezed == searchableFields
           ? _value._searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
       filterableFields: null == filterableFields
           ? _value._filterableFields
           : filterableFields // ignore: cast_nullable_to_non_nullable
@@ -209,10 +209,10 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
           ? _value._rankingRules
           : rankingRules // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      stopWords: null == stopWords
+      stopWords: freezed == stopWords
           ? _value._stopWords
           : stopWords // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
       synonyms: null == synonyms
           ? _value._synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
@@ -229,11 +229,11 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
 
 class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   const _$MeiliIndexSettings_Raw(
-      {required final List<String> searchableFields,
+      {final List<String>? searchableFields,
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
-      required final List<String> stopWords,
+      final List<String>? stopWords,
       required final List<Synonyms> synonyms,
       required this.typoTolerance})
       : _searchableFields = searchableFields,
@@ -243,11 +243,13 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
         _stopWords = stopWords,
         _synonyms = synonyms;
 
-  final List<String> _searchableFields;
+  final List<String>? _searchableFields;
   @override
-  List<String> get searchableFields {
+  List<String>? get searchableFields {
+    final value = _searchableFields;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_searchableFields);
+    return EqualUnmodifiableListView(value);
   }
 
   final List<String> _filterableFields;
@@ -271,11 +273,13 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
     return EqualUnmodifiableListView(_rankingRules);
   }
 
-  final List<String> _stopWords;
+  final List<String>? _stopWords;
   @override
-  List<String> get stopWords {
+  List<String>? get stopWords {
+    final value = _stopWords;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_stopWords);
+    return EqualUnmodifiableListView(value);
   }
 
   final List<Synonyms> _synonyms;
@@ -335,11 +339,11 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<String> searchableFields,
+            List<String>? searchableFields,
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords,
+            List<String>? stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)
         raw,
@@ -352,11 +356,11 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<String> searchableFields,
+            List<String>? searchableFields,
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords,
+            List<String>? stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -369,11 +373,11 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<String> searchableFields,
+            List<String>? searchableFields,
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords,
+            List<String>? stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -417,16 +421,16 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
 
 abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
   const factory MeiliIndexSettings_Raw(
-      {required final List<String> searchableFields,
+      {final List<String>? searchableFields,
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
-      required final List<String> stopWords,
+      final List<String>? stopWords,
       required final List<Synonyms> synonyms,
       required final TypoTolerance typoTolerance}) = _$MeiliIndexSettings_Raw;
 
   @override
-  List<String> get searchableFields;
+  List<String>? get searchableFields;
   @override
   List<String> get filterableFields;
   @override
@@ -434,7 +438,7 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
   @override
   List<String> get rankingRules;
   @override
-  List<String> get stopWords;
+  List<String>? get stopWords;
   @override
   List<Synonyms> get synonyms;
   @override
