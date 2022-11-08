@@ -101,8 +101,9 @@ abstract class EmbeddedMilli {
 class MeiliIndexSettings with _$MeiliIndexSettings {
   /// The settings of a milli index.
   const factory MeiliIndexSettings.raw({
-    required List<String> searchableAttributes,
-    required List<String> filterableAttributes,
+    required List<String> searchableFields,
+    required List<String> filterableFields,
+    required List<String> sortableFields,
     required List<String> rankingRules,
     required List<String> stopWords,
   }) = MeiliIndexSettings_Raw;
@@ -400,10 +401,11 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     switch (raw[0]) {
       case 0:
         return MeiliIndexSettings_Raw(
-          searchableAttributes: _wire2api_StringList(raw[1]),
-          filterableAttributes: _wire2api_StringList(raw[2]),
-          rankingRules: _wire2api_StringList(raw[3]),
-          stopWords: _wire2api_StringList(raw[4]),
+          searchableFields: _wire2api_StringList(raw[1]),
+          filterableFields: _wire2api_StringList(raw[2]),
+          sortableFields: _wire2api_StringList(raw[3]),
+          rankingRules: _wire2api_StringList(raw[4]),
+          stopWords: _wire2api_StringList(raw[5]),
         );
       default:
         throw Exception("unreachable");
@@ -525,10 +527,12 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
     if (apiObj is MeiliIndexSettings_Raw) {
       wireObj.tag = 0;
       wireObj.kind = inner.inflate_MeiliIndexSettings_Raw();
-      wireObj.kind.ref.Raw.ref.searchable_attributes =
-          api2wire_StringList(apiObj.searchableAttributes);
-      wireObj.kind.ref.Raw.ref.filterable_attributes =
-          api2wire_StringList(apiObj.filterableAttributes);
+      wireObj.kind.ref.Raw.ref.searchable_fields =
+          api2wire_StringList(apiObj.searchableFields);
+      wireObj.kind.ref.Raw.ref.filterable_fields =
+          api2wire_StringList(apiObj.filterableFields);
+      wireObj.kind.ref.Raw.ref.sortable_fields =
+          api2wire_StringList(apiObj.sortableFields);
       wireObj.kind.ref.Raw.ref.ranking_rules =
           api2wire_StringList(apiObj.rankingRules);
       wireObj.kind.ref.Raw.ref.stop_words =
@@ -996,9 +1000,11 @@ class wire_list_sort_asc_desc extends ffi.Struct {
 }
 
 class wire_MeiliIndexSettings_Raw extends ffi.Struct {
-  external ffi.Pointer<wire_StringList> searchable_attributes;
+  external ffi.Pointer<wire_StringList> searchable_fields;
 
-  external ffi.Pointer<wire_StringList> filterable_attributes;
+  external ffi.Pointer<wire_StringList> filterable_fields;
+
+  external ffi.Pointer<wire_StringList> sortable_fields;
 
   external ffi.Pointer<wire_StringList> ranking_rules;
 

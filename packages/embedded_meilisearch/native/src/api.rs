@@ -1,8 +1,9 @@
 use std::{
-    collections::HashMap,
+    collections::{HashMap, HashSet},
     convert::TryInto,
     fs::create_dir_all,
     io::Cursor,
+    iter::FromIterator,
     path::Path,
     sync::{Mutex, RwLock},
 };
@@ -13,8 +14,7 @@ use lazy_static::lazy_static;
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed::EnvOpenOptions,
-    update::{IndexDocuments, IndexDocumentsConfig, IndexDocumentsMethod, IndexerConfig},
-    AscDesc, Index, Member, Search, SearchResult,
+    update, AscDesc, Index, Member, Search, SearchResult,
 };
 
 lazy_static! {
@@ -128,15 +128,15 @@ pub fn add_documents(
     let reader = DocumentsBatchReader::from_reader(Cursor::new(buff))?;
 
     // Create the configs needed for the batch document addition
-    let indexer_config = IndexerConfig::default();
-    let indexing_config = IndexDocumentsConfig {
-        update_method: IndexDocumentsMethod::ReplaceDocuments,
+    let indexer_config = update::IndexerConfig::default();
+    let indexing_config = update::IndexDocumentsConfig {
+        update_method: update::IndexDocumentsMethod::ReplaceDocuments,
         ..Default::default()
     };
 
     // Make an index write transaction with a batch step to index the new documents
     let mut wtxn = index.write_txn()?;
-    IndexDocuments::new(
+    update::IndexDocuments::new(
         &mut wtxn,
         &index,
         &indexer_config,
@@ -298,13 +298,13 @@ pub enum MeiliIndexSettings {
     /// The settings of a milli index.
     // Name is "Raw" so we get MeiliIndexSettings.raw constructor in Dart
     Raw {
-        searchable_attributes: Vec<String>,
-        filterable_attributes: Vec<String>,
+        searchable_fields: Vec<String>,
+        filterable_fields: Vec<String>,
+        sortable_fields: Vec<String>,
         ranking_rules: Vec<String>,
         stop_words: Vec<String>,
         // TODO:
         // synonyms: Vec<String>,
-        // distinctAttribute: ,
         // typoTolerance
     },
 }
@@ -330,5 +330,39 @@ pub fn set_settings(
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    // Destructure the settings into the corresponding fields
+    let (searchable_fields, filterable_fields, sortable_fields, ranking_rules, stop_words) =
+        match settings {
+            MeiliIndexSettings::Raw {
+                searchable_fields,
+                filterable_fields,
+                sortable_fields,
+                ranking_rules,
+                stop_words,
+            } => (
+                searchable_fields,
+                filterable_fields,
+                sortable_fields,
+                ranking_rules,
+                stop_words,
+            ),
+        };
+
+    // Set up the settings update
+    let mut wtxn = index.write_txn()?;
+    let indexer_config = update::IndexerConfig::default();
+    let mut builder = update::Settings::new(&mut wtxn, &index, &indexer_config);
+
+    // Copy over the given settings
+    builder.set_searchable_fields(searchable_fields);
+    builder.set_filterable_fields(filterable_fields.into_iter().collect());
+    builder.set_sortable_fields(sortable_fields.into_iter().collect());
+    builder.set_criteria(ranking_rules);
+    builder.set_stop_words(stop_words.into_iter().collect());
+
+    // Execute the settings update
+    builder.execute(|_| {}, || false)?;
+    wtxn.commit()?;
+
+    Ok(())
 }

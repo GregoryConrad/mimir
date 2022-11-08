@@ -186,8 +186,9 @@ impl Wire2Api<MeiliIndexSettings> for wire_MeiliIndexSettings {
                 let ans = support::box_from_leak_ptr(self.kind);
                 let ans = support::box_from_leak_ptr(ans.Raw);
                 MeiliIndexSettings::Raw {
-                    searchable_attributes: ans.searchable_attributes.wire2api(),
-                    filterable_attributes: ans.filterable_attributes.wire2api(),
+                    searchable_fields: ans.searchable_fields.wire2api(),
+                    filterable_fields: ans.filterable_fields.wire2api(),
+                    sortable_fields: ans.sortable_fields.wire2api(),
                     ranking_rules: ans.ranking_rules.wire2api(),
                     stop_words: ans.stop_words.wire2api(),
                 }
@@ -261,8 +262,9 @@ pub union MeiliIndexSettingsKind {
 #[repr(C)]
 #[derive(Clone)]
 pub struct wire_MeiliIndexSettings_Raw {
-    searchable_attributes: *mut wire_StringList,
-    filterable_attributes: *mut wire_StringList,
+    searchable_fields: *mut wire_StringList,
+    filterable_fields: *mut wire_StringList,
+    sortable_fields: *mut wire_StringList,
     ranking_rules: *mut wire_StringList,
     stop_words: *mut wire_StringList,
 }
@@ -317,8 +319,9 @@ impl NewWithNullPtr for wire_MeiliIndexSettings {
 pub extern "C" fn inflate_MeiliIndexSettings_Raw() -> *mut MeiliIndexSettingsKind {
     support::new_leak_box_ptr(MeiliIndexSettingsKind {
         Raw: support::new_leak_box_ptr(wire_MeiliIndexSettings_Raw {
-            searchable_attributes: core::ptr::null_mut(),
-            filterable_attributes: core::ptr::null_mut(),
+            searchable_fields: core::ptr::null_mut(),
+            filterable_fields: core::ptr::null_mut(),
+            sortable_fields: core::ptr::null_mut(),
             ranking_rules: core::ptr::null_mut(),
             stop_words: core::ptr::null_mut(),
         }),

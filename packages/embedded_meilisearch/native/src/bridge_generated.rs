@@ -288,14 +288,16 @@ impl support::IntoDart for MeiliIndexSettings {
     fn into_dart(self) -> support::DartAbi {
         match self {
             Self::Raw {
-                searchable_attributes,
-                filterable_attributes,
+                searchable_fields,
+                filterable_fields,
+                sortable_fields,
                 ranking_rules,
                 stop_words,
             } => vec![
                 0.into_dart(),
-                searchable_attributes.into_dart(),
-                filterable_attributes.into_dart(),
+                searchable_fields.into_dart(),
+                filterable_fields.into_dart(),
+                sortable_fields.into_dart(),
                 ranking_rules.into_dart(),
                 stop_words.into_dart(),
             ],

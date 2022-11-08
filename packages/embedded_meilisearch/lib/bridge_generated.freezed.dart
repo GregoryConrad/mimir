@@ -16,15 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MeiliIndexSettings {
-  List<String> get searchableAttributes => throw _privateConstructorUsedError;
-  List<String> get filterableAttributes => throw _privateConstructorUsedError;
+  List<String> get searchableFields => throw _privateConstructorUsedError;
+  List<String> get filterableFields => throw _privateConstructorUsedError;
+  List<String> get sortableFields => throw _privateConstructorUsedError;
   List<String> get rankingRules => throw _privateConstructorUsedError;
   List<String> get stopWords => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<String> searchableAttributes,
-            List<String> filterableAttributes,
+            List<String> searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords)
         raw,
@@ -33,8 +35,9 @@ mixin _$MeiliIndexSettings {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<String> searchableAttributes,
-            List<String> filterableAttributes,
+            List<String> searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords)?
         raw,
@@ -43,8 +46,9 @@ mixin _$MeiliIndexSettings {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<String> searchableAttributes,
-            List<String> filterableAttributes,
+            List<String> searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords)?
         raw,
@@ -80,8 +84,9 @@ abstract class $MeiliIndexSettingsCopyWith<$Res> {
       _$MeiliIndexSettingsCopyWithImpl<$Res, MeiliIndexSettings>;
   @useResult
   $Res call(
-      {List<String> searchableAttributes,
-      List<String> filterableAttributes,
+      {List<String> searchableFields,
+      List<String> filterableFields,
+      List<String> sortableFields,
       List<String> rankingRules,
       List<String> stopWords});
 }
@@ -99,19 +104,24 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? searchableAttributes = null,
-    Object? filterableAttributes = null,
+    Object? searchableFields = null,
+    Object? filterableFields = null,
+    Object? sortableFields = null,
     Object? rankingRules = null,
     Object? stopWords = null,
   }) {
     return _then(_value.copyWith(
-      searchableAttributes: null == searchableAttributes
-          ? _value.searchableAttributes
-          : searchableAttributes // ignore: cast_nullable_to_non_nullable
+      searchableFields: null == searchableFields
+          ? _value.searchableFields
+          : searchableFields // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      filterableAttributes: null == filterableAttributes
-          ? _value.filterableAttributes
-          : filterableAttributes // ignore: cast_nullable_to_non_nullable
+      filterableFields: null == filterableFields
+          ? _value.filterableFields
+          : filterableFields // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      sortableFields: null == sortableFields
+          ? _value.sortableFields
+          : sortableFields // ignore: cast_nullable_to_non_nullable
               as List<String>,
       rankingRules: null == rankingRules
           ? _value.rankingRules
@@ -134,8 +144,9 @@ abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<String> searchableAttributes,
-      List<String> filterableAttributes,
+      {List<String> searchableFields,
+      List<String> filterableFields,
+      List<String> sortableFields,
       List<String> rankingRules,
       List<String> stopWords});
 }
@@ -151,19 +162,24 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? searchableAttributes = null,
-    Object? filterableAttributes = null,
+    Object? searchableFields = null,
+    Object? filterableFields = null,
+    Object? sortableFields = null,
     Object? rankingRules = null,
     Object? stopWords = null,
   }) {
     return _then(_$MeiliIndexSettings_Raw(
-      searchableAttributes: null == searchableAttributes
-          ? _value._searchableAttributes
-          : searchableAttributes // ignore: cast_nullable_to_non_nullable
+      searchableFields: null == searchableFields
+          ? _value._searchableFields
+          : searchableFields // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      filterableAttributes: null == filterableAttributes
-          ? _value._filterableAttributes
-          : filterableAttributes // ignore: cast_nullable_to_non_nullable
+      filterableFields: null == filterableFields
+          ? _value._filterableFields
+          : filterableFields // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      sortableFields: null == sortableFields
+          ? _value._sortableFields
+          : sortableFields // ignore: cast_nullable_to_non_nullable
               as List<String>,
       rankingRules: null == rankingRules
           ? _value._rankingRules
@@ -181,27 +197,36 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
 
 class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   const _$MeiliIndexSettings_Raw(
-      {required final List<String> searchableAttributes,
-      required final List<String> filterableAttributes,
+      {required final List<String> searchableFields,
+      required final List<String> filterableFields,
+      required final List<String> sortableFields,
       required final List<String> rankingRules,
       required final List<String> stopWords})
-      : _searchableAttributes = searchableAttributes,
-        _filterableAttributes = filterableAttributes,
+      : _searchableFields = searchableFields,
+        _filterableFields = filterableFields,
+        _sortableFields = sortableFields,
         _rankingRules = rankingRules,
         _stopWords = stopWords;
 
-  final List<String> _searchableAttributes;
+  final List<String> _searchableFields;
   @override
-  List<String> get searchableAttributes {
+  List<String> get searchableFields {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_searchableAttributes);
+    return EqualUnmodifiableListView(_searchableFields);
   }
 
-  final List<String> _filterableAttributes;
+  final List<String> _filterableFields;
   @override
-  List<String> get filterableAttributes {
+  List<String> get filterableFields {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_filterableAttributes);
+    return EqualUnmodifiableListView(_filterableFields);
+  }
+
+  final List<String> _sortableFields;
+  @override
+  List<String> get sortableFields {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_sortableFields);
   }
 
   final List<String> _rankingRules;
@@ -220,7 +245,7 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
 
   @override
   String toString() {
-    return 'MeiliIndexSettings.raw(searchableAttributes: $searchableAttributes, filterableAttributes: $filterableAttributes, rankingRules: $rankingRules, stopWords: $stopWords)';
+    return 'MeiliIndexSettings.raw(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords)';
   }
 
   @override
@@ -229,9 +254,11 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
         (other.runtimeType == runtimeType &&
             other is _$MeiliIndexSettings_Raw &&
             const DeepCollectionEquality()
-                .equals(other._searchableAttributes, _searchableAttributes) &&
+                .equals(other._searchableFields, _searchableFields) &&
             const DeepCollectionEquality()
-                .equals(other._filterableAttributes, _filterableAttributes) &&
+                .equals(other._filterableFields, _filterableFields) &&
+            const DeepCollectionEquality()
+                .equals(other._sortableFields, _sortableFields) &&
             const DeepCollectionEquality()
                 .equals(other._rankingRules, _rankingRules) &&
             const DeepCollectionEquality()
@@ -241,8 +268,9 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_searchableAttributes),
-      const DeepCollectionEquality().hash(_filterableAttributes),
+      const DeepCollectionEquality().hash(_searchableFields),
+      const DeepCollectionEquality().hash(_filterableFields),
+      const DeepCollectionEquality().hash(_sortableFields),
       const DeepCollectionEquality().hash(_rankingRules),
       const DeepCollectionEquality().hash(_stopWords));
 
@@ -257,44 +285,47 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            List<String> searchableAttributes,
-            List<String> filterableAttributes,
+            List<String> searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords)
         raw,
   }) {
-    return raw(
-        searchableAttributes, filterableAttributes, rankingRules, stopWords);
+    return raw(searchableFields, filterableFields, sortableFields, rankingRules,
+        stopWords);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            List<String> searchableAttributes,
-            List<String> filterableAttributes,
+            List<String> searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords)?
         raw,
   }) {
-    return raw?.call(
-        searchableAttributes, filterableAttributes, rankingRules, stopWords);
+    return raw?.call(searchableFields, filterableFields, sortableFields,
+        rankingRules, stopWords);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            List<String> searchableAttributes,
-            List<String> filterableAttributes,
+            List<String> searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords)?
         raw,
     required TResult orElse(),
   }) {
     if (raw != null) {
-      return raw(
-          searchableAttributes, filterableAttributes, rankingRules, stopWords);
+      return raw(searchableFields, filterableFields, sortableFields,
+          rankingRules, stopWords);
     }
     return orElse();
   }
@@ -330,15 +361,18 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
 
 abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
   const factory MeiliIndexSettings_Raw(
-      {required final List<String> searchableAttributes,
-      required final List<String> filterableAttributes,
+      {required final List<String> searchableFields,
+      required final List<String> filterableFields,
+      required final List<String> sortableFields,
       required final List<String> rankingRules,
       required final List<String> stopWords}) = _$MeiliIndexSettings_Raw;
 
   @override
-  List<String> get searchableAttributes;
+  List<String> get searchableFields;
   @override
-  List<String> get filterableAttributes;
+  List<String> get filterableFields;
+  @override
+  List<String> get sortableFields;
   @override
   List<String> get rankingRules;
   @override
