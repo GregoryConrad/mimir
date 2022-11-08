@@ -425,7 +425,10 @@ pub fn set_settings(
     let mut builder = update::Settings::new(&mut wtxn, &index, &indexer_config);
 
     // Copy over the given settings
-    searchable_fields.map(|fields| builder.set_searchable_fields(fields));
+    match searchable_fields {
+        Some(fields) => builder.set_searchable_fields(fields),
+        None => builder.reset_searchable_fields(),
+    }
     builder.set_filterable_fields(filterable_fields.into_iter().collect());
     builder.set_sortable_fields(sortable_fields.into_iter().collect());
     builder.set_criteria(ranking_rules);
