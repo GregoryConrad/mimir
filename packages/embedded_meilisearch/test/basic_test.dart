@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 const allDocs = [
+  // Test data taken from the example at:
+  // https://github.com/meilisearch/milli/blob/main/README.md
   {
     "id": 2,
     "title": "Prideand Prejudice",
@@ -35,8 +37,6 @@ const allDocs = [
 
 void main() {
   test('Basic add/search functionality', () async {
-    // Test data taken from the example at:
-    // https://github.com/meilisearch/milli/blob/main/README.md
     final index = useTestIndex();
     await index.addDocuments(allDocs);
     final foundDocs = await index.search('horry');
@@ -47,13 +47,13 @@ void main() {
     );
   });
 
-  test('Get and set settings', () async {
+  test('Get and set all settings', () async {
     final index = useTestIndex();
-    final settings = MeiliIndexSettings.raw(
+    final originalSettings = MeiliIndexSettings.raw(
       filterableFields: ['quantity'],
       sortableFields: ['price'],
       searchableFields: ['title'],
-      stopWords: ['the'],
+      stopWords: ['the', 'of'],
       rankingRules: ['proximity', 'typo', 'words'],
       synonyms: [
         Synonyms(word: 'a', synonyms: ['b']),
@@ -62,14 +62,41 @@ void main() {
       ],
       typoTolerance: TypoTolerance(
         enabled: true,
-        disableOnFields: ['importantField'],
         disableOnWords: ['importantWord'],
+        disableOnFields: ['importantField'],
         minWordSizeForOneTypo: 3,
         minWordSizeForTwoTypos: 4,
       ),
     );
-    // TODO convert Synonyms & TypoTolerance to freezed to fix this fail
-    await index.setSettings(settings);
-    expect(await index.getSettings(), settings);
+    final newSettings = originalSettings.copyWith(
+      filterableFields: [],
+      sortableFields: [],
+      searchableFields: null,
+      stopWords: [],
+      synonyms: [],
+      rankingRules: [
+        'words',
+        'typo',
+        'proximity',
+        'attribute',
+        'sort',
+        'exactness',
+      ],
+      typoTolerance: TypoTolerance(
+        enabled: false,
+        disableOnWords: [],
+        disableOnFields: [],
+        minWordSizeForOneTypo: 4,
+        minWordSizeForTwoTypos: 5,
+      ),
+    );
+
+    await index.setSettings(originalSettings);
+    final actualSettings = await index.getSettings();
+    expect(actualSettings, originalSettings);
+
+    await index.setSettings(newSettings);
+    final actualNewSettings = await index.getSettings();
+    expect(actualNewSettings, newSettings);
   });
 }
