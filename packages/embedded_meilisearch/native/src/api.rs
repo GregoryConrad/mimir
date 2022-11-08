@@ -113,7 +113,7 @@ pub fn add_documents(
 
     // Create a batch builder to convert json_documents into milli's format
     let mut builder = DocumentsBatchBuilder::new(Vec::new());
-    for doc in json_documents.iter() {
+    for doc in json_documents {
         let doc: serde_json::Value = serde_json::from_str(&doc)?;
         let doc = doc
             .as_object()
@@ -277,7 +277,7 @@ pub fn search_documents(
     let index = get_index!(indexes, index_name);
 
     // Create the search
-    let mut rtxn = index.read_txn()?;
+    let rtxn = index.read_txn()?;
     let mut search = Search::new(&rtxn, &index);
 
     // Configure the search based on given parameters
