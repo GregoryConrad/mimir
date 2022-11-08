@@ -48,16 +48,6 @@ pub extern "C" fn wire_delete_all_documents(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_set_documents(
-    port_: i64,
-    instance_dir: *mut wire_uint_8_list,
-    index_name: *mut wire_uint_8_list,
-    json_documents: *mut wire_StringList,
-) {
-    wire_set_documents_impl(port_, instance_dir, index_name, json_documents)
-}
-
-#[no_mangle]
 pub extern "C" fn wire_get_document(
     port_: i64,
     instance_dir: *mut wire_uint_8_list,
