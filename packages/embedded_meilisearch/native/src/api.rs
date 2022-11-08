@@ -15,7 +15,7 @@ use milli::{
     heed::EnvOpenOptions,
     update,
     update::{IndexDocuments, IndexDocumentsConfig, IndexDocumentsMethod, IndexerConfig},
-    AscDesc, Index, Member, Search, SearchResult,
+    AscDesc, DocumentId, FieldsIdsMap, Index, Member, Search, SearchResult,
 };
 
 lazy_static! {
@@ -97,6 +97,29 @@ macro_rules! get_index {
     ($instance:ident, $index_name:ident) => {
         $instance.get(&$index_name).unwrap().lock().unwrap()
     };
+}
+
+fn milli_document_to_json(doc: obkv::KvReaderU16, fields_ids_map: &FieldsIdsMap) -> Result<String> {
+    let mut document = serde_json::Map::new();
+    for (key, value) in doc.iter() {
+        let value = serde_json::from_slice(value)?;
+        let key = fields_ids_map
+            .name(key)
+            .expect("Missing field name")
+            .to_string();
+        document.insert(key, value);
+    }
+    Ok(serde_json::to_string(&document)?)
+}
+
+fn convert_milli_documents(
+    milli_documents: Vec<(DocumentId, obkv::KvReaderU16)>,
+    fields_ids_map: &FieldsIdsMap,
+) -> Result<Vec<String>> {
+    milli_documents
+        .into_iter()
+        .map(|(_, doc)| milli_document_to_json(doc, fields_ids_map))
+        .collect::<Result<Vec<String>>>()
 }
 
 /// Adds the given list of documents to the specified milli index.
@@ -215,7 +238,15 @@ pub fn get_document(
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let rtxn = index.read_txn()?;
+    let fields_ids_map = index.fields_ids_map(&rtxn)?;
+    let external_ids = index.external_documents_ids(&rtxn)?;
+    let internal_id = external_ids.get(document_id).ok_or(anyhow::anyhow!(
+        "Failed to find internal document id from user's document id"
+    ))?;
+    let milli_documents = index.documents(&rtxn, vec![internal_id])?;
+    convert_milli_documents(milli_documents, &fields_ids_map)
+        .map(|docs| docs.first().map(String::from))
 }
 
 /// Returns all documents stored in the index.
@@ -225,7 +256,13 @@ pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let rtxn = index.read_txn()?;
+    let fields_ids_map = index.fields_ids_map(&rtxn)?;
+    let milli_documents = index
+        .all_documents(&rtxn)?
+        .map(|r| r.map_err(anyhow::Error::from))
+        .collect::<Result<Vec<(DocumentId, obkv::KvReaderU16)>>>()?;
+    convert_milli_documents(milli_documents, &fields_ids_map)
 }
 
 /// Re-export TermsMatchingStrategy from milli to use in search
@@ -297,22 +334,9 @@ pub fn search_documents(
 
     // Get the documents based on the search results
     let SearchResult { documents_ids, .. } = search.execute()?;
-    let field_ids_map = index.fields_ids_map(&rtxn)?;
-    let mut documents = Vec::new();
-    for (_id, obkv) in index.documents(&rtxn, documents_ids)? {
-        let mut document = serde_json::Map::new();
-        for (key, value) in obkv.iter() {
-            let value = serde_json::from_slice(value)?;
-            let key = field_ids_map
-                .name(key)
-                .expect("Missing field name")
-                .to_string();
-            document.insert(key, value);
-        }
-        let document = serde_json::to_string(&document)?;
-        documents.push(document);
-    }
-    Ok(documents)
+    let fields_ids_map = index.fields_ids_map(&rtxn)?;
+    let milli_documents = index.documents(&rtxn, documents_ids)?;
+    convert_milli_documents(milli_documents, &fields_ids_map)
 }
 
 // pub fn template(
