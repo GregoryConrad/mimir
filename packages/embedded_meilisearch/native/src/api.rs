@@ -297,6 +297,15 @@ pub struct Synonyms {
     pub synonyms: Vec<String>,
 }
 
+/// Represents the typo tolerance settings of an index
+pub struct TypoTolerance {
+    enabled: bool,
+    min_word_size_for_one_typo: u8,
+    min_word_size_for_two_typos: u8,
+    disable_on_words: Vec<String>,
+    disable_on_fields: Vec<String>,
+}
+
 /// The settings of a milli index
 // This is created as an enum so we get freezed support.
 // Regular created classes do not have equals, copyWith, etc.
@@ -310,8 +319,7 @@ pub enum MeiliIndexSettings {
         ranking_rules: Vec<String>,
         stop_words: Vec<String>,
         synonyms: Vec<Synonyms>,
-        // TODO:
-        // typoTolerance
+        typo_tolerance: TypoTolerance,
     },
 }
 
@@ -344,6 +352,7 @@ pub fn set_settings(
         ranking_rules,
         stop_words,
         synonyms,
+        typo_tolerance,
     ) = match settings {
         MeiliIndexSettings::Raw {
             searchable_fields,
@@ -352,6 +361,7 @@ pub fn set_settings(
             ranking_rules,
             stop_words,
             synonyms,
+            typo_tolerance,
         } => (
             searchable_fields,
             filterable_fields,
@@ -359,6 +369,7 @@ pub fn set_settings(
             ranking_rules,
             stop_words,
             synonyms,
+            typo_tolerance,
         ),
     };
 
@@ -374,6 +385,11 @@ pub fn set_settings(
     builder.set_criteria(ranking_rules);
     builder.set_stop_words(stop_words.into_iter().collect());
     builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
+    builder.set_autorize_typos(typo_tolerance.enabled);
+    builder.set_min_word_len_one_typo(typo_tolerance.min_word_size_for_one_typo);
+    builder.set_min_word_len_two_typos(typo_tolerance.min_word_size_for_two_typos);
+    builder.set_exact_words(typo_tolerance.disable_on_words);
+    builder.set_exact_attributes(typo_tolerance.disable_on_fields);
 
     // Execute the settings update
     builder.execute(|_| {}, || false)?;

@@ -107,6 +107,7 @@ class MeiliIndexSettings with _$MeiliIndexSettings {
     required List<String> rankingRules,
     required List<String> stopWords,
     required List<Synonyms> synonyms,
+    required TypoTolerance typoTolerance,
   }) = MeiliIndexSettings_Raw;
 }
 
@@ -150,6 +151,23 @@ enum TermsMatchingStrategy {
 
   /// All words are mandatory
   All,
+}
+
+/// Represents the typo tolerance settings of an index
+class TypoTolerance {
+  final bool enabled;
+  final int minWordSizeForOneTypo;
+  final int minWordSizeForTwoTypos;
+  final List<String> disableOnWords;
+  final List<String> disableOnFields;
+
+  TypoTolerance({
+    required this.enabled,
+    required this.minWordSizeForOneTypo,
+    required this.minWordSizeForTwoTypos,
+    required this.disableOnWords,
+    required this.disableOnFields,
+  });
 }
 
 class EmbeddedMilliImpl implements EmbeddedMilli {
@@ -409,6 +427,14 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     return (raw as List<dynamic>).cast<String>();
   }
 
+  bool _wire2api_bool(dynamic raw) {
+    return raw as bool;
+  }
+
+  TypoTolerance _wire2api_box_autoadd_typo_tolerance(dynamic raw) {
+    return _wire2api_typo_tolerance(raw);
+  }
+
   List<Synonyms> _wire2api_list_synonyms(dynamic raw) {
     return (raw as List<dynamic>).map(_wire2api_synonyms).toList();
   }
@@ -423,6 +449,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
           rankingRules: _wire2api_StringList(raw[4]),
           stopWords: _wire2api_StringList(raw[5]),
           synonyms: _wire2api_list_synonyms(raw[6]),
+          typoTolerance: _wire2api_box_autoadd_typo_tolerance(raw[7]),
         );
       default:
         throw Exception("unreachable");
@@ -443,6 +470,19 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     );
   }
 
+  TypoTolerance _wire2api_typo_tolerance(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
+    return TypoTolerance(
+      enabled: _wire2api_bool(arr[0]),
+      minWordSizeForOneTypo: _wire2api_u8(arr[1]),
+      minWordSizeForTwoTypos: _wire2api_u8(arr[2]),
+      disableOnWords: _wire2api_StringList(arr[3]),
+      disableOnFields: _wire2api_StringList(arr[4]),
+    );
+  }
+
   int _wire2api_u8(dynamic raw) {
     return raw as int;
   }
@@ -457,6 +497,11 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
 }
 
 // Section: api2wire
+
+@protected
+bool api2wire_bool(bool raw) {
+  return raw;
+}
 
 @protected
 int api2wire_i32(int raw) {
@@ -502,6 +547,14 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
       api2wire_box_autoadd_meili_index_settings(MeiliIndexSettings raw) {
     final ptr = inner.new_box_autoadd_meili_index_settings_0();
     _api_fill_to_wire_meili_index_settings(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_TypoTolerance> api2wire_box_autoadd_typo_tolerance(
+      TypoTolerance raw) {
+    final ptr = inner.new_box_autoadd_typo_tolerance_0();
+    _api_fill_to_wire_typo_tolerance(raw, ptr.ref);
     return ptr;
   }
 
@@ -558,6 +611,11 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
     _api_fill_to_wire_meili_index_settings(apiObj, wireObj.ref);
   }
 
+  void _api_fill_to_wire_box_autoadd_typo_tolerance(
+      TypoTolerance apiObj, ffi.Pointer<wire_TypoTolerance> wireObj) {
+    _api_fill_to_wire_typo_tolerance(apiObj, wireObj.ref);
+  }
+
   void _api_fill_to_wire_meili_index_settings(
       MeiliIndexSettings apiObj, wire_MeiliIndexSettings wireObj) {
     if (apiObj is MeiliIndexSettings_Raw) {
@@ -575,6 +633,8 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
           api2wire_StringList(apiObj.stopWords);
       wireObj.kind.ref.Raw.ref.synonyms =
           api2wire_list_synonyms(apiObj.synonyms);
+      wireObj.kind.ref.Raw.ref.typo_tolerance =
+          api2wire_box_autoadd_typo_tolerance(apiObj.typoTolerance);
       return;
     }
   }
@@ -598,6 +658,17 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   void _api_fill_to_wire_synonyms(Synonyms apiObj, wire_Synonyms wireObj) {
     wireObj.word = api2wire_String(apiObj.word);
     wireObj.synonyms = api2wire_StringList(apiObj.synonyms);
+  }
+
+  void _api_fill_to_wire_typo_tolerance(
+      TypoTolerance apiObj, wire_TypoTolerance wireObj) {
+    wireObj.enabled = api2wire_bool(apiObj.enabled);
+    wireObj.min_word_size_for_one_typo =
+        api2wire_u8(apiObj.minWordSizeForOneTypo);
+    wireObj.min_word_size_for_two_typos =
+        api2wire_u8(apiObj.minWordSizeForTwoTypos);
+    wireObj.disable_on_words = api2wire_StringList(apiObj.disableOnWords);
+    wireObj.disable_on_fields = api2wire_StringList(apiObj.disableOnFields);
   }
 }
 
@@ -910,6 +981,17 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
       _new_box_autoadd_meili_index_settings_0Ptr
           .asFunction<ffi.Pointer<wire_MeiliIndexSettings> Function()>();
 
+  ffi.Pointer<wire_TypoTolerance> new_box_autoadd_typo_tolerance_0() {
+    return _new_box_autoadd_typo_tolerance_0();
+  }
+
+  late final _new_box_autoadd_typo_tolerance_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_TypoTolerance> Function()>>(
+          'new_box_autoadd_typo_tolerance_0');
+  late final _new_box_autoadd_typo_tolerance_0 =
+      _new_box_autoadd_typo_tolerance_0Ptr
+          .asFunction<ffi.Pointer<wire_TypoTolerance> Function()>();
+
   ffi.Pointer<ffi.Uint32> new_box_autoadd_u32_0(
     int value,
   ) {
@@ -1070,6 +1152,21 @@ class wire_list_synonyms extends ffi.Struct {
   external int len;
 }
 
+class wire_TypoTolerance extends ffi.Struct {
+  @ffi.Bool()
+  external bool enabled;
+
+  @ffi.Uint8()
+  external int min_word_size_for_one_typo;
+
+  @ffi.Uint8()
+  external int min_word_size_for_two_typos;
+
+  external ffi.Pointer<wire_StringList> disable_on_words;
+
+  external ffi.Pointer<wire_StringList> disable_on_fields;
+}
+
 class wire_MeiliIndexSettings_Raw extends ffi.Struct {
   external ffi.Pointer<wire_StringList> searchable_fields;
 
@@ -1082,6 +1179,8 @@ class wire_MeiliIndexSettings_Raw extends ffi.Struct {
   external ffi.Pointer<wire_StringList> stop_words;
 
   external ffi.Pointer<wire_list_synonyms> synonyms;
+
+  external ffi.Pointer<wire_TypoTolerance> typo_tolerance;
 }
 
 class MeiliIndexSettingsKind extends ffi.Union {

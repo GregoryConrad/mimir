@@ -22,6 +22,7 @@ mixin _$MeiliIndexSettings {
   List<String> get rankingRules => throw _privateConstructorUsedError;
   List<String> get stopWords => throw _privateConstructorUsedError;
   List<Synonyms> get synonyms => throw _privateConstructorUsedError;
+  TypoTolerance get typoTolerance => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -30,7 +31,8 @@ mixin _$MeiliIndexSettings {
             List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords,
-            List<Synonyms> synonyms)
+            List<Synonyms> synonyms,
+            TypoTolerance typoTolerance)
         raw,
   }) =>
       throw _privateConstructorUsedError;
@@ -42,7 +44,8 @@ mixin _$MeiliIndexSettings {
             List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords,
-            List<Synonyms> synonyms)?
+            List<Synonyms> synonyms,
+            TypoTolerance typoTolerance)?
         raw,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,7 +57,8 @@ mixin _$MeiliIndexSettings {
             List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords,
-            List<Synonyms> synonyms)?
+            List<Synonyms> synonyms,
+            TypoTolerance typoTolerance)?
         raw,
     required TResult orElse(),
   }) =>
@@ -93,7 +97,8 @@ abstract class $MeiliIndexSettingsCopyWith<$Res> {
       List<String> sortableFields,
       List<String> rankingRules,
       List<String> stopWords,
-      List<Synonyms> synonyms});
+      List<Synonyms> synonyms,
+      TypoTolerance typoTolerance});
 }
 
 /// @nodoc
@@ -115,6 +120,7 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
     Object? rankingRules = null,
     Object? stopWords = null,
     Object? synonyms = null,
+    Object? typoTolerance = null,
   }) {
     return _then(_value.copyWith(
       searchableFields: null == searchableFields
@@ -141,6 +147,10 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
           ? _value.synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
               as List<Synonyms>,
+      typoTolerance: null == typoTolerance
+          ? _value.typoTolerance
+          : typoTolerance // ignore: cast_nullable_to_non_nullable
+              as TypoTolerance,
     ) as $Val);
   }
 }
@@ -159,7 +169,8 @@ abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
       List<String> sortableFields,
       List<String> rankingRules,
       List<String> stopWords,
-      List<Synonyms> synonyms});
+      List<Synonyms> synonyms,
+      TypoTolerance typoTolerance});
 }
 
 /// @nodoc
@@ -179,6 +190,7 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
     Object? rankingRules = null,
     Object? stopWords = null,
     Object? synonyms = null,
+    Object? typoTolerance = null,
   }) {
     return _then(_$MeiliIndexSettings_Raw(
       searchableFields: null == searchableFields
@@ -205,6 +217,10 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
           ? _value._synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
               as List<Synonyms>,
+      typoTolerance: null == typoTolerance
+          ? _value.typoTolerance
+          : typoTolerance // ignore: cast_nullable_to_non_nullable
+              as TypoTolerance,
     ));
   }
 }
@@ -218,7 +234,8 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
       required final List<String> sortableFields,
       required final List<String> rankingRules,
       required final List<String> stopWords,
-      required final List<Synonyms> synonyms})
+      required final List<Synonyms> synonyms,
+      required this.typoTolerance})
       : _searchableFields = searchableFields,
         _filterableFields = filterableFields,
         _sortableFields = sortableFields,
@@ -269,8 +286,11 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
   }
 
   @override
+  final TypoTolerance typoTolerance;
+
+  @override
   String toString() {
-    return 'MeiliIndexSettings.raw(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms)';
+    return 'MeiliIndexSettings.raw(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typoTolerance: $typoTolerance)';
   }
 
   @override
@@ -288,7 +308,9 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
                 .equals(other._rankingRules, _rankingRules) &&
             const DeepCollectionEquality()
                 .equals(other._stopWords, _stopWords) &&
-            const DeepCollectionEquality().equals(other._synonyms, _synonyms));
+            const DeepCollectionEquality().equals(other._synonyms, _synonyms) &&
+            (identical(other.typoTolerance, typoTolerance) ||
+                other.typoTolerance == typoTolerance));
   }
 
   @override
@@ -299,7 +321,8 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
       const DeepCollectionEquality().hash(_sortableFields),
       const DeepCollectionEquality().hash(_rankingRules),
       const DeepCollectionEquality().hash(_stopWords),
-      const DeepCollectionEquality().hash(_synonyms));
+      const DeepCollectionEquality().hash(_synonyms),
+      typoTolerance);
 
   @JsonKey(ignore: true)
   @override
@@ -317,11 +340,12 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords,
-            List<Synonyms> synonyms)
+            List<Synonyms> synonyms,
+            TypoTolerance typoTolerance)
         raw,
   }) {
     return raw(searchableFields, filterableFields, sortableFields, rankingRules,
-        stopWords, synonyms);
+        stopWords, synonyms, typoTolerance);
   }
 
   @override
@@ -333,11 +357,12 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords,
-            List<Synonyms> synonyms)?
+            List<Synonyms> synonyms,
+            TypoTolerance typoTolerance)?
         raw,
   }) {
     return raw?.call(searchableFields, filterableFields, sortableFields,
-        rankingRules, stopWords, synonyms);
+        rankingRules, stopWords, synonyms, typoTolerance);
   }
 
   @override
@@ -349,13 +374,14 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> sortableFields,
             List<String> rankingRules,
             List<String> stopWords,
-            List<Synonyms> synonyms)?
+            List<Synonyms> synonyms,
+            TypoTolerance typoTolerance)?
         raw,
     required TResult orElse(),
   }) {
     if (raw != null) {
       return raw(searchableFields, filterableFields, sortableFields,
-          rankingRules, stopWords, synonyms);
+          rankingRules, stopWords, synonyms, typoTolerance);
     }
     return orElse();
   }
@@ -396,7 +422,8 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
       required final List<String> sortableFields,
       required final List<String> rankingRules,
       required final List<String> stopWords,
-      required final List<Synonyms> synonyms}) = _$MeiliIndexSettings_Raw;
+      required final List<Synonyms> synonyms,
+      required final TypoTolerance typoTolerance}) = _$MeiliIndexSettings_Raw;
 
   @override
   List<String> get searchableFields;
@@ -410,6 +437,8 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
   List<String> get stopWords;
   @override
   List<Synonyms> get synonyms;
+  @override
+  TypoTolerance get typoTolerance;
   @override
   @JsonKey(ignore: true)
   _$$MeiliIndexSettings_RawCopyWith<_$MeiliIndexSettings_Raw> get copyWith =>
