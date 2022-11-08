@@ -316,7 +316,7 @@ pub enum MeiliIndexSettings {
         filterable_fields: Vec<String>,
         sortable_fields: Vec<String>,
         ranking_rules: Vec<String>,
-        stop_words: Option<Vec<String>>,
+        stop_words: Vec<String>,
         synonyms: Vec<Synonyms>,
         typo_tolerance: TypoTolerance,
     },
@@ -355,7 +355,7 @@ pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliInd
         stop_words: index
             .stop_words(&rtxn)?
             .map(|words| words.stream().into_strs())
-            .map_or(Ok(None), |r| r.map(Some))?,
+            .unwrap_or_else(|| Ok(Vec::new()))?,
         synonyms: index
             .synonyms(&rtxn)?
             .into_iter()
@@ -429,7 +429,7 @@ pub fn set_settings(
     builder.set_filterable_fields(filterable_fields.into_iter().collect());
     builder.set_sortable_fields(sortable_fields.into_iter().collect());
     builder.set_criteria(ranking_rules);
-    stop_words.map(|words| builder.set_stop_words(words.into_iter().collect()));
+    builder.set_stop_words(stop_words.into_iter().collect());
     builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
     builder.set_autorize_typos(typo_tolerance.enabled);
     builder.set_min_word_len_one_typo(typo_tolerance.min_word_size_for_one_typo);

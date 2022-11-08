@@ -105,7 +105,7 @@ class MeiliIndexSettings with _$MeiliIndexSettings {
     required List<String> filterableFields,
     required List<String> sortableFields,
     required List<String> rankingRules,
-    List<String>? stopWords,
+    required List<String> stopWords,
     required List<Synonyms> synonyms,
     required TypoTolerance typoTolerance,
   }) = MeiliIndexSettings_Raw;
@@ -447,7 +447,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
           filterableFields: _wire2api_StringList(raw[2]),
           sortableFields: _wire2api_StringList(raw[3]),
           rankingRules: _wire2api_StringList(raw[4]),
-          stopWords: _wire2api_opt_StringList(raw[5]),
+          stopWords: _wire2api_StringList(raw[5]),
           synonyms: _wire2api_list_synonyms(raw[6]),
           typoTolerance: _wire2api_box_autoadd_typo_tolerance(raw[7]),
         );
@@ -639,7 +639,7 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
       wireObj.kind.ref.Raw.ref.ranking_rules =
           api2wire_StringList(apiObj.rankingRules);
       wireObj.kind.ref.Raw.ref.stop_words =
-          api2wire_opt_StringList(apiObj.stopWords);
+          api2wire_StringList(apiObj.stopWords);
       wireObj.kind.ref.Raw.ref.synonyms =
           api2wire_list_synonyms(apiObj.synonyms);
       wireObj.kind.ref.Raw.ref.typo_tolerance =

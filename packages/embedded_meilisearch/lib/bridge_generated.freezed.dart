@@ -20,7 +20,7 @@ mixin _$MeiliIndexSettings {
   List<String> get filterableFields => throw _privateConstructorUsedError;
   List<String> get sortableFields => throw _privateConstructorUsedError;
   List<String> get rankingRules => throw _privateConstructorUsedError;
-  List<String>? get stopWords => throw _privateConstructorUsedError;
+  List<String> get stopWords => throw _privateConstructorUsedError;
   List<Synonyms> get synonyms => throw _privateConstructorUsedError;
   TypoTolerance get typoTolerance => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,7 +30,7 @@ mixin _$MeiliIndexSettings {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String>? stopWords,
+            List<String> stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)
         raw,
@@ -43,7 +43,7 @@ mixin _$MeiliIndexSettings {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String>? stopWords,
+            List<String> stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -56,7 +56,7 @@ mixin _$MeiliIndexSettings {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String>? stopWords,
+            List<String> stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -96,7 +96,7 @@ abstract class $MeiliIndexSettingsCopyWith<$Res> {
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
-      List<String>? stopWords,
+      List<String> stopWords,
       List<Synonyms> synonyms,
       TypoTolerance typoTolerance});
 }
@@ -118,7 +118,7 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
     Object? filterableFields = null,
     Object? sortableFields = null,
     Object? rankingRules = null,
-    Object? stopWords = freezed,
+    Object? stopWords = null,
     Object? synonyms = null,
     Object? typoTolerance = null,
   }) {
@@ -139,10 +139,10 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
           ? _value.rankingRules
           : rankingRules // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      stopWords: freezed == stopWords
+      stopWords: null == stopWords
           ? _value.stopWords
           : stopWords // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       synonyms: null == synonyms
           ? _value.synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
@@ -168,7 +168,7 @@ abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
-      List<String>? stopWords,
+      List<String> stopWords,
       List<Synonyms> synonyms,
       TypoTolerance typoTolerance});
 }
@@ -188,7 +188,7 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
     Object? filterableFields = null,
     Object? sortableFields = null,
     Object? rankingRules = null,
-    Object? stopWords = freezed,
+    Object? stopWords = null,
     Object? synonyms = null,
     Object? typoTolerance = null,
   }) {
@@ -209,10 +209,10 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
           ? _value._rankingRules
           : rankingRules // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      stopWords: freezed == stopWords
+      stopWords: null == stopWords
           ? _value._stopWords
           : stopWords // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
       synonyms: null == synonyms
           ? _value._synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
@@ -233,7 +233,7 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
-      final List<String>? stopWords,
+      required final List<String> stopWords,
       required final List<Synonyms> synonyms,
       required this.typoTolerance})
       : _searchableFields = searchableFields,
@@ -273,13 +273,11 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
     return EqualUnmodifiableListView(_rankingRules);
   }
 
-  final List<String>? _stopWords;
+  final List<String> _stopWords;
   @override
-  List<String>? get stopWords {
-    final value = _stopWords;
-    if (value == null) return null;
+  List<String> get stopWords {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_stopWords);
   }
 
   final List<Synonyms> _synonyms;
@@ -343,7 +341,7 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String>? stopWords,
+            List<String> stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)
         raw,
@@ -360,7 +358,7 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String>? stopWords,
+            List<String> stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -377,7 +375,7 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String>? stopWords,
+            List<String> stopWords,
             List<Synonyms> synonyms,
             TypoTolerance typoTolerance)?
         raw,
@@ -425,7 +423,7 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
-      final List<String>? stopWords,
+      required final List<String> stopWords,
       required final List<Synonyms> synonyms,
       required final TypoTolerance typoTolerance}) = _$MeiliIndexSettings_Raw;
 
@@ -438,7 +436,7 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
   @override
   List<String> get rankingRules;
   @override
-  List<String>? get stopWords;
+  List<String> get stopWords;
   @override
   List<Synonyms> get synonyms;
   @override
