@@ -291,7 +291,13 @@ pub fn search_documents(
     Ok(documents)
 }
 
-/// The settings of a milli index.
+/// Represents the synonyms of a given word
+pub struct Synonyms {
+    pub word: String,
+    pub synonyms: Vec<String>,
+}
+
+/// The settings of a milli index
 // This is created as an enum so we get freezed support.
 // Regular created classes do not have equals, copyWith, etc.
 pub enum MeiliIndexSettings {
@@ -303,8 +309,8 @@ pub enum MeiliIndexSettings {
         sortable_fields: Vec<String>,
         ranking_rules: Vec<String>,
         stop_words: Vec<String>,
+        synonyms: Vec<Synonyms>,
         // TODO:
-        // synonyms: Vec<String>,
         // typoTolerance
     },
 }
@@ -331,22 +337,30 @@ pub fn set_settings(
     let index = get_index!(indexes, index_name);
 
     // Destructure the settings into the corresponding fields
-    let (searchable_fields, filterable_fields, sortable_fields, ranking_rules, stop_words) =
-        match settings {
-            MeiliIndexSettings::Raw {
-                searchable_fields,
-                filterable_fields,
-                sortable_fields,
-                ranking_rules,
-                stop_words,
-            } => (
-                searchable_fields,
-                filterable_fields,
-                sortable_fields,
-                ranking_rules,
-                stop_words,
-            ),
-        };
+    let (
+        searchable_fields,
+        filterable_fields,
+        sortable_fields,
+        ranking_rules,
+        stop_words,
+        synonyms,
+    ) = match settings {
+        MeiliIndexSettings::Raw {
+            searchable_fields,
+            filterable_fields,
+            sortable_fields,
+            ranking_rules,
+            stop_words,
+            synonyms,
+        } => (
+            searchable_fields,
+            filterable_fields,
+            sortable_fields,
+            ranking_rules,
+            stop_words,
+            synonyms,
+        ),
+    };
 
     // Set up the settings update
     let mut wtxn = index.write_txn()?;
@@ -359,6 +373,7 @@ pub fn set_settings(
     builder.set_sortable_fields(sortable_fields.into_iter().collect());
     builder.set_criteria(ranking_rules);
     builder.set_stop_words(stop_words.into_iter().collect());
+    builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
 
     // Execute the settings update
     builder.execute(|_| {}, || false)?;

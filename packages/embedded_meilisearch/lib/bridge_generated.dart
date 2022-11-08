@@ -106,6 +106,7 @@ class MeiliIndexSettings with _$MeiliIndexSettings {
     required List<String> sortableFields,
     required List<String> rankingRules,
     required List<String> stopWords,
+    required List<Synonyms> synonyms,
   }) = MeiliIndexSettings_Raw;
 }
 
@@ -117,6 +118,17 @@ class SortAscDesc with _$SortAscDesc {
   const factory SortAscDesc.desc(
     String field0,
   ) = SortAscDesc_Desc;
+}
+
+/// Represents the synonyms of a given word
+class Synonyms {
+  final String word;
+  final List<String> synonyms;
+
+  Synonyms({
+    required this.word,
+    required this.synonyms,
+  });
 }
 
 /// See https://docs.meilisearch.com/reference/api/search.html#matching-strategy
@@ -397,6 +409,10 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     return (raw as List<dynamic>).cast<String>();
   }
 
+  List<Synonyms> _wire2api_list_synonyms(dynamic raw) {
+    return (raw as List<dynamic>).map(_wire2api_synonyms).toList();
+  }
+
   MeiliIndexSettings _wire2api_meili_index_settings(dynamic raw) {
     switch (raw[0]) {
       case 0:
@@ -406,6 +422,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
           sortableFields: _wire2api_StringList(raw[3]),
           rankingRules: _wire2api_StringList(raw[4]),
           stopWords: _wire2api_StringList(raw[5]),
+          synonyms: _wire2api_list_synonyms(raw[6]),
         );
       default:
         throw Exception("unreachable");
@@ -414,6 +431,16 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
 
   String? _wire2api_opt_String(dynamic raw) {
     return raw == null ? null : _wire2api_String(raw);
+  }
+
+  Synonyms _wire2api_synonyms(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Synonyms(
+      word: _wire2api_String(arr[0]),
+      synonyms: _wire2api_StringList(arr[1]),
+    );
   }
 
   int _wire2api_u8(dynamic raw) {
@@ -494,6 +521,15 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
+  ffi.Pointer<wire_list_synonyms> api2wire_list_synonyms(List<Synonyms> raw) {
+    final ans = inner.new_list_synonyms_0(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      _api_fill_to_wire_synonyms(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_uint_8_list> api2wire_opt_String(String? raw) {
     return raw == null ? ffi.nullptr : api2wire_String(raw);
   }
@@ -537,6 +573,8 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
           api2wire_StringList(apiObj.rankingRules);
       wireObj.kind.ref.Raw.ref.stop_words =
           api2wire_StringList(apiObj.stopWords);
+      wireObj.kind.ref.Raw.ref.synonyms =
+          api2wire_list_synonyms(apiObj.synonyms);
       return;
     }
   }
@@ -555,6 +593,11 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
       wireObj.kind.ref.Desc.ref.field0 = api2wire_String(apiObj.field0);
       return;
     }
+  }
+
+  void _api_fill_to_wire_synonyms(Synonyms apiObj, wire_Synonyms wireObj) {
+    wireObj.word = api2wire_String(apiObj.word);
+    wireObj.synonyms = api2wire_StringList(apiObj.synonyms);
   }
 }
 
@@ -896,6 +939,21 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _new_list_sort_asc_desc_0 = _new_list_sort_asc_desc_0Ptr
       .asFunction<ffi.Pointer<wire_list_sort_asc_desc> Function(int)>();
 
+  ffi.Pointer<wire_list_synonyms> new_list_synonyms_0(
+    int len,
+  ) {
+    return _new_list_synonyms_0(
+      len,
+    );
+  }
+
+  late final _new_list_synonyms_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_list_synonyms> Function(
+              ffi.Int32)>>('new_list_synonyms_0');
+  late final _new_list_synonyms_0 = _new_list_synonyms_0Ptr
+      .asFunction<ffi.Pointer<wire_list_synonyms> Function(int)>();
+
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
   ) {
@@ -999,6 +1057,19 @@ class wire_list_sort_asc_desc extends ffi.Struct {
   external int len;
 }
 
+class wire_Synonyms extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> word;
+
+  external ffi.Pointer<wire_StringList> synonyms;
+}
+
+class wire_list_synonyms extends ffi.Struct {
+  external ffi.Pointer<wire_Synonyms> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
 class wire_MeiliIndexSettings_Raw extends ffi.Struct {
   external ffi.Pointer<wire_StringList> searchable_fields;
 
@@ -1009,6 +1080,8 @@ class wire_MeiliIndexSettings_Raw extends ffi.Struct {
   external ffi.Pointer<wire_StringList> ranking_rules;
 
   external ffi.Pointer<wire_StringList> stop_words;
+
+  external ffi.Pointer<wire_list_synonyms> synonyms;
 }
 
 class MeiliIndexSettingsKind extends ffi.Union {

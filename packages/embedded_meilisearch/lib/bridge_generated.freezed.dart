@@ -21,6 +21,7 @@ mixin _$MeiliIndexSettings {
   List<String> get sortableFields => throw _privateConstructorUsedError;
   List<String> get rankingRules => throw _privateConstructorUsedError;
   List<String> get stopWords => throw _privateConstructorUsedError;
+  List<Synonyms> get synonyms => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -28,7 +29,8 @@ mixin _$MeiliIndexSettings {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords)
+            List<String> stopWords,
+            List<Synonyms> synonyms)
         raw,
   }) =>
       throw _privateConstructorUsedError;
@@ -39,7 +41,8 @@ mixin _$MeiliIndexSettings {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords)?
+            List<String> stopWords,
+            List<Synonyms> synonyms)?
         raw,
   }) =>
       throw _privateConstructorUsedError;
@@ -50,7 +53,8 @@ mixin _$MeiliIndexSettings {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords)?
+            List<String> stopWords,
+            List<Synonyms> synonyms)?
         raw,
     required TResult orElse(),
   }) =>
@@ -88,7 +92,8 @@ abstract class $MeiliIndexSettingsCopyWith<$Res> {
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
-      List<String> stopWords});
+      List<String> stopWords,
+      List<Synonyms> synonyms});
 }
 
 /// @nodoc
@@ -109,6 +114,7 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
     Object? sortableFields = null,
     Object? rankingRules = null,
     Object? stopWords = null,
+    Object? synonyms = null,
   }) {
     return _then(_value.copyWith(
       searchableFields: null == searchableFields
@@ -131,6 +137,10 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
           ? _value.stopWords
           : stopWords // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      synonyms: null == synonyms
+          ? _value.synonyms
+          : synonyms // ignore: cast_nullable_to_non_nullable
+              as List<Synonyms>,
     ) as $Val);
   }
 }
@@ -148,7 +158,8 @@ abstract class _$$MeiliIndexSettings_RawCopyWith<$Res>
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
-      List<String> stopWords});
+      List<String> stopWords,
+      List<Synonyms> synonyms});
 }
 
 /// @nodoc
@@ -167,6 +178,7 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
     Object? sortableFields = null,
     Object? rankingRules = null,
     Object? stopWords = null,
+    Object? synonyms = null,
   }) {
     return _then(_$MeiliIndexSettings_Raw(
       searchableFields: null == searchableFields
@@ -189,6 +201,10 @@ class __$$MeiliIndexSettings_RawCopyWithImpl<$Res>
           ? _value._stopWords
           : stopWords // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      synonyms: null == synonyms
+          ? _value._synonyms
+          : synonyms // ignore: cast_nullable_to_non_nullable
+              as List<Synonyms>,
     ));
   }
 }
@@ -201,12 +217,14 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
-      required final List<String> stopWords})
+      required final List<String> stopWords,
+      required final List<Synonyms> synonyms})
       : _searchableFields = searchableFields,
         _filterableFields = filterableFields,
         _sortableFields = sortableFields,
         _rankingRules = rankingRules,
-        _stopWords = stopWords;
+        _stopWords = stopWords,
+        _synonyms = synonyms;
 
   final List<String> _searchableFields;
   @override
@@ -243,9 +261,16 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
     return EqualUnmodifiableListView(_stopWords);
   }
 
+  final List<Synonyms> _synonyms;
+  @override
+  List<Synonyms> get synonyms {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_synonyms);
+  }
+
   @override
   String toString() {
-    return 'MeiliIndexSettings.raw(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords)';
+    return 'MeiliIndexSettings.raw(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms)';
   }
 
   @override
@@ -262,7 +287,8 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             const DeepCollectionEquality()
                 .equals(other._rankingRules, _rankingRules) &&
             const DeepCollectionEquality()
-                .equals(other._stopWords, _stopWords));
+                .equals(other._stopWords, _stopWords) &&
+            const DeepCollectionEquality().equals(other._synonyms, _synonyms));
   }
 
   @override
@@ -272,7 +298,8 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
       const DeepCollectionEquality().hash(_filterableFields),
       const DeepCollectionEquality().hash(_sortableFields),
       const DeepCollectionEquality().hash(_rankingRules),
-      const DeepCollectionEquality().hash(_stopWords));
+      const DeepCollectionEquality().hash(_stopWords),
+      const DeepCollectionEquality().hash(_synonyms));
 
   @JsonKey(ignore: true)
   @override
@@ -289,11 +316,12 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords)
+            List<String> stopWords,
+            List<Synonyms> synonyms)
         raw,
   }) {
     return raw(searchableFields, filterableFields, sortableFields, rankingRules,
-        stopWords);
+        stopWords, synonyms);
   }
 
   @override
@@ -304,11 +332,12 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords)?
+            List<String> stopWords,
+            List<Synonyms> synonyms)?
         raw,
   }) {
     return raw?.call(searchableFields, filterableFields, sortableFields,
-        rankingRules, stopWords);
+        rankingRules, stopWords, synonyms);
   }
 
   @override
@@ -319,13 +348,14 @@ class _$MeiliIndexSettings_Raw implements MeiliIndexSettings_Raw {
             List<String> filterableFields,
             List<String> sortableFields,
             List<String> rankingRules,
-            List<String> stopWords)?
+            List<String> stopWords,
+            List<Synonyms> synonyms)?
         raw,
     required TResult orElse(),
   }) {
     if (raw != null) {
       return raw(searchableFields, filterableFields, sortableFields,
-          rankingRules, stopWords);
+          rankingRules, stopWords, synonyms);
     }
     return orElse();
   }
@@ -365,7 +395,8 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
-      required final List<String> stopWords}) = _$MeiliIndexSettings_Raw;
+      required final List<String> stopWords,
+      required final List<Synonyms> synonyms}) = _$MeiliIndexSettings_Raw;
 
   @override
   List<String> get searchableFields;
@@ -377,6 +408,8 @@ abstract class MeiliIndexSettings_Raw implements MeiliIndexSettings {
   List<String> get rankingRules;
   @override
   List<String> get stopWords;
+  @override
+  List<Synonyms> get synonyms;
   @override
   @JsonKey(ignore: true)
   _$$MeiliIndexSettings_RawCopyWith<_$MeiliIndexSettings_Raw> get copyWith =>

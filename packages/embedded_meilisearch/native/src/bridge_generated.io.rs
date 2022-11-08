@@ -138,6 +138,15 @@ pub extern "C" fn new_list_sort_asc_desc_0(len: i32) -> *mut wire_list_sort_asc_
 }
 
 #[no_mangle]
+pub extern "C" fn new_list_synonyms_0(len: i32) -> *mut wire_list_synonyms {
+    let wrap = wire_list_synonyms {
+        ptr: support::new_leak_vec_ptr(<wire_Synonyms>::new_with_null_ptr(), len),
+        len,
+    };
+    support::new_leak_box_ptr(wrap)
+}
+
+#[no_mangle]
 pub extern "C" fn new_uint_8_list_0(len: i32) -> *mut wire_uint_8_list {
     let ans = wire_uint_8_list {
         ptr: support::new_leak_vec_ptr(Default::default(), len),
@@ -179,6 +188,15 @@ impl Wire2Api<Vec<SortAscDesc>> for *mut wire_list_sort_asc_desc {
         vec.into_iter().map(Wire2Api::wire2api).collect()
     }
 }
+impl Wire2Api<Vec<Synonyms>> for *mut wire_list_synonyms {
+    fn wire2api(self) -> Vec<Synonyms> {
+        let vec = unsafe {
+            let wrap = support::box_from_leak_ptr(self);
+            support::vec_from_leak_ptr(wrap.ptr, wrap.len)
+        };
+        vec.into_iter().map(Wire2Api::wire2api).collect()
+    }
+}
 impl Wire2Api<MeiliIndexSettings> for wire_MeiliIndexSettings {
     fn wire2api(self) -> MeiliIndexSettings {
         match self.tag {
@@ -191,6 +209,7 @@ impl Wire2Api<MeiliIndexSettings> for wire_MeiliIndexSettings {
                     sortable_fields: ans.sortable_fields.wire2api(),
                     ranking_rules: ans.ranking_rules.wire2api(),
                     stop_words: ans.stop_words.wire2api(),
+                    synonyms: ans.synonyms.wire2api(),
                 }
             },
             _ => unreachable!(),
@@ -212,6 +231,14 @@ impl Wire2Api<SortAscDesc> for wire_SortAscDesc {
                 SortAscDesc::Desc(ans.field0.wire2api())
             },
             _ => unreachable!(),
+        }
+    }
+}
+impl Wire2Api<Synonyms> for wire_Synonyms {
+    fn wire2api(self) -> Synonyms {
+        Synonyms {
+            word: self.word.wire2api(),
+            synonyms: self.synonyms.wire2api(),
         }
     }
 }
@@ -242,6 +269,20 @@ pub struct wire_list_sort_asc_desc {
 
 #[repr(C)]
 #[derive(Clone)]
+pub struct wire_list_synonyms {
+    ptr: *mut wire_Synonyms,
+    len: i32,
+}
+
+#[repr(C)]
+#[derive(Clone)]
+pub struct wire_Synonyms {
+    word: *mut wire_uint_8_list,
+    synonyms: *mut wire_StringList,
+}
+
+#[repr(C)]
+#[derive(Clone)]
 pub struct wire_uint_8_list {
     ptr: *mut u8,
     len: i32,
@@ -267,6 +308,7 @@ pub struct wire_MeiliIndexSettings_Raw {
     sortable_fields: *mut wire_StringList,
     ranking_rules: *mut wire_StringList,
     stop_words: *mut wire_StringList,
+    synonyms: *mut wire_list_synonyms,
 }
 
 #[repr(C)]
@@ -324,6 +366,7 @@ pub extern "C" fn inflate_MeiliIndexSettings_Raw() -> *mut MeiliIndexSettingsKin
             sortable_fields: core::ptr::null_mut(),
             ranking_rules: core::ptr::null_mut(),
             stop_words: core::ptr::null_mut(),
+            synonyms: core::ptr::null_mut(),
         }),
     })
 }
@@ -353,6 +396,15 @@ pub extern "C" fn inflate_SortAscDesc_Desc() -> *mut SortAscDescKind {
             field0: core::ptr::null_mut(),
         }),
     })
+}
+
+impl NewWithNullPtr for wire_Synonyms {
+    fn new_with_null_ptr() -> Self {
+        Self {
+            word: core::ptr::null_mut(),
+            synonyms: core::ptr::null_mut(),
+        }
+    }
 }
 
 // Section: sync execution mode utility

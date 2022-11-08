@@ -293,6 +293,7 @@ impl support::IntoDart for MeiliIndexSettings {
                 sortable_fields,
                 ranking_rules,
                 stop_words,
+                synonyms,
             } => vec![
                 0.into_dart(),
                 searchable_fields.into_dart(),
@@ -300,12 +301,20 @@ impl support::IntoDart for MeiliIndexSettings {
                 sortable_fields.into_dart(),
                 ranking_rules.into_dart(),
                 stop_words.into_dart(),
+                synonyms.into_dart(),
             ],
         }
         .into_dart()
     }
 }
 impl support::IntoDartExceptPrimitive for MeiliIndexSettings {}
+
+impl support::IntoDart for Synonyms {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.word.into_dart(), self.synonyms.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Synonyms {}
 
 // Section: executor
 
