@@ -39,6 +39,15 @@ pub extern "C" fn wire_delete_documents(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_delete_all_documents(
+    port_: i64,
+    instance_dir: *mut wire_uint_8_list,
+    index_name: *mut wire_uint_8_list,
+) {
+    wire_delete_all_documents_impl(port_, instance_dir, index_name)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_set_documents(
     port_: i64,
     instance_dir: *mut wire_uint_8_list,
@@ -59,12 +68,12 @@ pub extern "C" fn wire_get_document(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_get_documents(
+pub extern "C" fn wire_get_all_documents(
     port_: i64,
     instance_dir: *mut wire_uint_8_list,
     index_name: *mut wire_uint_8_list,
 ) {
-    wire_get_documents_impl(port_, instance_dir, index_name)
+    wire_get_all_documents_impl(port_, instance_dir, index_name)
 }
 
 #[no_mangle]
@@ -75,7 +84,7 @@ pub extern "C" fn wire_search_documents(
     query: *mut wire_uint_8_list,
     limit: *mut u32,
     matching_strategy: i32,
-    sort_criteria: *mut wire_list_sort_asc_desc,
+    sort_criteria: *mut wire_list_sort_by,
 ) {
     wire_search_documents_impl(
         port_,
@@ -105,9 +114,9 @@ pub extern "C" fn new_box_autoadd_u32_0(value: u32) -> *mut u32 {
 }
 
 #[no_mangle]
-pub extern "C" fn new_list_sort_asc_desc_0(len: i32) -> *mut wire_list_sort_asc_desc {
-    let wrap = wire_list_sort_asc_desc {
-        ptr: support::new_leak_vec_ptr(<wire_SortAscDesc>::new_with_null_ptr(), len),
+pub extern "C" fn new_list_sort_by_0(len: i32) -> *mut wire_list_sort_by {
+    let wrap = wire_list_sort_by {
+        ptr: support::new_leak_vec_ptr(<wire_SortBy>::new_with_null_ptr(), len),
         len,
     };
     support::new_leak_box_ptr(wrap)
@@ -140,8 +149,8 @@ impl Wire2Api<Vec<String>> for *mut wire_StringList {
     }
 }
 
-impl Wire2Api<Vec<SortAscDesc>> for *mut wire_list_sort_asc_desc {
-    fn wire2api(self) -> Vec<SortAscDesc> {
+impl Wire2Api<Vec<SortBy>> for *mut wire_list_sort_by {
+    fn wire2api(self) -> Vec<SortBy> {
         let vec = unsafe {
             let wrap = support::box_from_leak_ptr(self);
             support::vec_from_leak_ptr(wrap.ptr, wrap.len)
@@ -150,18 +159,18 @@ impl Wire2Api<Vec<SortAscDesc>> for *mut wire_list_sort_asc_desc {
     }
 }
 
-impl Wire2Api<SortAscDesc> for wire_SortAscDesc {
-    fn wire2api(self) -> SortAscDesc {
+impl Wire2Api<SortBy> for wire_SortBy {
+    fn wire2api(self) -> SortBy {
         match self.tag {
             0 => unsafe {
                 let ans = support::box_from_leak_ptr(self.kind);
                 let ans = support::box_from_leak_ptr(ans.Asc);
-                SortAscDesc::Asc(ans.field0.wire2api())
+                SortBy::Asc(ans.field0.wire2api())
             },
             1 => unsafe {
                 let ans = support::box_from_leak_ptr(self.kind);
                 let ans = support::box_from_leak_ptr(ans.Desc);
-                SortAscDesc::Desc(ans.field0.wire2api())
+                SortBy::Desc(ans.field0.wire2api())
             },
             _ => unreachable!(),
         }
@@ -187,8 +196,8 @@ pub struct wire_StringList {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_list_sort_asc_desc {
-    ptr: *mut wire_SortAscDesc,
+pub struct wire_list_sort_by {
+    ptr: *mut wire_SortBy,
     len: i32,
 }
 
@@ -201,26 +210,26 @@ pub struct wire_uint_8_list {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_SortAscDesc {
+pub struct wire_SortBy {
     tag: i32,
-    kind: *mut SortAscDescKind,
+    kind: *mut SortByKind,
 }
 
 #[repr(C)]
-pub union SortAscDescKind {
-    Asc: *mut wire_SortAscDesc_Asc,
-    Desc: *mut wire_SortAscDesc_Desc,
+pub union SortByKind {
+    Asc: *mut wire_SortBy_Asc,
+    Desc: *mut wire_SortBy_Desc,
 }
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_SortAscDesc_Asc {
+pub struct wire_SortBy_Asc {
     field0: *mut wire_uint_8_list,
 }
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_SortAscDesc_Desc {
+pub struct wire_SortBy_Desc {
     field0: *mut wire_uint_8_list,
 }
 
@@ -236,7 +245,7 @@ impl<T> NewWithNullPtr for *mut T {
     }
 }
 
-impl NewWithNullPtr for wire_SortAscDesc {
+impl NewWithNullPtr for wire_SortBy {
     fn new_with_null_ptr() -> Self {
         Self {
             tag: -1,
@@ -246,18 +255,18 @@ impl NewWithNullPtr for wire_SortAscDesc {
 }
 
 #[no_mangle]
-pub extern "C" fn inflate_SortAscDesc_Asc() -> *mut SortAscDescKind {
-    support::new_leak_box_ptr(SortAscDescKind {
-        Asc: support::new_leak_box_ptr(wire_SortAscDesc_Asc {
+pub extern "C" fn inflate_SortBy_Asc() -> *mut SortByKind {
+    support::new_leak_box_ptr(SortByKind {
+        Asc: support::new_leak_box_ptr(wire_SortBy_Asc {
             field0: core::ptr::null_mut(),
         }),
     })
 }
 
 #[no_mangle]
-pub extern "C" fn inflate_SortAscDesc_Desc() -> *mut SortAscDescKind {
-    support::new_leak_box_ptr(SortAscDescKind {
-        Desc: support::new_leak_box_ptr(wire_SortAscDesc_Desc {
+pub extern "C" fn inflate_SortBy_Desc() -> *mut SortByKind {
+    support::new_leak_box_ptr(SortByKind {
+        Desc: support::new_leak_box_ptr(wire_SortBy_Desc {
             field0: core::ptr::null_mut(),
         }),
     })
