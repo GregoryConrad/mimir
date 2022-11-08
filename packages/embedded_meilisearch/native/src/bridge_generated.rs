@@ -95,6 +95,24 @@ fn wire_delete_documents_impl(
         },
     )
 }
+fn wire_delete_all_documents_impl(
+    port_: MessagePort,
+    instance_dir: impl Wire2Api<String> + UnwindSafe,
+    index_name: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "delete_all_documents",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_instance_dir = instance_dir.wire2api();
+            let api_index_name = index_name.wire2api();
+            move |task_callback| delete_all_documents(api_instance_dir, api_index_name)
+        },
+    )
+}
 fn wire_set_documents_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,
@@ -135,21 +153,21 @@ fn wire_get_document_impl(
         },
     )
 }
-fn wire_get_documents_impl(
+fn wire_get_all_documents_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,
     index_name: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "get_documents",
+            debug_name: "get_all_documents",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_instance_dir = instance_dir.wire2api();
             let api_index_name = index_name.wire2api();
-            move |task_callback| get_documents(api_instance_dir, api_index_name)
+            move |task_callback| get_all_documents(api_instance_dir, api_index_name)
         },
     )
 }
@@ -160,7 +178,7 @@ fn wire_search_documents_impl(
     query: impl Wire2Api<Option<String>> + UnwindSafe,
     limit: impl Wire2Api<Option<u32>> + UnwindSafe,
     matching_strategy: impl Wire2Api<TermsMatchingStrategy> + UnwindSafe,
-    sort_criteria: impl Wire2Api<Option<Vec<SortAscDesc>>> + UnwindSafe,
+    sort_criteria: impl Wire2Api<Option<Vec<SortBy>>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {

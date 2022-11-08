@@ -7,7 +7,7 @@ export 'src/index.dart';
 export 'bridge_generated.dart'
     show
         EmbeddedMilli,
-        SortAscDesc,
+        SortBy,
         TermsMatchingStrategy,
         MeiliIndexSettings,
         Synonyms,

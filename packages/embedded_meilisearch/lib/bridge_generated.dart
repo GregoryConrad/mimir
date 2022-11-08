@@ -45,6 +45,12 @@ abstract class EmbeddedMilli {
 
   FlutterRustBridgeTaskConstMeta get kDeleteDocumentsConstMeta;
 
+  /// Deletes all the documents from the milli index
+  Future<void> deleteAllDocuments(
+      {required String instanceDir, required String indexName, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDeleteAllDocumentsConstMeta;
+
   /// Replaces all documents in the index with the given documents
   Future<void> setDocuments(
       {required String instanceDir,
@@ -64,10 +70,10 @@ abstract class EmbeddedMilli {
   FlutterRustBridgeTaskConstMeta get kGetDocumentConstMeta;
 
   /// Returns all documents stored in the index.
-  Future<List<String>> getDocuments(
+  Future<List<String>> getAllDocuments(
       {required String instanceDir, required String indexName, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kGetDocumentsConstMeta;
+  FlutterRustBridgeTaskConstMeta get kGetAllDocumentsConstMeta;
 
   /// Performs a search against the index and returns the documents found
   Future<List<String>> searchDocuments(
@@ -76,7 +82,7 @@ abstract class EmbeddedMilli {
       String? query,
       int? limit,
       required TermsMatchingStrategy matchingStrategy,
-      List<SortAscDesc>? sortCriteria,
+      List<SortBy>? sortCriteria,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta;
@@ -112,13 +118,13 @@ class MeiliIndexSettings with _$MeiliIndexSettings {
 }
 
 @freezed
-class SortAscDesc with _$SortAscDesc {
-  const factory SortAscDesc.asc(
+class SortBy with _$SortBy {
+  const factory SortBy.asc(
     String field0,
-  ) = SortAscDesc_Asc;
-  const factory SortAscDesc.desc(
+  ) = SortBy_Asc;
+  const factory SortBy.desc(
     String field0,
-  ) = SortAscDesc_Desc;
+  ) = SortBy_Desc;
 }
 
 /// Represents the synonyms of a given word
@@ -263,6 +269,27 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         argNames: ["instanceDir", "indexName", "documentIds"],
       );
 
+  Future<void> deleteAllDocuments(
+          {required String instanceDir,
+          required String indexName,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_delete_all_documents(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kDeleteAllDocumentsConstMeta,
+        argValues: [instanceDir, indexName],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kDeleteAllDocumentsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "delete_all_documents",
+        argNames: ["instanceDir", "indexName"],
+      );
+
   Future<void> setDocuments(
           {required String instanceDir,
           required String indexName,
@@ -309,24 +336,24 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         argNames: ["instanceDir", "indexName", "documentId"],
       );
 
-  Future<List<String>> getDocuments(
+  Future<List<String>> getAllDocuments(
           {required String instanceDir,
           required String indexName,
           dynamic hint}) =>
       _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_get_documents(
+        callFfi: (port_) => _platform.inner.wire_get_all_documents(
             port_,
             _platform.api2wire_String(instanceDir),
             _platform.api2wire_String(indexName)),
         parseSuccessData: _wire2api_StringList,
-        constMeta: kGetDocumentsConstMeta,
+        constMeta: kGetAllDocumentsConstMeta,
         argValues: [instanceDir, indexName],
         hint: hint,
       ));
 
-  FlutterRustBridgeTaskConstMeta get kGetDocumentsConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kGetAllDocumentsConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "get_documents",
+        debugName: "get_all_documents",
         argNames: ["instanceDir", "indexName"],
       );
 
@@ -336,7 +363,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
           String? query,
           int? limit,
           required TermsMatchingStrategy matchingStrategy,
-          List<SortAscDesc>? sortCriteria,
+          List<SortBy>? sortCriteria,
           dynamic hint}) =>
       _platform.executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => _platform.inner.wire_search_documents(
@@ -346,7 +373,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
             _platform.api2wire_opt_String(query),
             _platform.api2wire_opt_box_autoadd_u32(limit),
             api2wire_terms_matching_strategy(matchingStrategy),
-            _platform.api2wire_opt_list_sort_asc_desc(sortCriteria)),
+            _platform.api2wire_opt_list_sort_by(sortCriteria)),
         parseSuccessData: _wire2api_StringList,
         constMeta: kSearchDocumentsConstMeta,
         argValues: [
@@ -568,11 +595,10 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
-  ffi.Pointer<wire_list_sort_asc_desc> api2wire_list_sort_asc_desc(
-      List<SortAscDesc> raw) {
-    final ans = inner.new_list_sort_asc_desc_0(raw.length);
+  ffi.Pointer<wire_list_sort_by> api2wire_list_sort_by(List<SortBy> raw) {
+    final ans = inner.new_list_sort_by_0(raw.length);
     for (var i = 0; i < raw.length; ++i) {
-      _api_fill_to_wire_sort_asc_desc(raw[i], ans.ref.ptr[i]);
+      _api_fill_to_wire_sort_by(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -602,9 +628,8 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
-  ffi.Pointer<wire_list_sort_asc_desc> api2wire_opt_list_sort_asc_desc(
-      List<SortAscDesc>? raw) {
-    return raw == null ? ffi.nullptr : api2wire_list_sort_asc_desc(raw);
+  ffi.Pointer<wire_list_sort_by> api2wire_opt_list_sort_by(List<SortBy>? raw) {
+    return raw == null ? ffi.nullptr : api2wire_list_sort_by(raw);
   }
 
   @protected
@@ -648,17 +673,16 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
     }
   }
 
-  void _api_fill_to_wire_sort_asc_desc(
-      SortAscDesc apiObj, wire_SortAscDesc wireObj) {
-    if (apiObj is SortAscDesc_Asc) {
+  void _api_fill_to_wire_sort_by(SortBy apiObj, wire_SortBy wireObj) {
+    if (apiObj is SortBy_Asc) {
       wireObj.tag = 0;
-      wireObj.kind = inner.inflate_SortAscDesc_Asc();
+      wireObj.kind = inner.inflate_SortBy_Asc();
       wireObj.kind.ref.Asc.ref.field0 = api2wire_String(apiObj.field0);
       return;
     }
-    if (apiObj is SortAscDesc_Desc) {
+    if (apiObj is SortBy_Desc) {
       wireObj.tag = 1;
-      wireObj.kind = inner.inflate_SortAscDesc_Desc();
+      wireObj.kind = inner.inflate_SortBy_Desc();
       wireObj.kind.ref.Desc.ref.field0 = api2wire_String(apiObj.field0);
       return;
     }
@@ -806,6 +830,27 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
       void Function(int, ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_StringList>)>();
 
+  void wire_delete_all_documents(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
+    ffi.Pointer<wire_uint_8_list> index_name,
+  ) {
+    return _wire_delete_all_documents(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire_delete_all_documentsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_delete_all_documents');
+  late final _wire_delete_all_documents =
+      _wire_delete_all_documentsPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
+
   void wire_set_documents(
     int port_,
     ffi.Pointer<wire_uint_8_list> instance_dir,
@@ -856,23 +901,23 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
       void Function(int, ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_get_documents(
+  void wire_get_all_documents(
     int port_,
     ffi.Pointer<wire_uint_8_list> instance_dir,
     ffi.Pointer<wire_uint_8_list> index_name,
   ) {
-    return _wire_get_documents(
+    return _wire_get_all_documents(
       port_,
       instance_dir,
       index_name,
     );
   }
 
-  late final _wire_get_documentsPtr = _lookup<
+  late final _wire_get_all_documentsPtr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_get_documents');
-  late final _wire_get_documents = _wire_get_documentsPtr.asFunction<
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_all_documents');
+  late final _wire_get_all_documents = _wire_get_all_documentsPtr.asFunction<
       void Function(
           int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
@@ -883,7 +928,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_uint_8_list> query,
     ffi.Pointer<ffi.Uint32> limit,
     int matching_strategy,
-    ffi.Pointer<wire_list_sort_asc_desc> sort_criteria,
+    ffi.Pointer<wire_list_sort_by> sort_criteria,
   ) {
     return _wire_search_documents(
       port_,
@@ -905,7 +950,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<ffi.Uint32>,
               ffi.Int32,
-              ffi.Pointer<wire_list_sort_asc_desc>)>>('wire_search_documents');
+              ffi.Pointer<wire_list_sort_by>)>>('wire_search_documents');
   late final _wire_search_documents = _wire_search_documentsPtr.asFunction<
       void Function(
           int,
@@ -914,7 +959,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
           ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<ffi.Uint32>,
           int,
-          ffi.Pointer<wire_list_sort_asc_desc>)>();
+          ffi.Pointer<wire_list_sort_by>)>();
 
   void wire_get_settings(
     int port_,
@@ -1015,20 +1060,20 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _new_box_autoadd_u32_0 = _new_box_autoadd_u32_0Ptr
       .asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
 
-  ffi.Pointer<wire_list_sort_asc_desc> new_list_sort_asc_desc_0(
+  ffi.Pointer<wire_list_sort_by> new_list_sort_by_0(
     int len,
   ) {
-    return _new_list_sort_asc_desc_0(
+    return _new_list_sort_by_0(
       len,
     );
   }
 
-  late final _new_list_sort_asc_desc_0Ptr = _lookup<
+  late final _new_list_sort_by_0Ptr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<wire_list_sort_asc_desc> Function(
-              ffi.Int32)>>('new_list_sort_asc_desc_0');
-  late final _new_list_sort_asc_desc_0 = _new_list_sort_asc_desc_0Ptr
-      .asFunction<ffi.Pointer<wire_list_sort_asc_desc> Function(int)>();
+          ffi.Pointer<wire_list_sort_by> Function(
+              ffi.Int32)>>('new_list_sort_by_0');
+  late final _new_list_sort_by_0 = _new_list_sort_by_0Ptr
+      .asFunction<ffi.Pointer<wire_list_sort_by> Function(int)>();
 
   ffi.Pointer<wire_list_synonyms> new_list_synonyms_0(
     int len,
@@ -1071,25 +1116,25 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
       _inflate_MeiliIndexSettings_RawPtr
           .asFunction<ffi.Pointer<MeiliIndexSettingsKind> Function()>();
 
-  ffi.Pointer<SortAscDescKind> inflate_SortAscDesc_Asc() {
-    return _inflate_SortAscDesc_Asc();
+  ffi.Pointer<SortByKind> inflate_SortBy_Asc() {
+    return _inflate_SortBy_Asc();
   }
 
-  late final _inflate_SortAscDesc_AscPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<SortAscDescKind> Function()>>(
-          'inflate_SortAscDesc_Asc');
-  late final _inflate_SortAscDesc_Asc = _inflate_SortAscDesc_AscPtr
-      .asFunction<ffi.Pointer<SortAscDescKind> Function()>();
+  late final _inflate_SortBy_AscPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<SortByKind> Function()>>(
+          'inflate_SortBy_Asc');
+  late final _inflate_SortBy_Asc =
+      _inflate_SortBy_AscPtr.asFunction<ffi.Pointer<SortByKind> Function()>();
 
-  ffi.Pointer<SortAscDescKind> inflate_SortAscDesc_Desc() {
-    return _inflate_SortAscDesc_Desc();
+  ffi.Pointer<SortByKind> inflate_SortBy_Desc() {
+    return _inflate_SortBy_Desc();
   }
 
-  late final _inflate_SortAscDesc_DescPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<SortAscDescKind> Function()>>(
-          'inflate_SortAscDesc_Desc');
-  late final _inflate_SortAscDesc_Desc = _inflate_SortAscDesc_DescPtr
-      .asFunction<ffi.Pointer<SortAscDescKind> Function()>();
+  late final _inflate_SortBy_DescPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<SortByKind> Function()>>(
+          'inflate_SortBy_Desc');
+  late final _inflate_SortBy_Desc =
+      _inflate_SortBy_DescPtr.asFunction<ffi.Pointer<SortByKind> Function()>();
 
   void free_WireSyncReturnStruct(
     WireSyncReturnStruct val,
@@ -1120,29 +1165,29 @@ class wire_StringList extends ffi.Struct {
   external int len;
 }
 
-class wire_SortAscDesc_Asc extends ffi.Struct {
+class wire_SortBy_Asc extends ffi.Struct {
   external ffi.Pointer<wire_uint_8_list> field0;
 }
 
-class wire_SortAscDesc_Desc extends ffi.Struct {
+class wire_SortBy_Desc extends ffi.Struct {
   external ffi.Pointer<wire_uint_8_list> field0;
 }
 
-class SortAscDescKind extends ffi.Union {
-  external ffi.Pointer<wire_SortAscDesc_Asc> Asc;
+class SortByKind extends ffi.Union {
+  external ffi.Pointer<wire_SortBy_Asc> Asc;
 
-  external ffi.Pointer<wire_SortAscDesc_Desc> Desc;
+  external ffi.Pointer<wire_SortBy_Desc> Desc;
 }
 
-class wire_SortAscDesc extends ffi.Struct {
+class wire_SortBy extends ffi.Struct {
   @ffi.Int32()
   external int tag;
 
-  external ffi.Pointer<SortAscDescKind> kind;
+  external ffi.Pointer<SortByKind> kind;
 }
 
-class wire_list_sort_asc_desc extends ffi.Struct {
-  external ffi.Pointer<wire_SortAscDesc> ptr;
+class wire_list_sort_by extends ffi.Struct {
+  external ffi.Pointer<wire_SortBy> ptr;
 
   @ffi.Int32()
   external int len;
