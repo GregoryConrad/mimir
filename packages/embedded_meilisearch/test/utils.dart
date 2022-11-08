@@ -5,19 +5,19 @@ import 'package:embedded_meilisearch/embedded_meilisearch.dart';
 import 'package:test/test.dart';
 
 EmbeddedMilli useMilli() {
-  const _libName = 'embedded_milli';
-  final _libPrefix = {
+  const libName = 'embedded_milli';
+  final libPrefix = {
     Platform.isWindows: '',
     Platform.isMacOS: 'lib',
     Platform.isLinux: 'lib',
   }[true]!;
-  final _libSuffix = {
+  final libSuffix = {
     Platform.isWindows: 'dll',
     Platform.isMacOS: 'dylib',
     Platform.isLinux: 'so',
   }[true]!;
-  final _dylibPath = 'native/target/debug/$_libPrefix$_libName.$_libSuffix';
-  return Meili.createWrapper(DynamicLibrary.open(_dylibPath));
+  final dylibPath = 'native/target/debug/$libPrefix$libName.$libSuffix';
+  return Meili.createWrapper(DynamicLibrary.open(dylibPath));
 }
 
 Directory useTmpDir() {
