@@ -165,8 +165,10 @@ pub fn delete_documents(
     let index = get_index!(indexes, index_name);
 
     let mut wtxn = index.write_txn()?;
-    let builder = milli::update::DeleteDocuments::new(&mut wtxn, &index);
-
+    let mut builder = update::DeleteDocuments::new(&mut wtxn, &index)?;
+    for doc_id in document_ids {
+        builder.delete_external_id(&doc_id);
+    }
     builder.execute()?;
     wtxn.commit()?;
 
