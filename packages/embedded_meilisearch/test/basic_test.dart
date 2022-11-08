@@ -1,3 +1,4 @@
+import 'package:embedded_meilisearch/embedded_meilisearch.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -33,7 +34,7 @@ const allDocs = [
 ];
 
 void main() {
-  test('Basic functionality', () async {
+  test('Basic add/search functionality', () async {
     // Test data taken from the example at:
     // https://github.com/meilisearch/milli/blob/main/README.md
     final index = useTestIndex();
@@ -44,5 +45,30 @@ void main() {
       [allDocs[3]],
       reason: 'Search for horry should only return harry',
     );
+  });
+
+  test('Get and set settings', () async {
+    final index = useTestIndex();
+    final settings = MeiliIndexSettings.raw(
+      filterableFields: ['quantity'],
+      sortableFields: ['price'],
+      searchableFields: ['title'],
+      stopWords: ['the'],
+      rankingRules: ['proximity', 'typo', 'words'],
+      synonyms: [
+        Synonyms(word: 'a', synonyms: ['b']),
+        Synonyms(word: 'b', synonyms: ['a']),
+        Synonyms(word: 'c', synonyms: ['d', 'e']),
+      ],
+      typoTolerance: TypoTolerance(
+        enabled: true,
+        disableOnFields: ['importantField'],
+        disableOnWords: ['importantWord'],
+        minWordSizeForOneTypo: 3,
+        minWordSizeForTwoTypos: 4,
+      ),
+    );
+    await index.setSettings(settings);
+    expect(await index.getSettings(), settings);
   });
 }
