@@ -190,20 +190,6 @@ pub fn delete_all_documents(instance_dir: String, index_name: String) -> Result<
     Ok(())
 }
 
-/// Replaces all documents in the index with the given documents
-pub fn set_documents(
-    instance_dir: String,
-    index_name: String,
-    json_documents: Vec<String>,
-) -> Result<()> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
-
-    todo!()
-}
-
 /// Returns the document with the specified id from the index, if one exists
 pub fn get_document(
     instance_dir: String,
