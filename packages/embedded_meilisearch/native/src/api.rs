@@ -13,6 +13,7 @@ use lazy_static::lazy_static;
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed::EnvOpenOptions,
+    update,
     update::{IndexDocuments, IndexDocumentsConfig, IndexDocumentsMethod, IndexerConfig},
     AscDesc, Index, Member, Search, SearchResult,
 };
@@ -173,16 +174,18 @@ pub fn delete_documents(
 }
 
 /// Deletes all the documents from the milli index
-pub fn delete_all_documents(
-    instance_dir: String,
-    index_name: String,
-) -> Result<()> {
+pub fn delete_all_documents(instance_dir: String, index_name: String) -> Result<()> {
     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
-    todo!()
+    let mut wtxn = index.write_txn()?;
+    let builder = update::ClearDocuments::new(&mut wtxn, &index);
+    builder.execute()?;
+    wtxn.commit()?;
+
+    Ok(())
 }
 
 /// Replaces all documents in the index with the given documents
