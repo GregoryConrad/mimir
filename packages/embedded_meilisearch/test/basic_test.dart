@@ -68,6 +68,7 @@ void main() {
         minWordSizeForTwoTypos: 4,
       ),
     );
+    // TODO convert Synonyms & TypoTolerance to freezed to fix this fail
     await index.setSettings(settings);
     expect(await index.getSettings(), settings);
   });
