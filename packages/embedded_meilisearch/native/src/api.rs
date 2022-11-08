@@ -13,7 +13,7 @@ use lazy_static::lazy_static;
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed::EnvOpenOptions,
-    update, AscDesc, Index, Member, Search, SearchResult,
+    update, AscDesc, Criterion, Index, Member, Search, SearchResult,
 };
 
 lazy_static! {
@@ -252,7 +252,7 @@ pub fn search_documents(
     let index = get_index!(indexes, index_name);
 
     // Create the search
-    let mut rtxn = index.read_txn()?;
+    let rtxn = index.read_txn()?;
     let mut search = Search::new(&rtxn, &index);
 
     // Configure the search based on given parameters
@@ -336,15 +336,45 @@ pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliInd
             .map(|fields| fields.into_iter().map(String::from).collect()),
         filterable_fields: index.filterable_fields(&rtxn)?.into_iter().collect(),
         sortable_fields: index.sortable_fields(&rtxn)?.into_iter().collect(),
-        ranking_rules: todo!(),
-        stop_words: todo!(),
-        synonyms: todo!(),
+        ranking_rules: index
+            .criteria(&rtxn)?
+            .into_iter()
+            .map(|rule| match rule {
+                Criterion::Words => "words",
+                Criterion::Typo => "typo",
+                Criterion::Proximity => "proximity",
+                Criterion::Attribute => "attribute",
+                Criterion::Sort => "sort",
+                Criterion::Exactness => "exactness",
+                Criterion::Asc(_) => "",
+                Criterion::Desc(_) => "",
+            })
+            .filter(|s| !s.is_empty())
+            .map(String::from)
+            .collect(),
+        stop_words: index
+            .stop_words(&rtxn)?
+            .map(|words| words.stream().into_strs())
+            .map_or(Ok(None), |r| r.map(Some))?,
+        synonyms: index
+            .synonyms(&rtxn)?
+            .into_iter()
+            .map(|(word, synonyms)| (word[0].clone(), synonyms[0].clone()))
+            .map(|(word, synonyms)| Synonyms { word, synonyms })
+            .collect(),
         typo_tolerance: TypoTolerance {
             enabled: index.authorize_typos(&rtxn)?,
             min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?,
             min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?,
-            disable_on_words: todo!(),
-            disable_on_fields: todo!(),
+            disable_on_words: index
+                .exact_words(&rtxn)?
+                .map(|words| words.stream().into_strs())
+                .unwrap_or_else(|| Ok(Vec::new()))?,
+            disable_on_fields: index
+                .exact_attributes(&rtxn)?
+                .into_iter()
+                .map(String::from)
+                .collect(),
         },
     })
 }
