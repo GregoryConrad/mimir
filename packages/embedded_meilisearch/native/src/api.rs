@@ -17,7 +17,7 @@ use milli::{
 };
 
 lazy_static! {
-    /// The mapping of instance paths (directories) to instances.
+    /// The mapping of instance paths (directories) to instances
     static ref INSTANCES: RwLock<HashMap<String, Instance>> = RwLock::new(HashMap::new());
 }
 
@@ -25,7 +25,7 @@ struct Instance {
     indexes: RwLock<HashMap<String, Mutex<Index>>>,
 }
 
-/// Ensures an instance of milli (represented by just a directory) is initialized.
+/// Ensures an instance of milli (represented by just a directory) is initialized
 pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
     let instances = INSTANCES.read().unwrap();
 
@@ -48,7 +48,7 @@ pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
     Ok(())
 }
 
-/// Ensures a milli index is initialized.
+/// Ensures a milli index is initialized
 pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Result<()> {
     ensure_instance_initialized(instance_dir.clone())?;
     let instances = INSTANCES.read().unwrap();
@@ -120,7 +120,8 @@ fn convert_milli_documents(
         .collect::<Result<Vec<String>>>()
 }
 
-/// Adds the given list of documents to the specified milli index.
+/// Adds the given list of documents to the specified milli index
+///
 /// Replaces documents that already exist in the index based on document ids.
 pub fn add_documents(
     instance_dir: String,
@@ -174,7 +175,7 @@ pub fn add_documents(
     Ok(())
 }
 
-/// Deletes the documents with the given ids from the milli index.
+/// Deletes the documents with the given ids from the milli index
 pub fn delete_documents(
     instance_dir: String,
     index_name: String,
@@ -324,12 +325,14 @@ pub fn search_documents(
 }
 
 /// Represents the synonyms of a given word
+#[frb(dart_metadata=("freezed"))]
 pub struct Synonyms {
     pub word: String,
     pub synonyms: Vec<String>,
 }
 
 /// Represents the typo tolerance settings of an index
+#[frb(dart_metadata=("freezed"))]
 pub struct TypoTolerance {
     pub enabled: bool,
     pub min_word_size_for_one_typo: u8,
@@ -339,20 +342,15 @@ pub struct TypoTolerance {
 }
 
 /// The settings of a milli index
-// This is created as an enum so we get freezed support.
-// Regular created classes do not have equals, copyWith, etc.
-pub enum MeiliIndexSettings {
-    /// The settings of a milli index.
-    // Name is "Raw" so we get MeiliIndexSettings.raw constructor in Dart
-    Raw {
-        searchable_fields: Option<Vec<String>>,
-        filterable_fields: Vec<String>,
-        sortable_fields: Vec<String>,
-        ranking_rules: Vec<String>,
-        stop_words: Vec<String>,
-        synonyms: Vec<Synonyms>,
-        typo_tolerance: TypoTolerance,
-    },
+#[frb(dart_metadata=("freezed"))]
+pub struct MeiliIndexSettings {
+    pub searchable_fields: Option<Vec<String>>,
+    pub filterable_fields: Vec<String>,
+    pub sortable_fields: Vec<String>,
+    pub ranking_rules: Vec<String>,
+    pub stop_words: Vec<String>,
+    pub synonyms: Vec<Synonyms>,
+    pub typo_tolerance: TypoTolerance,
 }
 
 /// Gets the settings of the specified index
@@ -363,7 +361,7 @@ pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliInd
     let index = get_index!(indexes, index_name);
 
     let rtxn = index.read_txn()?;
-    Ok(MeiliIndexSettings::Raw {
+    Ok(MeiliIndexSettings {
         searchable_fields: index
             .searchable_fields(&rtxn)?
             .map(|fields| fields.into_iter().map(String::from).collect()),
@@ -424,7 +422,7 @@ pub fn set_settings(
     let index = get_index!(indexes, index_name);
 
     // Destructure the settings into the corresponding fields
-    let (
+    let MeiliIndexSettings {
         searchable_fields,
         filterable_fields,
         sortable_fields,
@@ -432,25 +430,7 @@ pub fn set_settings(
         stop_words,
         synonyms,
         typo_tolerance,
-    ) = match settings {
-        MeiliIndexSettings::Raw {
-            searchable_fields,
-            filterable_fields,
-            sortable_fields,
-            ranking_rules,
-            stop_words,
-            synonyms,
-            typo_tolerance,
-        } => (
-            searchable_fields,
-            filterable_fields,
-            sortable_fields,
-            ranking_rules,
-            stop_words,
-            synonyms,
-            typo_tolerance,
-        ),
-    };
+    } = settings;
 
     // Set up the settings update
     let mut wtxn = index.write_txn()?;

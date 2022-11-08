@@ -49,7 +49,7 @@ void main() {
 
   test('Get and set all settings', () async {
     final index = useTestIndex();
-    final originalSettings = MeiliIndexSettings.raw(
+    final originalSettings = MeiliIndexSettings(
       filterableFields: ['quantity'],
       sortableFields: ['price'],
       searchableFields: ['title'],
