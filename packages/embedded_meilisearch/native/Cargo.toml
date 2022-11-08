@@ -7,12 +7,13 @@ edition = "2018"
 crate-type = ["staticlib", "cdylib"]
 
 [build-dependencies]
-flutter_rust_bridge_codegen = "1.49.1"
+flutter_rust_bridge_codegen = "1.49.*"
 
 [dependencies]
-lazy_static = "1.4.0"
-flutter_rust_bridge = "1.49.1"
-anyhow = "1.0.66"
-serde = "1.0.147"
-serde_json = "1.0.87"
+lazy_static = "1.*"
+flutter_rust_bridge = "1.49.*"
+anyhow = "1.0.*"
+serde = "1.0.*"
+serde_json = "1.0.*"
 milli = { path = "milli/milli" }
+obkv = "*"
