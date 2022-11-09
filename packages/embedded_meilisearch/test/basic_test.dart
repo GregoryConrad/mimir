@@ -49,7 +49,7 @@ void main() {
 
   test('Get and set all settings', () async {
     final index = useTestIndex();
-    final originalSettings = MeiliIndexSettings(
+    const originalSettings = MeiliIndexSettings(
       filterableFields: ['quantity'],
       sortableFields: ['price'],
       searchableFields: ['title'],
@@ -105,6 +105,8 @@ void main() {
   });
 
   test('Use multiple instances', () {
-    for (final _ in Iterable.generate(100)) useTestIndex();
+    for (final _ in Iterable<int>.generate(100)) {
+      useTestIndex();
+    }
   });
 }

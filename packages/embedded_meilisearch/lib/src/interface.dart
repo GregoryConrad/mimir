@@ -37,7 +37,7 @@ class MeiliInterface {
   /// [lib] is either a DynamicLibrary on dart:io platforms
   /// or a WasmModule on web.
   EmbeddedMilli createWrapper(ExternalLibrary lib) {
-    if (_wrapper == null) _wrapper = createWrapperImpl(lib);
+    _wrapper ??= createWrapperImpl(lib);
     return _wrapper!;
   }
 }
