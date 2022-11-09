@@ -186,6 +186,44 @@ fn wire_search_documents_impl(
         },
     )
 }
+fn wire_get_settings_impl(
+    port_: MessagePort,
+    instance_dir: impl Wire2Api<String> + UnwindSafe,
+    index_name: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_settings",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_instance_dir = instance_dir.wire2api();
+            let api_index_name = index_name.wire2api();
+            move |task_callback| get_settings(api_instance_dir, api_index_name)
+        },
+    )
+}
+fn wire_set_settings_impl(
+    port_: MessagePort,
+    instance_dir: impl Wire2Api<String> + UnwindSafe,
+    index_name: impl Wire2Api<String> + UnwindSafe,
+    settings: impl Wire2Api<MeiliIndexSettings> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_settings",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_instance_dir = instance_dir.wire2api();
+            let api_index_name = index_name.wire2api();
+            let api_settings = settings.wire2api();
+            move |task_callback| set_settings(api_instance_dir, api_index_name, api_settings)
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -204,6 +242,12 @@ where
 {
     fn wire2api(self) -> Option<T> {
         (!self.is_null()).then(|| self.wire2api())
+    }
+}
+
+impl Wire2Api<bool> for bool {
+    fn wire2api(self) -> bool {
+        self
     }
 }
 
@@ -243,6 +287,33 @@ impl Wire2Api<u8> for u8 {
 }
 
 // Section: impl IntoDart
+
+impl support::IntoDart for MeiliIndexSettings {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.searchable_fields.into_dart(),
+            self.filterable_fields.into_dart(),
+            self.sortable_fields.into_dart(),
+            self.ranking_rules.into_dart(),
+            self.stop_words.into_dart(),
+            self.synonyms.into_dart(),
+            self.typos_enabled.into_dart(),
+            self.min_word_size_for_one_typo.into_dart(),
+            self.min_word_size_for_two_typos.into_dart(),
+            self.disallow_typos_on_words.into_dart(),
+            self.disallow_typos_on_fields.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for MeiliIndexSettings {}
+
+impl support::IntoDart for Synonyms {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.word.into_dart(), self.synonyms.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Synonyms {}
 
 // Section: executor
 

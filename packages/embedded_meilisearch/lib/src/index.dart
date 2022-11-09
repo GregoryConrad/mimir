@@ -54,15 +54,3 @@ mixin MeiliIndex {
   /// Sets the settings of this index
   Future<void> setSettings(MeiliIndexSettings settings);
 }
-
-/// Represents the settings of a MeiliIndex
-/// TODO move to just the Rust file and delete here
-class MeiliIndexSettings {
-  /// Creates the settings for a MeiliIndex
-  const MeiliIndexSettings();
-
-  /// Copies this settings object into a new settings object
-  /// with the given changes
-  /// TODO no nullable fields! That will mess up copyWith
-  MeiliIndexSettings copyWith() => const MeiliIndexSettings();
-}

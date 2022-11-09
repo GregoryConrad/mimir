@@ -13,13 +13,11 @@ use lazy_static::lazy_static;
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed::EnvOpenOptions,
-    update,
-    update::{IndexDocuments, IndexDocumentsConfig, IndexDocumentsMethod, IndexerConfig},
-    AscDesc, DocumentId, FieldsIdsMap, Index, Member, Search, SearchResult,
+    update, AscDesc, Criterion, DocumentId, FieldsIdsMap, Index, Member, Search, SearchResult,
 };
 
 lazy_static! {
-    /// The mapping of instance paths (directories) to instances.
+    /// The mapping of instance paths (directories) to instances
     static ref INSTANCES: RwLock<HashMap<String, Instance>> = RwLock::new(HashMap::new());
 }
 
@@ -27,7 +25,7 @@ struct Instance {
     indexes: RwLock<HashMap<String, Mutex<Index>>>,
 }
 
-/// Ensures an instance of milli (represented by just a directory) is initialized.
+/// Ensures an instance of milli (represented by just a directory) is initialized
 pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
     let instances = INSTANCES.read().unwrap();
 
@@ -50,7 +48,7 @@ pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
     Ok(())
 }
 
-/// Ensures a milli index is initialized.
+/// Ensures a milli index is initialized
 pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Result<()> {
     ensure_instance_initialized(instance_dir.clone())?;
     let instances = INSTANCES.read().unwrap();
@@ -122,7 +120,8 @@ fn convert_milli_documents(
         .collect::<Result<Vec<String>>>()
 }
 
-/// Adds the given list of documents to the specified milli index.
+/// Adds the given list of documents to the specified milli index
+///
 /// Replaces documents that already exist in the index based on document ids.
 pub fn add_documents(
     instance_dir: String,
@@ -152,15 +151,15 @@ pub fn add_documents(
     let reader = DocumentsBatchReader::from_reader(Cursor::new(buff))?;
 
     // Create the configs needed for the batch document addition
-    let indexer_config = IndexerConfig::default();
-    let indexing_config = IndexDocumentsConfig {
-        update_method: IndexDocumentsMethod::ReplaceDocuments,
+    let indexer_config = update::IndexerConfig::default();
+    let indexing_config = update::IndexDocumentsConfig {
+        update_method: update::IndexDocumentsMethod::ReplaceDocuments,
         ..Default::default()
     };
 
     // Make an index write transaction with a batch step to index the new documents
     let mut wtxn = index.write_txn()?;
-    IndexDocuments::new(
+    update::IndexDocuments::new(
         &mut wtxn,
         &index,
         &indexer_config,
@@ -176,7 +175,7 @@ pub fn add_documents(
     Ok(())
 }
 
-/// Deletes the documents with the given ids from the milli index.
+/// Deletes the documents with the given ids from the milli index
 pub fn delete_documents(
     instance_dir: String,
     index_name: String,
@@ -325,14 +324,143 @@ pub fn search_documents(
     convert_milli_documents(milli_documents, &fields_ids_map)
 }
 
-// pub fn template(
-//     instance_dir: String,
-//     index_name: String,
-// ) -> Result<()> {
-//     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
-//     let instances = get_instances!();
-//     let indexes = get_indexes!(instances, instance_dir);
-//     let index = get_index!(indexes, index_name);
-//
-//     todo!()
-// }
+/// Represents the synonyms of a given word
+#[frb(dart_metadata=("freezed"))]
+pub struct Synonyms {
+    pub word: String,
+    pub synonyms: Vec<String>,
+}
+
+/// The settings of a milli index
+#[frb(dart_metadata=("freezed"))]
+pub struct MeiliIndexSettings {
+    pub searchable_fields: Option<Vec<String>>,
+    pub filterable_fields: Vec<String>,
+    pub sortable_fields: Vec<String>,
+    pub ranking_rules: Vec<String>,
+    pub stop_words: Vec<String>,
+    pub synonyms: Vec<Synonyms>,
+    pub typos_enabled: bool,
+    pub min_word_size_for_one_typo: u8,
+    pub min_word_size_for_two_typos: u8,
+    pub disallow_typos_on_words: Vec<String>,
+    pub disallow_typos_on_fields: Vec<String>,
+}
+
+/// Gets the settings of the specified index
+pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliIndexSettings> {
+    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    let instances = get_instances!();
+    let indexes = get_indexes!(instances, instance_dir);
+    let index = get_index!(indexes, index_name);
+
+    let rtxn = index.read_txn()?;
+    Ok(MeiliIndexSettings {
+        searchable_fields: index
+            .searchable_fields(&rtxn)?
+            .map(|fields| fields.into_iter().map(String::from).collect()),
+        filterable_fields: index.filterable_fields(&rtxn)?.into_iter().collect(),
+        sortable_fields: index.sortable_fields(&rtxn)?.into_iter().collect(),
+        ranking_rules: index
+            .criteria(&rtxn)?
+            .into_iter()
+            .map(|rule| match rule {
+                Criterion::Words => "words",
+                Criterion::Typo => "typo",
+                Criterion::Proximity => "proximity",
+                Criterion::Attribute => "attribute",
+                Criterion::Sort => "sort",
+                Criterion::Exactness => "exactness",
+                Criterion::Asc(_) => "",
+                Criterion::Desc(_) => "",
+            })
+            .filter(|s| !s.is_empty())
+            .map(String::from)
+            .collect(),
+        stop_words: index
+            .stop_words(&rtxn)?
+            .map(|words| words.stream().into_strs())
+            .unwrap_or_else(|| Ok(Vec::new()))?,
+        synonyms: index
+            .synonyms(&rtxn)?
+            .into_iter()
+            .map(|(word, synonyms)| {
+                (
+                    word[0].clone(),
+                    synonyms
+                        .iter()
+                        .flat_map(|v| v.iter())
+                        .map(String::from)
+                        .collect(),
+                )
+            })
+            .map(|(word, synonyms)| Synonyms { word, synonyms })
+            .collect(),
+        typos_enabled: index.authorize_typos(&rtxn)?,
+        min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?,
+        min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?,
+        disallow_typos_on_words: index
+            .exact_words(&rtxn)?
+            .map(|words| words.stream().into_strs())
+            .unwrap_or_else(|| Ok(Vec::new()))?,
+        disallow_typos_on_fields: index
+            .exact_attributes(&rtxn)?
+            .into_iter()
+            .map(String::from)
+            .collect(),
+    })
+}
+
+/// Sets the settings of the specified index
+pub fn set_settings(
+    instance_dir: String,
+    index_name: String,
+    settings: MeiliIndexSettings,
+) -> Result<()> {
+    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    let instances = get_instances!();
+    let indexes = get_indexes!(instances, instance_dir);
+    let index = get_index!(indexes, index_name);
+
+    // Destructure the settings into the corresponding fields
+    let MeiliIndexSettings {
+        searchable_fields,
+        filterable_fields,
+        sortable_fields,
+        ranking_rules,
+        stop_words,
+        synonyms,
+        typos_enabled,
+        min_word_size_for_one_typo,
+        min_word_size_for_two_typos,
+        disallow_typos_on_words,
+        disallow_typos_on_fields,
+    } = settings;
+
+    // Set up the settings update
+    let mut wtxn = index.write_txn()?;
+    let indexer_config = update::IndexerConfig::default();
+    let mut builder = update::Settings::new(&mut wtxn, &index, &indexer_config);
+
+    // Copy over the given settings
+    match searchable_fields {
+        Some(fields) => builder.set_searchable_fields(fields),
+        None => builder.reset_searchable_fields(),
+    }
+    builder.set_filterable_fields(filterable_fields.into_iter().collect());
+    builder.set_sortable_fields(sortable_fields.into_iter().collect());
+    builder.set_criteria(ranking_rules);
+    builder.set_stop_words(stop_words.into_iter().collect());
+    builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
+    builder.set_autorize_typos(typos_enabled);
+    builder.set_min_word_len_one_typo(min_word_size_for_one_typo);
+    builder.set_min_word_len_two_typos(min_word_size_for_two_typos);
+    builder.set_exact_words(disallow_typos_on_words.into_iter().collect());
+    builder.set_exact_attributes(disallow_typos_on_fields.into_iter().collect());
+
+    // Execute the settings update
+    builder.execute(|_| {}, || false)?;
+    wtxn.commit()?;
+
+    Ok(())
+}

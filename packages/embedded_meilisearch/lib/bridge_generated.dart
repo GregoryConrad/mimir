@@ -14,19 +14,20 @@ import 'dart:ffi' as ffi;
 part 'bridge_generated.freezed.dart';
 
 abstract class EmbeddedMilli {
-  /// Ensures an instance of milli (represented by just a directory) is initialized.
+  /// Ensures an instance of milli (represented by just a directory) is initialized
   Future<void> ensureInstanceInitialized(
       {required String instanceDir, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
 
-  /// Ensures a milli index is initialized.
+  /// Ensures a milli index is initialized
   Future<void> ensureIndexInitialized(
       {required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta;
 
-  /// Adds the given list of documents to the specified milli index.
+  /// Adds the given list of documents to the specified milli index
+  ///
   /// Replaces documents that already exist in the index based on document ids.
   Future<void> addDocuments(
       {required String instanceDir,
@@ -36,7 +37,7 @@ abstract class EmbeddedMilli {
 
   FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta;
 
-  /// Deletes the documents with the given ids from the milli index.
+  /// Deletes the documents with the given ids from the milli index
   Future<void> deleteDocuments(
       {required String instanceDir,
       required String indexName,
@@ -77,6 +78,39 @@ abstract class EmbeddedMilli {
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta;
+
+  /// Gets the settings of the specified index
+  Future<MeiliIndexSettings> getSettings(
+      {required String instanceDir, required String indexName, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetSettingsConstMeta;
+
+  /// Sets the settings of the specified index
+  Future<void> setSettings(
+      {required String instanceDir,
+      required String indexName,
+      required MeiliIndexSettings settings,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSetSettingsConstMeta;
+}
+
+/// The settings of a milli index
+@freezed
+class MeiliIndexSettings with _$MeiliIndexSettings {
+  const factory MeiliIndexSettings({
+    List<String>? searchableFields,
+    required List<String> filterableFields,
+    required List<String> sortableFields,
+    required List<String> rankingRules,
+    required List<String> stopWords,
+    required List<Synonyms> synonyms,
+    required bool typosEnabled,
+    required int minWordSizeForOneTypo,
+    required int minWordSizeForTwoTypos,
+    required List<String> disallowTyposOnWords,
+    required List<String> disallowTyposOnFields,
+  }) = _MeiliIndexSettings;
 }
 
 @freezed
@@ -87,6 +121,15 @@ class SortBy with _$SortBy {
   const factory SortBy.desc(
     String field0,
   ) = SortBy_Desc;
+}
+
+/// Represents the synonyms of a given word
+@freezed
+class Synonyms with _$Synonyms {
+  const factory Synonyms({
+    required String word,
+    required List<String> synonyms,
+  }) = _Synonyms;
 }
 
 /// See https://docs.meilisearch.com/reference/api/search.html#matching-strategy
@@ -311,6 +354,50 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         ],
       );
 
+  Future<MeiliIndexSettings> getSettings(
+          {required String instanceDir,
+          required String indexName,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_get_settings(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName)),
+        parseSuccessData: _wire2api_meili_index_settings,
+        constMeta: kGetSettingsConstMeta,
+        argValues: [instanceDir, indexName],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kGetSettingsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_settings",
+        argNames: ["instanceDir", "indexName"],
+      );
+
+  Future<void> setSettings(
+          {required String instanceDir,
+          required String indexName,
+          required MeiliIndexSettings settings,
+          dynamic hint}) =>
+      _platform.executeNormal(FlutterRustBridgeTask(
+        callFfi: (port_) => _platform.inner.wire_set_settings(
+            port_,
+            _platform.api2wire_String(instanceDir),
+            _platform.api2wire_String(indexName),
+            _platform.api2wire_box_autoadd_meili_index_settings(settings)),
+        parseSuccessData: _wire2api_unit,
+        constMeta: kSetSettingsConstMeta,
+        argValues: [instanceDir, indexName, settings],
+        hint: hint,
+      ));
+
+  FlutterRustBridgeTaskConstMeta get kSetSettingsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "set_settings",
+        argNames: ["instanceDir", "indexName", "settings"],
+      );
+
 // Section: wire2api
 
   String _wire2api_String(dynamic raw) {
@@ -321,8 +408,49 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     return (raw as List<dynamic>).cast<String>();
   }
 
+  bool _wire2api_bool(dynamic raw) {
+    return raw as bool;
+  }
+
+  List<Synonyms> _wire2api_list_synonyms(dynamic raw) {
+    return (raw as List<dynamic>).map(_wire2api_synonyms).toList();
+  }
+
+  MeiliIndexSettings _wire2api_meili_index_settings(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 11)
+      throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
+    return MeiliIndexSettings(
+      searchableFields: _wire2api_opt_StringList(arr[0]),
+      filterableFields: _wire2api_StringList(arr[1]),
+      sortableFields: _wire2api_StringList(arr[2]),
+      rankingRules: _wire2api_StringList(arr[3]),
+      stopWords: _wire2api_StringList(arr[4]),
+      synonyms: _wire2api_list_synonyms(arr[5]),
+      typosEnabled: _wire2api_bool(arr[6]),
+      minWordSizeForOneTypo: _wire2api_u8(arr[7]),
+      minWordSizeForTwoTypos: _wire2api_u8(arr[8]),
+      disallowTyposOnWords: _wire2api_StringList(arr[9]),
+      disallowTyposOnFields: _wire2api_StringList(arr[10]),
+    );
+  }
+
   String? _wire2api_opt_String(dynamic raw) {
     return raw == null ? null : _wire2api_String(raw);
+  }
+
+  List<String>? _wire2api_opt_StringList(dynamic raw) {
+    return raw == null ? null : _wire2api_StringList(raw);
+  }
+
+  Synonyms _wire2api_synonyms(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Synonyms(
+      word: _wire2api_String(arr[0]),
+      synonyms: _wire2api_StringList(arr[1]),
+    );
   }
 
   int _wire2api_u8(dynamic raw) {
@@ -339,6 +467,11 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
 }
 
 // Section: api2wire
+
+@protected
+bool api2wire_bool(bool raw) {
+  return raw;
+}
 
 @protected
 int api2wire_i32(int raw) {
@@ -380,6 +513,14 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
+  ffi.Pointer<wire_MeiliIndexSettings>
+      api2wire_box_autoadd_meili_index_settings(MeiliIndexSettings raw) {
+    final ptr = inner.new_box_autoadd_meili_index_settings_0();
+    _api_fill_to_wire_meili_index_settings(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<ffi.Uint32> api2wire_box_autoadd_u32(int raw) {
     return inner.new_box_autoadd_u32_0(api2wire_u32(raw));
   }
@@ -394,8 +535,22 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
+  ffi.Pointer<wire_list_synonyms> api2wire_list_synonyms(List<Synonyms> raw) {
+    final ans = inner.new_list_synonyms_0(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      _api_fill_to_wire_synonyms(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_uint_8_list> api2wire_opt_String(String? raw) {
     return raw == null ? ffi.nullptr : api2wire_String(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_StringList> api2wire_opt_StringList(List<String>? raw) {
+    return raw == null ? ffi.nullptr : api2wire_StringList(raw);
   }
 
   @protected
@@ -416,6 +571,31 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 // Section: api_fill_to_wire
 
+  void _api_fill_to_wire_box_autoadd_meili_index_settings(
+      MeiliIndexSettings apiObj, ffi.Pointer<wire_MeiliIndexSettings> wireObj) {
+    _api_fill_to_wire_meili_index_settings(apiObj, wireObj.ref);
+  }
+
+  void _api_fill_to_wire_meili_index_settings(
+      MeiliIndexSettings apiObj, wire_MeiliIndexSettings wireObj) {
+    wireObj.searchable_fields =
+        api2wire_opt_StringList(apiObj.searchableFields);
+    wireObj.filterable_fields = api2wire_StringList(apiObj.filterableFields);
+    wireObj.sortable_fields = api2wire_StringList(apiObj.sortableFields);
+    wireObj.ranking_rules = api2wire_StringList(apiObj.rankingRules);
+    wireObj.stop_words = api2wire_StringList(apiObj.stopWords);
+    wireObj.synonyms = api2wire_list_synonyms(apiObj.synonyms);
+    wireObj.typos_enabled = api2wire_bool(apiObj.typosEnabled);
+    wireObj.min_word_size_for_one_typo =
+        api2wire_u8(apiObj.minWordSizeForOneTypo);
+    wireObj.min_word_size_for_two_typos =
+        api2wire_u8(apiObj.minWordSizeForTwoTypos);
+    wireObj.disallow_typos_on_words =
+        api2wire_StringList(apiObj.disallowTyposOnWords);
+    wireObj.disallow_typos_on_fields =
+        api2wire_StringList(apiObj.disallowTyposOnFields);
+  }
+
   void _api_fill_to_wire_sort_by(SortBy apiObj, wire_SortBy wireObj) {
     if (apiObj is SortBy_Asc) {
       wireObj.tag = 0;
@@ -429,6 +609,11 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
       wireObj.kind.ref.Desc.ref.field0 = api2wire_String(apiObj.field0);
       return;
     }
+  }
+
+  void _api_fill_to_wire_synonyms(Synonyms apiObj, wire_Synonyms wireObj) {
+    wireObj.word = api2wire_String(apiObj.word);
+    wireObj.synonyms = api2wire_StringList(apiObj.synonyms);
   }
 }
 
@@ -663,6 +848,54 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
           int,
           ffi.Pointer<wire_list_sort_by>)>();
 
+  void wire_get_settings(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
+    ffi.Pointer<wire_uint_8_list> index_name,
+  ) {
+    return _wire_get_settings(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire_get_settingsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_get_settings');
+  late final _wire_get_settings = _wire_get_settingsPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_set_settings(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
+    ffi.Pointer<wire_uint_8_list> index_name,
+    ffi.Pointer<wire_MeiliIndexSettings> settings,
+  ) {
+    return _wire_set_settings(
+      port_,
+      instance_dir,
+      index_name,
+      settings,
+    );
+  }
+
+  late final _wire_set_settingsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_MeiliIndexSettings>)>>('wire_set_settings');
+  late final _wire_set_settings = _wire_set_settingsPtr.asFunction<
+      void Function(
+          int,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_MeiliIndexSettings>)>();
+
   ffi.Pointer<wire_StringList> new_StringList_0(
     int len,
   ) {
@@ -676,6 +909,18 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
       'new_StringList_0');
   late final _new_StringList_0 = _new_StringList_0Ptr
       .asFunction<ffi.Pointer<wire_StringList> Function(int)>();
+
+  ffi.Pointer<wire_MeiliIndexSettings>
+      new_box_autoadd_meili_index_settings_0() {
+    return _new_box_autoadd_meili_index_settings_0();
+  }
+
+  late final _new_box_autoadd_meili_index_settings_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_MeiliIndexSettings> Function()>>(
+      'new_box_autoadd_meili_index_settings_0');
+  late final _new_box_autoadd_meili_index_settings_0 =
+      _new_box_autoadd_meili_index_settings_0Ptr
+          .asFunction<ffi.Pointer<wire_MeiliIndexSettings> Function()>();
 
   ffi.Pointer<ffi.Uint32> new_box_autoadd_u32_0(
     int value,
@@ -705,6 +950,21 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
               ffi.Int32)>>('new_list_sort_by_0');
   late final _new_list_sort_by_0 = _new_list_sort_by_0Ptr
       .asFunction<ffi.Pointer<wire_list_sort_by> Function(int)>();
+
+  ffi.Pointer<wire_list_synonyms> new_list_synonyms_0(
+    int len,
+  ) {
+    return _new_list_synonyms_0(
+      len,
+    );
+  }
+
+  late final _new_list_synonyms_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_list_synonyms> Function(
+              ffi.Int32)>>('new_list_synonyms_0');
+  late final _new_list_synonyms_0 = _new_list_synonyms_0Ptr
+      .asFunction<ffi.Pointer<wire_list_synonyms> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,
@@ -796,6 +1056,46 @@ class wire_list_sort_by extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+class wire_Synonyms extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> word;
+
+  external ffi.Pointer<wire_StringList> synonyms;
+}
+
+class wire_list_synonyms extends ffi.Struct {
+  external ffi.Pointer<wire_Synonyms> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+class wire_MeiliIndexSettings extends ffi.Struct {
+  external ffi.Pointer<wire_StringList> searchable_fields;
+
+  external ffi.Pointer<wire_StringList> filterable_fields;
+
+  external ffi.Pointer<wire_StringList> sortable_fields;
+
+  external ffi.Pointer<wire_StringList> ranking_rules;
+
+  external ffi.Pointer<wire_StringList> stop_words;
+
+  external ffi.Pointer<wire_list_synonyms> synonyms;
+
+  @ffi.Bool()
+  external bool typos_enabled;
+
+  @ffi.Uint8()
+  external int min_word_size_for_one_typo;
+
+  @ffi.Uint8()
+  external int min_word_size_for_two_typos;
+
+  external ffi.Pointer<wire_StringList> disallow_typos_on_words;
+
+  external ffi.Pointer<wire_StringList> disallow_typos_on_fields;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<
