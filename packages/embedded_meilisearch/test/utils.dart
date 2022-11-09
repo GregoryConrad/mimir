@@ -41,7 +41,14 @@ MeiliIndex useTestIndex() => useInstance().getIndex('test');
 List<Map<String, dynamic>> useExercises() {
   final exercisesStr = File('test/assets/exercises.json').readAsStringSync();
   final exerciseLibrary = json.decode(exercisesStr) as Map<String, dynamic>;
-  return (exerciseLibrary['exercises'] as List).cast<Map<String, dynamic>>();
+  return (exerciseLibrary['exercises'] as List)
+      .cast<Map<String, dynamic>>()
+      // TODO get rid of ..remove('video') below. See here:
+      //  https://github.com/meilisearch/milli/issues/695
+      .map((e) => e
+        ..['id'] = e['name'].hashCode
+        ..remove('video'))
+      .toList();
 }
 
 @freezed

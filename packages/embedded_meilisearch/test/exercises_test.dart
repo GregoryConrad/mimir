@@ -7,10 +7,6 @@ void main() {
     final index = useTestIndex();
     final exercises = useExercises();
 
-    // TODO why is this dummy document needed?
-    await index.addDocument({'SomeId': 123456});
-    await index.deleteDocument('123456');
-
     // Add the exercises into the index
     await index.addDocuments(exercises);
     final allDocs = await index.getAllDocuments();
@@ -18,6 +14,9 @@ void main() {
 
     // Perform a basic search
     final results = await index.search('benchp ress');
-    results.forEach((doc) => print(doc['name']));
+    expect(
+      results[0],
+      exercises.where((e) => e['name'] == 'Barbell Bench Press').first,
+    );
   });
 }
