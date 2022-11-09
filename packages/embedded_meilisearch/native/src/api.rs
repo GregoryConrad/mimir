@@ -55,6 +55,9 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
     let instance = instances.get(&instance_dir).unwrap();
     let indexes = instance.indexes.read().unwrap();
 
+    // This is 2^24, so it will be a multiple of whatever the system page size is
+    let default_map_size = 16_777_216;
+
     // If this index does not yet exist, create it
     if !indexes.contains_key(&index_name) {
         drop(indexes); // prevent deadlock with the prev read lock and now write lock
@@ -65,7 +68,8 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
         if !indexes.contains_key(&index_name) {
             let path = Path::new(&instance_dir).join(&index_name);
             create_dir_all(&path)?;
-            let options = EnvOpenOptions::new();
+            let mut options = EnvOpenOptions::new();
+            options.map_size(default_map_size);
             let index = Index::new(options, &path).unwrap();
             indexes.insert(index_name.clone(), Mutex::new(index));
         }
@@ -154,6 +158,7 @@ pub fn add_documents(
     let indexer_config = update::IndexerConfig::default();
     let indexing_config = update::IndexDocumentsConfig {
         update_method: update::IndexDocumentsMethod::ReplaceDocuments,
+        autogenerate_docids: true,
         ..Default::default()
     };
 

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -36,6 +37,12 @@ MeiliInstance useInstance() {
 }
 
 MeiliIndex useTestIndex() => useInstance().getIndex('test');
+
+List<Map<String, dynamic>> useExercises() {
+  final exercisesStr = File('test/assets/exercises.json').readAsStringSync();
+  final exerciseLibrary = json.decode(exercisesStr) as Map<String, dynamic>;
+  return (exerciseLibrary['exercises'] as List).cast<Map<String, dynamic>>();
+}
 
 @freezed
 class ComparableMeiliIndexSettings with _$ComparableMeiliIndexSettings {
