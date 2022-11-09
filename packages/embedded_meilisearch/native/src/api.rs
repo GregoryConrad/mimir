@@ -226,9 +226,10 @@ pub fn get_document(
     let rtxn = index.read_txn()?;
     let fields_ids_map = index.fields_ids_map(&rtxn)?;
     let external_ids = index.external_documents_ids(&rtxn)?;
-    let internal_id = external_ids.get(document_id).ok_or(anyhow::anyhow!(
-        "Failed to find internal document id from user's document id"
-    ))?;
+    let internal_id = match external_ids.get(document_id) {
+        Some(id) => id,
+        None => return Ok(None),
+    };
     let milli_documents = index.documents(&rtxn, vec![internal_id])?;
     convert_milli_documents(milli_documents, &fields_ids_map)
         .map(|docs| docs.first().map(String::from))

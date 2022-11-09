@@ -109,4 +109,45 @@ void main() {
       useTestIndex();
     }
   });
+
+  test('Add and get documents', () async {
+    final index = useTestIndex();
+    await index.addDocuments(allDocs);
+
+    expect(await index.getAllDocuments(), allDocs);
+    expect(await index.getDocument('1'), allDocs[2]);
+    expect(await index.getDocument('456'), allDocs[1]);
+    expect(await index.getDocument('1234'), null);
+  });
+
+  test('Add, get, set, and delete documents', () async {
+    final index = useTestIndex();
+    await index.deleteAllDocuments(); // make sure it doesn't throw
+    await index.addDocuments(allDocs);
+
+    await index.deleteDocument('1234'); // make sure it doesn't throw
+    expect(await index.getDocument('1'), allDocs[2]);
+    expect(await index.getDocument('456'), allDocs[1]);
+    expect(await index.getDocument('2'), allDocs[0]);
+    expect(await index.getDocument('4'), allDocs[3]);
+
+    await index.deleteDocuments(['1', '456']);
+    expect(await index.getDocument('1'), null);
+    expect(await index.getDocument('456'), null);
+    expect(await index.getDocument('2'), allDocs[0]);
+    expect(await index.getDocument('4'), allDocs[3]);
+
+    await index.setDocuments([allDocs[2], allDocs[1]]);
+    expect(await index.getDocument('1'), allDocs[2]);
+    expect(await index.getDocument('456'), allDocs[1]);
+    expect(await index.getDocument('2'), null);
+    expect(await index.getDocument('4'), null);
+
+    await index.deleteAllDocuments();
+    expect(await index.getDocument('1'), null);
+    expect(await index.getDocument('456'), null);
+    expect(await index.getDocument('2'), null);
+    expect(await index.getDocument('4'), null);
+    expect(await index.getAllDocuments(), <MeiliDocument>[]);
+  });
 }
