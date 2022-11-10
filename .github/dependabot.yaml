@@ -6,6 +6,6 @@ updates:
     schedule:
       interval: weekly
   - package-ecosystem: cargo
-    directory: "/packages/embedded_meilisearch/native"
+    directory: "/packages/mimir/native"
     schedule:
       interval: weekly

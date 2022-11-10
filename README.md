@@ -1,2 +1,2 @@
-# embedded_meilisearch
+# mimir
 README coming soon!
