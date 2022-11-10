@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ComparableMeiliIndexSettings {
+mixin _$ComparableMimirIndexSettings {
   Set<String>? get searchableFields => throw _privateConstructorUsedError;
   Set<String> get filterableFields => throw _privateConstructorUsedError;
   Set<String> get sortableFields => throw _privateConstructorUsedError;
@@ -29,17 +29,17 @@ mixin _$ComparableMeiliIndexSettings {
   Set<String> get disallowTyposOnFields => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ComparableMeiliIndexSettingsCopyWith<ComparableMeiliIndexSettings>
+  $ComparableMimirIndexSettingsCopyWith<ComparableMimirIndexSettings>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ComparableMeiliIndexSettingsCopyWith<$Res> {
-  factory $ComparableMeiliIndexSettingsCopyWith(
-          ComparableMeiliIndexSettings value,
-          $Res Function(ComparableMeiliIndexSettings) then) =
-      _$ComparableMeiliIndexSettingsCopyWithImpl<$Res,
-          ComparableMeiliIndexSettings>;
+abstract class $ComparableMimirIndexSettingsCopyWith<$Res> {
+  factory $ComparableMimirIndexSettingsCopyWith(
+          ComparableMimirIndexSettings value,
+          $Res Function(ComparableMimirIndexSettings) then) =
+      _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
+          ComparableMimirIndexSettings>;
   @useResult
   $Res call(
       {Set<String>? searchableFields,
@@ -56,10 +56,10 @@ abstract class $ComparableMeiliIndexSettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ComparableMeiliIndexSettingsCopyWithImpl<$Res,
-        $Val extends ComparableMeiliIndexSettings>
-    implements $ComparableMeiliIndexSettingsCopyWith<$Res> {
-  _$ComparableMeiliIndexSettingsCopyWithImpl(this._value, this._then);
+class _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
+        $Val extends ComparableMimirIndexSettings>
+    implements $ComparableMimirIndexSettingsCopyWith<$Res> {
+  _$ComparableMimirIndexSettingsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -131,12 +131,12 @@ class _$ComparableMeiliIndexSettingsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_ComparableMeiliIndexSettingsCopyWith<$Res>
-    implements $ComparableMeiliIndexSettingsCopyWith<$Res> {
-  factory _$$_ComparableMeiliIndexSettingsCopyWith(
-          _$_ComparableMeiliIndexSettings value,
-          $Res Function(_$_ComparableMeiliIndexSettings) then) =
-      __$$_ComparableMeiliIndexSettingsCopyWithImpl<$Res>;
+abstract class _$$_ComparableMimirIndexSettingsCopyWith<$Res>
+    implements $ComparableMimirIndexSettingsCopyWith<$Res> {
+  factory _$$_ComparableMimirIndexSettingsCopyWith(
+          _$_ComparableMimirIndexSettings value,
+          $Res Function(_$_ComparableMimirIndexSettings) then) =
+      __$$_ComparableMimirIndexSettingsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -154,13 +154,13 @@ abstract class _$$_ComparableMeiliIndexSettingsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ComparableMeiliIndexSettingsCopyWithImpl<$Res>
-    extends _$ComparableMeiliIndexSettingsCopyWithImpl<$Res,
-        _$_ComparableMeiliIndexSettings>
-    implements _$$_ComparableMeiliIndexSettingsCopyWith<$Res> {
-  __$$_ComparableMeiliIndexSettingsCopyWithImpl(
-      _$_ComparableMeiliIndexSettings _value,
-      $Res Function(_$_ComparableMeiliIndexSettings) _then)
+class __$$_ComparableMimirIndexSettingsCopyWithImpl<$Res>
+    extends _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
+        _$_ComparableMimirIndexSettings>
+    implements _$$_ComparableMimirIndexSettingsCopyWith<$Res> {
+  __$$_ComparableMimirIndexSettingsCopyWithImpl(
+      _$_ComparableMimirIndexSettings _value,
+      $Res Function(_$_ComparableMimirIndexSettings) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -178,7 +178,7 @@ class __$$_ComparableMeiliIndexSettingsCopyWithImpl<$Res>
     Object? disallowTyposOnWords = null,
     Object? disallowTyposOnFields = null,
   }) {
-    return _then(_$_ComparableMeiliIndexSettings(
+    return _then(_$_ComparableMimirIndexSettings(
       searchableFields: freezed == searchableFields
           ? _value._searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
@@ -229,8 +229,8 @@ class __$$_ComparableMeiliIndexSettingsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ComparableMeiliIndexSettings implements _ComparableMeiliIndexSettings {
-  const _$_ComparableMeiliIndexSettings(
+class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
+  const _$_ComparableMimirIndexSettings(
       {required final Set<String>? searchableFields,
       required final Set<String> filterableFields,
       required final Set<String> sortableFields,
@@ -317,14 +317,14 @@ class _$_ComparableMeiliIndexSettings implements _ComparableMeiliIndexSettings {
 
   @override
   String toString() {
-    return 'ComparableMeiliIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
+    return 'ComparableMimirIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ComparableMeiliIndexSettings &&
+            other is _$_ComparableMimirIndexSettings &&
             const DeepCollectionEquality()
                 .equals(other._searchableFields, _searchableFields) &&
             const DeepCollectionEquality()
@@ -366,14 +366,14 @@ class _$_ComparableMeiliIndexSettings implements _ComparableMeiliIndexSettings {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ComparableMeiliIndexSettingsCopyWith<_$_ComparableMeiliIndexSettings>
-      get copyWith => __$$_ComparableMeiliIndexSettingsCopyWithImpl<
-          _$_ComparableMeiliIndexSettings>(this, _$identity);
+  _$$_ComparableMimirIndexSettingsCopyWith<_$_ComparableMimirIndexSettings>
+      get copyWith => __$$_ComparableMimirIndexSettingsCopyWithImpl<
+          _$_ComparableMimirIndexSettings>(this, _$identity);
 }
 
-abstract class _ComparableMeiliIndexSettings
-    implements ComparableMeiliIndexSettings {
-  const factory _ComparableMeiliIndexSettings(
+abstract class _ComparableMimirIndexSettings
+    implements ComparableMimirIndexSettings {
+  const factory _ComparableMimirIndexSettings(
           {required final Set<String>? searchableFields,
           required final Set<String> filterableFields,
           required final Set<String> sortableFields,
@@ -385,7 +385,7 @@ abstract class _ComparableMeiliIndexSettings
           required final int minWordSizeForTwoTypos,
           required final Set<String> disallowTyposOnWords,
           required final Set<String> disallowTyposOnFields}) =
-      _$_ComparableMeiliIndexSettings;
+      _$_ComparableMimirIndexSettings;
 
   @override
   Set<String>? get searchableFields;
@@ -411,6 +411,6 @@ abstract class _ComparableMeiliIndexSettings
   Set<String> get disallowTyposOnFields;
   @override
   @JsonKey(ignore: true)
-  _$$_ComparableMeiliIndexSettingsCopyWith<_$_ComparableMeiliIndexSettings>
+  _$$_ComparableMimirIndexSettingsCopyWith<_$_ComparableMimirIndexSettings>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:embedded_meilisearch/bridge_generated.dart';
-import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
-import 'package:embedded_meilisearch/src/index.dart';
+import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/impl/instance_impl.dart';
+import 'package:mimir/src/index.dart';
 
 class MimirIndexImpl with MimirIndex {
   const MimirIndexImpl(this.instance, this.name);

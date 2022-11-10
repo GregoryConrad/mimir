@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:embedded_meilisearch/mimir.dart';
+import 'package:mimir/mimir.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:test/test.dart';
 

@@ -1,9 +1,9 @@
-import 'package:embedded_meilisearch/bridge_generated.dart';
-import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
-import 'package:embedded_meilisearch/src/instance.dart';
-import 'package:embedded_meilisearch/src/impl/ffi/stub.dart'
-    if (dart.library.io) 'package:embedded_meilisearch/src/impl/ffi/io.dart'
-    if (dart.library.html) 'package:embedded_meilisearch/src/impl/ffi/web.dart';
+import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/impl/instance_impl.dart';
+import 'package:mimir/src/instance.dart';
+import 'package:mimir/src/impl/ffi/stub.dart'
+    if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart'
+    if (dart.library.html) 'package:mimir/src/impl/ffi/web.dart';
 
 /// The exposed API to interact with mimir
 // Instead of just having a Mimir namespace, we have to do this instead,

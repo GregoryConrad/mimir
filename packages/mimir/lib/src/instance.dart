@@ -1,4 +1,4 @@
-import 'package:embedded_meilisearch/src/index.dart';
+import 'package:mimir/src/index.dart';
 
 /// Represents an instance (essentially a group of indices) of mimir.
 ///

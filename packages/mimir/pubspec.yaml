@@ -1,10 +1,10 @@
-name: embedded_meilisearch
+name: mimir
 description: >
   An embedded instance of the engine that powers Meilisearch (milli).
   Enables easy, blazingly fast, client-side full-text search in Dart.
 version: 0.0.0
-homepage: https://github.com/GregoryConrad/embedded_meilisearch
-repository: https://github.com/GregoryConrad/embedded_meilisearch
+homepage: https://github.com/GregoryConrad/mimir
+repository: https://github.com/GregoryConrad/mimir
 
 environment:
   sdk: ">=2.17.0 <3.0.0"

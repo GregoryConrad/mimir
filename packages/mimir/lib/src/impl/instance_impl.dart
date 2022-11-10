@@ -1,6 +1,6 @@
-import 'package:embedded_meilisearch/bridge_generated.dart';
-import 'package:embedded_meilisearch/src/impl/index_impl.dart';
-import 'package:embedded_meilisearch/src/instance.dart';
+import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/impl/index_impl.dart';
+import 'package:mimir/src/instance.dart';
 
 class MimirInstanceImpl with MimirInstance {
   const MimirInstanceImpl(this.path, this.milli);

@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$MeiliIndexSettings {
+mixin _$MimirIndexSettings {
   List<String>? get searchableFields => throw _privateConstructorUsedError;
   List<String> get filterableFields => throw _privateConstructorUsedError;
   List<String> get sortableFields => throw _privateConstructorUsedError;
@@ -29,15 +29,15 @@ mixin _$MeiliIndexSettings {
   List<String> get disallowTyposOnFields => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $MeiliIndexSettingsCopyWith<MeiliIndexSettings> get copyWith =>
+  $MimirIndexSettingsCopyWith<MimirIndexSettings> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MeiliIndexSettingsCopyWith<$Res> {
-  factory $MeiliIndexSettingsCopyWith(
-          MeiliIndexSettings value, $Res Function(MeiliIndexSettings) then) =
-      _$MeiliIndexSettingsCopyWithImpl<$Res, MeiliIndexSettings>;
+abstract class $MimirIndexSettingsCopyWith<$Res> {
+  factory $MimirIndexSettingsCopyWith(
+          MimirIndexSettings value, $Res Function(MimirIndexSettings) then) =
+      _$MimirIndexSettingsCopyWithImpl<$Res, MimirIndexSettings>;
   @useResult
   $Res call(
       {List<String>? searchableFields,
@@ -54,9 +54,9 @@ abstract class $MeiliIndexSettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
-    implements $MeiliIndexSettingsCopyWith<$Res> {
-  _$MeiliIndexSettingsCopyWithImpl(this._value, this._then);
+class _$MimirIndexSettingsCopyWithImpl<$Res, $Val extends MimirIndexSettings>
+    implements $MimirIndexSettingsCopyWith<$Res> {
+  _$MimirIndexSettingsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -129,7 +129,7 @@ class _$MeiliIndexSettingsCopyWithImpl<$Res, $Val extends MeiliIndexSettings>
 
 /// @nodoc
 abstract class _$$_MeiliIndexSettingsCopyWith<$Res>
-    implements $MeiliIndexSettingsCopyWith<$Res> {
+    implements $MimirIndexSettingsCopyWith<$Res> {
   factory _$$_MeiliIndexSettingsCopyWith(_$_MeiliIndexSettings value,
           $Res Function(_$_MeiliIndexSettings) then) =
       __$$_MeiliIndexSettingsCopyWithImpl<$Res>;
@@ -151,7 +151,7 @@ abstract class _$$_MeiliIndexSettingsCopyWith<$Res>
 
 /// @nodoc
 class __$$_MeiliIndexSettingsCopyWithImpl<$Res>
-    extends _$MeiliIndexSettingsCopyWithImpl<$Res, _$_MeiliIndexSettings>
+    extends _$MimirIndexSettingsCopyWithImpl<$Res, _$_MeiliIndexSettings>
     implements _$$_MeiliIndexSettingsCopyWith<$Res> {
   __$$_MeiliIndexSettingsCopyWithImpl(
       _$_MeiliIndexSettings _value, $Res Function(_$_MeiliIndexSettings) _then)
@@ -311,7 +311,7 @@ class _$_MeiliIndexSettings implements _MeiliIndexSettings {
 
   @override
   String toString() {
-    return 'MeiliIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
+    return 'MimirIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
   }
 
   @override
@@ -365,7 +365,7 @@ class _$_MeiliIndexSettings implements _MeiliIndexSettings {
           this, _$identity);
 }
 
-abstract class _MeiliIndexSettings implements MeiliIndexSettings {
+abstract class _MeiliIndexSettings implements MimirIndexSettings {
   const factory _MeiliIndexSettings(
           {final List<String>? searchableFields,
           required final List<String> filterableFields,
