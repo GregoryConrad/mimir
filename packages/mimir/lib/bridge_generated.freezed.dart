@@ -128,11 +128,11 @@ class _$MimirIndexSettingsCopyWithImpl<$Res, $Val extends MimirIndexSettings>
 }
 
 /// @nodoc
-abstract class _$$_MeiliIndexSettingsCopyWith<$Res>
+abstract class _$$_MimirIndexSettingsCopyWith<$Res>
     implements $MimirIndexSettingsCopyWith<$Res> {
-  factory _$$_MeiliIndexSettingsCopyWith(_$_MeiliIndexSettings value,
-          $Res Function(_$_MeiliIndexSettings) then) =
-      __$$_MeiliIndexSettingsCopyWithImpl<$Res>;
+  factory _$$_MimirIndexSettingsCopyWith(_$_MimirIndexSettings value,
+          $Res Function(_$_MimirIndexSettings) then) =
+      __$$_MimirIndexSettingsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -150,11 +150,11 @@ abstract class _$$_MeiliIndexSettingsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_MeiliIndexSettingsCopyWithImpl<$Res>
-    extends _$MimirIndexSettingsCopyWithImpl<$Res, _$_MeiliIndexSettings>
-    implements _$$_MeiliIndexSettingsCopyWith<$Res> {
-  __$$_MeiliIndexSettingsCopyWithImpl(
-      _$_MeiliIndexSettings _value, $Res Function(_$_MeiliIndexSettings) _then)
+class __$$_MimirIndexSettingsCopyWithImpl<$Res>
+    extends _$MimirIndexSettingsCopyWithImpl<$Res, _$_MimirIndexSettings>
+    implements _$$_MimirIndexSettingsCopyWith<$Res> {
+  __$$_MimirIndexSettingsCopyWithImpl(
+      _$_MimirIndexSettings _value, $Res Function(_$_MimirIndexSettings) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -172,7 +172,7 @@ class __$$_MeiliIndexSettingsCopyWithImpl<$Res>
     Object? disallowTyposOnWords = null,
     Object? disallowTyposOnFields = null,
   }) {
-    return _then(_$_MeiliIndexSettings(
+    return _then(_$_MimirIndexSettings(
       searchableFields: freezed == searchableFields
           ? _value._searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
@@ -223,8 +223,8 @@ class __$$_MeiliIndexSettingsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MeiliIndexSettings implements _MeiliIndexSettings {
-  const _$_MeiliIndexSettings(
+class _$_MimirIndexSettings implements _MimirIndexSettings {
+  const _$_MimirIndexSettings(
       {final List<String>? searchableFields,
       required final List<String> filterableFields,
       required final List<String> sortableFields,
@@ -318,7 +318,7 @@ class _$_MeiliIndexSettings implements _MeiliIndexSettings {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_MeiliIndexSettings &&
+            other is _$_MimirIndexSettings &&
             const DeepCollectionEquality()
                 .equals(other._searchableFields, _searchableFields) &&
             const DeepCollectionEquality()
@@ -360,13 +360,13 @@ class _$_MeiliIndexSettings implements _MeiliIndexSettings {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_MeiliIndexSettingsCopyWith<_$_MeiliIndexSettings> get copyWith =>
-      __$$_MeiliIndexSettingsCopyWithImpl<_$_MeiliIndexSettings>(
+  _$$_MimirIndexSettingsCopyWith<_$_MimirIndexSettings> get copyWith =>
+      __$$_MimirIndexSettingsCopyWithImpl<_$_MimirIndexSettings>(
           this, _$identity);
 }
 
-abstract class _MeiliIndexSettings implements MimirIndexSettings {
-  const factory _MeiliIndexSettings(
+abstract class _MimirIndexSettings implements MimirIndexSettings {
+  const factory _MimirIndexSettings(
           {final List<String>? searchableFields,
           required final List<String> filterableFields,
           required final List<String> sortableFields,
@@ -378,7 +378,7 @@ abstract class _MeiliIndexSettings implements MimirIndexSettings {
           required final int minWordSizeForTwoTypos,
           required final List<String> disallowTyposOnWords,
           required final List<String> disallowTyposOnFields}) =
-      _$_MeiliIndexSettings;
+      _$_MimirIndexSettings;
 
   @override
   List<String>? get searchableFields;
@@ -404,7 +404,7 @@ abstract class _MeiliIndexSettings implements MimirIndexSettings {
   List<String> get disallowTyposOnFields;
   @override
   @JsonKey(ignore: true)
-  _$$_MeiliIndexSettingsCopyWith<_$_MeiliIndexSettings> get copyWith =>
+  _$$_MimirIndexSettingsCopyWith<_$_MimirIndexSettings> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

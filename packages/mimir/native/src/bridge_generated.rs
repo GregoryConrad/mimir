@@ -208,7 +208,7 @@ fn wire_set_settings_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,
     index_name: impl Wire2Api<String> + UnwindSafe,
-    settings: impl Wire2Api<MeiliIndexSettings> + UnwindSafe,
+    settings: impl Wire2Api<MimirIndexSettings> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -288,7 +288,7 @@ impl Wire2Api<u8> for u8 {
 
 // Section: impl IntoDart
 
-impl support::IntoDart for MeiliIndexSettings {
+impl support::IntoDart for MimirIndexSettings {
     fn into_dart(self) -> support::DartAbi {
         vec![
             self.searchable_fields.into_dart(),
@@ -306,7 +306,7 @@ impl support::IntoDart for MeiliIndexSettings {
         .into_dart()
     }
 }
-impl support::IntoDartExceptPrimitive for MeiliIndexSettings {}
+impl support::IntoDartExceptPrimitive for MimirIndexSettings {}
 
 impl support::IntoDart for Synonyms {
     fn into_dart(self) -> support::DartAbi {

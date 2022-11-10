@@ -97,7 +97,7 @@ abstract class EmbeddedMilli {
 
 /// The settings of a milli index
 @freezed
-class MimirIndexSettings with _$MeiliIndexSettings {
+class MimirIndexSettings with _$MimirIndexSettings {
   const factory MimirIndexSettings({
     List<String>? searchableFields,
     required List<String> filterableFields,
@@ -110,7 +110,7 @@ class MimirIndexSettings with _$MeiliIndexSettings {
     required int minWordSizeForTwoTypos,
     required List<String> disallowTyposOnWords,
     required List<String> disallowTyposOnFields,
-  }) = _MeiliIndexSettings;
+  }) = _MimirIndexSettings;
 }
 
 @freezed
@@ -363,7 +363,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
             port_,
             _platform.api2wire_String(instanceDir),
             _platform.api2wire_String(indexName)),
-        parseSuccessData: _wire2api_meili_index_settings,
+        parseSuccessData: _wire2api_mimir_index_settings,
         constMeta: kGetSettingsConstMeta,
         argValues: [instanceDir, indexName],
         hint: hint,
@@ -385,7 +385,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
             port_,
             _platform.api2wire_String(instanceDir),
             _platform.api2wire_String(indexName),
-            _platform.api2wire_box_autoadd_meili_index_settings(settings)),
+            _platform.api2wire_box_autoadd_mimir_index_settings(settings)),
         parseSuccessData: _wire2api_unit,
         constMeta: kSetSettingsConstMeta,
         argValues: [instanceDir, indexName, settings],
@@ -416,7 +416,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     return (raw as List<dynamic>).map(_wire2api_synonyms).toList();
   }
 
-  MimirIndexSettings _wire2api_meili_index_settings(dynamic raw) {
+  MimirIndexSettings _wire2api_mimir_index_settings(dynamic raw) {
     final arr = raw as List<dynamic>;
     if (arr.length != 11)
       throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
@@ -513,10 +513,10 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 
   @protected
-  ffi.Pointer<wire_MeiliIndexSettings>
-      api2wire_box_autoadd_meili_index_settings(MimirIndexSettings raw) {
-    final ptr = inner.new_box_autoadd_meili_index_settings_0();
-    _api_fill_to_wire_meili_index_settings(raw, ptr.ref);
+  ffi.Pointer<wire_MimirIndexSettings>
+      api2wire_box_autoadd_mimir_index_settings(MimirIndexSettings raw) {
+    final ptr = inner.new_box_autoadd_mimir_index_settings_0();
+    _api_fill_to_wire_mimir_index_settings(raw, ptr.ref);
     return ptr;
   }
 
@@ -571,13 +571,13 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
   }
 // Section: api_fill_to_wire
 
-  void _api_fill_to_wire_box_autoadd_meili_index_settings(
-      MimirIndexSettings apiObj, ffi.Pointer<wire_MeiliIndexSettings> wireObj) {
-    _api_fill_to_wire_meili_index_settings(apiObj, wireObj.ref);
+  void _api_fill_to_wire_box_autoadd_mimir_index_settings(
+      MimirIndexSettings apiObj, ffi.Pointer<wire_MimirIndexSettings> wireObj) {
+    _api_fill_to_wire_mimir_index_settings(apiObj, wireObj.ref);
   }
 
-  void _api_fill_to_wire_meili_index_settings(
-      MimirIndexSettings apiObj, wire_MeiliIndexSettings wireObj) {
+  void _api_fill_to_wire_mimir_index_settings(
+      MimirIndexSettings apiObj, wire_MimirIndexSettings wireObj) {
     wireObj.searchable_fields =
         api2wire_opt_StringList(apiObj.searchableFields);
     wireObj.filterable_fields = api2wire_StringList(apiObj.filterableFields);
@@ -872,7 +872,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     int port_,
     ffi.Pointer<wire_uint_8_list> instance_dir,
     ffi.Pointer<wire_uint_8_list> index_name,
-    ffi.Pointer<wire_MeiliIndexSettings> settings,
+    ffi.Pointer<wire_MimirIndexSettings> settings,
   ) {
     return _wire_set_settings(
       port_,
@@ -888,13 +888,13 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
               ffi.Int64,
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_MeiliIndexSettings>)>>('wire_set_settings');
+              ffi.Pointer<wire_MimirIndexSettings>)>>('wire_set_settings');
   late final _wire_set_settings = _wire_set_settingsPtr.asFunction<
       void Function(
           int,
           ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>,
-          ffi.Pointer<wire_MeiliIndexSettings>)>();
+          ffi.Pointer<wire_MimirIndexSettings>)>();
 
   ffi.Pointer<wire_StringList> new_StringList_0(
     int len,
@@ -910,17 +910,17 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _new_StringList_0 = _new_StringList_0Ptr
       .asFunction<ffi.Pointer<wire_StringList> Function(int)>();
 
-  ffi.Pointer<wire_MeiliIndexSettings>
-      new_box_autoadd_meili_index_settings_0() {
-    return _new_box_autoadd_meili_index_settings_0();
+  ffi.Pointer<wire_MimirIndexSettings>
+      new_box_autoadd_mimir_index_settings_0() {
+    return _new_box_autoadd_mimir_index_settings_0();
   }
 
-  late final _new_box_autoadd_meili_index_settings_0Ptr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<wire_MeiliIndexSettings> Function()>>(
-      'new_box_autoadd_meili_index_settings_0');
-  late final _new_box_autoadd_meili_index_settings_0 =
-      _new_box_autoadd_meili_index_settings_0Ptr
-          .asFunction<ffi.Pointer<wire_MeiliIndexSettings> Function()>();
+  late final _new_box_autoadd_mimir_index_settings_0Ptr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<wire_MimirIndexSettings> Function()>>(
+      'new_box_autoadd_mimir_index_settings_0');
+  late final _new_box_autoadd_mimir_index_settings_0 =
+      _new_box_autoadd_mimir_index_settings_0Ptr
+          .asFunction<ffi.Pointer<wire_MimirIndexSettings> Function()>();
 
   ffi.Pointer<ffi.Uint32> new_box_autoadd_u32_0(
     int value,
@@ -1071,7 +1071,7 @@ class wire_list_synonyms extends ffi.Struct {
   external int len;
 }
 
-class wire_MeiliIndexSettings extends ffi.Struct {
+class wire_MimirIndexSettings extends ffi.Struct {
   external ffi.Pointer<wire_StringList> searchable_fields;
 
   external ffi.Pointer<wire_StringList> filterable_fields;

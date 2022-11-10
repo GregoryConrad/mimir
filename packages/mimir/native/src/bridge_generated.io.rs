@@ -101,7 +101,7 @@ pub extern "C" fn wire_set_settings(
     port_: i64,
     instance_dir: *mut wire_uint_8_list,
     index_name: *mut wire_uint_8_list,
-    settings: *mut wire_MeiliIndexSettings,
+    settings: *mut wire_MimirIndexSettings,
 ) {
     wire_set_settings_impl(port_, instance_dir, index_name, settings)
 }
@@ -118,8 +118,8 @@ pub extern "C" fn new_StringList_0(len: i32) -> *mut wire_StringList {
 }
 
 #[no_mangle]
-pub extern "C" fn new_box_autoadd_meili_index_settings_0() -> *mut wire_MeiliIndexSettings {
-    support::new_leak_box_ptr(wire_MeiliIndexSettings::new_with_null_ptr())
+pub extern "C" fn new_box_autoadd_mimir_index_settings_0() -> *mut wire_MimirIndexSettings {
+    support::new_leak_box_ptr(wire_MimirIndexSettings::new_with_null_ptr())
 }
 
 #[no_mangle]
@@ -172,10 +172,10 @@ impl Wire2Api<Vec<String>> for *mut wire_StringList {
     }
 }
 
-impl Wire2Api<MeiliIndexSettings> for *mut wire_MeiliIndexSettings {
-    fn wire2api(self) -> MeiliIndexSettings {
+impl Wire2Api<MimirIndexSettings> for *mut wire_MimirIndexSettings {
+    fn wire2api(self) -> MimirIndexSettings {
         let wrap = unsafe { support::box_from_leak_ptr(self) };
-        Wire2Api::<MeiliIndexSettings>::wire2api(*wrap).into()
+        Wire2Api::<MimirIndexSettings>::wire2api(*wrap).into()
     }
 }
 
@@ -197,9 +197,9 @@ impl Wire2Api<Vec<Synonyms>> for *mut wire_list_synonyms {
         vec.into_iter().map(Wire2Api::wire2api).collect()
     }
 }
-impl Wire2Api<MeiliIndexSettings> for wire_MeiliIndexSettings {
-    fn wire2api(self) -> MeiliIndexSettings {
-        MeiliIndexSettings {
+impl Wire2Api<MimirIndexSettings> for wire_MimirIndexSettings {
+    fn wire2api(self) -> MimirIndexSettings {
+        MimirIndexSettings {
             searchable_fields: self.searchable_fields.wire2api(),
             filterable_fields: self.filterable_fields.wire2api(),
             sortable_fields: self.sortable_fields.wire2api(),
@@ -274,7 +274,7 @@ pub struct wire_list_synonyms {
 
 #[repr(C)]
 #[derive(Clone)]
-pub struct wire_MeiliIndexSettings {
+pub struct wire_MimirIndexSettings {
     searchable_fields: *mut wire_StringList,
     filterable_fields: *mut wire_StringList,
     sortable_fields: *mut wire_StringList,
@@ -339,7 +339,7 @@ impl<T> NewWithNullPtr for *mut T {
     }
 }
 
-impl NewWithNullPtr for wire_MeiliIndexSettings {
+impl NewWithNullPtr for wire_MimirIndexSettings {
     fn new_with_null_ptr() -> Self {
         Self {
             searchable_fields: core::ptr::null_mut(),
