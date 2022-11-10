@@ -1,3 +1,0 @@
-[submodule "packages/embedded_meilisearch/native/milli"]
-	path = packages/embedded_meilisearch/native/milli
-	url = https://github.com/meilisearch/milli.git
