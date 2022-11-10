@@ -150,4 +150,22 @@ void main() {
     expect(await index.getDocument('4'), null);
     expect(await index.getAllDocuments(), <MimirDocument>[]);
   });
+
+  test('Multiprocessing functionality when adding documents', () async {
+    const concurrentDocs = 100, batchDocs = 10000;
+    final index = useTestIndex();
+
+    // Add docs concurrently
+    await Future.wait(Iterable<int>.generate(concurrentDocs)
+        .map((i) => {'id': i})
+        .map(index.addDocument));
+
+    // Add docs in batch
+    await index.addDocuments(Iterable<int>.generate(batchDocs)
+        .map((i) => {'id': i + concurrentDocs})
+        .toList());
+
+    final allDocs = await index.getAllDocuments();
+    expect(allDocs.length, concurrentDocs + batchDocs);
+  });
 }
