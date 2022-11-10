@@ -1,16 +1,16 @@
 import 'package:embedded_meilisearch/src/index.dart';
 
-/// Represents an instance (essentially a group of indices)
-/// in milli (the engine that powers Meilisearch).
+/// Represents an instance (essentially a group of indices) of mimir.
 ///
 /// You will often only need one instance, but you can
 /// make more if you so choose.
 ///
+/// mimir is based on Milli (the engine of Meilisearch).
 /// While we could embed all of Meilisearch in Flutter, it would hardly
-/// make sense; you can just use ffi to access the engine (milli) directly.
+/// make sense; you can just use ffi to access the engine, Milli, directly.
 /// With this approach, its easier on constrained resources (no http server)
 /// and more simple (no management of the server needed).
-mixin MeiliInstance {
+mixin MimirInstance {
   /// The file-system path for the directory of this instance
   String get path;
 
@@ -20,5 +20,5 @@ mixin MeiliInstance {
   ///
   /// The name of the index must be filesystem-path safe.
   /// When in doubt, just stick with a-z, A-Z, 0-9, -, and _ for the name.
-  MeiliIndex getIndex(String name);
+  MimirIndex getIndex(String name);
 }

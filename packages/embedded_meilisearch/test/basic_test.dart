@@ -1,4 +1,4 @@
-import 'package:embedded_meilisearch/embedded_meilisearch.dart';
+import 'package:embedded_meilisearch/mimir.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -39,7 +39,7 @@ void main() {
   test('Basic add/search functionality', () async {
     final index = useTestIndex();
     await index.addDocuments(allDocs);
-    final foundDocs = await index.search('horry');
+    final foundDocs = await index.search(query: 'horry');
     expect(
       foundDocs,
       [allDocs[3]],
@@ -49,7 +49,7 @@ void main() {
 
   test('Get and set all settings', () async {
     final index = useTestIndex();
-    const originalSettings = MeiliIndexSettings(
+    const originalSettings = MimirIndexSettings(
       filterableFields: ['quantity'],
       sortableFields: ['price'],
       searchableFields: ['title'],
@@ -92,15 +92,15 @@ void main() {
     await index.setSettings(originalSettings);
     final actualSettings = await index.getSettings();
     expect(
-      ComparableMeiliIndexSettings.from(actualSettings),
-      ComparableMeiliIndexSettings.from(originalSettings),
+      ComparableMimirIndexSettings.from(actualSettings),
+      ComparableMimirIndexSettings.from(originalSettings),
     );
 
     await index.setSettings(newSettings);
     final actualNewSettings = await index.getSettings();
     expect(
-      ComparableMeiliIndexSettings.from(actualNewSettings),
-      ComparableMeiliIndexSettings.from(newSettings),
+      ComparableMimirIndexSettings.from(actualNewSettings),
+      ComparableMimirIndexSettings.from(newSettings),
     );
   });
 
@@ -148,6 +148,6 @@ void main() {
     expect(await index.getDocument('456'), null);
     expect(await index.getDocument('2'), null);
     expect(await index.getDocument('4'), null);
-    expect(await index.getAllDocuments(), <MeiliDocument>[]);
+    expect(await index.getAllDocuments(), <MimirDocument>[]);
   });
 }

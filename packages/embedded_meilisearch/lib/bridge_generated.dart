@@ -80,7 +80,7 @@ abstract class EmbeddedMilli {
   FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta;
 
   /// Gets the settings of the specified index
-  Future<MeiliIndexSettings> getSettings(
+  Future<MimirIndexSettings> getSettings(
       {required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetSettingsConstMeta;
@@ -89,7 +89,7 @@ abstract class EmbeddedMilli {
   Future<void> setSettings(
       {required String instanceDir,
       required String indexName,
-      required MeiliIndexSettings settings,
+      required MimirIndexSettings settings,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSetSettingsConstMeta;
@@ -97,8 +97,8 @@ abstract class EmbeddedMilli {
 
 /// The settings of a milli index
 @freezed
-class MeiliIndexSettings with _$MeiliIndexSettings {
-  const factory MeiliIndexSettings({
+class MimirIndexSettings with _$MeiliIndexSettings {
+  const factory MimirIndexSettings({
     List<String>? searchableFields,
     required List<String> filterableFields,
     required List<String> sortableFields,
@@ -354,7 +354,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         ],
       );
 
-  Future<MeiliIndexSettings> getSettings(
+  Future<MimirIndexSettings> getSettings(
           {required String instanceDir,
           required String indexName,
           dynamic hint}) =>
@@ -378,7 +378,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
   Future<void> setSettings(
           {required String instanceDir,
           required String indexName,
-          required MeiliIndexSettings settings,
+          required MimirIndexSettings settings,
           dynamic hint}) =>
       _platform.executeNormal(FlutterRustBridgeTask(
         callFfi: (port_) => _platform.inner.wire_set_settings(
@@ -416,11 +416,11 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     return (raw as List<dynamic>).map(_wire2api_synonyms).toList();
   }
 
-  MeiliIndexSettings _wire2api_meili_index_settings(dynamic raw) {
+  MimirIndexSettings _wire2api_meili_index_settings(dynamic raw) {
     final arr = raw as List<dynamic>;
     if (arr.length != 11)
       throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
-    return MeiliIndexSettings(
+    return MimirIndexSettings(
       searchableFields: _wire2api_opt_StringList(arr[0]),
       filterableFields: _wire2api_StringList(arr[1]),
       sortableFields: _wire2api_StringList(arr[2]),
@@ -514,7 +514,7 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
 
   @protected
   ffi.Pointer<wire_MeiliIndexSettings>
-      api2wire_box_autoadd_meili_index_settings(MeiliIndexSettings raw) {
+      api2wire_box_autoadd_meili_index_settings(MimirIndexSettings raw) {
     final ptr = inner.new_box_autoadd_meili_index_settings_0();
     _api_fill_to_wire_meili_index_settings(raw, ptr.ref);
     return ptr;
@@ -572,12 +572,12 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
 // Section: api_fill_to_wire
 
   void _api_fill_to_wire_box_autoadd_meili_index_settings(
-      MeiliIndexSettings apiObj, ffi.Pointer<wire_MeiliIndexSettings> wireObj) {
+      MimirIndexSettings apiObj, ffi.Pointer<wire_MeiliIndexSettings> wireObj) {
     _api_fill_to_wire_meili_index_settings(apiObj, wireObj.ref);
   }
 
   void _api_fill_to_wire_meili_index_settings(
-      MeiliIndexSettings apiObj, wire_MeiliIndexSettings wireObj) {
+      MimirIndexSettings apiObj, wire_MeiliIndexSettings wireObj) {
     wireObj.searchable_fields =
         api2wire_opt_StringList(apiObj.searchableFields);
     wireObj.filterable_fields = api2wire_StringList(apiObj.filterableFields);

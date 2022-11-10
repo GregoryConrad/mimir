@@ -4,10 +4,10 @@ import 'package:embedded_meilisearch/bridge_generated.dart';
 import 'package:embedded_meilisearch/src/impl/instance_impl.dart';
 import 'package:embedded_meilisearch/src/index.dart';
 
-class MeiliIndexImpl with MeiliIndex {
-  const MeiliIndexImpl(this.instance, this.name);
+class MimirIndexImpl with MimirIndex {
+  const MimirIndexImpl(this.instance, this.name);
 
-  final MeiliInstanceImpl instance;
+  final MimirInstanceImpl instance;
 
   @override
   final String name;
@@ -16,7 +16,7 @@ class MeiliIndexImpl with MeiliIndex {
   EmbeddedMilli get milli => instance.milli;
 
   @override
-  Future<void> addDocuments(List<MeiliDocument> documents) {
+  Future<void> addDocuments(List<MimirDocument> documents) {
     return milli.addDocuments(
       instanceDir: instanceDir,
       indexName: name,
@@ -42,29 +42,29 @@ class MeiliIndexImpl with MeiliIndex {
   }
 
   @override
-  Future<void> setDocuments(List<MeiliDocument> documents) async {
+  Future<void> setDocuments(List<MimirDocument> documents) async {
     await deleteAllDocuments();
     return addDocuments(documents);
   }
 
   @override
-  Future<MeiliDocument?> getDocument(String id) {
+  Future<MimirDocument?> getDocument(String id) {
     return milli
         .getDocument(instanceDir: instanceDir, indexName: name, documentId: id)
         .then((s) => s == null ? null : json.decode(s));
   }
 
   @override
-  Future<List<MeiliDocument>> getAllDocuments() async {
+  Future<List<MimirDocument>> getAllDocuments() async {
     final jsonDocs = await milli.getAllDocuments(
       instanceDir: instanceDir,
       indexName: name,
     );
-    return jsonDocs.map((s) => json.decode(s)).cast<MeiliDocument>().toList();
+    return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
   }
 
   @override
-  Future<MeiliIndexSettings> getSettings() {
+  Future<MimirIndexSettings> getSettings() {
     return milli.getSettings(
       instanceDir: instanceDir,
       indexName: name,
@@ -72,7 +72,7 @@ class MeiliIndexImpl with MeiliIndex {
   }
 
   @override
-  Future<void> setSettings(MeiliIndexSettings settings) {
+  Future<void> setSettings(MimirIndexSettings settings) {
     return milli.setSettings(
       instanceDir: instanceDir,
       indexName: name,
@@ -81,8 +81,8 @@ class MeiliIndexImpl with MeiliIndex {
   }
 
   @override
-  Future<List<MeiliDocument>> search(
-    String? query, {
+  Future<List<MimirDocument>> search({
+    String? query,
     int? resultsLimit,
     TermsMatchingStrategy? matchingStrategy,
     List<SortBy>? sortBy,
@@ -99,6 +99,6 @@ class MeiliIndexImpl with MeiliIndex {
       // TODO filter using a Rust enum. See for more:
       //  https://docs.meilisearch.com/reference/api/search.html#filter
     );
-    return jsonDocs.map((s) => json.decode(s)).cast<MeiliDocument>().toList();
+    return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
   }
 }

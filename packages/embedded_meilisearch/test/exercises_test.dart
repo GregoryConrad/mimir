@@ -13,7 +13,7 @@ void main() {
     expect(allDocs.length, exercises.length);
 
     // Perform a basic search
-    final results = await index.search('benchp ress');
+    final results = await index.search(query: 'benchp ress');
     expect(
       results[0],
       exercises.where((e) => e['name'] == 'Barbell Bench Press').first,

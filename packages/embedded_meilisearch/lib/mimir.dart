@@ -9,6 +9,6 @@ export 'bridge_generated.dart'
         EmbeddedMilli,
         SortBy,
         TermsMatchingStrategy,
-        MeiliIndexSettings,
+        MimirIndexSettings,
         Synonyms;
 export 'package:flutter_rust_bridge/flutter_rust_bridge.dart' show WasmModule;

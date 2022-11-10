@@ -339,7 +339,7 @@ pub struct Synonyms {
 
 /// The settings of a milli index
 #[frb(dart_metadata=("freezed"))]
-pub struct MeiliIndexSettings {
+pub struct MimirIndexSettings {
     pub searchable_fields: Option<Vec<String>>,
     pub filterable_fields: Vec<String>,
     pub sortable_fields: Vec<String>,
@@ -354,14 +354,14 @@ pub struct MeiliIndexSettings {
 }
 
 /// Gets the settings of the specified index
-pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliIndexSettings> {
+pub fn get_settings(instance_dir: String, index_name: String) -> Result<MimirIndexSettings> {
     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
 
     let rtxn = index.read_txn()?;
-    Ok(MeiliIndexSettings {
+    Ok(MimirIndexSettings {
         searchable_fields: index
             .searchable_fields(&rtxn)?
             .map(|fields| fields.into_iter().map(String::from).collect()),
@@ -421,7 +421,7 @@ pub fn get_settings(instance_dir: String, index_name: String) -> Result<MeiliInd
 pub fn set_settings(
     instance_dir: String,
     index_name: String,
-    settings: MeiliIndexSettings,
+    settings: MimirIndexSettings,
 ) -> Result<()> {
     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
     let instances = get_instances!();
@@ -429,7 +429,7 @@ pub fn set_settings(
     let index = get_index!(indexes, index_name);
 
     // Destructure the settings into the corresponding fields
-    let MeiliIndexSettings {
+    let MimirIndexSettings {
         searchable_fields,
         filterable_fields,
         sortable_fields,

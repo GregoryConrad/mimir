@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:embedded_meilisearch/embedded_meilisearch.dart';
+import 'package:embedded_meilisearch/mimir.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:test/test.dart';
 
@@ -21,7 +21,7 @@ EmbeddedMilli useMilli() {
     Platform.isLinux: 'so',
   }[true]!;
   final dylibPath = 'native/target/debug/$libPrefix$libName.$libSuffix';
-  return Meili.createWrapper(DynamicLibrary.open(dylibPath));
+  return Mimir.createWrapper(DynamicLibrary.open(dylibPath));
 }
 
 Directory useTmpDir() {
@@ -30,13 +30,13 @@ Directory useTmpDir() {
   return dir;
 }
 
-MeiliInstance useInstance() {
+MimirInstance useInstance() {
   final dir = useTmpDir();
   final milli = useMilli();
-  return Meili.getInstance(path: dir.path, milli: milli);
+  return Mimir.getInstance(path: dir.path, milli: milli);
 }
 
-MeiliIndex useTestIndex() => useInstance().getIndex('test');
+MimirIndex useTestIndex() => useInstance().getIndex('test');
 
 List<Map<String, dynamic>> useExercises() {
   final exercisesStr = File('test/assets/exercises.json').readAsStringSync();
@@ -52,8 +52,8 @@ List<Map<String, dynamic>> useExercises() {
 }
 
 @freezed
-class ComparableMeiliIndexSettings with _$ComparableMeiliIndexSettings {
-  const factory ComparableMeiliIndexSettings({
+class ComparableMimirIndexSettings with _$ComparableMimirIndexSettings {
+  const factory ComparableMimirIndexSettings({
     required Set<String>? searchableFields,
     required Set<String> filterableFields,
     required Set<String> sortableFields,
@@ -65,10 +65,10 @@ class ComparableMeiliIndexSettings with _$ComparableMeiliIndexSettings {
     required int minWordSizeForTwoTypos,
     required Set<String> disallowTyposOnWords,
     required Set<String> disallowTyposOnFields,
-  }) = _ComparableMeiliIndexSettings;
+  }) = _ComparableMimirIndexSettings;
 
-  factory ComparableMeiliIndexSettings.from(MeiliIndexSettings settings) {
-    return ComparableMeiliIndexSettings(
+  factory ComparableMimirIndexSettings.from(MimirIndexSettings settings) {
+    return ComparableMimirIndexSettings(
       searchableFields: settings.searchableFields?.toSet(),
       filterableFields: settings.filterableFields.toSet(),
       sortableFields: settings.sortableFields.toSet(),
