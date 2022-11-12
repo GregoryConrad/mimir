@@ -14,7 +14,7 @@ void main() async {
   try {
     await run(tmpDir.path, getMilli());
   } finally {
-    tmpDir.deleteSync();
+    tmpDir.deleteSync(recursive: true);
   }
 }
 
