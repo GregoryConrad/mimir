@@ -426,6 +426,11 @@ pub fn search_documents(
     });
     filter
         .as_ref()
+        // TODO Remove the following map_or when filter is a true Option
+        .map_or(None, |f| match f {
+            Filter::Or(x) if x.is_empty() => None,
+            f => Some(f),
+        })
         .map(create_filter_condition)
         .map(|f| search.filter(f.into()));
 

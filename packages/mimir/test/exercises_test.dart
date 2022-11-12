@@ -11,7 +11,7 @@ void main() {
     // Allow filtering based on some exercise fields
     final currSettings = await index.getSettings();
     await index.setSettings(currSettings.copyWith(
-      filterableFields: ['category', 'equipment', 'primaryMuscles'],
+      filterableFields: ['category', 'equipment', 'primary_muscles'],
     ));
 
     // Add the exercises into the index
@@ -36,8 +36,8 @@ void main() {
       (await index.search(
         query: 'Inclne pwess',
         filter: const Filter.and([
-          Filter.inValues(field: 'category', values: ['strength']),
-          Filter.inValues(field: 'primaryMuscles', values: ['chest']),
+          Filter.equal(field: 'category', value: 'strength'),
+          Filter.inValues(field: 'primary_muscles', values: ['chest']),
           Filter.inValues(field: 'equipment', values: ['dumbbell']),
         ]),
       ))
