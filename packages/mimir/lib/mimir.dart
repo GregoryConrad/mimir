@@ -10,5 +10,6 @@ export 'bridge_generated.dart'
         SortBy,
         TermsMatchingStrategy,
         MimirIndexSettings,
-        Synonyms;
+        Synonyms,
+        Filter;
 export 'package:flutter_rust_bridge/flutter_rust_bridge.dart' show WasmModule;

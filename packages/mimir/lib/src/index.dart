@@ -19,9 +19,10 @@ mixin MimirIndex {
   /// Sorts the results based on relevance, or the [sortBy] if not null.
   Future<List<MimirDocument>> search({
     String? query,
+    List<SortBy>? sortBy,
+    Filter? filter,
     int? resultsLimit,
     TermsMatchingStrategy? matchingStrategy,
-    List<SortBy>? sortBy,
   });
 
   /// Gets the given document from the index, if it exists

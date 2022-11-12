@@ -86,18 +86,18 @@ class MimirIndexImpl with MimirIndex {
     int? resultsLimit,
     TermsMatchingStrategy? matchingStrategy,
     List<SortBy>? sortBy,
+    Filter? filter,
   }) async {
     final jsonDocs = await milli.searchDocuments(
       instanceDir: instanceDir,
       indexName: name,
       query: query,
       limit: resultsLimit,
-      // TODO remove the ?? Last below once following resolved
+      sortCriteria: sortBy,
+      // TODO remove the ?? below once following resolved
       //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
       matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
-      sortCriteria: sortBy,
-      // TODO filter using a Rust enum. See for more:
-      //  https://docs.meilisearch.com/reference/api/search.html#filter
+      filter: filter ?? const Filter.or([]),
     );
     return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
   }

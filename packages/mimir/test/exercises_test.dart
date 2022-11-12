@@ -1,3 +1,4 @@
+import 'package:mimir/mimir.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -13,10 +14,30 @@ void main() {
     expect(allDocs.length, exercises.length);
 
     // Perform a basic search
-    final results = await index.search(query: 'benchp ress');
+    final results1 = await index.search(
+      query: 'benchp ress',
+      resultsLimit: 1,
+    );
     expect(
-      results[0],
+      results1.first,
       exercises.where((e) => e['name'] == 'Barbell Bench Press').first,
+    );
+
+    // Allow filtering based on equipment
+    final currSettings = await index.getSettings();
+    await index.setSettings(currSettings.copyWith(
+      filterableFields: ['equipment'],
+    ));
+
+    // Perform a more complicated search
+    final results2 = await index.search(
+      query: 'Inclne dumbe pess',
+      resultsLimit: 1,
+      filter: const Filter.inValues(field: 'equipment', values: ['dumbbell']),
+    );
+    expect(
+      results2.first,
+      exercises.where((e) => e['name'] == 'Incline Dumbbell Press').first,
     );
   });
 }

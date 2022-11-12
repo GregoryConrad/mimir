@@ -283,26 +283,128 @@ pub enum SortBy {
     Desc(String),
 }
 
+/// The filters to be used in a search/query
+pub enum Filter {
+    Or(Vec<Filter>),
+    And(Vec<Filter>),
+    Not(Box<Filter>),
+
+    Exists {
+        field: String,
+    },
+    InValues {
+        field: String,
+        values: Vec<String>,
+    },
+    GreaterThan {
+        field: String,
+        value: String,
+    },
+    GreaterThanOrEqual {
+        field: String,
+        value: String,
+    },
+    Equal {
+        field: String,
+        value: String,
+    },
+    NotEqual {
+        field: String,
+        value: String,
+    },
+    LessThan {
+        field: String,
+        value: String,
+    },
+    LessThanOrEqual {
+        field: String,
+        value: String,
+    },
+    Between {
+        field: String,
+        from: String,
+        to: String,
+    },
+}
+
+fn create_token(s: &String) -> filter_parser::Token {
+    filter_parser::Token::new(filter_parser::Span::new_extra("", ""), Some(s.clone()))
+}
+
+fn create_condition<'a>(s: &'a String, cond: milli::Condition<'a>) -> milli::FilterCondition<'a> {
+    milli::FilterCondition::Condition {
+        fid: create_token(s),
+        op: cond,
+    }
+}
+
+fn create_filter_condition(f: &Filter) -> milli::FilterCondition {
+    match f {
+        Filter::Or(filters) => {
+            milli::FilterCondition::Or(filters.into_iter().map(create_filter_condition).collect())
+        }
+        Filter::And(filters) => {
+            milli::FilterCondition::And(filters.into_iter().map(create_filter_condition).collect())
+        }
+        Filter::Not(filter) => {
+            milli::FilterCondition::Not(Box::new(create_filter_condition(filter)))
+        }
+        Filter::InValues { field, values } => milli::FilterCondition::In {
+            fid: create_token(&field),
+            els: values.iter().map(create_token).collect(),
+        },
+        Filter::Exists { field } => create_condition(&field, milli::Condition::Exists),
+        Filter::GreaterThan { field, value } => {
+            create_condition(&field, milli::Condition::GreaterThan(create_token(&value)))
+        }
+        Filter::GreaterThanOrEqual { field, value } => create_condition(
+            &field,
+            milli::Condition::GreaterThanOrEqual(create_token(&value)),
+        ),
+        Filter::Equal { field, value } => {
+            create_condition(&field, milli::Condition::Equal(create_token(&value)))
+        }
+        Filter::NotEqual { field, value } => {
+            create_condition(&field, milli::Condition::NotEqual(create_token(&value)))
+        }
+        Filter::LessThan { field, value } => {
+            create_condition(&field, milli::Condition::LowerThan(create_token(&value)))
+        }
+        Filter::LessThanOrEqual { field, value } => create_condition(
+            &field,
+            milli::Condition::LowerThanOrEqual(create_token(&value)),
+        ),
+        Filter::Between { field, from, to } => create_condition(
+            &field,
+            milli::Condition::Between {
+                from: create_token(&from),
+                to: create_token(&to),
+            },
+        ),
+    }
+}
+
 /// Performs a search against the index and returns the documents found
 pub fn search_documents(
     instance_dir: String,
     index_name: String,
     query: Option<String>,
     limit: Option<u32>,
-    // Uncomment the following line once the following is resolved:
-    // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
-    // matching_strategy: Option<TermsMatchingStrategy>,
-    matching_strategy: TermsMatchingStrategy,
     sort_criteria: Option<Vec<SortBy>>,
-) -> Result<Vec<String>> {
-    // Delete the following line once the following is resolved:
+    // Make the following two lines optional once the following is resolved:
     // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
-    let matching_strategy = Some(matching_strategy);
-
+    filter: Filter,
+    matching_strategy: TermsMatchingStrategy,
+) -> Result<Vec<String>> {
     ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
+
+    // Delete the following two lines once the following is resolved:
+    // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
+    let matching_strategy = Some(matching_strategy);
+    let filter = Some(filter);
 
     // Create the search
     let rtxn = index.read_txn()?;
@@ -322,6 +424,10 @@ pub fn search_documents(
             .collect();
         search.sort_criteria(criteria)
     });
+    filter
+        .as_ref()
+        .map(create_filter_condition)
+        .map(|f| search.filter(f.into()));
 
     // Get the documents based on the search results
     let SearchResult { documents_ids, .. } = search.execute()?;
