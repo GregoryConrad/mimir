@@ -157,8 +157,9 @@ fn wire_search_documents_impl(
     index_name: impl Wire2Api<String> + UnwindSafe,
     query: impl Wire2Api<Option<String>> + UnwindSafe,
     limit: impl Wire2Api<Option<u32>> + UnwindSafe,
-    matching_strategy: impl Wire2Api<TermsMatchingStrategy> + UnwindSafe,
     sort_criteria: impl Wire2Api<Option<Vec<SortBy>>> + UnwindSafe,
+    filter: impl Wire2Api<Filter> + UnwindSafe,
+    matching_strategy: impl Wire2Api<TermsMatchingStrategy> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -171,16 +172,18 @@ fn wire_search_documents_impl(
             let api_index_name = index_name.wire2api();
             let api_query = query.wire2api();
             let api_limit = limit.wire2api();
-            let api_matching_strategy = matching_strategy.wire2api();
             let api_sort_criteria = sort_criteria.wire2api();
+            let api_filter = filter.wire2api();
+            let api_matching_strategy = matching_strategy.wire2api();
             move |task_callback| {
                 search_documents(
                     api_instance_dir,
                     api_index_name,
                     api_query,
                     api_limit,
-                    api_matching_strategy,
                     api_sort_criteria,
+                    api_filter,
+                    api_matching_strategy,
                 )
             }
         },
@@ -256,6 +259,7 @@ impl Wire2Api<u32> for *mut u32 {
         unsafe { *support::box_from_leak_ptr(self) }
     }
 }
+
 impl Wire2Api<i32> for i32 {
     fn wire2api(self) -> i32 {
         self

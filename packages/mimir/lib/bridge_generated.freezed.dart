@@ -15,6 +15,2584 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+mixin _$Filter {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FilterCopyWith<$Res> {
+  factory $FilterCopyWith(Filter value, $Res Function(Filter) then) =
+      _$FilterCopyWithImpl<$Res, Filter>;
+}
+
+/// @nodoc
+class _$FilterCopyWithImpl<$Res, $Val extends Filter>
+    implements $FilterCopyWith<$Res> {
+  _$FilterCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$Filter_OrCopyWith<$Res> {
+  factory _$$Filter_OrCopyWith(
+          _$Filter_Or value, $Res Function(_$Filter_Or) then) =
+      __$$Filter_OrCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Filter> field0});
+}
+
+/// @nodoc
+class __$$Filter_OrCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_Or>
+    implements _$$Filter_OrCopyWith<$Res> {
+  __$$Filter_OrCopyWithImpl(
+      _$Filter_Or _value, $Res Function(_$Filter_Or) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$Filter_Or(
+      null == field0
+          ? _value._field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as List<Filter>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_Or implements Filter_Or {
+  const _$Filter_Or(final List<Filter> field0) : _field0 = field0;
+
+  final List<Filter> _field0;
+  @override
+  List<Filter> get field0 {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_field0);
+  }
+
+  @override
+  String toString() {
+    return 'Filter.or(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_Or &&
+            const DeepCollectionEquality().equals(other._field0, _field0));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_field0));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_OrCopyWith<_$Filter_Or> get copyWith =>
+      __$$Filter_OrCopyWithImpl<_$Filter_Or>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return or(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return or?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (or != null) {
+      return or(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return or(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return or?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (or != null) {
+      return or(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_Or implements Filter {
+  const factory Filter_Or(final List<Filter> field0) = _$Filter_Or;
+
+  List<Filter> get field0;
+  @JsonKey(ignore: true)
+  _$$Filter_OrCopyWith<_$Filter_Or> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_AndCopyWith<$Res> {
+  factory _$$Filter_AndCopyWith(
+          _$Filter_And value, $Res Function(_$Filter_And) then) =
+      __$$Filter_AndCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Filter> field0});
+}
+
+/// @nodoc
+class __$$Filter_AndCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_And>
+    implements _$$Filter_AndCopyWith<$Res> {
+  __$$Filter_AndCopyWithImpl(
+      _$Filter_And _value, $Res Function(_$Filter_And) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$Filter_And(
+      null == field0
+          ? _value._field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as List<Filter>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_And implements Filter_And {
+  const _$Filter_And(final List<Filter> field0) : _field0 = field0;
+
+  final List<Filter> _field0;
+  @override
+  List<Filter> get field0 {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_field0);
+  }
+
+  @override
+  String toString() {
+    return 'Filter.and(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_And &&
+            const DeepCollectionEquality().equals(other._field0, _field0));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_field0));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_AndCopyWith<_$Filter_And> get copyWith =>
+      __$$Filter_AndCopyWithImpl<_$Filter_And>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return and(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return and?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (and != null) {
+      return and(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return and(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return and?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (and != null) {
+      return and(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_And implements Filter {
+  const factory Filter_And(final List<Filter> field0) = _$Filter_And;
+
+  List<Filter> get field0;
+  @JsonKey(ignore: true)
+  _$$Filter_AndCopyWith<_$Filter_And> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_NotCopyWith<$Res> {
+  factory _$$Filter_NotCopyWith(
+          _$Filter_Not value, $Res Function(_$Filter_Not) then) =
+      __$$Filter_NotCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Filter field0});
+
+  $FilterCopyWith<$Res> get field0;
+}
+
+/// @nodoc
+class __$$Filter_NotCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_Not>
+    implements _$$Filter_NotCopyWith<$Res> {
+  __$$Filter_NotCopyWithImpl(
+      _$Filter_Not _value, $Res Function(_$Filter_Not) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field0 = null,
+  }) {
+    return _then(_$Filter_Not(
+      null == field0
+          ? _value.field0
+          : field0 // ignore: cast_nullable_to_non_nullable
+              as Filter,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FilterCopyWith<$Res> get field0 {
+    return $FilterCopyWith<$Res>(_value.field0, (value) {
+      return _then(_value.copyWith(field0: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$Filter_Not implements Filter_Not {
+  const _$Filter_Not(this.field0);
+
+  @override
+  final Filter field0;
+
+  @override
+  String toString() {
+    return 'Filter.not(field0: $field0)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_Not &&
+            (identical(other.field0, field0) || other.field0 == field0));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field0);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_NotCopyWith<_$Filter_Not> get copyWith =>
+      __$$Filter_NotCopyWithImpl<_$Filter_Not>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return not(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return not?.call(field0);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (not != null) {
+      return not(field0);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return not(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return not?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (not != null) {
+      return not(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_Not implements Filter {
+  const factory Filter_Not(final Filter field0) = _$Filter_Not;
+
+  Filter get field0;
+  @JsonKey(ignore: true)
+  _$$Filter_NotCopyWith<_$Filter_Not> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_ExistsCopyWith<$Res> {
+  factory _$$Filter_ExistsCopyWith(
+          _$Filter_Exists value, $Res Function(_$Filter_Exists) then) =
+      __$$Filter_ExistsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field});
+}
+
+/// @nodoc
+class __$$Filter_ExistsCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_Exists>
+    implements _$$Filter_ExistsCopyWith<$Res> {
+  __$$Filter_ExistsCopyWithImpl(
+      _$Filter_Exists _value, $Res Function(_$Filter_Exists) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+  }) {
+    return _then(_$Filter_Exists(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_Exists implements Filter_Exists {
+  const _$Filter_Exists({required this.field});
+
+  @override
+  final String field;
+
+  @override
+  String toString() {
+    return 'Filter.exists(field: $field)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_Exists &&
+            (identical(other.field, field) || other.field == field));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_ExistsCopyWith<_$Filter_Exists> get copyWith =>
+      __$$Filter_ExistsCopyWithImpl<_$Filter_Exists>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return exists(field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return exists?.call(field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (exists != null) {
+      return exists(field);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return exists(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return exists?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (exists != null) {
+      return exists(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_Exists implements Filter {
+  const factory Filter_Exists({required final String field}) = _$Filter_Exists;
+
+  String get field;
+  @JsonKey(ignore: true)
+  _$$Filter_ExistsCopyWith<_$Filter_Exists> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_InValuesCopyWith<$Res> {
+  factory _$$Filter_InValuesCopyWith(
+          _$Filter_InValues value, $Res Function(_$Filter_InValues) then) =
+      __$$Filter_InValuesCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, List<String> values});
+}
+
+/// @nodoc
+class __$$Filter_InValuesCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_InValues>
+    implements _$$Filter_InValuesCopyWith<$Res> {
+  __$$Filter_InValuesCopyWithImpl(
+      _$Filter_InValues _value, $Res Function(_$Filter_InValues) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? values = null,
+  }) {
+    return _then(_$Filter_InValues(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      values: null == values
+          ? _value._values
+          : values // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_InValues implements Filter_InValues {
+  const _$Filter_InValues(
+      {required this.field, required final List<String> values})
+      : _values = values;
+
+  @override
+  final String field;
+  final List<String> _values;
+  @override
+  List<String> get values {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_values);
+  }
+
+  @override
+  String toString() {
+    return 'Filter.inValues(field: $field, values: $values)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_InValues &&
+            (identical(other.field, field) || other.field == field) &&
+            const DeepCollectionEquality().equals(other._values, _values));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, field, const DeepCollectionEquality().hash(_values));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_InValuesCopyWith<_$Filter_InValues> get copyWith =>
+      __$$Filter_InValuesCopyWithImpl<_$Filter_InValues>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return inValues(field, values);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return inValues?.call(field, values);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (inValues != null) {
+      return inValues(field, values);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return inValues(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return inValues?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (inValues != null) {
+      return inValues(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_InValues implements Filter {
+  const factory Filter_InValues(
+      {required final String field,
+      required final List<String> values}) = _$Filter_InValues;
+
+  String get field;
+  List<String> get values;
+  @JsonKey(ignore: true)
+  _$$Filter_InValuesCopyWith<_$Filter_InValues> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_GreaterThanCopyWith<$Res> {
+  factory _$$Filter_GreaterThanCopyWith(_$Filter_GreaterThan value,
+          $Res Function(_$Filter_GreaterThan) then) =
+      __$$Filter_GreaterThanCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, String value});
+}
+
+/// @nodoc
+class __$$Filter_GreaterThanCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_GreaterThan>
+    implements _$$Filter_GreaterThanCopyWith<$Res> {
+  __$$Filter_GreaterThanCopyWithImpl(
+      _$Filter_GreaterThan _value, $Res Function(_$Filter_GreaterThan) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? value = null,
+  }) {
+    return _then(_$Filter_GreaterThan(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_GreaterThan implements Filter_GreaterThan {
+  const _$Filter_GreaterThan({required this.field, required this.value});
+
+  @override
+  final String field;
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'Filter.greaterThan(field: $field, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_GreaterThan &&
+            (identical(other.field, field) || other.field == field) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_GreaterThanCopyWith<_$Filter_GreaterThan> get copyWith =>
+      __$$Filter_GreaterThanCopyWithImpl<_$Filter_GreaterThan>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return greaterThan(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return greaterThan?.call(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (greaterThan != null) {
+      return greaterThan(field, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return greaterThan(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return greaterThan?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (greaterThan != null) {
+      return greaterThan(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_GreaterThan implements Filter {
+  const factory Filter_GreaterThan(
+      {required final String field,
+      required final String value}) = _$Filter_GreaterThan;
+
+  String get field;
+  String get value;
+  @JsonKey(ignore: true)
+  _$$Filter_GreaterThanCopyWith<_$Filter_GreaterThan> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_GreaterThanOrEqualCopyWith<$Res> {
+  factory _$$Filter_GreaterThanOrEqualCopyWith(
+          _$Filter_GreaterThanOrEqual value,
+          $Res Function(_$Filter_GreaterThanOrEqual) then) =
+      __$$Filter_GreaterThanOrEqualCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, String value});
+}
+
+/// @nodoc
+class __$$Filter_GreaterThanOrEqualCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_GreaterThanOrEqual>
+    implements _$$Filter_GreaterThanOrEqualCopyWith<$Res> {
+  __$$Filter_GreaterThanOrEqualCopyWithImpl(_$Filter_GreaterThanOrEqual _value,
+      $Res Function(_$Filter_GreaterThanOrEqual) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? value = null,
+  }) {
+    return _then(_$Filter_GreaterThanOrEqual(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_GreaterThanOrEqual implements Filter_GreaterThanOrEqual {
+  const _$Filter_GreaterThanOrEqual({required this.field, required this.value});
+
+  @override
+  final String field;
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'Filter.greaterThanOrEqual(field: $field, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_GreaterThanOrEqual &&
+            (identical(other.field, field) || other.field == field) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_GreaterThanOrEqualCopyWith<_$Filter_GreaterThanOrEqual>
+      get copyWith => __$$Filter_GreaterThanOrEqualCopyWithImpl<
+          _$Filter_GreaterThanOrEqual>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return greaterThanOrEqual(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return greaterThanOrEqual?.call(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (greaterThanOrEqual != null) {
+      return greaterThanOrEqual(field, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return greaterThanOrEqual(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return greaterThanOrEqual?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (greaterThanOrEqual != null) {
+      return greaterThanOrEqual(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_GreaterThanOrEqual implements Filter {
+  const factory Filter_GreaterThanOrEqual(
+      {required final String field,
+      required final String value}) = _$Filter_GreaterThanOrEqual;
+
+  String get field;
+  String get value;
+  @JsonKey(ignore: true)
+  _$$Filter_GreaterThanOrEqualCopyWith<_$Filter_GreaterThanOrEqual>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_EqualCopyWith<$Res> {
+  factory _$$Filter_EqualCopyWith(
+          _$Filter_Equal value, $Res Function(_$Filter_Equal) then) =
+      __$$Filter_EqualCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, String value});
+}
+
+/// @nodoc
+class __$$Filter_EqualCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_Equal>
+    implements _$$Filter_EqualCopyWith<$Res> {
+  __$$Filter_EqualCopyWithImpl(
+      _$Filter_Equal _value, $Res Function(_$Filter_Equal) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? value = null,
+  }) {
+    return _then(_$Filter_Equal(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_Equal implements Filter_Equal {
+  const _$Filter_Equal({required this.field, required this.value});
+
+  @override
+  final String field;
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'Filter.equal(field: $field, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_Equal &&
+            (identical(other.field, field) || other.field == field) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_EqualCopyWith<_$Filter_Equal> get copyWith =>
+      __$$Filter_EqualCopyWithImpl<_$Filter_Equal>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return equal(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return equal?.call(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (equal != null) {
+      return equal(field, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return equal(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return equal?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (equal != null) {
+      return equal(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_Equal implements Filter {
+  const factory Filter_Equal(
+      {required final String field,
+      required final String value}) = _$Filter_Equal;
+
+  String get field;
+  String get value;
+  @JsonKey(ignore: true)
+  _$$Filter_EqualCopyWith<_$Filter_Equal> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_NotEqualCopyWith<$Res> {
+  factory _$$Filter_NotEqualCopyWith(
+          _$Filter_NotEqual value, $Res Function(_$Filter_NotEqual) then) =
+      __$$Filter_NotEqualCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, String value});
+}
+
+/// @nodoc
+class __$$Filter_NotEqualCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_NotEqual>
+    implements _$$Filter_NotEqualCopyWith<$Res> {
+  __$$Filter_NotEqualCopyWithImpl(
+      _$Filter_NotEqual _value, $Res Function(_$Filter_NotEqual) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? value = null,
+  }) {
+    return _then(_$Filter_NotEqual(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_NotEqual implements Filter_NotEqual {
+  const _$Filter_NotEqual({required this.field, required this.value});
+
+  @override
+  final String field;
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'Filter.notEqual(field: $field, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_NotEqual &&
+            (identical(other.field, field) || other.field == field) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_NotEqualCopyWith<_$Filter_NotEqual> get copyWith =>
+      __$$Filter_NotEqualCopyWithImpl<_$Filter_NotEqual>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return notEqual(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return notEqual?.call(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (notEqual != null) {
+      return notEqual(field, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return notEqual(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return notEqual?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (notEqual != null) {
+      return notEqual(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_NotEqual implements Filter {
+  const factory Filter_NotEqual(
+      {required final String field,
+      required final String value}) = _$Filter_NotEqual;
+
+  String get field;
+  String get value;
+  @JsonKey(ignore: true)
+  _$$Filter_NotEqualCopyWith<_$Filter_NotEqual> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_LessThanCopyWith<$Res> {
+  factory _$$Filter_LessThanCopyWith(
+          _$Filter_LessThan value, $Res Function(_$Filter_LessThan) then) =
+      __$$Filter_LessThanCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, String value});
+}
+
+/// @nodoc
+class __$$Filter_LessThanCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_LessThan>
+    implements _$$Filter_LessThanCopyWith<$Res> {
+  __$$Filter_LessThanCopyWithImpl(
+      _$Filter_LessThan _value, $Res Function(_$Filter_LessThan) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? value = null,
+  }) {
+    return _then(_$Filter_LessThan(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_LessThan implements Filter_LessThan {
+  const _$Filter_LessThan({required this.field, required this.value});
+
+  @override
+  final String field;
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'Filter.lessThan(field: $field, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_LessThan &&
+            (identical(other.field, field) || other.field == field) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_LessThanCopyWith<_$Filter_LessThan> get copyWith =>
+      __$$Filter_LessThanCopyWithImpl<_$Filter_LessThan>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return lessThan(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return lessThan?.call(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (lessThan != null) {
+      return lessThan(field, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return lessThan(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return lessThan?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (lessThan != null) {
+      return lessThan(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_LessThan implements Filter {
+  const factory Filter_LessThan(
+      {required final String field,
+      required final String value}) = _$Filter_LessThan;
+
+  String get field;
+  String get value;
+  @JsonKey(ignore: true)
+  _$$Filter_LessThanCopyWith<_$Filter_LessThan> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_LessThanOrEqualCopyWith<$Res> {
+  factory _$$Filter_LessThanOrEqualCopyWith(_$Filter_LessThanOrEqual value,
+          $Res Function(_$Filter_LessThanOrEqual) then) =
+      __$$Filter_LessThanOrEqualCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, String value});
+}
+
+/// @nodoc
+class __$$Filter_LessThanOrEqualCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_LessThanOrEqual>
+    implements _$$Filter_LessThanOrEqualCopyWith<$Res> {
+  __$$Filter_LessThanOrEqualCopyWithImpl(_$Filter_LessThanOrEqual _value,
+      $Res Function(_$Filter_LessThanOrEqual) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? value = null,
+  }) {
+    return _then(_$Filter_LessThanOrEqual(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_LessThanOrEqual implements Filter_LessThanOrEqual {
+  const _$Filter_LessThanOrEqual({required this.field, required this.value});
+
+  @override
+  final String field;
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'Filter.lessThanOrEqual(field: $field, value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_LessThanOrEqual &&
+            (identical(other.field, field) || other.field == field) &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_LessThanOrEqualCopyWith<_$Filter_LessThanOrEqual> get copyWith =>
+      __$$Filter_LessThanOrEqualCopyWithImpl<_$Filter_LessThanOrEqual>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return lessThanOrEqual(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return lessThanOrEqual?.call(field, value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (lessThanOrEqual != null) {
+      return lessThanOrEqual(field, value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return lessThanOrEqual(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return lessThanOrEqual?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (lessThanOrEqual != null) {
+      return lessThanOrEqual(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_LessThanOrEqual implements Filter {
+  const factory Filter_LessThanOrEqual(
+      {required final String field,
+      required final String value}) = _$Filter_LessThanOrEqual;
+
+  String get field;
+  String get value;
+  @JsonKey(ignore: true)
+  _$$Filter_LessThanOrEqualCopyWith<_$Filter_LessThanOrEqual> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_BetweenCopyWith<$Res> {
+  factory _$$Filter_BetweenCopyWith(
+          _$Filter_Between value, $Res Function(_$Filter_Between) then) =
+      __$$Filter_BetweenCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field, String from, String to});
+}
+
+/// @nodoc
+class __$$Filter_BetweenCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_Between>
+    implements _$$Filter_BetweenCopyWith<$Res> {
+  __$$Filter_BetweenCopyWithImpl(
+      _$Filter_Between _value, $Res Function(_$Filter_Between) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+    Object? from = null,
+    Object? to = null,
+  }) {
+    return _then(_$Filter_Between(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+      from: null == from
+          ? _value.from
+          : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      to: null == to
+          ? _value.to
+          : to // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_Between implements Filter_Between {
+  const _$Filter_Between(
+      {required this.field, required this.from, required this.to});
+
+  @override
+  final String field;
+  @override
+  final String from;
+  @override
+  final String to;
+
+  @override
+  String toString() {
+    return 'Filter.between(field: $field, from: $from, to: $to)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_Between &&
+            (identical(other.field, field) || other.field == field) &&
+            (identical(other.from, from) || other.from == from) &&
+            (identical(other.to, to) || other.to == to));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field, from, to);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_BetweenCopyWith<_$Filter_Between> get copyWith =>
+      __$$Filter_BetweenCopyWithImpl<_$Filter_Between>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+  }) {
+    return between(field, from, to);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+  }) {
+    return between?.call(field, from, to);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    required TResult orElse(),
+  }) {
+    if (between != null) {
+      return between(field, from, to);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+  }) {
+    return between(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+  }) {
+    return between?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    required TResult orElse(),
+  }) {
+    if (between != null) {
+      return between(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_Between implements Filter {
+  const factory Filter_Between(
+      {required final String field,
+      required final String from,
+      required final String to}) = _$Filter_Between;
+
+  String get field;
+  String get from;
+  String get to;
+  @JsonKey(ignore: true)
+  _$$Filter_BetweenCopyWith<_$Filter_Between> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$MimirIndexSettings {
   List<String>? get searchableFields => throw _privateConstructorUsedError;
   List<String> get filterableFields => throw _privateConstructorUsedError;
