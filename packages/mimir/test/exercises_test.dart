@@ -8,35 +8,40 @@ void main() {
     final index = useTestIndex();
     final exercises = useExercises();
 
+    // Allow filtering based on some exercise fields
+    final currSettings = await index.getSettings();
+    await index.setSettings(currSettings.copyWith(
+      filterableFields: ['category', 'equipment', 'primaryMuscles'],
+    ));
+
     // Add the exercises into the index
     await index.addDocuments(exercises);
     final allDocs = await index.getAllDocuments();
     expect(allDocs.length, exercises.length);
 
-    // Perform a basic search
-    final results1 = await index.search(
-      query: 'benchp ress',
-      resultsLimit: 1,
-    );
+    // Perform a basic search that should only return the most likely exercise
     expect(
-      results1.first,
+      (await index.search(
+        query: 'benchp ress',
+        resultsLimit: 1,
+      ))
+          .single,
       exercises.where((e) => e['name'] == 'Barbell Bench Press').first,
     );
 
-    // Allow filtering based on equipment
-    final currSettings = await index.getSettings();
-    await index.setSettings(currSettings.copyWith(
-      filterableFields: ['equipment'],
-    ));
-
-    // Perform a more complicated search
-    final results2 = await index.search(
-      query: 'Inclne dumbe pess',
-      resultsLimit: 1,
-      filter: const Filter.inValues(field: 'equipment', values: ['dumbbell']),
-    );
+    // Perform a more complicated search that relies on filters
+    // This would normally return Barbell Incline Bench Press,
+    // but we are using filters which eliminate that possibility
     expect(
-      results2.first,
+      (await index.search(
+        query: 'Inclne pwess',
+        filter: const Filter.and([
+          Filter.inValues(field: 'category', values: ['strength']),
+          Filter.inValues(field: 'primaryMuscles', values: ['chest']),
+          Filter.inValues(field: 'equipment', values: ['dumbbell']),
+        ]),
+      ))
+          .first,
       exercises.where((e) => e['name'] == 'Incline Dumbbell Press').first,
     );
   });
