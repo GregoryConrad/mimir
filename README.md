@@ -37,14 +37,13 @@ final results = await index.search(query: 'jarissic park'); // returns Jurassic 
 ```
 
 Demo Flutter App:
-```
-INCLUDE GIF OF DEMO FLUTTER APP HERE
-```
+
+TODO INCLUDE GIF OF DEMO FLUTTER APP HERE
 
 
 ## Getting Started
-- With Flutter, use `flutter pub add flutter_mimir`
-- For Dart-only, use `dart pub add mimir`
+- With Flutter, run `flutter pub add flutter_mimir`
+- For Dart-only, run `dart pub add mimir`
 
 
 ## Documentation
