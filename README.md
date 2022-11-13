@@ -1,11 +1,12 @@
-# mimir
 <p align="center">
 <a href="https://github.com/GregoryConrad/mimir/actions"><img src="https://github.com/GregoryConrad/mimir/actions/workflows/build.yml/badge.svg" alt="Build Status"></a>
 <a href="https://github.com/GregoryConrad/mimir"><img src="https://img.shields.io/github/stars/GregoryConrad/mimir.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Github Stars"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="MIT License"></a>
 </p>
 
-<img src="https://github.com/GregoryConrad/mimir/blob/main/assets/m-prototype.png?raw=true" width="100%" alt="Mimir Banner" />
+<p align="center">
+<img src="https://github.com/GregoryConrad/mimir/blob/main/assets/m-prototype.png?raw=true" width="50%" alt="Mimir Banner" />
+</p>
 
 A batteries-included database for Dart & Flutter based on [Meilisearch](https://www.meilisearch.com).
 
