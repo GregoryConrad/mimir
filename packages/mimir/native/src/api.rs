@@ -21,6 +21,9 @@ lazy_static! {
     static ref INSTANCES: RwLock<HashMap<String, Instance>> = RwLock::new(HashMap::new());
 }
 
+// This is 2^30, so it will be a multiple of whatever the system page size is
+const MAX_MAP_SIZE: usize = 1_073_741_824;
+
 struct Instance {
     indexes: RwLock<HashMap<String, Mutex<Index>>>,
 }
@@ -55,9 +58,6 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
     let instance = instances.get(&instance_dir).unwrap();
     let indexes = instance.indexes.read().unwrap();
 
-    // This is 2^24, so it will be a multiple of whatever the system page size is
-    let default_map_size = 16_777_216;
-
     // If this index does not yet exist, create it
     if !indexes.contains_key(&index_name) {
         drop(indexes); // prevent deadlock with the prev read lock and now write lock
@@ -69,7 +69,7 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
             let path = Path::new(&instance_dir).join(&index_name);
             create_dir_all(&path)?;
             let mut options = EnvOpenOptions::new();
-            options.map_size(default_map_size);
+            options.map_size(MAX_MAP_SIZE);
             let index = Index::new(options, &path).unwrap();
             indexes.insert(index_name.clone(), Mutex::new(index));
         }
@@ -328,7 +328,7 @@ pub enum Filter {
 }
 
 fn create_token(s: &String) -> filter_parser::Token {
-    filter_parser::Token::new(filter_parser::Span::new_extra("", ""), Some(s.clone()))
+    filter_parser::Span::new_extra(s, s).into()
 }
 
 fn create_condition<'a>(s: &'a String, cond: milli::Condition<'a>) -> milli::FilterCondition<'a> {
