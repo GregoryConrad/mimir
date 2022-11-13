@@ -111,15 +111,17 @@ Future<void> run(String path, EmbeddedMilli milli) async {
       .where((movie) => movie['cast'].contains('Bruce Willis'))
       .where((movie) => movie['year'] >= 2015 && movie['year'] <= 2017)
       .map((movie) => movie['title']);
-  final foundWillisMovieTitles =
+  final foundWillisTitles =
       bruceWillis2015To2017Movies.map((movie) => movie['title'] as String);
   assert(
-    IterableEquality().equals(foundWillisMovieTitles, expectedWillisTitles),
+    IterableEquality().equals(foundWillisTitles, expectedWillisTitles),
     'Query for 2015-2017 Bruce Willis movies should return the expected results',
   );
 }
 
 EmbeddedMilli getMilli() {
+  // If you are running this example locally, you will need to run `cargo build`
+  // in the `mimir/native` directory in order for the needed dylib to be there.
   const libName = 'embedded_milli';
   final libPrefix = {
     Platform.isWindows: '',
