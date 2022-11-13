@@ -31,7 +31,7 @@ final index = instance.getIndex('movies');
 
 // Add movies to our index
 final myMovies = [
-    { 'title': 'Jurassic Park', 'cast': [...], ... },
+    { 'title': 'Jurassic Park', ... },
     ...
 ];
 await index.addDocuments(myMovies);
