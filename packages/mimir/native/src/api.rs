@@ -56,7 +56,7 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
     let indexes = instance.indexes.read().unwrap();
 
     // This is 2^24, so it will be a multiple of whatever the system page size is
-    let default_map_size = 16_777_216;
+    let default_map_size = 16_777_216 * 2;
 
     // If this index does not yet exist, create it
     if !indexes.contains_key(&index_name) {
@@ -328,7 +328,7 @@ pub enum Filter {
 }
 
 fn create_token(s: &String) -> filter_parser::Token {
-    filter_parser::Token::new(filter_parser::Span::new_extra("", ""), Some(s.clone()))
+    filter_parser::Span::new_extra(s, s).into()
 }
 
 fn create_condition<'a>(s: &'a String, cond: milli::Condition<'a>) -> milli::FilterCondition<'a> {

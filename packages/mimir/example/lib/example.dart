@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:http/http.dart' as http;
 import 'package:mimir/mimir.dart';
 
@@ -9,7 +10,7 @@ final uri = Uri.parse(
   'https://raw.githubusercontent.com/prust/wikipedia-movie-data/master/movies.json',
 );
 
-void main() async {
+Future<void> main() async {
   final tmpDir = getTmpDir();
   try {
     await run(tmpDir.path, getMilli());
@@ -78,7 +79,17 @@ Future<void> run(String path, EmbeddedMilli milli) async {
       // SortBy.asc('title'),
     ],
   );
-  print(harryPotterMovies);
+
+  // Check to see if the found movies include all the Harry Potter movies
+  final foundHarryPotterTitles =
+      harryPotterMovies.map((movie) => movie['title'] as String).toSet();
+  final expectedHarryPotterTitles = docs
+      .map((movie) => movie['title'] as String)
+      .where((title) => title.contains('Harry Potter'));
+  assert(
+    foundHarryPotterTitles.containsAll(expectedHarryPotterTitles),
+    'Search for "horry botter" should return all Harry Potter movies',
+  );
 
   // Let's do another search to show some more features:
   final bruceWillis2015To2017Movies = await index.search(
@@ -94,7 +105,18 @@ Future<void> run(String path, EmbeddedMilli milli) async {
       Filter.between(field: 'year', from: '2015', to: '2017'),
     ]),
   );
-  print(bruceWillis2015To2017Movies);
+
+  // Check to see if the found movies include all 2015-2017 Bruce Willis movies
+  final expectedWillisTitles = docs
+      .where((movie) => movie['cast'].contains('Bruce Willis'))
+      .where((movie) => movie['year'] >= 2015 && movie['year'] <= 2017)
+      .map((movie) => movie['title']);
+  final foundWillisMovieTitles =
+      bruceWillis2015To2017Movies.map((movie) => movie['title'] as String);
+  assert(
+    IterableEquality().equals(foundWillisMovieTitles, expectedWillisTitles),
+    'Query for 2015-2017 Bruce Willis movies should return the expected results',
+  );
 }
 
 EmbeddedMilli getMilli() {
