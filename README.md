@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-<img src="https://github.com/GregoryConrad/mimir/blob/main/assets/m-prototype.png?raw=true" width="50%" alt="Mimir Banner" />
+<img src="https://github.com/GregoryConrad/mimir/blob/main/assets/prototype-logo.png?raw=true" width="50%" alt="Mimir Banner" />
 </p>
 
 A batteries-included database for Dart & Flutter based on [Meilisearch](https://www.meilisearch.com).
