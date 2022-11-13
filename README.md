@@ -16,29 +16,27 @@ A batteries-included database for Dart & Flutter based on [Meilisearch](https://
 - 🔎 Typo tolerant full-text search *with no extra configuration needed*
 - 🔥 Blazingly fast search and reads (written in Rust)
 - 🤝 Flutter friendly with a super easy-to-use API (see demo below!)
-- 🔱 Powerful, declarative, (soon to be [reactive](https://github.com/GregoryConrad/mimir/issues/38)!) queries
+- 🔱 Powerful, declarative, (soon to be [reactive!](https://github.com/GregoryConrad/mimir/issues/38)) queries
 - 🔌 Cross-platform support ([web hopefully coming soon!](https://github.com/GregoryConrad/mimir/issues/10))
 
 
 ## Demo
 With Flutter, you can get started with as little as:
-
 ```dart
-// Get an index for our movies
-// Think of an index as a list of documents with the same type (although not required!)
-final instance = Mimir.defaultInstance;
-final index = instance.getIndex('movies');
+// Get an "index" to store our movies
+final index = Mimir.defaultInstance.getIndex('movies');
 
 // Add movies to our index
 final myMovies = [
-    { 'title': 'Jurassic Park', ... },
-    ...
+    { 'title': 'Jurassic Park', ... }, ...
 ];
 await index.addDocuments(myMovies);
 
 // Perform a search!
-final results = await index.search(query: 'jarissic park');
+final results = await index.search(query: 'jarissic park'); // returns Jurassic Park!
 ```
+
+Demo Flutter App:
 ```
 INCLUDE GIF OF DEMO FLUTTER APP HERE
 ```
