@@ -13,21 +13,21 @@ final uri = Uri.parse(
 Future<void> main() async {
   final tmpDir = getTmpDir();
   try {
-    await run(tmpDir.path, getMilli());
+    await run(tmpDir.path, getLibrary());
   } finally {
     tmpDir.deleteSync(recursive: true);
   }
 }
 
-Future<void> run(String path, EmbeddedMilli milli) async {
+Future<void> run(String path, Object lib) async {
   // First, we get our instance of Mimir from:
   // - path, the path to the instance directory (that holds all of our data)
-  // - milli, an instance of EmbeddedMilli, the "ffi wrapper object"
-  //   - milli is an object that enables us to communicate with the db in Rust
-  // If you are going to use Flutter, don't pay too much attention to milli;
-  // milli will be created for you automatically under the hood.
+  // - lib, an instance of DynamicLibrary
+  //   - lib is an object that enables us to communicate with the db in Rust
+  // If you are going to use Flutter, don't pay too much attention to lib;
+  // lib will be created for you automatically under the hood.
   // However, in pure Dart, you need to explicity state how to get it.
-  final instance = Mimir.getInstance(path: path, milli: milli);
+  final instance = Mimir.getInstance(path: path, library: lib);
 
   // Let's create an 'index' of movies that we can search through.
   // An index can be thought of as a grouping of documents of the same type.
@@ -119,7 +119,7 @@ Future<void> run(String path, EmbeddedMilli milli) async {
   );
 }
 
-EmbeddedMilli getMilli() {
+Object getLibrary() {
   // If you are running this example locally, you will need to run `cargo build`
   // in the `mimir/native` directory in order for the needed dylib to be there.
   const libName = 'embedded_milli';
@@ -134,7 +134,7 @@ EmbeddedMilli getMilli() {
     Platform.isLinux: 'so',
   }[true]!;
   final dylibPath = '../native/target/debug/$libPrefix$libName.$libSuffix';
-  return Mimir.createWrapper(DynamicLibrary.open(dylibPath));
+  return DynamicLibrary.open(dylibPath);
 }
 
 Directory getTmpDir() => Directory.systemTemp.createTempSync();

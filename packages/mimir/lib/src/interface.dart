@@ -11,33 +11,37 @@ import 'package:mimir/src/impl/ffi/stub.dart'
 // This approach was taken from Hive, where initFlutter()
 // in the hive_flutter package is an extension method.
 // To the user this will look like a class/namespace so it is okay.
-// ignore: constant_identifier_names
-const Mimir = MimirInterface._();
+// ignore: non_constant_identifier_names
+final Mimir = MimirInterface._();
 
 /// The interface of the API to interact with mimir
 class MimirInterface {
-  const MimirInterface._();
+  // This class should only ever be instantiated *once*, so private constructor
+  MimirInterface._();
 
-  static EmbeddedMilli? _wrapper;
+  // Internal ffi wrapper that is instantianted lazily.
+  // Should only have one instance per process.
+  EmbeddedMilli? _milli;
 
-  /// Creates a MimirInstance from the given [path] and [milli]
+  // Instances map. Should only have one instance per app for streams to work.
+  final _instances = <String, MimirInstance>{};
+
+  /// Creates a MimirInstance from the given [path] and [library]
   ///
   /// The [path] has to point to a directory; a directory will be
   /// created for you at the given path if one does not already exist.
   ///
-  /// [milli] is the ffi wrapper that is used internally to call the Rust APIs
+  /// [library] is a WasmModule on web & a DynamicLibrary on dart:io platforms.
+  /// [library] is used to create the internal ffi object
+  /// that is used to call the Rust APIs.
   MimirInstance getInstance({
     required String path,
-    required EmbeddedMilli milli,
-  }) =>
-      MimirInstanceImpl(path, milli);
-
-  /// Creates an [EmbeddedMilli] ffi wrapper from the supplied [lib].
-  ///
-  /// [lib] is either a DynamicLibrary on dart:io platforms
-  /// or a WasmModule on web.
-  EmbeddedMilli createWrapper(ExternalLibrary lib) {
-    _wrapper ??= createWrapperImpl(lib);
-    return _wrapper!;
+    required ExternalLibrary library,
+  }) {
+    _milli ??= createWrapperImpl(library);
+    return _instances.putIfAbsent(
+      path,
+      () => MimirInstanceImpl(path, _milli!),
+    );
   }
 }
