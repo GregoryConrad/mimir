@@ -217,6 +217,17 @@ pub fn delete_all_documents(instance_dir: String, index_name: String) -> Result<
     Ok(())
 }
 
+/// Replaces all documents with the given documents
+pub fn set_documents(
+    instance_dir: String,
+    index_name: String,
+    json_documents: Vec<String>,
+) -> Result<()> {
+    // TODO combine into 1 write txn
+    delete_all_documents(instance_dir.clone(), index_name.clone())?;
+    add_documents(instance_dir, index_name, json_documents)
+}
+
 /// Returns the document with the specified id from the index, if one exists
 pub fn get_document(
     instance_dir: String,

@@ -1,9 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:mimir/mimir.dart';
-
-DynamicLibrary get _dylib {
+DynamicLibrary createLibraryImpl() {
   const base = 'embedded_milli';
 
   if (Platform.isIOS || Platform.isMacOS) {
@@ -14,6 +12,3 @@ DynamicLibrary get _dylib {
     return DynamicLibrary.open('lib$base.so');
   }
 }
-
-/// Creates an [EmbeddedMilli] ffi wrapper for dart:io platforms
-EmbeddedMilli createFlutterWrapper() => Mimir.createWrapper(_dylib);

@@ -16,7 +16,7 @@ A batteries-included database for Dart & Flutter based on [Meilisearch](https://
 - 🔎 Typo tolerant full-text search *with no extra configuration needed*
 - 🔥 Blazingly fast search and reads (written in Rust)
 - 🤝 Flutter friendly with a super easy-to-use API (see demo below!)
-- 🔱 Powerful, declarative, (soon to be [reactive!](https://github.com/GregoryConrad/mimir/issues/38)) queries
+- 🔱 Powerful, declarative, and reactive queries
 - 🔌 Cross-platform support ([web hopefully coming soon!](https://github.com/GregoryConrad/mimir/issues/10))
 
 

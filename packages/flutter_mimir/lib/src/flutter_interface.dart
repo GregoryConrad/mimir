@@ -30,5 +30,5 @@ extension FlutterMimirInterface on MimirInterface {
 
   /// Creates a MimirInstance from the given path for Flutter
   MimirInstance getInstanceForPath(String path) =>
-      getInstance(path: path, milli: createFlutterWrapper());
+      getInstance(path: path, library: createLibraryImpl());
 }

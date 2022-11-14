@@ -168,4 +168,52 @@ void main() {
     final allDocs = await index.getAllDocuments();
     expect(allDocs.length, concurrentDocs + batchDocs);
   });
+
+  test('Documents stream', () async {
+    final index = useTestIndex();
+
+    final expectedDocumentsStream = <List<Map<String, dynamic>>>[
+      [], // should start off with the current documents when accessing stream
+      allDocs, // we add all documents
+      [], // we delete all documents
+      [allDocs[0]], // we add just one document
+    ];
+
+    // Will be populated throughout the rest of the test
+    final actualDocumentsStream = index.documents.toList();
+
+    await useForceStreamUpdate();
+    await index.addDocuments(allDocs);
+    await useForceStreamUpdate();
+    await index.deleteAllDocuments();
+    await useForceStreamUpdate();
+    await index.addDocument(allDocs[0]);
+    await useForceStreamUpdate();
+    await index.close();
+
+    expect(await actualDocumentsStream, expectedDocumentsStream);
+  });
+
+  test('Search stream', () async {
+    final index = useTestIndex();
+
+    final expectedDocumentsStream = <List<Map<String, dynamic>>>[
+      [], // should start off with the docs that match search
+      [allDocs[3]], // search should only match one document
+      [], // we delete all documents, so no search result
+    ];
+
+    // Will be populated throughout the rest of the test
+    final actualDocumentsStream =
+        index.searchStream(query: 'horry botter').toList();
+
+    await useForceStreamUpdate();
+    await index.addDocuments(allDocs);
+    await useForceStreamUpdate();
+    await index.deleteAllDocuments();
+    await useForceStreamUpdate();
+    await index.close();
+
+    expect(await actualDocumentsStream, expectedDocumentsStream);
+  });
 }
