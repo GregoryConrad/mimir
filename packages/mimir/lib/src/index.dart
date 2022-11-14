@@ -26,11 +26,24 @@ mixin MimirIndex {
     TermsMatchingStrategy? matchingStrategy,
   });
 
+  /// This is the same as [search], but instead returns a [Stream] that can be
+  /// used to listen to the changes in a search from document modifications.
+  Stream<List<MimirDocument>> searchStream({
+    String? query,
+    Filter? filter,
+    List<SortBy>? sortBy,
+    int? resultsLimit,
+    TermsMatchingStrategy? matchingStrategy,
+  });
+
   /// Gets the given document from the index, if it exists
   Future<MimirDocument?> getDocument(String id);
 
   /// Gets all documents from the index
   Future<List<MimirDocument>> getAllDocuments();
+
+  /// A stream of all documents from this index
+  Stream<List<MimirDocument>> get documents;
 
   /// Adds the given document to the index
   Future<void> addDocument(MimirDocument document) => addDocuments([document]);
