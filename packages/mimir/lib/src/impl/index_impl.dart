@@ -111,6 +111,7 @@ class MimirIndexImpl with MimirIndex {
     return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
   }
 
+  @override
   Future<void> close() => _changes.close();
 
   Stream<T> _autoRefresh<T>(FutureOr<T> Function() fn) async* {
