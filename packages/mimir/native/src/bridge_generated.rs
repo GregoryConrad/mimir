@@ -113,6 +113,26 @@ fn wire_delete_all_documents_impl(
         },
     )
 }
+fn wire_set_documents_impl(
+    port_: MessagePort,
+    instance_dir: impl Wire2Api<String> + UnwindSafe,
+    index_name: impl Wire2Api<String> + UnwindSafe,
+    json_documents: impl Wire2Api<Vec<String>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_documents",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_instance_dir = instance_dir.wire2api();
+            let api_index_name = index_name.wire2api();
+            let api_json_documents = json_documents.wire2api();
+            move |task_callback| set_documents(api_instance_dir, api_index_name, api_json_documents)
+        },
+    )
+}
 fn wire_get_document_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,

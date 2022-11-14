@@ -39,20 +39,22 @@ class MimirIndexImpl with MimirIndex {
   }
 
   @override
-  Future<void> deleteAllDocuments({broadcastChange = true}) async {
+  Future<void> deleteAllDocuments() async {
     await milli.deleteAllDocuments(
       instanceDir: instanceDir,
       indexName: name,
     );
-    if (broadcastChange) _changes.add(null);
+    _changes.add(null);
   }
 
   @override
   Future<void> setDocuments(List<MimirDocument> documents) async {
-    // TODO this should be implemented in Rust as one write txn
-    //  to get rid of the broadcastChange workaround
-    await deleteAllDocuments(broadcastChange: false);
-    return addDocuments(documents);
+    await milli.setDocuments(
+      instanceDir: instanceDir,
+      indexName: name,
+      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
+    );
+    _changes.add(null);
   }
 
   @override
