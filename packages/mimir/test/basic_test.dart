@@ -195,6 +195,25 @@ void main() {
   });
 
   test('Search stream', () async {
-    // TODO
+    final index = useTestIndex();
+
+    final expectedDocumentsStream = <List<Map<String, dynamic>>>[
+      [], // should start off with the docs that match search
+      [allDocs[3]], // search should only match one document
+      [], // we delete all documents, so no search result
+    ];
+
+    // Will be populated throughout the rest of the test
+    final actualDocumentsStream =
+        index.searchStream(query: 'horry botter').toList();
+
+    await useForceStreamUpdate();
+    await index.addDocuments(allDocs);
+    await useForceStreamUpdate();
+    await index.deleteAllDocuments();
+    await useForceStreamUpdate();
+    await index.close();
+
+    expect(await actualDocumentsStream, expectedDocumentsStream);
   });
 }
