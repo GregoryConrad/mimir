@@ -19,7 +19,7 @@ Future<void> main() async {
   }
 }
 
-Future<void> run(String path, Object lib) async {
+Future<void> run(String path, DynamicLibrary lib) async {
   // First, we get our instance of Mimir from:
   // - path, the path to the instance directory (that holds all of our data)
   // - lib, an instance of DynamicLibrary
@@ -119,7 +119,7 @@ Future<void> run(String path, Object lib) async {
   );
 }
 
-Object getLibrary() {
+DynamicLibrary getLibrary() {
   // If you are running this example locally, you will need to run `cargo build`
   // in the `mimir/native` directory in order for the needed dylib to be there.
   const libName = 'embedded_milli';
