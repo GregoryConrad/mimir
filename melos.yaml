@@ -1,0 +1,16 @@
+name: mimir
+
+repository: https://github.com/GregoryConrad/mimir
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+packages:
+  - packages/**
+
+scripts:
+  analyze:
+    exec: flutter analyze .
+
+# TODO build apple
