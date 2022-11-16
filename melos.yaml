@@ -13,4 +13,22 @@ scripts:
   analyze:
     exec: flutter analyze .
 
-# TODO build apple
+  # TODO build apple
+
+  test:
+    run: melos run test:dart --no-select && melos run test:flutter --no-select
+    description: Run all Dart & Flutter tests in this project.
+
+  test:dart:
+    run: melos exec --fail-fast -- "dart test test"
+    description: Run Dart tests for a specific package in this project.
+    select-package:
+      flutter: false
+      dir-exists: test
+
+  test:flutter:
+    run: melos exec --fail-fast -- "flutter test test"
+    description: Run Flutter tests for a specific package in this project.
+    select-package:
+      flutter: true
+      dir-exists: test
