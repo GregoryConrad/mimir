@@ -13,7 +13,9 @@ scripts:
   analyze:
     exec: flutter analyze .
 
-  # TODO build apple
+  build:apple-static-lib:
+    run: bash packages/mimir/native/build-apple.sh
+    description: Build static libraries for iOS and macOS
 
   test:
     run: melos run test:dart --no-select && melos run test:flutter --no-select
