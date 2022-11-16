@@ -1,31 +1,38 @@
 #!/bin/bash
 
-# Builds the Rust code for Apple platforms and places static libs
-# in the proper directories
- 
-BUILDDIR=$( dirname -- "$0"; )
+# Build static libs
+cd $( dirname -- "$0"; )
+for TARGET in \
+        aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim \
+        x86_64-apple-darwin aarch64-apple-darwin
+do
+    rustup target add $TARGET
+    cargo build -r --target=$TARGET
+done
+
+# Create XCFramework
+FRAMEWORK="EmbeddedMilli.xcframework"
 LIBNAME=libembedded_milli.a
+IOS_SIM_LIPO=ios-sim.a
+MAC_LIPO=mac.a
+lipo -create -output $IOS_SIM_LIPO \
+        target/aarch64-apple-ios-sim/release/$LIBNAME \
+        target/x86_64-apple-ios/release/$LIBNAME
+lipo -create -output $MAC_LIPO \
+        target/aarch64-apple-darwin/release/$LIBNAME \
+        target/x86_64-apple-darwin/release/$LIBNAME
+xcodebuild -create-xcframework \
+        -library $IOS_SIM_LIPO \
+        -library $MAC_LIPO \
+        -library target/aarch64-apple-ios/release/$LIBNAME \
+        -output $FRAMEWORK
+rm $IOS_SIM_LIPO $MAC_LIPO
 
-cd $BUILDDIR
-
-# iOS
-OUTDIR=$BUILDDIR/../../flutter_mimir/ios
-for TARGET in aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
+# Copy XCFramework to macOS and iOS folders
+for OS in macos ios
 do
-rustup target add $TARGET
-cargo build -r --target=$TARGET
-COPY_TO=$OUTDIR/target/$TARGET/release/
-mkdir -p $COPY_TO
-cp target/$TARGET/release/$LIBNAME $COPY_TO
+cp -r $FRAMEWORK ../../flutter_mimir/$OS/
 done
 
-# macOS
-OUTDIR=$BUILDDIR/../../flutter_mimir/macos
-for TARGET in x86_64-apple-darwin aarch64-apple-darwin
-do
-rustup target add $TARGET
-cargo build -r --target=$TARGET
-COPY_TO=$OUTDIR/target/$TARGET/release/
-mkdir -p $COPY_TO
-cp target/$TARGET/release/$LIBNAME $COPY_TO
-done
+# Delete the intermediary XCFramework
+rm -rf $FRAMEWORK
