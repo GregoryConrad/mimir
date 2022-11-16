@@ -1,0 +1,1 @@
+../macos/flutter_mimir.podspec
