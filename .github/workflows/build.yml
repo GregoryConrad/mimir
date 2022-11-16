@@ -23,7 +23,7 @@ jobs:
         with:
           toolchain: stable
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v1
+      - uses: bluefireteam/melos-action@v2
 
       # Rust checks
       - name: Build Rust code (embedded_milli)
@@ -59,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v1
+      - uses: bluefireteam/melos-action@v2
 
   # TODO Flutter iOS integration tests
   ios_integration_tests:
@@ -76,7 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v1
+      - uses: bluefireteam/melos-action@v2
 
   # TODO Flutter Android integration tests
   android_integration_tests:
@@ -93,4 +93,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v1
+      - uses: bluefireteam/melos-action@v2
