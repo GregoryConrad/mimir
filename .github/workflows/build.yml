@@ -23,14 +23,7 @@ jobs:
         with:
           toolchain: stable
       - uses: subosito/flutter-action@v2
-
-      # Melos setup
-      - name: Install Melos
-        run: |
-          dart pub global activate melos
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-      - name: Bootstrap Melos
-        run: melos bs
+      - uses: bluefireteam/melos-action@v1
 
       # Rust checks
       - name: Build Rust code (embedded_milli)
@@ -55,13 +48,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        flutter_channel: [stable]
         package_path:
           - packages/flutter_mimir
           - packages/flutter_mimir/example
-
     runs-on: ${{ matrix.os }}
-
     defaults:
       run:
         working-directory: ${{ matrix.package_path }}
@@ -69,25 +59,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.flutter_channel }}
-
-      - name: Install current package dependencies
-        run: flutter pub get
-
+      - uses: bluefireteam/melos-action@v1
 
   # TODO Flutter iOS integration tests
   ios_integration_tests:
     strategy:
       matrix:
-        os: [macos-latest]
-        flutter_channel: [stable]
         package_path:
           - packages/flutter_mimir
           - packages/flutter_mimir/example
-
-    runs-on: ${{ matrix.os }}
-
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: ${{ matrix.package_path }}
@@ -95,25 +76,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.flutter_channel }}
-
-      - name: Install current package dependencies
-        run: flutter pub get
-
+      - uses: bluefireteam/melos-action@v1
 
   # TODO Flutter Android integration tests
   android_integration_tests:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        flutter_channel: [stable]
         package_path:
           - packages/flutter_mimir
           - packages/flutter_mimir/example
-
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ matrix.package_path }}
@@ -121,8 +93,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.flutter_channel }}
-
-      - name: Install current package dependencies
-        run: flutter pub get
+      - uses: bluefireteam/melos-action@v1
