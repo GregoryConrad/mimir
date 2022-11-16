@@ -18,9 +18,6 @@ Pod::Spec.new do |spec|
   # TODO clean up following
   # Flutter.framework does not contain a i386 slice.
   spec.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
-  spec.swift_version = '5.0'
-  spec.source_files = 'Classes/**/*'
-  spec.dependency 'FlutterMacOS'
   spec.static_framework = true
 
 end
