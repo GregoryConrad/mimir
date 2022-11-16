@@ -12,24 +12,33 @@ packages:
 scripts:
   analyze:
     exec: flutter analyze .
+    description: Analyze a specific package in this project.
+
+  check-format:
+    exec: flutter format --set-exit-if-changed .
+    description: Check the format of a specific package in this project.
+
+  format:
+    exec: flutter format .
+    description: Format a specific package in this project.
 
   build:apple-static-lib:
     run: bash packages/mimir/native/build-apple.sh
-    description: Build static libraries for iOS and macOS
+    description: Build static libraries for iOS and macOS.
 
   test:
     run: melos run test:dart --no-select && melos run test:flutter --no-select
     description: Run all Dart & Flutter tests in this project.
 
   test:dart:
-    run: melos exec --fail-fast -- "dart test test"
+    run: melos exec -c 1 --fail-fast -- "dart test test"
     description: Run Dart tests for a specific package in this project.
     select-package:
       flutter: false
       dir-exists: test
 
   test:flutter:
-    run: melos exec --fail-fast -- "flutter test test"
+    run: melos exec -c 1 --fail-fast -- "flutter test test"
     description: Run Flutter tests for a specific package in this project.
     select-package:
       flutter: true
