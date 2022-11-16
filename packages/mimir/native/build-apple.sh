@@ -13,8 +13,9 @@ done
 # Create XCFramework
 FRAMEWORK="EmbeddedMilli.xcframework"
 LIBNAME=libembedded_milli.a
-IOS_SIM_LIPO=ios-sim.a
-MAC_LIPO=mac.a
+mkdir mac-lipo ios-sim-lipo
+IOS_SIM_LIPO=ios-sim-lipo/$LIBNAME
+MAC_LIPO=mac-lipo/$LIBNAME
 lipo -create -output $IOS_SIM_LIPO \
         target/aarch64-apple-ios-sim/release/$LIBNAME \
         target/x86_64-apple-ios/release/$LIBNAME
@@ -26,7 +27,7 @@ xcodebuild -create-xcframework \
         -library $MAC_LIPO \
         -library target/aarch64-apple-ios/release/$LIBNAME \
         -output $FRAMEWORK
-rm $IOS_SIM_LIPO $MAC_LIPO
+rm -rf ios-sim-lipo mac-lipo
 
 # Copy XCFramework to macOS and iOS folders
 for OS in macos ios
