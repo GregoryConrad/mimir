@@ -31,7 +31,7 @@ final index = instance.getIndex('movies');
 await index.addDocuments(myMovies);
 
 // Perform a search!
-final results = await index.search(query: 'jarissic park'); // returns Jurassic Park!
+final results = await index.search(query: 'jarrassic par'); // returns Jurassic Park!
 ```
 ![Demo Video](https://media3.giphy.com/media/d1qBJUUSwbJYOeKhhz/giphy.gif)
 
