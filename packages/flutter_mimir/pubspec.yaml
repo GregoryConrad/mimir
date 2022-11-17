@@ -23,13 +23,14 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
-      android:
-        ffiPlugin: true
       ios:
-        ffiPlugin: true
-      linux:
-        ffiPlugin: true
+        pluginClass: FlutterMimirPlugin
       macos:
-        ffiPlugin: true
-      windows:
-        ffiPlugin: true
+        pluginClass: FlutterMimirPlugin
+      # android:
+      #   package: com.gsconrad.flutter_mimir
+      #   pluginClass: FlutterMimirPlugin
+      # linux:
+      #   pluginClass: FlutterMimirPlugin
+      # windows:
+      #   pluginClass: FlutterMimirPlugin
