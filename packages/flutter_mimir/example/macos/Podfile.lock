@@ -1,6 +1,5 @@
 PODS:
-  - flutter_mimir (0.0.1):
-    - FlutterMacOS
+  - flutter_mimir (0.0.1)
   - FlutterMacOS (1.0.0)
   - path_provider_macos (0.0.1):
     - FlutterMacOS
@@ -19,7 +18,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
 
 SPEC CHECKSUMS:
-  flutter_mimir: 64928fb8fc54758af4b8f3074f7e5f5f912e9bb5
+  flutter_mimir: 9a814ba6262a9335f1869a6ddf2c44a8395d4bdc
   FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
   path_provider_macos: 3c0c3b4b0d4a76d2bf989a913c2de869c5641a19
 

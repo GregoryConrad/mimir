@@ -26,7 +26,15 @@ flutter:
       ios:
         pluginClass: FlutterMimirPlugin
       macos:
-        pluginClass: FlutterMimirPlugin
+        ffiPlugin: true
+      # We might be able to use this:
+      # android:
+      #   ffiPlugin: true
+      # linux:
+      #   ffiPlugin: true
+      # windows:
+      #   ffiPlugin: true
+      # But if not, use this:
       # android:
       #   package: com.gsconrad.flutter_mimir
       #   pluginClass: FlutterMimirPlugin
