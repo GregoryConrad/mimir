@@ -2,6 +2,7 @@
 
 # Build static libs
 cd $( dirname -- "$0"; )
+cd ..
 for TARGET in \
         aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim \
         x86_64-apple-darwin aarch64-apple-darwin
@@ -32,7 +33,8 @@ rm -rf ios-sim-lipo mac-lipo
 # Copy XCFramework to macOS and iOS folders
 for OS in macos ios
 do
-cp -r $FRAMEWORK ../../flutter_mimir/$OS/
+mkdir ../../flutter_mimir/$OS/Frameworks
+cp -r $FRAMEWORK ../../flutter_mimir/$OS/Frameworks/
 done
 
 # Delete the intermediary XCFramework

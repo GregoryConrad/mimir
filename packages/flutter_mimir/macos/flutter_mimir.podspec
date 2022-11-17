@@ -10,8 +10,8 @@ Pod::Spec.new do |spec|
   spec.osx.deployment_target = '10.11'
 
   spec.source = { :path => '.' }
-  spec.preserve_paths = 'EmbeddedMilli.xcframework/**/*'
-  spec.vendored_frameworks = 'EmbeddedMilli.xcframework'
+  spec.preserve_paths = 'Frameworks/EmbeddedMilli.xcframework/**/*'
+  spec.vendored_frameworks = 'Frameworks/EmbeddedMilli.xcframework'
   spec.xcconfig = { 'OTHER_LDFLAGS' => '-framework EmbeddedMilli' }
 
 

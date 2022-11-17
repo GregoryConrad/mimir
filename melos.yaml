@@ -23,7 +23,7 @@ scripts:
     description: Format a specific package in this project.
 
   build:apple-static-lib:
-    run: bash packages/mimir/native/build-apple.sh
+    run: bash packages/mimir/native/platforms-build/apple.sh
     description: Build static libraries for iOS and macOS.
 
   test:
