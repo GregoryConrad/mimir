@@ -24,7 +24,7 @@ flutter:
   plugin:
     platforms:
       ios:
-        pluginClass: FlutterMimirPlugin
+        ffiPlugin: true
       macos:
         ffiPlugin: true
       # We might be able to use this:
