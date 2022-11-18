@@ -51,7 +51,11 @@ final queryProvider = StateProvider((_) => '');
 final searchProvider = StreamProvider((ref) {
   final index = ref.watch(indexProvider);
   final query = ref.watch(queryProvider);
-  return query.isEmpty ? index.documents : index.searchStream(query: query);
+
+  // When query is null/empty, all docs will be returned
+  // TODO all docs currently broken, see:
+  //  https://github.com/GregoryConrad/mimir/issues/47
+  return index.searchStream(query: query);
 });
 
 class Body extends HookConsumerWidget {
