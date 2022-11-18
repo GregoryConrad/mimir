@@ -45,6 +45,37 @@ class MimirInterface {
     );
   }
 
+  /// Creates an "or" [Filter] of the given sub-filters.
+  Filter or(List<Filter> filters) => Filter.or(filters);
+
+  /// Creates an "and" [Filter] of the given sub-filters.
+  Filter and(List<Filter> filters) => Filter.and(filters);
+
+  /// Creates a "not" [Filter] of the given sub-filter.
+  Filter not(Filter filter) => Filter.not(filter);
+
+  /// Creates a [Filter] in a declarative manner.
+  /// Simply wraps around the underlying [Filter] API to make it easier to use.
+  ///
+  /// Example:
+  /// ```dart
+  /// // Instead of:
+  /// Filter.or([
+  ///   Filter.and([
+  ///     Filter.equal(field: 'fruit', value: 'apple'),
+  ///     Filter.between(field: 'year', from: '2000', to: '2009'),
+  ///   ]),
+  ///   Filter.inValues(field: 'colors', values: ['red', 'green']),
+  /// ])
+  /// // Which is somewhat hard to read, you can do:
+  /// Mimir.or([
+  ///   Mimir.and([
+  ///     Mimir.where('fruit', isEqualTo: 'apple'),
+  ///     Mimir.where('year', isBetween: '2000', and: '2009'),
+  ///   ]),
+  ///   Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
+  /// ])
+  /// ```
   Filter where(
     String field, {
     // Standard operators
@@ -54,6 +85,7 @@ class MimirInterface {
     String? isLessThanOrEqualTo,
     String? isGreaterThan,
     String? isLessThan,
+    bool? exists,
 
     // "IN" operator
     List<String>? containsAtLeastOneOf,
@@ -62,6 +94,51 @@ class MimirInterface {
     String? isBetween,
     String? and,
   }) {
-    throw UnsupportedError('');
+    final givenOperators = [
+      MapEntry(
+        isEqualTo != null,
+        () => Filter.equal(field: field, value: isEqualTo!),
+      ),
+      MapEntry(
+        isNotEqualTo != null,
+        () => Filter.notEqual(field: field, value: isNotEqualTo!),
+      ),
+      MapEntry(
+        isGreaterThanOrEqualTo != null,
+        () => Filter.greaterThanOrEqual(
+            field: field, value: isGreaterThanOrEqualTo!),
+      ),
+      MapEntry(
+        isLessThanOrEqualTo != null,
+        () => Filter.lessThanOrEqual(field: field, value: isLessThanOrEqualTo!),
+      ),
+      MapEntry(
+        isGreaterThan != null,
+        () => Filter.greaterThan(field: field, value: isGreaterThan!),
+      ),
+      MapEntry(
+        isLessThan != null,
+        () => Filter.lessThan(field: field, value: isLessThan!),
+      ),
+      MapEntry(exists != null, () {
+        final existsFilter = Filter.exists(field: field);
+        return exists! ? existsFilter : Filter.not(existsFilter);
+      }),
+      MapEntry(
+        containsAtLeastOneOf != null,
+        () => Filter.inValues(field: field, values: containsAtLeastOneOf!),
+      ),
+      MapEntry(
+        isBetween != null && and != null,
+        () => Filter.between(field: field, from: isBetween!, to: and!),
+      ),
+    ].where((e) => e.key);
+    if (givenOperators.length != 1) {
+      throw UnsupportedError(
+        'Only one operator can be given for each where call. '
+        'If you need to use multiple conditions, use Mimir.or or Mimir.and',
+      );
+    }
+    return givenOperators.single.value();
   }
 }
