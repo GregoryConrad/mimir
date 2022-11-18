@@ -1,7 +1,5 @@
 name: flutter_mimir
-description: >
-  An embedded instance of the engine that powers Meilisearch (milli).
-  Enables easy, blazingly fast, client-side full-text search in Flutter.
+description: ⚡ Supercharged Flutter Database
 version: 0.0.0
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
@@ -17,11 +15,30 @@ dependencies:
   path: ^1.8.2
   path_provider: ^2.0.11
 
-dependency_overrides:
-  mimir:
-    path: ../mimir
-
 dev_dependencies:
   analyzer: ^5.2.0
   flutter_test:
     sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      ios:
+        ffiPlugin: true
+      macos:
+        ffiPlugin: true
+      # We might be able to use this:
+      # android:
+      #   ffiPlugin: true
+      # linux:
+      #   ffiPlugin: true
+      # windows:
+      #   ffiPlugin: true
+      # But if not, use this:
+      # android:
+      #   package: com.gsconrad.flutter_mimir
+      #   pluginClass: FlutterMimirPlugin
+      # linux:
+      #   pluginClass: FlutterMimirPlugin
+      # windows:
+      #   pluginClass: FlutterMimirPlugin

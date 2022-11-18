@@ -24,21 +24,16 @@ A batteries-included database for Dart & Flutter based on [Meilisearch](https://
 With Flutter, you can get started with as little as:
 ```dart
 // Get an "index" to store our movies
-final index = Mimir.defaultInstance.getIndex('movies');
+final instance = await Mimir.defaultInstance;
+final index = instance.getIndex('movies');
 
 // Add movies to our index
-final myMovies = [
-    { 'title': 'Jurassic Park', ... }, ...
-];
 await index.addDocuments(myMovies);
 
 // Perform a search!
-final results = await index.search(query: 'jarissic park'); // returns Jurassic Park!
+final results = await index.search(query: 'jarrassic par'); // returns Jurassic Park!
 ```
-
-Demo Flutter App:
-
-TODO INCLUDE GIF OF DEMO FLUTTER APP HERE
+![Demo Video](https://media3.giphy.com/media/5CXp6KYJIyuhLApWNK/giphy.gif)
 
 
 ## Getting Started

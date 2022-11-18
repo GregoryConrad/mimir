@@ -1,7 +1,5 @@
 name: mimir
-description: >
-  An embedded instance of the engine that powers Meilisearch (milli).
-  Enables easy, blazingly fast, client-side full-text search in Dart.
+description: ⚡ Supercharged Dart Database
 version: 0.0.0
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir

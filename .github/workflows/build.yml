@@ -1,4 +1,3 @@
-# Modified from https://github.com/rrousselGit/riverpod/blob/master/.github/workflows/build.yml
 name: Build & Test
 
 on:
@@ -13,23 +12,10 @@ on:
 jobs:
   # General build, check, and test steps
   build_and_test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        flutter_channel: [stable]
-        package_path:
-          - packages/mimir
-          - packages/mimir/example
-          - packages/flutter_mimir
-          - packages/flutter_mimir/example
-
-    runs-on: ${{ matrix.os }}
-
-    defaults:
-      run:
-        working-directory: ${{ matrix.package_path }}
+    runs-on: ubuntu-latest
 
     steps:
+      # General setup
       - uses: actions/checkout@v3
         with:
           submodules: recursive
@@ -37,34 +23,22 @@ jobs:
         with:
           toolchain: stable
       - uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.flutter_channel }}
+      - uses: bluefireteam/melos-action@v2
 
-      - name: Install base package dependencies
-        working-directory: ./packages/mimir
-        run: flutter pub get
-
+      # Rust checks
       - name: Build Rust code (embedded_milli)
         working-directory: ./packages/mimir/native
         run: cargo build
 
-      - name: Install current package dependencies
-        run: flutter pub get
-
+      # Dart/Flutter checks
       - name: Check format
-        run: flutter format --set-exit-if-changed .
+        run: melos run check-format --no-select
 
       - name: Analyze
-        run: flutter analyze
+        run: melos run analyze --no-select
 
-      - name: Run Flutter tests
-        if: ${{ contains(matrix.package_path, 'flutter') }}
-        run: flutter test
-
-      - name: Run Dart tests
-        if: ${{ !contains(matrix.package_path, 'flutter') }}
-        run: dart test
-
+      - name: Run tests
+        run: melos run test
 
   # TODO For integration tests, maybe see:
   # https://github.com/fzyzcjy/flutter_rust_bridge/blob/master/.github/workflows/flutter_ios_test.yml
@@ -74,13 +48,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        flutter_channel: [stable]
         package_path:
           - packages/flutter_mimir
           - packages/flutter_mimir/example
-
     runs-on: ${{ matrix.os }}
-
     defaults:
       run:
         working-directory: ${{ matrix.package_path }}
@@ -88,25 +59,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.flutter_channel }}
-
-      - name: Install current package dependencies
-        run: flutter pub get
-
+      - uses: bluefireteam/melos-action@v2
 
   # TODO Flutter iOS integration tests
   ios_integration_tests:
     strategy:
       matrix:
-        os: [macos-latest]
-        flutter_channel: [stable]
         package_path:
           - packages/flutter_mimir
           - packages/flutter_mimir/example
-
-    runs-on: ${{ matrix.os }}
-
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: ${{ matrix.package_path }}
@@ -114,25 +76,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.flutter_channel }}
-
-      - name: Install current package dependencies
-        run: flutter pub get
-
+      - uses: bluefireteam/melos-action@v2
 
   # TODO Flutter Android integration tests
   android_integration_tests:
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        flutter_channel: [stable]
         package_path:
           - packages/flutter_mimir
           - packages/flutter_mimir/example
-
-    runs-on: ${{ matrix.os }}
-
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ matrix.package_path }}
@@ -140,8 +93,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.flutter_channel }}
-
-      - name: Install current package dependencies
-        run: flutter pub get
+      - uses: bluefireteam/melos-action@v2

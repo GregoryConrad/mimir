@@ -16,6 +16,10 @@ use milli::{
     update, AscDesc, Criterion, DocumentId, FieldsIdsMap, Index, Member, Search, SearchResult,
 };
 
+/// Enforce the binding for this library (to prevent tree-shaking)
+#[no_mangle]
+pub extern "C" fn enforce_binding() {}
+
 lazy_static! {
     /// The mapping of instance paths (directories) to instances
     static ref INSTANCES: RwLock<HashMap<String, Instance>> = RwLock::new(HashMap::new());

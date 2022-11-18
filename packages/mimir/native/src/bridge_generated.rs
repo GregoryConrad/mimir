@@ -19,6 +19,16 @@ use flutter_rust_bridge::*;
 
 // Section: wire functions
 
+fn wire_enforce_binding_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "enforce_binding",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(enforce_binding()),
+    )
+}
 fn wire_ensure_instance_initialized_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,
