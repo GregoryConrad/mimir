@@ -33,7 +33,7 @@ await index.addDocuments(myMovies);
 // Perform a search!
 final results = await index.search(query: 'jarrassic par'); // returns Jurassic Park!
 ```
-![Demo Video](https://media3.giphy.com/media/d1qBJUUSwbJYOeKhhz/giphy.gif)
+![Demo Video](https://media3.giphy.com/media/5CXp6KYJIyuhLApWNK/giphy.gif)
 
 
 ## Getting Started
