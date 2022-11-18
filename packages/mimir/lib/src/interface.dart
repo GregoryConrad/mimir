@@ -44,4 +44,24 @@ class MimirInterface {
       () => MimirInstanceImpl(path, _milli!),
     );
   }
+
+  Filter where(
+    String field, {
+    // Standard operators
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isGreaterThanOrEqualTo,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isLessThan,
+
+    // "IN" operator
+    List<String>? containsAtLeastOneOf,
+
+    // "BETWEEN" operator
+    String? isBetween,
+    String? and,
+  }) {
+    throw UnsupportedError('');
+  }
 }
