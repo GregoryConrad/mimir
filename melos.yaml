@@ -22,9 +22,9 @@ scripts:
     exec: flutter format .
     description: Format a specific package in this project.
 
-  build:apple-static-lib:
+  build:apple:
     run: bash packages/mimir/native/platforms-build/apple.sh
-    description: Build static libraries for iOS and macOS.
+    description: Build the XCFramework for iOS and macOS.
 
   test:
     run: melos run test:dart --no-select && melos run test:flutter --no-select

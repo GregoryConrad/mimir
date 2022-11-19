@@ -1,5 +1,14 @@
-`curl http://localhost:8000/Archive.zip --output Archive.zip`
-`unzip Archive.zip`
+# We cannot distribute the XCFramework alongside the library directly,
+# so we have to fetch the latest version here.
+version = 'v1'
+url = 'http://localhost:8000/#{version}/EmbeddedMilli.xcframework.zip'
+`
+cd Frameworks
+curl #{url} --output EmbeddedMilli.xcframework.zip
+unzip EmbeddedMilli.xcframework.zip
+rm EmbeddedMilli.xcframework.zip
+cd -
+`
 
 Pod::Spec.new do |spec|
   spec.name          = 'flutter_mimir'
