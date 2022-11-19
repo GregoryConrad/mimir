@@ -1,12 +1,15 @@
 # We cannot distribute the XCFramework alongside the library directly,
 # so we have to fetch the latest version here.
 version = 'v0'
-url = "https://github.com/GregoryConrad/mimir/releases/download/#{version}/EmbeddedMilli.xcframework.zip"
+framework_name = 'EmbeddedMilli.xcframework'
+zip_name = "#{framework_name}.zip"
+url = "https://github.com/GregoryConrad/mimir/releases/download/#{version}/#{zip_name}"
 `
 cd Frameworks
-curl #{url} --output EmbeddedMilli.xcframework.zip
-unzip EmbeddedMilli.xcframework.zip
-rm EmbeddedMilli.xcframework.zip
+rm #{framework_name}
+curl -OL #{url}
+unzip #{zip_name}
+rm #{zip_name}
 cd -
 `
 
@@ -21,7 +24,7 @@ Pod::Spec.new do |spec|
   spec.source              = { :path => '.' }
   spec.source_files        = 'Classes/**/*'
   spec.public_header_files = 'Classes/**/*.h'
-  spec.vendored_frameworks = 'Frameworks/EmbeddedMilli.xcframework'
+  spec.vendored_frameworks = "Frameworks/#{framework_name}"
 
   spec.ios.deployment_target = '11.0'
   spec.osx.deployment_target = '10.11'
