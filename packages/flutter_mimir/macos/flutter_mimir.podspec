@@ -1,7 +1,7 @@
 # We cannot distribute the XCFramework alongside the library directly,
 # so we have to fetch the latest version here.
 version = 'v1'
-url = 'http://localhost:8000/#{version}/EmbeddedMilli.xcframework.zip'
+url = "http://localhost:8000/#{version}/EmbeddedMilli.xcframework.zip"
 `
 cd Frameworks
 curl #{url} --output EmbeddedMilli.xcframework.zip
