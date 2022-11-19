@@ -1,3 +1,15 @@
+# We cannot distribute the XCFramework alongside the library directly,
+# so we have to fetch the latest version here.
+version = 'v0'
+url = "https://github.com/GregoryConrad/mimir/releases/download/#{version}/EmbeddedMilli.xcframework.zip"
+`
+cd Frameworks
+curl #{url} --output EmbeddedMilli.xcframework.zip
+unzip EmbeddedMilli.xcframework.zip
+rm EmbeddedMilli.xcframework.zip
+cd -
+`
+
 Pod::Spec.new do |spec|
   spec.name          = 'flutter_mimir'
   spec.version       = '0.0.1'
