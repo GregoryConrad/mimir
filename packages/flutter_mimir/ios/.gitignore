@@ -1,3 +1,7 @@
-Flutter/
-Runner/
-Frameworks/
+# Turn into allowlist
+*
+!*/
+
+# Allowed files
+!.gitignore
+!flutter_mimir.podspec

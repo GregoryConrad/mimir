@@ -1,3 +1,6 @@
+`curl http://localhost:8000/Archive.zip --output Archive.zip`
+`unzip Archive.zip`
+
 Pod::Spec.new do |spec|
   spec.name          = 'flutter_mimir'
   spec.version       = '0.0.1'
