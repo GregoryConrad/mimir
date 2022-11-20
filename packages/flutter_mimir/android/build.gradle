@@ -1,6 +1,6 @@
 group 'com.gsconrad.flutter_mimir'
 version '0.0.1'
-milliAarVersion 'v0'
+def milliAarVersion = 'v0'
 
 buildscript {
     repositories {
