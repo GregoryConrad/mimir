@@ -23,6 +23,8 @@ A batteries-included database for Dart & Flutter based on [Meilisearch](https://
 - With Flutter, run `flutter pub add flutter_mimir`
 - For Dart-only, run `dart pub add mimir`
 
+Also read the [caveats below](#important-caveats).
+
 ## Demo
 With Flutter, you can get started with as little as:
 ```dart
@@ -129,9 +131,85 @@ final allDocsStream = index.documents;
 
 #### Searching/Querying
 ```dart
+// Getting a stream of results (very useful in Flutter!)
+// Same arguments as index.search; see below
+final documentsStream = index.searchStream(...);
 
-// TODO filter API
+// Performing a search/query (using movies here)!
+final movies = moviesIndex.search(
+  // The string to use for full-text search. Can be user-supplied.
+  // To do a regular database query without full-text search, leave this null.
+  query: 'some wordz with typoes to saerch for',
+  // The filter used to filter results in a full-text search or query.
+  // See the next section; this is a very handy feature in mimir.
+  // Set to null to not filter out any documents.
+  filter: Mimir.where('director', isEqualTo: 'Alfred Hitchcock'),
+  // The fields to sort by (in ascending or descending order).
+  // Can be left as null to sort by relevance (to the query text)!
+  sortBy: [
+    // Sort by year, newest to oldest
+    SortBy.desc('year'),
+    // In case 2+ documents share the same year, sort by increasing profit next
+    SortBy.asc('profit'),
+  ],
+  // If you want to limit the number of results you get, use the resultsLimit.
+  // Defaults to null, which means return all matches.
+  resultsLimit: null,
+  // Defaults to null, see https://docs.meilisearch.com/reference/api/search.html#matching-strategy
+  matchingStrategy: null,
+);
 ```
+
+#### Filtering Search/Query Results
+There is a "raw" filtering API in mimir provided by `Filter`,
+but it is recommended to use this API that creates `Filter`s for you instead.
+
+Here are the methods you need to be aware of:
+- `Mimir.or(subFilters)` creates an "or" filter (like `||`) of the sub-filters
+- `Mimir.and(subFilters)` creates an "and" filter (like `&&`) of the sub-filters
+- `Mimir.not(subFilter)` creates a "not" filter (like `!someCondition`) of the sub-filter
+- `Mimir.where(condition)` creates a single filter from a given condition.
+- The above can be composed together to create powerful, declarative queries!
+
+Heres an example that shows these methods in practice.
+
+Say our Dart boolean logic is (formatted to show intent):
+```dart
+(
+    (
+        (movie['fruit'] == 'apple')
+        &&
+        (movie['year'] >= 2000 && movie['year'] <= 2009)
+    )
+    ||
+    movie['colors'].any((color) => {'red', 'green'}.contains(color))
+)
+```
+
+Then our "raw" filter API logic would be:
+```dart
+final filter = Filter.or([
+  Filter.and([
+    Filter.equal(field: 'fruit', value: 'apple'),
+    Filter.between(field: 'year', from: '2000', to: '2009'),
+  ]),
+  Filter.inValues(field: 'colors', values: ['red', 'green']),
+])
+```
+Which is somewhat hard to read.
+
+Here's what the recommended approach would look like:
+```dart
+final filter = Mimir.or([
+  Mimir.and([
+    Mimir.where('fruit', isEqualTo: 'apple'),
+    Mimir.where('year', isBetween: '2000', and: '2009'),
+  ]),
+  Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
+])
+```
+I think most would agree that this is the easiest of the three to understand,
+as it almost reads as pure English, even for complex conditions.
 
 ## Important Caveats
 Please read this caveats _before_ adding mimir to your project.
