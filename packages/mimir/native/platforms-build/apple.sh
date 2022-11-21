@@ -3,7 +3,7 @@
 # Setup
 cd $( dirname -- "$0"; )
 cd ..
-mkdir -p build # for build output
+mkdir build # for build output
 
 # Build static libs
 for TARGET in \
