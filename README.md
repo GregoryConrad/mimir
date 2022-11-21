@@ -162,7 +162,7 @@ final movies = moviesIndex.search(
 
 #### Filtering Search/Query Results
 There is a "raw" filtering API in mimir provided by `Filter`,
-but it is recommended to use this API that creates `Filter`s for you instead.
+but it is recommended to use the following API that creates `Filter`s for you instead.
 
 Here are the methods you need to be aware of:
 - `Mimir.or(subFilters)` creates an "or" filter (like `||`) of the sub-filters
