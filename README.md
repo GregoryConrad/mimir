@@ -81,11 +81,11 @@ await index.setSettings(currSettings.copyWith(
   // A list of synonyms to link words with the same meaning together.
   // Note: in most cases, you probably want to add synonyms both ways, like below:
   synonyms: <Synonyms>[
-    Synonym(
+    Synonyms(
       word: 'automobile',
       synonyms: ['vehicle'],
     ),
-    Synonym(
+    Synonyms(
       word: 'vehicle',
       synonyms: ['automobile'],
     ),
