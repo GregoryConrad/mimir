@@ -427,7 +427,7 @@ pub fn search_documents(
 
     // Configure the search based on given parameters
     query.map(|q| search.query(q));
-    limit.map(|l| search.limit(l.try_into().unwrap()));
+    search.limit(limit.unwrap_or(u32::MAX).try_into()?);
     matching_strategy.map(|s| search.terms_matching_strategy(s));
     sort_criteria.map(|criteria| {
         let criteria = criteria
