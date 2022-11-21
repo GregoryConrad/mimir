@@ -29,13 +29,7 @@ flutter:
         ffiPlugin: true
       android:
         ffiPlugin: true
-      # We might be able to use this:
       # linux:
       #   ffiPlugin: true
       # windows:
       #   ffiPlugin: true
-      # But if not, use this:
-      # linux:
-      #   pluginClass: FlutterMimirPlugin
-      # windows:
-      #   pluginClass: FlutterMimirPlugin
