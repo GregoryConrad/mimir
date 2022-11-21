@@ -7,13 +7,13 @@ import 'ffi/stub.dart'
 
 /// Flutter extensions for the MimirInterface to make it easier to work with
 extension FlutterMimirInterface on MimirInterface {
-  /// Creates the default MimirInstance instance for Flutter
+  /// Creates the default [MimirInstance] instance for Flutter
   Future<MimirInstance> get defaultInstance {
     const defaultName = 'default';
     return getInstanceForName(defaultName);
   }
 
-  /// Creates a MimirInstance with the given path-friendly name for Flutter
+  /// Creates a [MimirInstance] with the given path-friendly [name] for Flutter
   Future<MimirInstance> getInstanceForName(String name) async {
     try {
       const defaultSubDir = 'mimir';
@@ -28,7 +28,7 @@ extension FlutterMimirInterface on MimirInterface {
     }
   }
 
-  /// Creates a MimirInstance from the given path for Flutter
+  /// Creates a [MimirInstance] from the given path for Flutter
   MimirInstance getInstanceForPath(String path) =>
       getInstance(path: path, library: createLibraryImpl());
 }
