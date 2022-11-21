@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:mimir/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/index.dart';
@@ -99,18 +100,66 @@ class MimirIndexImpl with MimirIndex {
     List<SortBy>? sortBy,
     Filter? filter,
   }) async {
-    final jsonDocs = await milli.searchDocuments(
-      instanceDir: instanceDir,
-      indexName: name,
-      query: query,
-      limit: resultsLimit,
-      sortCriteria: sortBy,
-      // TODO remove the ?? below once following resolved
-      //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
-      matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
-      filter: filter ?? const Filter.or([]),
+    try {
+      final jsonDocs = await milli.searchDocuments(
+        instanceDir: instanceDir,
+        indexName: name,
+        query: query,
+        limit: resultsLimit,
+        sortCriteria: sortBy,
+        // TODO remove the ?? below once following resolved
+        //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
+        matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
+        filter: filter ?? const Filter.or([]),
+      );
+      return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
+    } on FfiException catch (e) {
+      // Check to see if this error was caused by any filters not being
+      // indexed for search
+      final filtersNotAdded = filter != null &&
+          e.code == 'RESULT_ERROR' &&
+          e.message.contains('not filterable');
+
+      // If so, let's add them as a convenience to the user
+      if (filtersNotAdded) {
+        // Update the current settings to include the filters
+        final currSettings = await getSettings();
+        final filterableFields = currSettings.filterableFields.toSet()
+          ..addAll(_getFieldsFromFilter(filter));
+        await setSettings(currSettings.copyWith(
+          filterableFields: filterableFields.toList(),
+        ));
+
+        // Finally, retry the search with the filterable fields added
+        return search(
+          query: query,
+          resultsLimit: resultsLimit,
+          matchingStrategy: matchingStrategy,
+          sortBy: sortBy,
+          filter: filter,
+        );
+      } else {
+        // Not an error caused by missing filterable fields; rethrow it
+        rethrow;
+      }
+    }
+  }
+
+  Iterable<String> _getFieldsFromFilter(Filter filter) {
+    return filter.when(
+      or: (filters) => filters.expand(_getFieldsFromFilter),
+      and: (filters) => filters.expand(_getFieldsFromFilter),
+      not: (filter) => _getFieldsFromFilter(filter),
+      exists: (field) => [field],
+      inValues: (field, _) => [field],
+      greaterThan: (field, _) => [field],
+      greaterThanOrEqual: (field, _) => [field],
+      equal: (field, _) => [field],
+      notEqual: (field, _) => [field],
+      lessThan: (field, _) => [field],
+      lessThanOrEqual: (field, _) => [field],
+      between: (field, _, __) => [field],
     );
-    return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
   }
 
   @override

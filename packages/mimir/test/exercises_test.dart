@@ -8,12 +8,6 @@ void main() {
     final index = useTestIndex();
     final exercises = useExercises();
 
-    // Allow filtering based on some exercise fields
-    final currSettings = await index.getSettings();
-    await index.setSettings(currSettings.copyWith(
-      filterableFields: ['category', 'equipment', 'primary_muscles'],
-    ));
-
     // Add the exercises into the index
     await index.addDocuments(exercises);
     final allDocs = await index.getAllDocuments();
@@ -35,6 +29,10 @@ void main() {
     expect(
       (await index.search(
         query: 'Inclne pwess',
+        // These filter fields have not been registered before, so they
+        // should trigger the automatic filter field addition feature.
+        // If this test fails because of the filterable fields, it means the
+        // milli error text has changed and should be updated accordingly.
         filter: const Filter.and([
           Filter.equal(field: 'category', value: 'strength'),
           Filter.inValues(field: 'primary_muscles', values: ['chest']),
