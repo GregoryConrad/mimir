@@ -212,7 +212,7 @@ I think most would agree that this is the easiest of the three to understand,
 as it almost reads as pure English, even for complex conditions.
 
 ## Important Caveats
-Please read this caveats _before_ adding mimir to your project.
+Please read these caveats _before_ adding mimir to your project.
 
 - Right now, mimir is in alpha status _and should not be used in production_!
   - Major APIs are somewhat solidified; however, internal workings are _incomplete_
