@@ -216,4 +216,14 @@ void main() {
 
     expect(await actualDocumentsStream, expectedDocumentsStream);
   });
+
+  test('Search with no parameters should return all documents', () async {
+    final index = useTestIndex();
+    const numDocs = 1000;
+    await index.addDocuments(
+      Iterable.generate(numDocs, (i) => {'id': i}).toList(),
+    );
+    final searchResults = await index.search();
+    expect(searchResults.length, numDocs);
+  });
 }
