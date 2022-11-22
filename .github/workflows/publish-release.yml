@@ -1,0 +1,51 @@
+name: Publish Release(s)
+
+on:
+  push:
+    tags:
+     - 'mimir-v*'
+     - 'flutter_mimir-v*'
+
+jobs:
+  publish_release:
+    # macOS because we can cross-compile to all other platforms from it
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # TODO remove submodules here
+          submodules: recursive
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r21e # TODO try latest version?
+
+      - name: Build all library binaries
+        run: melos run build
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: packages/mimir/native/build/*
+
+      - name: Setup pub.dev credentials
+        run: | 
+          mkdir -p ~/.pub-cache 
+          cat << EOF > ~/.pub-cache/credentials.json
+          {
+            "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
+            "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
+            "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+            "expiration": 1570721159347
+          }
+          EOF
+      - name: Dry-run publish to pub.dev
+        run: melos publish -y --dry-run
+      - name: Publish to pub.dev
+        run: melos publish -y --no-dry-run
