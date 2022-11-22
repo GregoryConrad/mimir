@@ -35,6 +35,10 @@ jobs:
         run: melos version # TODO support --prelease and & --graduate as workflow inputs?
 
       # Creating release on GitHub
+      - name: Get the latest version tags
+        run: |
+          echo LATEST_MIMIR=`git tag -l "mimir-v*" --sort=-version:refname | head -1` >> $GITHUB_ENV
+          echo LATEST_FLUTTER_MIMIR=`git tag -l "flutter_mimir-v*" --sort=-version:refname | head -1` >> $GITHUB_ENV
       - name: Push created version commit
         run: git push
       - name: Push modified tags
@@ -42,12 +46,12 @@ jobs:
       - name: Create GitHub release for mimir
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: # TODO git tag -l "mimir-v*" --sort=-version:refname | head -1
+          tag_name: ${{ env.LATEST_MIMIR }}
           files: packages/mimir/native/build/*
       - name: Create GitHub release for flutter_mimir
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: # TODO git tag -l "flutter_mimir-v*" --sort=-version:refname | head -1
+          tag_name: ${{ env.LATEST_FLUTTER_MIMIR }}
           files: packages/mimir/native/build/*
 
       # Publishing to pub.dev
