@@ -1,6 +1,17 @@
 name: Create & Publish Release(s)
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      version_parameters:
+        description: 'Parameters to pass to melos version'
+        required: true
+        default: ''
+        type: choice
+        options:
+          - ''
+          - '--prerelease'
+          - '--graduate'
 
 jobs:
   release:
@@ -24,15 +35,14 @@ jobs:
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v2
       - uses: nttld/setup-ndk@v1
-        id: setup-ndk
         with:
           ndk-version: r21e # TODO try latest version?
 
+      # Creating the needed changes for release
       - name: Build all library binaries
         run: melos run build
-
       - name: Create the new version(s)
-        run: melos version # TODO support --prelease and & --graduate as workflow inputs?
+        run: melos version --yes ${{ inputs.version_parameters }}
 
       # Creating release on GitHub
       - name: Get the latest version tags
@@ -44,11 +54,13 @@ jobs:
       - name: Push modified tags
         run: git push --tags
       - name: Create GitHub release for mimir
+        if: ${{ contains(env.LATEST_MIMIR, 'v') }}
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.LATEST_MIMIR }}
           files: packages/mimir/native/build/*
       - name: Create GitHub release for flutter_mimir
+        if: ${{ contains(env.LATEST_FLUTTER_MIMIR, 'v') }}
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.LATEST_FLUTTER_MIMIR }}
