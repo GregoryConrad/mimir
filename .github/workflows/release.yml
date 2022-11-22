@@ -1,0 +1,69 @@
+name: Create & Publish Release(s)
+
+on: workflow_dispatch
+
+jobs:
+  release:
+    # macOS because we can cross-compile to all other platforms from it
+    runs-on: macos-latest
+
+    steps:
+      # Setup steps
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_ACCESS_TOKEN }}
+          # TODO remove submodules here
+          submodules: recursive
+      - name: Setup git
+        run: |
+          git config user.name "MimirActionsBot"
+          git config user.email "mimir-bot@gsconrad.com"
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
+      - uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r21e # TODO try latest version?
+
+      - name: Build all library binaries
+        run: melos run build
+
+      - name: Create the new version(s)
+        run: melos version # TODO support --prelease and & --graduate as workflow inputs?
+
+      # Creating release on GitHub
+      - name: Push created version commit
+        run: git push
+      - name: Push modified tags
+        run: git push --tags
+      - name: Create GitHub release for mimir
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: # TODO git tag -l "mimir-v*" --sort=-version:refname | head -1
+          files: packages/mimir/native/build/*
+      - name: Create GitHub release for flutter_mimir
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: # TODO git tag -l "flutter_mimir-v*" --sort=-version:refname | head -1
+          files: packages/mimir/native/build/*
+
+      # Publishing to pub.dev
+      - name: Setup pub.dev credentials
+        run: | 
+          mkdir -p ~/.pub-cache 
+          cat << EOF > ~/.pub-cache/credentials.json
+          {
+            "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
+            "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
+            "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+            "expiration": 1570721159347
+          }
+          EOF
+      - name: Dry-run publish to pub.dev
+        run: melos publish -y --dry-run
+      - name: Publish to pub.dev
+        run: melos publish -y --no-dry-run
