@@ -1,6 +1,6 @@
+def releaseTagVersion = 'mimir-v0.0.0' // generated; do not edit
 group 'com.gsconrad.flutter_mimir'
 version '0.0.1'
-def milliAarVersion = 'v0'
 
 buildscript {
     repositories {
@@ -41,5 +41,5 @@ android {
 
 dependencies {
     // Get the AAR from correct GitHub release (from the ivy repo above)
-    implementation "GregoryConrad:mimir:${milliAarVersion}@aar"
+    implementation "GregoryConrad:mimir:${releaseTagVersion}@aar"
 }

@@ -17,6 +17,7 @@ jobs:
     steps:
       # General setup
       - uses: actions/checkout@v3
+        # TODO remove submodules here
         with:
           submodules: recursive
       - uses: actions-rs/toolchain@v1
