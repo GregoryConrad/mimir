@@ -69,6 +69,21 @@ mixin MimirIndex {
   /// Sets the settings of this index
   Future<void> setSettings(MimirIndexSettings settings);
 
+  /// Updates the settings of this index
+  Future<void> updateSettings({
+    List<String>? searchableFields,
+    List<String> filterableFields,
+    List<String> sortableFields,
+    List<String> rankingRules,
+    List<String> stopWords,
+    List<Synonyms> synonyms,
+    bool typosEnabled,
+    int minWordSizeForOneTypo,
+    int minWordSizeForTwoTypos,
+    List<String> disallowTyposOnWords,
+    List<String> disallowTyposOnFields,
+  });
+
   /// Close any resources in use by the index.
   /// Any streams in use will be closed as a result of calling this method.
   /// You probably *should not* call this unless you know what you are doing.
