@@ -15,29 +15,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # General setup
+      # Setup
       - uses: actions/checkout@v3
-        # TODO remove submodules here
-        with:
-          submodules: recursive
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
 
-      # Rust checks
+      # Rust
       - name: Build Rust code (embedded_milli)
         working-directory: ./packages/mimir/native
         run: cargo build -r
 
-      # Dart/Flutter checks
+      # Dart/Flutter
       - name: Check format
         run: melos run check-format --no-select
-
       - name: Analyze
         run: melos run analyze --no-select
-
       - name: Run tests
         run: melos run test
 
