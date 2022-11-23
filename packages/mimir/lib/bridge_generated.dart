@@ -19,18 +19,6 @@ abstract class EmbeddedMilli {
 
   FlutterRustBridgeTaskConstMeta get kEnforceBindingConstMeta;
 
-  /// Ensures an instance of milli (represented by just a directory) is initialized
-  Future<void> ensureInstanceInitialized(
-      {required String instanceDir, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
-
-  /// Ensures a milli index is initialized
-  Future<void> ensureIndexInitialized(
-      {required String instanceDir, required String indexName, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta;
-
   /// Adds the given list of documents to the specified milli index
   ///
   /// Replaces documents that already exist in the index based on document ids.
@@ -239,44 +227,6 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "enforce_binding",
         argNames: [],
-      );
-
-  Future<void> ensureInstanceInitialized(
-          {required String instanceDir, dynamic hint}) =>
-      _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_ensure_instance_initialized(
-            port_, _platform.api2wire_String(instanceDir)),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kEnsureInstanceInitializedConstMeta,
-        argValues: [instanceDir],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "ensure_instance_initialized",
-        argNames: ["instanceDir"],
-      );
-
-  Future<void> ensureIndexInitialized(
-          {required String instanceDir,
-          required String indexName,
-          dynamic hint}) =>
-      _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_ensure_index_initialized(
-            port_,
-            _platform.api2wire_String(instanceDir),
-            _platform.api2wire_String(indexName)),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kEnsureIndexInitializedConstMeta,
-        argValues: [instanceDir, indexName],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "ensure_index_initialized",
-        argNames: ["instanceDir", "indexName"],
       );
 
   Future<void> addDocuments(
@@ -902,45 +852,6 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
           'wire_enforce_binding');
   late final _wire_enforce_binding =
       _wire_enforce_bindingPtr.asFunction<void Function(int)>();
-
-  void wire_ensure_instance_initialized(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> instance_dir,
-  ) {
-    return _wire_ensure_instance_initialized(
-      port_,
-      instance_dir,
-    );
-  }
-
-  late final _wire_ensure_instance_initializedPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_ensure_instance_initialized');
-  late final _wire_ensure_instance_initialized =
-      _wire_ensure_instance_initializedPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_ensure_index_initialized(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> instance_dir,
-    ffi.Pointer<wire_uint_8_list> index_name,
-  ) {
-    return _wire_ensure_index_initialized(
-      port_,
-      instance_dir,
-      index_name,
-    );
-  }
-
-  late final _wire_ensure_index_initializedPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_index_initialized');
-  late final _wire_ensure_index_initialized =
-      _wire_ensure_index_initializedPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_add_documents(
     int port_,
