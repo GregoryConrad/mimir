@@ -20,7 +20,7 @@ DynamicLibrary useLibrary() {
     Platform.isMacOS: 'dylib',
     Platform.isLinux: 'so',
   }[true]!;
-  final dylibPath = 'native/target/debug/$libPrefix$libName.$libSuffix';
+  final dylibPath = 'native/target/release/$libPrefix$libName.$libSuffix';
   return DynamicLibrary.open(dylibPath);
 }
 
