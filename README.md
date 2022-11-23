@@ -61,6 +61,7 @@ final moviesIndex = instance.getIndex('movies');
 
 #### Configuring an Index
 ```dart
+await index.updateSettings(...); // see setSettings below for arguments
 final currSettings = await index.getSettings();
 await index.setSettings(currSettings.copyWith(
   // Fields in the document that are included in full-text search.

@@ -92,6 +92,60 @@ class MimirIndexImpl with MimirIndex {
     _changes.add(null);
   }
 
+  static const _defaultOptionalValue = Object();
+
+  @override
+  Future<void> updateSettings({
+    Object? searchableFields = _defaultOptionalValue,
+    Object filterableFields = _defaultOptionalValue,
+    Object sortableFields = _defaultOptionalValue,
+    Object rankingRules = _defaultOptionalValue,
+    Object stopWords = _defaultOptionalValue,
+    Object synonyms = _defaultOptionalValue,
+    Object typosEnabled = _defaultOptionalValue,
+    Object minWordSizeForOneTypo = _defaultOptionalValue,
+    Object minWordSizeForTwoTypos = _defaultOptionalValue,
+    Object disallowTyposOnWords = _defaultOptionalValue,
+    Object disallowTyposOnFields = _defaultOptionalValue,
+  }) async {
+    final currSettings = await getSettings();
+    return setSettings(MimirIndexSettings(
+      searchableFields: searchableFields == _defaultOptionalValue
+          ? currSettings.searchableFields
+          : searchableFields as List<String>?,
+      filterableFields: filterableFields == _defaultOptionalValue
+          ? currSettings.filterableFields
+          : filterableFields as List<String>,
+      sortableFields: sortableFields == _defaultOptionalValue
+          ? currSettings.sortableFields
+          : sortableFields as List<String>,
+      rankingRules: rankingRules == _defaultOptionalValue
+          ? currSettings.rankingRules
+          : rankingRules as List<String>,
+      stopWords: stopWords == _defaultOptionalValue
+          ? currSettings.stopWords
+          : stopWords as List<String>,
+      synonyms: synonyms == _defaultOptionalValue
+          ? currSettings.synonyms
+          : synonyms as List<Synonyms>,
+      typosEnabled: typosEnabled == _defaultOptionalValue
+          ? currSettings.typosEnabled
+          : typosEnabled as bool,
+      minWordSizeForOneTypo: minWordSizeForOneTypo == _defaultOptionalValue
+          ? currSettings.minWordSizeForOneTypo
+          : minWordSizeForOneTypo as int,
+      minWordSizeForTwoTypos: minWordSizeForTwoTypos == _defaultOptionalValue
+          ? currSettings.minWordSizeForTwoTypos
+          : minWordSizeForTwoTypos as int,
+      disallowTyposOnWords: disallowTyposOnWords == _defaultOptionalValue
+          ? currSettings.disallowTyposOnWords
+          : disallowTyposOnWords as List<String>,
+      disallowTyposOnFields: disallowTyposOnFields == _defaultOptionalValue
+          ? currSettings.disallowTyposOnFields
+          : disallowTyposOnFields as List<String>,
+    ));
+  }
+
   @override
   Future<List<MimirDocument>> search({
     String? query,
