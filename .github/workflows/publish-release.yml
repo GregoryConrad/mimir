@@ -3,8 +3,7 @@ name: Publish Release(s)
 on:
   push:
     tags:
-     - 'mimir-v*'
-     - 'flutter_mimir-v*'
+      - '*'
 
 jobs:
   publish_release:
