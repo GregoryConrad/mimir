@@ -1,12 +1,12 @@
 use std::{collections::HashMap, convert::TryInto, fs::create_dir_all, io::Cursor, path::Path};
 
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use flutter_rust_bridge::frb;
 use lazy_static::lazy_static;
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed::EnvOpenOptions,
-    update, AscDesc, Criterion, DocumentId, FieldsIdsMap, Index, Member, Search, SearchResult,
+    update, AscDesc, Criterion, Index, Member, Search, SearchResult,
 };
 use parking_lot::{Mutex, RwLock};
 
@@ -94,27 +94,20 @@ macro_rules! get_index {
     };
 }
 
-fn milli_document_to_json(doc: obkv::KvReaderU16, fields_ids_map: &FieldsIdsMap) -> Result<String> {
-    let mut document = serde_json::Map::new();
-    for (key, value) in doc.iter() {
-        let value = serde_json::from_slice(value)?;
-        let key = fields_ids_map
-            .name(key)
-            .expect("Missing field name")
-            .to_string();
-        document.insert(key, value);
-    }
-    Ok(serde_json::to_string(&document)?)
-}
-
-fn convert_milli_documents(
-    milli_documents: Vec<(DocumentId, obkv::KvReaderU16)>,
-    fields_ids_map: &FieldsIdsMap,
-) -> Result<Vec<String>> {
-    milli_documents
-        .into_iter()
-        .map(|(_, doc)| milli_document_to_json(doc, fields_ids_map))
-        .collect::<Result<Vec<String>>>()
+// We need this because there is not variant of obkv_to_json that uses all fields in obkv
+macro_rules! milli_doc_to_json_string {
+    ($document:ident, $fields_ids_map:ident) => {{
+        let obj = milli::obkv_to_json(
+            $document
+                .iter()
+                .map(|(k, _v)| k)
+                .collect::<Vec<_>>()
+                .as_slice(),
+            &$fields_ids_map,
+            $document.clone(),
+        )?;
+        serde_json::to_string(&obj).map_err(anyhow::Error::from)
+    }};
 }
 
 /// Adds the given list of documents to the specified milli index
@@ -136,9 +129,7 @@ pub fn add_documents(
         let doc: serde_json::Value = serde_json::from_str(&doc)?;
         let doc = doc
             .as_object()
-            .ok_or(anyhow::Error::msg(
-                "A json document was not Map<String, dynamic>",
-            ))?
+            .ok_or(anyhow!("A json document was not Map<String, dynamic>"))?
             .clone();
         builder.append_json_object(&doc)?;
     }
@@ -239,9 +230,9 @@ pub fn get_document(
         Some(id) => id,
         None => return Ok(None),
     };
-    let milli_documents = index.documents(&rtxn, vec![internal_id])?;
-    convert_milli_documents(milli_documents, &fields_ids_map)
-        .map(|docs| docs.first().map(String::from))
+    let documents = index.documents(&rtxn, vec![internal_id])?;
+    let (_id, document) = documents.first().ok_or(anyhow!("Missing document"))?;
+    milli_doc_to_json_string!(document, fields_ids_map).map(|s| Some(s))
 }
 
 /// Returns all documents stored in the index.
@@ -253,11 +244,13 @@ pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec
 
     let rtxn = index.read_txn()?;
     let fields_ids_map = index.fields_ids_map(&rtxn)?;
-    let milli_documents = index
-        .all_documents(&rtxn)?
-        .map(|r| r.map_err(anyhow::Error::from))
-        .collect::<Result<Vec<(DocumentId, obkv::KvReaderU16)>>>()?;
-    convert_milli_documents(milli_documents, &fields_ids_map)
+    let documents = index.all_documents(&rtxn)?;
+    documents
+        .map(|result| {
+            let (_id, document) = result?;
+            milli_doc_to_json_string!(document, fields_ids_map)
+        })
+        .collect()
 }
 
 /// Re-export TermsMatchingStrategy from milli to use in search
@@ -441,8 +434,11 @@ pub fn search_documents(
     // Get the documents based on the search results
     let SearchResult { documents_ids, .. } = search.execute()?;
     let fields_ids_map = index.fields_ids_map(&rtxn)?;
-    let milli_documents = index.documents(&rtxn, documents_ids)?;
-    convert_milli_documents(milli_documents, &fields_ids_map)
+    index
+        .documents(&rtxn, documents_ids)?
+        .iter()
+        .map(|(_id, document)| milli_doc_to_json_string!(document, fields_ids_map))
+        .collect()
 }
 
 /// Represents the synonyms of a given word
