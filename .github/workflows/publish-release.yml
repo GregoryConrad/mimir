@@ -24,10 +24,19 @@ jobs:
       - name: Build all library binaries
         run: melos run build
 
-      - name: Create GitHub release
+      - name: Get the latest version tags
+        run: |
+          echo LATEST_MIMIR=`git tag -l "mimir-v*" --sort=-version:refname | head -1` >> $GITHUB_ENV
+          echo LATEST_FLUTTER_MIMIR=`git tag -l "flutter_mimir-v*" --sort=-version:refname | head -1` >> $GITHUB_ENV
+      - name: Create GitHub release for mimir
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ env.LATEST_MIMIR }} 
           files: packages/mimir/native/build/*
+      - name: Create GitHub release for flutter_mimir
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.LATEST_FLUTTER_MIMIR }}
 
       - name: Setup pub.dev credentials
         run: | 
