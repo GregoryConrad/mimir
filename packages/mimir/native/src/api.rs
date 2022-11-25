@@ -129,7 +129,7 @@ pub fn add_documents(
         let doc: serde_json::Value = serde_json::from_str(&doc)?;
         let doc = doc
             .as_object()
-            .ok_or(anyhow!("A json document was not Map<String, dynamic>"))?
+            .ok_or_else(|| anyhow!("A json document was not Map<String, dynamic>"))?
             .clone();
         builder.append_json_object(&doc)?;
     }
@@ -231,8 +231,10 @@ pub fn get_document(
         None => return Ok(None),
     };
     let documents = index.documents(&rtxn, vec![internal_id])?;
-    let (_id, document) = documents.first().ok_or(anyhow!("Missing document"))?;
-    milli_doc_to_json_string!(document, fields_ids_map).map(|s| Some(s))
+    let (_id, document) = documents
+        .first()
+        .ok_or_else(|| anyhow!("Missing document"))?;
+    milli_doc_to_json_string!(document, fields_ids_map).map(Some)
 }
 
 /// Returns all documents stored in the index.
@@ -329,44 +331,44 @@ fn create_condition<'a>(s: &'a String, cond: milli::Condition<'a>) -> milli::Fil
 fn create_filter_condition(f: &Filter) -> milli::FilterCondition {
     match f {
         Filter::Or(filters) => {
-            milli::FilterCondition::Or(filters.into_iter().map(create_filter_condition).collect())
+            milli::FilterCondition::Or(filters.iter().map(create_filter_condition).collect())
         }
         Filter::And(filters) => {
-            milli::FilterCondition::And(filters.into_iter().map(create_filter_condition).collect())
+            milli::FilterCondition::And(filters.iter().map(create_filter_condition).collect())
         }
         Filter::Not(filter) => {
             milli::FilterCondition::Not(Box::new(create_filter_condition(filter)))
         }
         Filter::InValues { field, values } => milli::FilterCondition::In {
-            fid: create_token(&field),
+            fid: create_token(field),
             els: values.iter().map(create_token).collect(),
         },
-        Filter::Exists { field } => create_condition(&field, milli::Condition::Exists),
+        Filter::Exists { field } => create_condition(field, milli::Condition::Exists),
         Filter::GreaterThan { field, value } => {
-            create_condition(&field, milli::Condition::GreaterThan(create_token(&value)))
+            create_condition(field, milli::Condition::GreaterThan(create_token(value)))
         }
         Filter::GreaterThanOrEqual { field, value } => create_condition(
-            &field,
-            milli::Condition::GreaterThanOrEqual(create_token(&value)),
+            field,
+            milli::Condition::GreaterThanOrEqual(create_token(value)),
         ),
         Filter::Equal { field, value } => {
-            create_condition(&field, milli::Condition::Equal(create_token(&value)))
+            create_condition(field, milli::Condition::Equal(create_token(value)))
         }
         Filter::NotEqual { field, value } => {
-            create_condition(&field, milli::Condition::NotEqual(create_token(&value)))
+            create_condition(field, milli::Condition::NotEqual(create_token(value)))
         }
         Filter::LessThan { field, value } => {
-            create_condition(&field, milli::Condition::LowerThan(create_token(&value)))
+            create_condition(field, milli::Condition::LowerThan(create_token(value)))
         }
         Filter::LessThanOrEqual { field, value } => create_condition(
-            &field,
-            milli::Condition::LowerThanOrEqual(create_token(&value)),
+            field,
+            milli::Condition::LowerThanOrEqual(create_token(value)),
         ),
         Filter::Between { field, from, to } => create_condition(
-            &field,
+            field,
             milli::Condition::Between {
-                from: create_token(&from),
-                to: create_token(&to),
+                from: create_token(from),
+                to: create_token(to),
             },
         ),
     }
@@ -414,8 +416,8 @@ pub fn search_documents(
     });
     filter
         .as_ref()
-        // TODO Remove the following map_or when filter is a true Option
-        .map_or(None, |f| match f {
+        // TODO Remove the following and_then when filter is a true Option
+        .and_then(|f| match f {
             Filter::Or(x) if x.is_empty() => None,
             f => Some(f),
         })
