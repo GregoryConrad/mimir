@@ -30,9 +30,9 @@ jobs:
           files: packages/mimir/native/build/*
 
       - name: Setup pub.dev credentials
-        run: | 
-          mkdir -p ~/.pub-cache 
-          cat << EOF > ~/.pub-cache/credentials.json
+        run: |
+          mkdir -p "~/Library/Application Support/dart/"
+          cat << EOF > "~/Library/Application Support/dart/pub-credentials.json"
           ${{ secrets.PUB_CRED_JSON }}
           EOF
       - name: Dry-run publish to pub.dev
