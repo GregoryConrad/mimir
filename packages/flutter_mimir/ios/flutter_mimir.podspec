@@ -1,4 +1,4 @@
-release_tag_name = 'mimir-v0.0.0-dev.0+1' # generated; do not edit
+release_tag_name = 'mimir-v0.0.0-dev.1' # generated; do not edit
 
 # We cannot distribute the XCFramework alongside the library directly,
 # so we have to fetch the latest version here.

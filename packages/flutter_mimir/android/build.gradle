@@ -1,4 +1,4 @@
-def releaseTagVersion = 'mimir-v0.0.0-dev.0+1' // generated; do not edit
+def releaseTagVersion = 'mimir-v0.0.0-dev.1' // generated; do not edit
 group 'com.gsconrad.flutter_mimir'
 version '0.0.1'
 

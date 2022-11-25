@@ -1,6 +1,6 @@
 name: flutter_mimir
 description: ⚡ Supercharged Flutter Database
-version: 0.0.0-dev.0+1
+version: 0.0.0-dev.1
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
 
@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mimir: ^0.0.0-dev.0+1
+  mimir: ^0.0.0-dev.1
   path: ^1.8.2
   path_provider: ^2.0.11
 
