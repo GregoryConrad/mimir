@@ -13,7 +13,7 @@ dependencies:
   collection: ^1.17.0
   http: ^0.13.5
   # You can replace this with the current version of mimir
-  mimir: ^0.0.0-dev.1
+  mimir: ^0.0.0-dev.2
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.16.0
