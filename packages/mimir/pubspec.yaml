@@ -1,5 +1,7 @@
 name: mimir
-description: Supercharged Dart Database
+description: >
+  Extremely powerful, reactive database with
+  typo-tolerant full-text search and declarative queries.
 version: 0.0.0-dev.2
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
@@ -7,7 +9,7 @@ repository: https://github.com/GregoryConrad/mimir
 environment:
   sdk: ">=2.17.0 <3.0.0"
 
-dependencies: 
+dependencies:
   ffi: ^2.0.1
   flutter_rust_bridge: ^1.49.1
   freezed_annotation: ^2.2.0

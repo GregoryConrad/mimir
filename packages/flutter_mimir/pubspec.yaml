@@ -1,5 +1,7 @@
 name: flutter_mimir
-description: Supercharged Flutter Database
+description: >
+  Extremely powerful, reactive database with
+  typo-tolerant full-text search and declarative queries.
 version: 0.0.0-dev.2
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
