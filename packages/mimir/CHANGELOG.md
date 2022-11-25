@@ -1,3 +1,7 @@
+## 0.0.0-dev.3
+
+ - **DOCS**: update package description to make pub.dev happy.
+
 ## 0.0.0-dev.2
 
  - **FIX**: update pubspec.yaml to meet pub.dev guidelines.
