@@ -42,13 +42,7 @@ jobs:
         run: | 
           mkdir -p ~/.pub-cache 
           cat << EOF > ~/.pub-cache/credentials.json
-          {
-            "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
-            "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
-            "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
-            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
-            "expiration": 1570721159347
-          }
+          ${{ secrets.PUB_CRED_JSON }}
           EOF
       - name: Dry-run publish to pub.dev
         run: melos publish -y --dry-run
