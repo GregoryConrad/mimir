@@ -100,46 +100,69 @@ abstract class EmbeddedMilli {
 
 @freezed
 class Filter with _$Filter {
+  /// Creates an "or" [Filter] of the given sub-filters.
   const factory Filter.or(
     List<Filter> field0,
   ) = Filter_Or;
+
+  /// Creates an "and" [Filter] of the given sub-filters.
   const factory Filter.and(
     List<Filter> field0,
   ) = Filter_And;
+
+  /// Creates a "not" [Filter] of the given sub-filter.
   const factory Filter.not(
     Filter field0,
   ) = Filter_Not;
+
+  /// Creates a [Filter] that specifies the given field exists.
   const factory Filter.exists({
     required String field,
   }) = Filter_Exists;
+
+  /// Creates a [Filter] for the "IN" operator.
   const factory Filter.inValues({
     required String field,
     required List<String> values,
   }) = Filter_InValues;
+
+  /// Creates a [Filter] for the ">" operator.
   const factory Filter.greaterThan({
     required String field,
     required String value,
   }) = Filter_GreaterThan;
+
+  /// Creates a [Filter] for the ">=" operator.
   const factory Filter.greaterThanOrEqual({
     required String field,
     required String value,
   }) = Filter_GreaterThanOrEqual;
+
+  /// Creates a [Filter] for the "==" operator.
   const factory Filter.equal({
     required String field,
     required String value,
   }) = Filter_Equal;
+
+  /// Creates a [Filter] for the "!=" operator.
   const factory Filter.notEqual({
     required String field,
     required String value,
   }) = Filter_NotEqual;
+
+  /// Creates a [Filter] for the "<" operator.
   const factory Filter.lessThan({
     required String field,
     required String value,
   }) = Filter_LessThan;
+
+  /// Creates a [Filter] for the "<=" operator.
   const factory Filter.lessThanOrEqual({
     required String field,
     required String value,
   }) = Filter_LessThanOrEqual;
+
+  /// Creates a [Filter] for the "BETWEEN" operator.
   const factory Filter.between({
     required String field,
     required String from,
@@ -147,7 +170,7 @@ class Filter with _$Filter {
   }) = Filter_Between;
 }
 
-/// The settings of a milli index
+/// The settings of a mimir index
 @freezed
 class MimirIndexSettings with _$MimirIndexSettings {
   const factory MimirIndexSettings({
@@ -167,9 +190,12 @@ class MimirIndexSettings with _$MimirIndexSettings {
 
 @freezed
 class SortBy with _$SortBy {
+  /// Sort by the given field in ascending order
   const factory SortBy.asc(
     String field0,
   ) = SortBy_Asc;
+
+  /// Sort by the given field in descending order
   const factory SortBy.desc(
     String field0,
   ) = SortBy_Desc;
