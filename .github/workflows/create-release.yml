@@ -6,10 +6,10 @@ on:
       version_parameters:
         description: 'Parameters to pass to "melos version"'
         required: true
-        default: ''
+        default: ' '
         type: choice
         options:
-          - ''
+          - ' '
           - '--prerelease'
           - '--graduate'
 
