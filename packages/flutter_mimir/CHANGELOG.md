@@ -1,3 +1,7 @@
+## 0.0.0-dev.4
+
+ - Update a dependency to the latest release.
+
 ## 0.0.0-dev.3
 
  - **DOCS**: update package description to make pub.dev happy.
