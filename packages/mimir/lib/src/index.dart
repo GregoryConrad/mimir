@@ -1,4 +1,4 @@
-import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/bridge_generated.dart';
 
 /// Represents a document in a mimir (and also milli) index
 typedef MimirDocument = Map<String, dynamic>;

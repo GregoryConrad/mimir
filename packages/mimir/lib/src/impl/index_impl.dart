@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
-import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/index.dart';
 
