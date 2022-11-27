@@ -7,23 +7,6 @@ pub extern "C" fn wire_enforce_binding(port_: i64) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_ensure_instance_initialized(
-    port_: i64,
-    instance_dir: *mut wire_uint_8_list,
-) {
-    wire_ensure_instance_initialized_impl(port_, instance_dir)
-}
-
-#[no_mangle]
-pub extern "C" fn wire_ensure_index_initialized(
-    port_: i64,
-    instance_dir: *mut wire_uint_8_list,
-    index_name: *mut wire_uint_8_list,
-) {
-    wire_ensure_index_initialized_impl(port_, instance_dir, index_name)
-}
-
-#[no_mangle]
 pub extern "C" fn wire_add_documents(
     port_: i64,
     instance_dir: *mut wire_uint_8_list,

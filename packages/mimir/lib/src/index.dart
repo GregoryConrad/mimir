@@ -1,4 +1,4 @@
-import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/bridge_generated.dart';
 
 /// Represents a document in a mimir (and also milli) index
 typedef MimirDocument = Map<String, dynamic>;
@@ -68,6 +68,21 @@ mixin MimirIndex {
 
   /// Sets the settings of this index
   Future<void> setSettings(MimirIndexSettings settings);
+
+  /// Updates the settings of this index
+  Future<void> updateSettings({
+    List<String>? searchableFields,
+    List<String> filterableFields,
+    List<String> sortableFields,
+    List<String> rankingRules,
+    List<String> stopWords,
+    List<Synonyms> synonyms,
+    bool typosEnabled,
+    int minWordSizeForOneTypo,
+    int minWordSizeForTwoTypos,
+    List<String> disallowTyposOnWords,
+    List<String> disallowTyposOnFields,
+  });
 
   /// Close any resources in use by the index.
   /// Any streams in use will be closed as a result of calling this method.

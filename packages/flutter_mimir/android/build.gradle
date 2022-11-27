@@ -1,0 +1,45 @@
+def releaseTagVersion = 'mimir-v0.0.0-dev.4' // generated; do not edit
+group 'com.gsconrad.flutter_mimir'
+version '0.0.1'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        // The Android Gradle Plugin knows how to build native code with the NDK.
+        classpath 'com.android.tools.build:gradle:7.1.2'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+
+        ivy {
+            url 'https://github.com/'
+            patternLayout {
+                artifact '/[organisation]/[module]/releases/download/[revision]/EmbeddedMilli.[ext]'
+            }
+            metadataSources { artifact() } 
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        minSdkVersion 16
+    }
+}
+
+dependencies {
+    // Get the AAR from correct GitHub release (from the ivy repo above)
+    implementation "GregoryConrad:mimir:${releaseTagVersion}@aar"
+}

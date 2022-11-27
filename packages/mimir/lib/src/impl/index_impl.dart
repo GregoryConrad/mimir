@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:mimir/bridge_generated.dart';
+import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/index.dart';
 
@@ -91,6 +92,60 @@ class MimirIndexImpl with MimirIndex {
     _changes.add(null);
   }
 
+  static const _defaultOptionalValue = Object();
+
+  @override
+  Future<void> updateSettings({
+    Object? searchableFields = _defaultOptionalValue,
+    Object filterableFields = _defaultOptionalValue,
+    Object sortableFields = _defaultOptionalValue,
+    Object rankingRules = _defaultOptionalValue,
+    Object stopWords = _defaultOptionalValue,
+    Object synonyms = _defaultOptionalValue,
+    Object typosEnabled = _defaultOptionalValue,
+    Object minWordSizeForOneTypo = _defaultOptionalValue,
+    Object minWordSizeForTwoTypos = _defaultOptionalValue,
+    Object disallowTyposOnWords = _defaultOptionalValue,
+    Object disallowTyposOnFields = _defaultOptionalValue,
+  }) async {
+    final currSettings = await getSettings();
+    return setSettings(MimirIndexSettings(
+      searchableFields: searchableFields == _defaultOptionalValue
+          ? currSettings.searchableFields
+          : searchableFields as List<String>?,
+      filterableFields: filterableFields == _defaultOptionalValue
+          ? currSettings.filterableFields
+          : filterableFields as List<String>,
+      sortableFields: sortableFields == _defaultOptionalValue
+          ? currSettings.sortableFields
+          : sortableFields as List<String>,
+      rankingRules: rankingRules == _defaultOptionalValue
+          ? currSettings.rankingRules
+          : rankingRules as List<String>,
+      stopWords: stopWords == _defaultOptionalValue
+          ? currSettings.stopWords
+          : stopWords as List<String>,
+      synonyms: synonyms == _defaultOptionalValue
+          ? currSettings.synonyms
+          : synonyms as List<Synonyms>,
+      typosEnabled: typosEnabled == _defaultOptionalValue
+          ? currSettings.typosEnabled
+          : typosEnabled as bool,
+      minWordSizeForOneTypo: minWordSizeForOneTypo == _defaultOptionalValue
+          ? currSettings.minWordSizeForOneTypo
+          : minWordSizeForOneTypo as int,
+      minWordSizeForTwoTypos: minWordSizeForTwoTypos == _defaultOptionalValue
+          ? currSettings.minWordSizeForTwoTypos
+          : minWordSizeForTwoTypos as int,
+      disallowTyposOnWords: disallowTyposOnWords == _defaultOptionalValue
+          ? currSettings.disallowTyposOnWords
+          : disallowTyposOnWords as List<String>,
+      disallowTyposOnFields: disallowTyposOnFields == _defaultOptionalValue
+          ? currSettings.disallowTyposOnFields
+          : disallowTyposOnFields as List<String>,
+    ));
+  }
+
   @override
   Future<List<MimirDocument>> search({
     String? query,
@@ -99,18 +154,66 @@ class MimirIndexImpl with MimirIndex {
     List<SortBy>? sortBy,
     Filter? filter,
   }) async {
-    final jsonDocs = await milli.searchDocuments(
-      instanceDir: instanceDir,
-      indexName: name,
-      query: query,
-      limit: resultsLimit,
-      sortCriteria: sortBy,
-      // TODO remove the ?? below once following resolved
-      //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
-      matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
-      filter: filter ?? const Filter.or([]),
+    try {
+      final jsonDocs = await milli.searchDocuments(
+        instanceDir: instanceDir,
+        indexName: name,
+        query: query,
+        limit: resultsLimit,
+        sortCriteria: sortBy,
+        // TODO remove the ?? below once following resolved
+        //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
+        matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
+        filter: filter ?? const Filter.or([]),
+      );
+      return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
+    } on FfiException catch (e) {
+      // Check to see if this error was caused by any filters not being
+      // indexed for search
+      final filtersNotAdded = filter != null &&
+          e.code == 'RESULT_ERROR' &&
+          e.message.contains('not filterable');
+
+      // If so, let's add them as a convenience to the user
+      if (filtersNotAdded) {
+        // Update the current settings to include the filters
+        final currSettings = await getSettings();
+        final filterableFields = currSettings.filterableFields.toSet()
+          ..addAll(_getFieldsFromFilter(filter));
+        await setSettings(currSettings.copyWith(
+          filterableFields: filterableFields.toList(),
+        ));
+
+        // Finally, retry the search with the filterable fields added
+        return search(
+          query: query,
+          resultsLimit: resultsLimit,
+          matchingStrategy: matchingStrategy,
+          sortBy: sortBy,
+          filter: filter,
+        );
+      } else {
+        // Not an error caused by missing filterable fields; rethrow it
+        rethrow;
+      }
+    }
+  }
+
+  Iterable<String> _getFieldsFromFilter(Filter filter) {
+    return filter.when(
+      or: (filters) => filters.expand(_getFieldsFromFilter),
+      and: (filters) => filters.expand(_getFieldsFromFilter),
+      not: (filter) => _getFieldsFromFilter(filter),
+      exists: (field) => [field],
+      inValues: (field, _) => [field],
+      greaterThan: (field, _) => [field],
+      greaterThanOrEqual: (field, _) => [field],
+      equal: (field, _) => [field],
+      notEqual: (field, _) => [field],
+      lessThan: (field, _) => [field],
+      lessThanOrEqual: (field, _) => [field],
+      between: (field, _, __) => [field],
     );
-    return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
   }
 
   @override

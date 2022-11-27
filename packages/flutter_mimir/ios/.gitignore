@@ -1,3 +1,4 @@
 Flutter/
 Runner/
-Frameworks/
+Frameworks/*
+!Frameworks/.gitkeep

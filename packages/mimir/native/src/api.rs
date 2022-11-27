@@ -1,11 +1,4 @@
-use std::{
-    collections::HashMap,
-    convert::TryInto,
-    fs::create_dir_all,
-    io::Cursor,
-    path::Path,
-    sync::{Mutex, RwLock},
-};
+use std::{collections::HashMap, convert::TryInto, fs::create_dir_all, io::Cursor, path::Path};
 
 use anyhow::Result;
 use flutter_rust_bridge::frb;
@@ -15,6 +8,7 @@ use milli::{
     heed::EnvOpenOptions,
     update, AscDesc, Criterion, DocumentId, FieldsIdsMap, Index, Member, Search, SearchResult,
 };
+use parking_lot::{Mutex, RwLock};
 
 /// Enforce the binding for this library (to prevent tree-shaking)
 #[no_mangle]
@@ -33,18 +27,18 @@ struct Instance {
 }
 
 /// Ensures an instance of milli (represented by just a directory) is initialized
-pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
-    let instances = INSTANCES.read().unwrap();
+fn ensure_instance_initialized(instance_dir: &String) -> Result<()> {
+    let instances = INSTANCES.read();
 
     // If this instance does not yet exist, create it
-    if !instances.contains_key(&instance_dir) {
+    if !instances.contains_key(instance_dir) {
         drop(instances); // prevent deadlock with the prev read lock and now write lock
-        let mut instances = INSTANCES.write().unwrap();
+        let mut instances = INSTANCES.write();
 
         // Perhaps the instance was initialized while we were waiting to get the lock
         // Now that we have the write lock, check that we actually need to do anything
-        if !instances.contains_key(&instance_dir) {
-            create_dir_all(&instance_dir)?;
+        if !instances.contains_key(instance_dir) {
+            create_dir_all(instance_dir)?;
             let new_instance = Instance {
                 indexes: RwLock::new(HashMap::new()),
             };
@@ -56,21 +50,21 @@ pub fn ensure_instance_initialized(instance_dir: String) -> Result<()> {
 }
 
 /// Ensures a milli index is initialized
-pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Result<()> {
-    ensure_instance_initialized(instance_dir.clone())?;
-    let instances = INSTANCES.read().unwrap();
-    let instance = instances.get(&instance_dir).unwrap();
-    let indexes = instance.indexes.read().unwrap();
+fn ensure_index_initialized(instance_dir: &String, index_name: &String) -> Result<()> {
+    ensure_instance_initialized(instance_dir)?;
+    let instances = INSTANCES.read();
+    let instance = instances.get(instance_dir).unwrap();
+    let indexes = instance.indexes.read();
 
     // If this index does not yet exist, create it
-    if !indexes.contains_key(&index_name) {
+    if !indexes.contains_key(index_name) {
         drop(indexes); // prevent deadlock with the prev read lock and now write lock
-        let mut indexes = instance.indexes.write().unwrap();
+        let mut indexes = instance.indexes.write();
 
         // Perhaps the index was initialized while we were waiting to get the lock
         // Now that we have the write lock, check that we actually need to do anything
-        if !indexes.contains_key(&index_name) {
-            let path = Path::new(&instance_dir).join(&index_name);
+        if !indexes.contains_key(index_name) {
+            let path = Path::new(instance_dir).join(index_name);
             create_dir_all(&path)?;
             let mut options = EnvOpenOptions::new();
             options.map_size(MAX_MAP_SIZE);
@@ -84,24 +78,19 @@ pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Res
 
 macro_rules! get_instances {
     () => {
-        INSTANCES.read().unwrap()
+        INSTANCES.read()
     };
 }
 
 macro_rules! get_indexes {
     ($instances:ident, $instance_dir:ident) => {
-        $instances
-            .get(&$instance_dir)
-            .unwrap()
-            .indexes
-            .read()
-            .unwrap()
+        $instances.get(&$instance_dir).unwrap().indexes.read()
     };
 }
 
 macro_rules! get_index {
     ($instance:ident, $index_name:ident) => {
-        $instance.get(&$index_name).unwrap().lock().unwrap()
+        $instance.get(&$index_name).unwrap().lock()
     };
 }
 
@@ -136,7 +125,7 @@ pub fn add_documents(
     index_name: String,
     json_documents: Vec<String>,
 ) -> Result<()> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
@@ -190,7 +179,7 @@ pub fn delete_documents(
     index_name: String,
     document_ids: Vec<String>,
 ) -> Result<()> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
@@ -208,7 +197,7 @@ pub fn delete_documents(
 
 /// Deletes all the documents from the milli index
 pub fn delete_all_documents(instance_dir: String, index_name: String) -> Result<()> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
@@ -238,7 +227,7 @@ pub fn get_document(
     index_name: String,
     document_id: String,
 ) -> Result<Option<String>> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
@@ -257,7 +246,7 @@ pub fn get_document(
 
 /// Returns all documents stored in the index.
 pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec<String>> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
@@ -294,47 +283,38 @@ pub enum _TermsMatchingStrategy {
 /// Whether to sort by a field in ascending or descending order
 /// See https://docs.meilisearch.com/reference/api/search.html#sort
 pub enum SortBy {
+    /// Sort by the given field in ascending order
     Asc(String),
+    /// Sort by the given field in descending order
     Desc(String),
 }
 
 /// The filters to be used in a search/query
 pub enum Filter {
+    /// Creates an "or" [Filter] of the given sub-filters.
     Or(Vec<Filter>),
+    /// Creates an "and" [Filter] of the given sub-filters.
     And(Vec<Filter>),
+    /// Creates a "not" [Filter] of the given sub-filter.
     Not(Box<Filter>),
 
-    Exists {
-        field: String,
-    },
-    InValues {
-        field: String,
-        values: Vec<String>,
-    },
-    GreaterThan {
-        field: String,
-        value: String,
-    },
-    GreaterThanOrEqual {
-        field: String,
-        value: String,
-    },
-    Equal {
-        field: String,
-        value: String,
-    },
-    NotEqual {
-        field: String,
-        value: String,
-    },
-    LessThan {
-        field: String,
-        value: String,
-    },
-    LessThanOrEqual {
-        field: String,
-        value: String,
-    },
+    /// Creates a [Filter] that specifies the given field exists.
+    Exists { field: String },
+    /// Creates a [Filter] for the "IN" operator.
+    InValues { field: String, values: Vec<String> },
+    /// Creates a [Filter] for the ">" operator.
+    GreaterThan { field: String, value: String },
+    /// Creates a [Filter] for the ">=" operator.
+    GreaterThanOrEqual { field: String, value: String },
+    /// Creates a [Filter] for the "==" operator.
+    Equal { field: String, value: String },
+    /// Creates a [Filter] for the "!=" operator.
+    NotEqual { field: String, value: String },
+    /// Creates a [Filter] for the "<" operator.
+    LessThan { field: String, value: String },
+    /// Creates a [Filter] for the "<=" operator.
+    LessThanOrEqual { field: String, value: String },
+    /// Creates a [Filter] for the "BETWEEN" operator.
     Between {
         field: String,
         from: String,
@@ -411,7 +391,7 @@ pub fn search_documents(
     filter: Filter,
     matching_strategy: TermsMatchingStrategy,
 ) -> Result<Vec<String>> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
@@ -427,7 +407,7 @@ pub fn search_documents(
 
     // Configure the search based on given parameters
     query.map(|q| search.query(q));
-    limit.map(|l| search.limit(l.try_into().unwrap()));
+    search.limit(limit.unwrap_or(u32::MAX).try_into()?);
     matching_strategy.map(|s| search.terms_matching_strategy(s));
     sort_criteria.map(|criteria| {
         let criteria = criteria
@@ -463,7 +443,7 @@ pub struct Synonyms {
     pub synonyms: Vec<String>,
 }
 
-/// The settings of a milli index
+/// The settings of a mimir index
 #[frb(dart_metadata=("freezed"))]
 pub struct MimirIndexSettings {
     pub searchable_fields: Option<Vec<String>>,
@@ -481,7 +461,7 @@ pub struct MimirIndexSettings {
 
 /// Gets the settings of the specified index
 pub fn get_settings(instance_dir: String, index_name: String) -> Result<MimirIndexSettings> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
@@ -549,7 +529,7 @@ pub fn set_settings(
     index_name: String,
     settings: MimirIndexSettings,
 ) -> Result<()> {
-    ensure_index_initialized(instance_dir.clone(), index_name.clone())?;
+    ensure_index_initialized(&instance_dir, &index_name)?;
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);

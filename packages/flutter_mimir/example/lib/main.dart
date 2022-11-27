@@ -40,8 +40,6 @@ final searchProvider = StreamProvider((ref) {
   final query = ref.watch(queryProvider);
 
   // When query is null/empty, all docs will be returned
-  // TODO all docs currently broken, see:
-  //  https://github.com/GregoryConrad/mimir/issues/47
   return index.searchStream(query: query);
 });
 

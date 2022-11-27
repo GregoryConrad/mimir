@@ -10,11 +10,12 @@ crate-type = ["staticlib", "cdylib"]
 flutter_rust_bridge_codegen = "1.49.*"
 
 [dependencies]
-lazy_static = "1.*"
 flutter_rust_bridge = "1.49.*"
 anyhow = "1.0.*"
 serde = "1.0.*"
 serde_json = "1.0.*"
-milli = { path = "milli/milli" }
-filter-parser = { path = "milli/filter-parser" }
+parking_lot = "0.12.*"
+lazy_static = "1.*"
 obkv = "*"
+milli = { git = "https://github.com/meilisearch/milli", tag = "v0.37.0", package = "milli" }
+filter-parser = { git = "https://github.com/meilisearch/milli", tag = "v0.37.0", package = "filter-parser" }
