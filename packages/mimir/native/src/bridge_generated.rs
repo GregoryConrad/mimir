@@ -29,40 +29,6 @@ fn wire_enforce_binding_impl(port_: MessagePort) {
         move || move |task_callback| Ok(enforce_binding()),
     )
 }
-fn wire_ensure_instance_initialized_impl(
-    port_: MessagePort,
-    instance_dir: impl Wire2Api<String> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "ensure_instance_initialized",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_instance_dir = instance_dir.wire2api();
-            move |task_callback| ensure_instance_initialized(api_instance_dir)
-        },
-    )
-}
-fn wire_ensure_index_initialized_impl(
-    port_: MessagePort,
-    instance_dir: impl Wire2Api<String> + UnwindSafe,
-    index_name: impl Wire2Api<String> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
-        WrapInfo {
-            debug_name: "ensure_index_initialized",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_instance_dir = instance_dir.wire2api();
-            let api_index_name = index_name.wire2api();
-            move |task_callback| ensure_index_initialized(api_instance_dir, api_index_name)
-        },
-    )
-}
 fn wire_add_documents_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,

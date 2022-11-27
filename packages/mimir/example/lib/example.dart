@@ -42,11 +42,7 @@ Future<void> run(String path, DynamicLibrary lib) async {
   // As this is a new index, these settings will just be the default settings.
   // We also could have just created a new settings object like:
   // `new MimirIndexSettings(...)`.
-  final currSettings = await index.getSettings();
-  await index.setSettings(currSettings.copyWith(
-    // By default, we cannot filter by any fields (to save device memory).
-    // We can change this to allow filtering by year & cast (in this example):
-    filterableFields: ['year', 'cast'],
+  await index.updateSettings(
     // By default, we cannot sort by any fields (to save device memory).
     // Let's also specify that we want to sort based on a movie's year:
     sortableFields: ['year'],
@@ -56,7 +52,7 @@ Future<void> run(String path, DynamicLibrary lib) async {
     // let's specify that we only need to search by the title here.
     // To revert this behavior and search by all fields, set this to null.
     searchableFields: ['title'],
-  ));
+  );
 
   // Let's add all of the movies from a JSON file online
   // It's best to change any settings before adding documents to an index
@@ -133,7 +129,7 @@ DynamicLibrary getLibrary() {
     Platform.isMacOS: 'dylib',
     Platform.isLinux: 'so',
   }[true]!;
-  final dylibPath = '../native/target/debug/$libPrefix$libName.$libSuffix';
+  final dylibPath = '../native/target/release/$libPrefix$libName.$libSuffix';
   return DynamicLibrary.open(dylibPath);
 }
 

@@ -1,3 +1,0 @@
-[submodule "packages/mimir/native/milli"]
-	path = packages/mimir/native/milli
-	url = https://github.com/meilisearch/milli.git

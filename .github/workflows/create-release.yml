@@ -1,0 +1,38 @@
+name: Create Release(s)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_parameters:
+        description: 'Parameters to pass to "melos version"'
+        required: true
+        default: ' '
+        type: choice
+        options:
+          - ' '
+          - '--prerelease'
+          - '--graduate'
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.BOT_ACCESS_TOKEN }}
+          fetch-depth: 0
+      - name: Setup git
+        run: |
+          git config user.name "MimirActionsBot"
+          git config user.email "mimir-bot@gsconrad.com"
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
+
+      - name: Create the new version(s)
+        run: melos version --yes ${{ inputs.version_parameters }}
+
+      - name: Push created version commit
+        run: git push
+      - name: Push modified tags
+        run: git push --tags

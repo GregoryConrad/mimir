@@ -1,6 +1,6 @@
 import 'dart:ffi';
 
-import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/bridge_generated.dart';
 
 typedef ExternalLibrary = DynamicLibrary;
 

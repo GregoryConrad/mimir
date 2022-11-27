@@ -19,18 +19,6 @@ abstract class EmbeddedMilli {
 
   FlutterRustBridgeTaskConstMeta get kEnforceBindingConstMeta;
 
-  /// Ensures an instance of milli (represented by just a directory) is initialized
-  Future<void> ensureInstanceInitialized(
-      {required String instanceDir, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
-
-  /// Ensures a milli index is initialized
-  Future<void> ensureIndexInitialized(
-      {required String instanceDir, required String indexName, dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta;
-
   /// Adds the given list of documents to the specified milli index
   ///
   /// Replaces documents that already exist in the index based on document ids.
@@ -112,46 +100,69 @@ abstract class EmbeddedMilli {
 
 @freezed
 class Filter with _$Filter {
+  /// Creates an "or" [Filter] of the given sub-filters.
   const factory Filter.or(
     List<Filter> field0,
   ) = Filter_Or;
+
+  /// Creates an "and" [Filter] of the given sub-filters.
   const factory Filter.and(
     List<Filter> field0,
   ) = Filter_And;
+
+  /// Creates a "not" [Filter] of the given sub-filter.
   const factory Filter.not(
     Filter field0,
   ) = Filter_Not;
+
+  /// Creates a [Filter] that specifies the given field exists.
   const factory Filter.exists({
     required String field,
   }) = Filter_Exists;
+
+  /// Creates a [Filter] for the "IN" operator.
   const factory Filter.inValues({
     required String field,
     required List<String> values,
   }) = Filter_InValues;
+
+  /// Creates a [Filter] for the ">" operator.
   const factory Filter.greaterThan({
     required String field,
     required String value,
   }) = Filter_GreaterThan;
+
+  /// Creates a [Filter] for the ">=" operator.
   const factory Filter.greaterThanOrEqual({
     required String field,
     required String value,
   }) = Filter_GreaterThanOrEqual;
+
+  /// Creates a [Filter] for the "==" operator.
   const factory Filter.equal({
     required String field,
     required String value,
   }) = Filter_Equal;
+
+  /// Creates a [Filter] for the "!=" operator.
   const factory Filter.notEqual({
     required String field,
     required String value,
   }) = Filter_NotEqual;
+
+  /// Creates a [Filter] for the "<" operator.
   const factory Filter.lessThan({
     required String field,
     required String value,
   }) = Filter_LessThan;
+
+  /// Creates a [Filter] for the "<=" operator.
   const factory Filter.lessThanOrEqual({
     required String field,
     required String value,
   }) = Filter_LessThanOrEqual;
+
+  /// Creates a [Filter] for the "BETWEEN" operator.
   const factory Filter.between({
     required String field,
     required String from,
@@ -159,7 +170,7 @@ class Filter with _$Filter {
   }) = Filter_Between;
 }
 
-/// The settings of a milli index
+/// The settings of a mimir index
 @freezed
 class MimirIndexSettings with _$MimirIndexSettings {
   const factory MimirIndexSettings({
@@ -179,9 +190,12 @@ class MimirIndexSettings with _$MimirIndexSettings {
 
 @freezed
 class SortBy with _$SortBy {
+  /// Sort by the given field in ascending order
   const factory SortBy.asc(
     String field0,
   ) = SortBy_Asc;
+
+  /// Sort by the given field in descending order
   const factory SortBy.desc(
     String field0,
   ) = SortBy_Desc;
@@ -239,44 +253,6 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
       const FlutterRustBridgeTaskConstMeta(
         debugName: "enforce_binding",
         argNames: [],
-      );
-
-  Future<void> ensureInstanceInitialized(
-          {required String instanceDir, dynamic hint}) =>
-      _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_ensure_instance_initialized(
-            port_, _platform.api2wire_String(instanceDir)),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kEnsureInstanceInitializedConstMeta,
-        argValues: [instanceDir],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "ensure_instance_initialized",
-        argNames: ["instanceDir"],
-      );
-
-  Future<void> ensureIndexInitialized(
-          {required String instanceDir,
-          required String indexName,
-          dynamic hint}) =>
-      _platform.executeNormal(FlutterRustBridgeTask(
-        callFfi: (port_) => _platform.inner.wire_ensure_index_initialized(
-            port_,
-            _platform.api2wire_String(instanceDir),
-            _platform.api2wire_String(indexName)),
-        parseSuccessData: _wire2api_unit,
-        constMeta: kEnsureIndexInitializedConstMeta,
-        argValues: [instanceDir, indexName],
-        hint: hint,
-      ));
-
-  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "ensure_index_initialized",
-        argNames: ["instanceDir", "indexName"],
       );
 
   Future<void> addDocuments(
@@ -902,45 +878,6 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
           'wire_enforce_binding');
   late final _wire_enforce_binding =
       _wire_enforce_bindingPtr.asFunction<void Function(int)>();
-
-  void wire_ensure_instance_initialized(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> instance_dir,
-  ) {
-    return _wire_ensure_instance_initialized(
-      port_,
-      instance_dir,
-    );
-  }
-
-  late final _wire_ensure_instance_initializedPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_ensure_instance_initialized');
-  late final _wire_ensure_instance_initialized =
-      _wire_ensure_instance_initializedPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
-
-  void wire_ensure_index_initialized(
-    int port_,
-    ffi.Pointer<wire_uint_8_list> instance_dir,
-    ffi.Pointer<wire_uint_8_list> index_name,
-  ) {
-    return _wire_ensure_index_initialized(
-      port_,
-      instance_dir,
-      index_name,
-    );
-  }
-
-  late final _wire_ensure_index_initializedPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>>('wire_ensure_index_initialized');
-  late final _wire_ensure_index_initialized =
-      _wire_ensure_index_initializedPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_uint_8_list>,
-              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_add_documents(
     int port_,
