@@ -27,7 +27,7 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: packages/mimir/native/build/*
+          files: platform-build/*
 
   publish_pub_release:
     needs: publish_github_release

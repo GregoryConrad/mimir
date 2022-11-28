@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Setup
-cd $( dirname -- "$0"; )
-cd ..
-mkdir build # for build output
+BUILD_DIR=platform-build
+mkdir $BUILD_DIR
+cd $BUILD_DIR
 
 # Create aar build directory
 AAR_DIR=aar
@@ -20,6 +20,7 @@ rustup target add \
 
 # Build the android libraries in the aar directory
 cargo ndk -o $JNI_DIR \
+        --manifest-path ../Cargo.toml \
         -t armeabi-v7a \
         -t arm64-v8a \
         -t x86 \
@@ -34,7 +35,7 @@ EOF
 
 # Create the aar (which is actually just a zip)
 cd $AAR_DIR
-zip -r ../build/EmbeddedMilli.aar *
+zip -r ../EmbeddedMilli.aar *
 cd -
 
 # Cleanup

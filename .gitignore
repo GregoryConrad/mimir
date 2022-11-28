@@ -35,3 +35,4 @@ build/
 # Rust related
 /target/
 /Cargo.lock
+/platform-build
