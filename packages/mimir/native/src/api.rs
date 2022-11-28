@@ -278,47 +278,38 @@ pub enum _TermsMatchingStrategy {
 /// Whether to sort by a field in ascending or descending order
 /// See https://docs.meilisearch.com/reference/api/search.html#sort
 pub enum SortBy {
+    /// Sort by the given field in ascending order
     Asc(String),
+    /// Sort by the given field in descending order
     Desc(String),
 }
 
 /// The filters to be used in a search/query
 pub enum Filter {
+    /// Creates an "or" [Filter] of the given sub-filters.
     Or(Vec<Filter>),
+    /// Creates an "and" [Filter] of the given sub-filters.
     And(Vec<Filter>),
+    /// Creates a "not" [Filter] of the given sub-filter.
     Not(Box<Filter>),
 
-    Exists {
-        field: String,
-    },
-    InValues {
-        field: String,
-        values: Vec<String>,
-    },
-    GreaterThan {
-        field: String,
-        value: String,
-    },
-    GreaterThanOrEqual {
-        field: String,
-        value: String,
-    },
-    Equal {
-        field: String,
-        value: String,
-    },
-    NotEqual {
-        field: String,
-        value: String,
-    },
-    LessThan {
-        field: String,
-        value: String,
-    },
-    LessThanOrEqual {
-        field: String,
-        value: String,
-    },
+    /// Creates a [Filter] that specifies the given field exists.
+    Exists { field: String },
+    /// Creates a [Filter] for the "IN" operator.
+    InValues { field: String, values: Vec<String> },
+    /// Creates a [Filter] for the ">" operator.
+    GreaterThan { field: String, value: String },
+    /// Creates a [Filter] for the ">=" operator.
+    GreaterThanOrEqual { field: String, value: String },
+    /// Creates a [Filter] for the "==" operator.
+    Equal { field: String, value: String },
+    /// Creates a [Filter] for the "!=" operator.
+    NotEqual { field: String, value: String },
+    /// Creates a [Filter] for the "<" operator.
+    LessThan { field: String, value: String },
+    /// Creates a [Filter] for the "<=" operator.
+    LessThanOrEqual { field: String, value: String },
+    /// Creates a [Filter] for the "BETWEEN" operator.
     Between {
         field: String,
         from: String,
@@ -450,7 +441,7 @@ pub struct Synonyms {
     pub synonyms: Vec<String>,
 }
 
-/// The settings of a milli index
+/// The settings of a mimir index
 #[frb(dart_metadata=("freezed"))]
 pub struct MimirIndexSettings {
     pub searchable_fields: Option<Vec<String>>,

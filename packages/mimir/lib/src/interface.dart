@@ -1,4 +1,4 @@
-import 'package:mimir/bridge_generated.dart';
+import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/instance.dart';
 import 'package:mimir/src/impl/ffi/stub.dart'
