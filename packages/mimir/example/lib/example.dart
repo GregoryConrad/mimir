@@ -94,11 +94,11 @@ Future<void> run(String path, DynamicLibrary lib) async {
     // Filter the movies by two different conditions.
     // Because we use "and" below, both of the sub-filters have to be true
     // for a document to be included in the results. We could've also used "or"
-    filter: Filter.and([
+    filter: Mimir.and([
       // The movie cast must include Bruce Willis
-      Filter.inValues(field: 'cast', values: ['Bruce Willis']),
+      Mimir.where('cast', containsAtLeastOneOf: ['Bruce Willis']),
       // The movie must have been released between 2015 & 2017
-      Filter.between(field: 'year', from: '2015', to: '2017'),
+      Mimir.where('year', isBetween: '2015', and: '2017'),
     ]),
   );
 
@@ -116,8 +116,8 @@ Future<void> run(String path, DynamicLibrary lib) async {
 }
 
 DynamicLibrary getLibrary() {
-  // If you are running this example locally, you will need to run `cargo build`
-  // in the `mimir/native` directory in order for the needed dylib to be there.
+  // If you are running this example locally, you will need to run
+  // `cargo build -r` to generate the needed dylib.
   const libName = 'embedded_milli';
   final libPrefix = {
     Platform.isWindows: '',
@@ -129,7 +129,7 @@ DynamicLibrary getLibrary() {
     Platform.isMacOS: 'dylib',
     Platform.isLinux: 'so',
   }[true]!;
-  final dylibPath = '../native/target/release/$libPrefix$libName.$libSuffix';
+  final dylibPath = '../../../target/release/$libPrefix$libName.$libSuffix';
   return DynamicLibrary.open(dylibPath);
 }
 
