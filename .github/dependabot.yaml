@@ -2,7 +2,19 @@ version: 2
 enable-beta-ecosystems: true
 updates:
   - package-ecosystem: pub
-    directory: "/"
+    directory: "/packages/mimir"
+    schedule:
+      interval: weekly
+  - package-ecosystem: pub
+    directory: "/packages/mimir/example"
+    schedule:
+      interval: weekly
+  - package-ecosystem: pub
+    directory: "/packages/flutter_mimir"
+    schedule:
+      interval: weekly
+  - package-ecosystem: pub
+    directory: "/packages/flutter_mimir/example"
     schedule:
       interval: weekly
   - package-ecosystem: cargo
