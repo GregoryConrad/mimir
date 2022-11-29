@@ -1,3 +1,9 @@
+## 0.0.0-dev.5
+
+ - **FIX**: add FLUTTER_TARGET_PLATFORM to windows cmake.
+ - **FIX**: hopefully finished the linux cmake.
+ - **FIX**: work toward linux ffi support.
+
 ## 0.0.0-dev.4
 
  - Update a dependency to the latest release.

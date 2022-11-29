@@ -1,3 +1,8 @@
+## 0.0.0-dev.5
+
+ - **FIX**: fix dylib path in another test.
+ - **FIX**: refactored repo to use root Cargo.toml.
+
 ## 0.0.0-dev.4
 
  - **REFACTOR**: move generated ffi files to src dir.
