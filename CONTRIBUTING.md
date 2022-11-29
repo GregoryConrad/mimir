@@ -14,3 +14,5 @@ This file is a WIP.
   - [Android NDK](https://developer.android.com/ndk/downloads)
     - API level 21 (`r21e`)
   - [Zig](https://ziglang.org/learn/getting-started/#installing-zig)
+  - llvm (with `clang-cl`!)
+    - Need to run `brew install llvm` on macOS since Apple's doesn't have it
