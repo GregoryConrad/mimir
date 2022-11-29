@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.14)
 set(PROJECT_NAME "flutter_mimir")
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-# Download the binaries archive if it is not already present.
+# Download the binaries if they are not already present.
 set(MimirLibRoot "${CMAKE_CURRENT_SOURCE_DIR}/${MimirVersion}")
 set(MimirArchivePath "${MimirLibRoot}.tar.gz")
 if(NOT IS_DIRECTORY ${MimirLibRoot})
