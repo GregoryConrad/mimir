@@ -27,7 +27,7 @@ scripts:
     run: bash scripts/version.sh
 
   build:
-    run: melos run build:apple && melos run build:android
+    run: melos run build:apple && melos run build:android && melos run build:other
     description: Build all native libraries for the project.
 
   build:apple:
@@ -37,6 +37,10 @@ scripts:
   build:android:
     run: bash scripts/build-android.sh
     description: Build the .aar for Android.
+
+  build:other:
+    run: bash scripts/build-other.sh
+    description: Build the .tar.gz for all other platforms.
 
   test:
     run: melos run test:dart --no-select && melos run test:flutter --no-select

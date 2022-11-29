@@ -31,7 +31,7 @@ flutter:
         ffiPlugin: true
       android:
         ffiPlugin: true
-      # linux:
-      #   ffiPlugin: true
+      linux:
+        ffiPlugin: true
       # windows:
       #   ffiPlugin: true
