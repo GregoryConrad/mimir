@@ -1,6 +1,7 @@
 set(MimirVersion "mimir-v0.0.0-dev.4") # generated; do not edit
 
 # TODO Remove this workaround once Flutter supports Windows ARM.
+# https://github.com/flutter/flutter/issues/116196
 set(FLUTTER_TARGET_PLATFORM windows-x64)
 
 # The Flutter tooling requires that developers have a version of Visual Studio
