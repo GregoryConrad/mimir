@@ -13,4 +13,14 @@ sed -i.bak "1 s/.*/$APPLE_HEADER/" packages/flutter_mimir/ios/flutter_mimir.pods
 sed -i.bak "1 s/.*/$APPLE_HEADER/" packages/flutter_mimir/macos/flutter_mimir.podspec
 rm packages/flutter_mimir/macos/*.bak packages/flutter_mimir/ios/*.bak
 
+# Linux
+LINUX_HEADER="set(MimirVersion \"$CURR_VERSION\") # generated; do not edit"
+sed -i.bak "1 s/.*/$LINUX_HEADER/" packages/flutter_mimir/linux/CMakeLists.txt
+rm packages/flutter_mimir/linux/*.bak
+
+# Windows
+WINDOWS_HEADER="set(MimirVersion \"$CURR_VERSION\") # generated; do not edit"
+sed -i.bak "1 s/.*/$WINDOWS_HEADER/" packages/flutter_mimir/windows/CMakeLists.txt
+rm packages/flutter_mimir/windows/*.bak
+
 git add packages/flutter_mimir/
