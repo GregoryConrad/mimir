@@ -96,7 +96,7 @@ jobs:
       - uses: goto-bus-stop/setup-zig@v2
       - uses: KyleMayes/install-llvm-action@v1
         with:
-          version: "15"
+          version: "14" # TODO update to 15
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -166,5 +166,5 @@ jobs:
       - name: Run Flutter integration tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
+          api-level: 29
           script: cd packages/flutter_mimir/example && flutter test -d android integration_test
