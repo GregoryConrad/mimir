@@ -124,11 +124,7 @@ pub fn add_documents(
 
     // Create the configs needed for the batch document addition
     let indexer_config = update::IndexerConfig::default();
-    let indexing_config = update::IndexDocumentsConfig {
-        update_method: update::IndexDocumentsMethod::ReplaceDocuments,
-        autogenerate_docids: true,
-        ..Default::default()
-    };
+    let indexing_config = update::IndexDocumentsConfig::default();
 
     // Make an index write transaction with a batch step to index the new documents
     let mut wtxn = index.write_txn()?;
@@ -191,9 +187,48 @@ pub fn set_documents(
     index_name: String,
     json_documents: Vec<String>,
 ) -> Result<()> {
-    // TODO combine into 1 write txn
-    delete_all_documents(instance_dir.clone(), index_name.clone())?;
-    add_documents(instance_dir, index_name, json_documents)
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.write();
+    let mut wtxn = index.write_txn()?;
+
+    // Delete all existing documents
+    update::ClearDocuments::new(&mut wtxn, &index).execute()?;
+
+    // Create a batch builder to convert json_documents into milli's format
+    let mut builder = DocumentsBatchBuilder::new(Vec::new());
+    for doc in json_documents {
+        let doc: serde_json::Value = serde_json::from_str(&doc)?;
+        let doc = doc
+            .as_object()
+            .ok_or_else(|| anyhow!("A json document was not Map<String, dynamic>"))?
+            .clone();
+        builder.append_json_object(&doc)?;
+    }
+
+    // Flush the contents of the builder and retreive the buffer to make a batch reader
+    let buff = builder.into_inner()?;
+    let reader = DocumentsBatchReader::from_reader(Cursor::new(buff))?;
+
+    // Create the configs needed for the batch document addition
+    let indexer_config = update::IndexerConfig::default();
+    let indexing_config = update::IndexDocumentsConfig::default();
+
+    // Make a batch step to index the new documents
+    update::IndexDocuments::new(
+        &mut wtxn,
+        &index,
+        &indexer_config,
+        indexing_config,
+        |_| (),
+        || false,
+    )?
+    .add_documents(reader)
+    .map(|t| t.0)?
+    .execute()?;
+
+    wtxn.commit()?;
+    Ok(())
 }
 
 /// Returns the document with the specified id from the index, if one exists
