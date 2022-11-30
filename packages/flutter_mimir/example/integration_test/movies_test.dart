@@ -47,7 +47,7 @@ void main() {
     expect(find.text('Forrest Gump'), findsNothing);
 
     // Look for Forrest Gump
-    await search('forest gu');
+    await search('forest gum');
     expect(find.text('Godzilla vs. Kong'), findsNothing);
     expect(find.text('Jurassic Park'), findsNothing);
     expect(find.text('Forrest Gump'), findsOneWidget);
