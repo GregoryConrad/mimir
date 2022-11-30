@@ -93,6 +93,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v2
+      - uses: seanmiddleditch/gha-setup-ninja@v3
       - uses: goto-bus-stop/setup-zig@v2
       - uses: KyleMayes/install-llvm-action@v1
         with:
@@ -142,30 +143,33 @@ jobs:
         working-directory: packages/flutter_mimir/example
         run: flutter test -d ${{ env.DEVICE_ID }} integration_test
 
-  android_integration_test:
-    runs-on: macos-latest
+  # Commented out because Gradle uses the ivy repo instead of using a local .aar
+  # Thus, we are not currently supporting Android CI Flutter integration tests.
+  #
+  # android_integration_test:
+  #   runs-on: macos-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-      - uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r21e # TODO try latest version?
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: subosito/flutter-action@v2
+  #     - uses: bluefireteam/melos-action@v2
+  #     - uses: actions-rs/toolchain@v1
+  #       with:
+  #         toolchain: stable
+  #     - uses: nttld/setup-ndk@v1
+  #       with:
+  #         ndk-version: r21e # TODO try latest version?
 
-      - name: Build the .aar
-        run: melos run build:android
-      - name: Copy the .aar to the needed location
-        run: |
-          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
-          cp platform-build/EmbeddedMilli.aar packages/flutter_mimir/android/$CURR_VERSION.aar
-          echo Copied file!
+  #     - name: Build the .aar
+  #       run: melos run build:android
+  #     - name: Copy the .aar to the needed location
+  #       run: |
+  #         CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
+  #         cp platform-build/EmbeddedMilli.aar packages/flutter_mimir/android/$CURR_VERSION.aar
+  #         echo Copied file!
 
-      - name: Run Flutter integration tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: cd packages/flutter_mimir/example && flutter test -d android integration_test
+  #     - name: Run Flutter integration tests
+  #       uses: reactivecircus/android-emulator-runner@v2
+  #       with:
+  #         api-level: 29
+  #         script: cd packages/flutter_mimir/example && flutter test -d android integration_test
