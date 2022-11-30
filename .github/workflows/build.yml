@@ -127,6 +127,7 @@ jobs:
       - name: Start iOS Simulator
         run: |
           DEVICE_ID=$(xcrun xctrace list devices | grep iPhone | head -1 | awk '{print $NF}' | tr -d '()')
+          echo "DEVICE_ID=$DEVICE_ID" >> $GITHUB_ENV
           xcrun simctl boot $DEVICE_ID
 
       - name: Build the XCFramework
@@ -139,7 +140,7 @@ jobs:
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
-        run: flutter test -d ios integration_test
+        run: flutter test -d ${{ env.DEVICE_ID }} integration_test
 
   android_integration_test:
     runs-on: macos-latest
