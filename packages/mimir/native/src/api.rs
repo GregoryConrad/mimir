@@ -8,7 +8,7 @@ use milli::{
     heed::EnvOpenOptions,
     update, AscDesc, Criterion, Index, Member, Search, SearchResult,
 };
-use parking_lot::{Mutex, RwLock};
+use parking_lot::RwLock;
 
 /// Enforce the binding for this library (to prevent tree-shaking)
 #[no_mangle]
@@ -23,7 +23,15 @@ lazy_static! {
 const MAX_MAP_SIZE: usize = 1_073_741_824;
 
 struct Instance {
-    indexes: RwLock<HashMap<String, Mutex<Index>>>,
+    indexes: HashMap<String, RwLock<Index>>,
+}
+
+impl Instance {
+    fn new() -> Instance {
+        Instance {
+            indexes: HashMap::new(),
+        }
+    }
 }
 
 /// Ensures an instance of milli (represented by just a directory) is initialized
@@ -39,10 +47,7 @@ fn ensure_instance_initialized(instance_dir: &String) -> Result<()> {
         // Now that we have the write lock, check that we actually need to do anything
         if !instances.contains_key(instance_dir) {
             create_dir_all(instance_dir)?;
-            let new_instance = Instance {
-                indexes: RwLock::new(HashMap::new()),
-            };
-            instances.insert(instance_dir.clone(), new_instance);
+            instances.insert(instance_dir.clone(), Instance::new());
         }
     }
 
@@ -53,13 +58,13 @@ fn ensure_instance_initialized(instance_dir: &String) -> Result<()> {
 fn ensure_index_initialized(instance_dir: &String, index_name: &String) -> Result<()> {
     ensure_instance_initialized(instance_dir)?;
     let instances = INSTANCES.read();
-    let instance = instances.get(instance_dir).unwrap();
-    let indexes = instance.indexes.read();
+    let indexes = &instances.get(instance_dir).unwrap().indexes;
 
     // If this index does not yet exist, create it
     if !indexes.contains_key(index_name) {
-        drop(indexes); // prevent deadlock with the prev read lock and now write lock
-        let mut indexes = instance.indexes.write();
+        drop(instances); // prevent deadlock with the prev read lock and now write lock
+        let mut instances = INSTANCES.write();
+        let indexes = &mut instances.get_mut(instance_dir).unwrap().indexes;
 
         // Perhaps the index was initialized while we were waiting to get the lock
         // Now that we have the write lock, check that we actually need to do anything
@@ -68,30 +73,25 @@ fn ensure_index_initialized(instance_dir: &String, index_name: &String) -> Resul
             create_dir_all(&path)?;
             let mut options = EnvOpenOptions::new();
             options.map_size(MAX_MAP_SIZE);
-            let index = Index::new(options, &path).unwrap();
-            indexes.insert(index_name.clone(), Mutex::new(index));
+            let index = Index::new(options, &path)?;
+            indexes.insert(index_name.clone(), RwLock::new(index));
         }
     }
 
     Ok(())
 }
 
-macro_rules! get_instances {
-    () => {
-        INSTANCES.read()
-    };
-}
-
-macro_rules! get_indexes {
-    ($instances:ident, $instance_dir:ident) => {
-        $instances.get(&$instance_dir).unwrap().indexes.read()
-    };
-}
-
-macro_rules! get_index {
-    ($instance:ident, $index_name:ident) => {
-        $instance.get(&$index_name).unwrap().lock()
-    };
+fn get_index_lock<'a>(
+    instances: &'a HashMap<String, Instance>,
+    instance_dir: &'a str,
+    index_name: &'a str,
+) -> &'a RwLock<Index> {
+    instances
+        .get(instance_dir)
+        .unwrap()
+        .indexes
+        .get(index_name)
+        .unwrap()
 }
 
 // We need this because there is not variant of obkv_to_json that uses all fields in obkv
@@ -119,9 +119,9 @@ pub fn add_documents(
     json_documents: Vec<String>,
 ) -> Result<()> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.write();
 
     // Create a batch builder to convert json_documents into milli's format
     let mut builder = DocumentsBatchBuilder::new(Vec::new());
@@ -171,9 +171,9 @@ pub fn delete_documents(
     document_ids: Vec<String>,
 ) -> Result<()> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.write();
 
     let mut wtxn = index.write_txn()?;
     let mut builder = update::DeleteDocuments::new(&mut wtxn, &index)?;
@@ -189,9 +189,9 @@ pub fn delete_documents(
 /// Deletes all the documents from the milli index
 pub fn delete_all_documents(instance_dir: String, index_name: String) -> Result<()> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.write();
 
     let mut wtxn = index.write_txn()?;
     let builder = update::ClearDocuments::new(&mut wtxn, &index);
@@ -219,9 +219,9 @@ pub fn get_document(
     document_id: String,
 ) -> Result<Option<String>> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.read();
 
     let rtxn = index.read_txn()?;
     let fields_ids_map = index.fields_ids_map(&rtxn)?;
@@ -240,9 +240,9 @@ pub fn get_document(
 /// Returns all documents stored in the index.
 pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec<String>> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.read();
 
     let rtxn = index.read_txn()?;
     let fields_ids_map = index.fields_ids_map(&rtxn)?;
@@ -387,9 +387,9 @@ pub fn search_documents(
     matching_strategy: TermsMatchingStrategy,
 ) -> Result<Vec<String>> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.read();
 
     // Delete the following two lines once the following is resolved:
     // https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
@@ -460,9 +460,9 @@ pub struct MimirIndexSettings {
 /// Gets the settings of the specified index
 pub fn get_settings(instance_dir: String, index_name: String) -> Result<MimirIndexSettings> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.read();
 
     let rtxn = index.read_txn()?;
     Ok(MimirIndexSettings {
@@ -528,9 +528,9 @@ pub fn set_settings(
     settings: MimirIndexSettings,
 ) -> Result<()> {
     ensure_index_initialized(&instance_dir, &index_name)?;
-    let instances = get_instances!();
-    let indexes = get_indexes!(instances, instance_dir);
-    let index = get_index!(indexes, index_name);
+    let instances = INSTANCES.read();
+    let index_lock = get_index_lock(&instances, &instance_dir, &index_name);
+    let index = index_lock.write();
 
     // Destructure the settings into the corresponding fields
     let MimirIndexSettings {
