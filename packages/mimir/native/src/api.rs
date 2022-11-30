@@ -94,22 +94,6 @@ fn get_index_lock<'a>(
         .unwrap()
 }
 
-// We need this because there is not variant of obkv_to_json that uses all fields in obkv
-macro_rules! milli_doc_to_json_string {
-    ($document:ident, $fields_ids_map:ident) => {{
-        let obj = milli::obkv_to_json(
-            $document
-                .iter()
-                .map(|(k, _v)| k)
-                .collect::<Vec<_>>()
-                .as_slice(),
-            &$fields_ids_map,
-            $document.clone(),
-        )?;
-        serde_json::to_string(&obj).map_err(anyhow::Error::from)
-    }};
-}
-
 /// Adds the given list of documents to the specified milli index
 ///
 /// Replaces documents that already exist in the index based on document ids.
@@ -234,7 +218,10 @@ pub fn get_document(
     let (_id, document) = documents
         .first()
         .ok_or_else(|| anyhow!("Missing document"))?;
-    milli_doc_to_json_string!(document, fields_ids_map).map(Some)
+    let obj = milli::all_obkv_to_json(*document, &fields_ids_map)?;
+    serde_json::to_string(&obj)
+        .map(Some)
+        .map_err(anyhow::Error::from)
 }
 
 /// Returns all documents stored in the index.
@@ -248,10 +235,8 @@ pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec
     let fields_ids_map = index.fields_ids_map(&rtxn)?;
     let documents = index.all_documents(&rtxn)?;
     documents
-        .map(|result| {
-            let (_id, document) = result?;
-            milli_doc_to_json_string!(document, fields_ids_map)
-        })
+        .map(|doc| milli::all_obkv_to_json(doc?.1, &fields_ids_map))
+        .map(|obj| serde_json::to_string(&obj?).map_err(anyhow::Error::from))
         .collect()
 }
 
@@ -430,7 +415,8 @@ pub fn search_documents(
     index
         .documents(&rtxn, documents_ids)?
         .iter()
-        .map(|(_id, document)| milli_doc_to_json_string!(document, fields_ids_map))
+        .map(|(_id, doc)| milli::all_obkv_to_json(*doc, &fields_ids_map))
+        .map(|obj| serde_json::to_string(&obj?).map_err(anyhow::Error::from))
         .collect()
 }
 
