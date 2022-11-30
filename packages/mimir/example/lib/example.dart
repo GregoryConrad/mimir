@@ -59,7 +59,13 @@ Future<void> run(String path, DynamicLibrary lib) async {
   // for performance reasons, which is why we do it above.
   final response = await http.get(uri);
   final jsonList = json.decode(response.body) as List;
-  final docs = jsonList.cast<Map<String, dynamic>>();
+  final docs = jsonList.cast<Map<String, dynamic>>().map((d) {
+    // Add in the required id field by copying & modifying the title + year
+    final disallowedInId = RegExp(r'[^a-zA-Z0-9-_]');
+    String newId = d['title'] + d['year'].toString();
+    newId = newId.replaceAll(disallowedInId, '');
+    return d..['id'] = newId;
+  }).toList();
   await index.addDocuments(docs);
 
   // Now, let's perform a search on the documents!
