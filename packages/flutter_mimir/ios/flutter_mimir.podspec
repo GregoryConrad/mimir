@@ -1,16 +1,21 @@
 release_tag_name = 'mimir-v0.0.0-dev.5' # generated; do not edit
 
 # We cannot distribute the XCFramework alongside the library directly,
-# so we have to fetch the latest version here.
+# so we have to fetch the correct version here.
 framework_name = 'EmbeddedMilli.xcframework'
-zip_name = "#{framework_name}.zip"
-url = "https://github.com/GregoryConrad/mimir/releases/download/#{release_tag_name}/#{zip_name}"
+remote_zip_name = "#{framework_name}.zip"
+url = "https://github.com/GregoryConrad/mimir/releases/download/#{release_tag_name}/#{remote_zip_name}"
+local_zip_name = "#{release_tag_name}.zip"
 `
 cd Frameworks
-rm #{framework_name}
-curl -OL #{url}
-unzip #{zip_name}
-rm #{zip_name}
+rm -rf #{framework_name}
+
+if [ ! -f #{local_zip_name} ]
+then
+  curl -L #{url} -o #{local_zip_name}
+fi
+
+unzip #{local_zip_name}
 cd -
 `
 
