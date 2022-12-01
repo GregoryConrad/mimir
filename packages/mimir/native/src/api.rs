@@ -129,7 +129,6 @@ pub fn add_documents(
     let instances = get_instances!();
     let indexes = get_indexes!(instances, instance_dir);
     let index = get_index!(indexes, index_name);
-    return Ok(());
 
     // Create a batch builder to convert json_documents into milli's format
     let mut builder = DocumentsBatchBuilder::new(Vec::new());
