@@ -12,13 +12,17 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 # Download the binaries if they are not already present.
 set(MimirLibRoot "${CMAKE_CURRENT_SOURCE_DIR}/${MimirVersion}")
 set(MimirArchivePath "${MimirLibRoot}.tar.gz")
-if(NOT IS_DIRECTORY ${MimirLibRoot})
-  file(MAKE_DIRECTORY ${MimirLibRoot})
+if(NOT EXISTS ${MimirArchivePath})
   file(DOWNLOAD
     "https://github.com/GregoryConrad/mimir/releases/download/${MimirVersion}/EmbeddedMilli.tar.gz"
     ${MimirArchivePath}
     TLS_VERIFY ON
   )
+endif()
+
+# Extract the binaries if they haven't been extracted already.
+if(NOT IS_DIRECTORY ${MimirLibRoot})
+  file(MAKE_DIRECTORY ${MimirLibRoot})
   execute_process(
     COMMAND ${CMAKE_COMMAND} -E tar xzf ${MimirArchivePath}
     WORKING_DIRECTORY ${MimirLibRoot}
