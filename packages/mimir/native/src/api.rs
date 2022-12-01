@@ -5,8 +5,7 @@ use flutter_rust_bridge::frb;
 use lazy_static::lazy_static;
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
-    heed::EnvOpenOptions,
-    update, AscDesc, Criterion, Index, Member, Search, SearchResult,
+    heed, update, AscDesc, Criterion, Index, Member, Search, SearchResult,
 };
 use parking_lot::RwLock;
 
@@ -32,6 +31,33 @@ impl Instance {
             indexes: HashMap::new(),
         }
     }
+}
+
+fn _messin_around(instance_dir: &str) -> Result<()> {
+    const INSTANCE_DB_DIR_NAME: &str = "mimir_instance_data.mdb";
+    const INSTANCE_U32_OPTS_DB_NAME: &str = "u32_options";
+    const INSTANCE_MILLI_VERSION_KEY: &str = "milli_version";
+
+    let path = Path::new(instance_dir).join(INSTANCE_DB_DIR_NAME);
+    create_dir_all(&path)?;
+    let env = heed::EnvOpenOptions::new()
+        .map_size(MAX_MAP_SIZE)
+        .max_dbs(128)
+        .max_readers(4096)
+        .open(&path)?;
+    let db: heed::Database<heed::types::Str, heed::types::OwnedType<u32>> =
+        env.create_database(Some(INSTANCE_U32_OPTS_DB_NAME))?;
+
+    let mut wtxn = env.write_txn()?;
+    db.put(&mut wtxn, INSTANCE_MILLI_VERSION_KEY, &0)?;
+    db.put(&mut wtxn, INSTANCE_MILLI_VERSION_KEY, &3)?;
+    wtxn.commit()?;
+
+    let rtxn = env.read_txn()?;
+    let milli_version = db.get(&rtxn, INSTANCE_MILLI_VERSION_KEY)?;
+    assert_eq!(milli_version, Some(3));
+
+    Ok(())
 }
 
 /// Ensures an instance of milli (represented by just a directory) is initialized
@@ -71,7 +97,7 @@ fn ensure_index_initialized(instance_dir: &String, index_name: &String) -> Resul
         if !indexes.contains_key(index_name) {
             let path = Path::new(instance_dir).join(index_name);
             create_dir_all(&path)?;
-            let mut options = EnvOpenOptions::new();
+            let mut options = heed::EnvOpenOptions::new();
             options.map_size(MAX_MAP_SIZE);
             let index = Index::new(options, &path)?;
             indexes.insert(index_name.clone(), RwLock::new(index));
