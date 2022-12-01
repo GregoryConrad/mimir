@@ -42,57 +42,112 @@ jobs:
       - name: Run tests
         run: melos run test
 
-  # TODO For integration tests, maybe see:
-  # https://github.com/fzyzcjy/flutter_rust_bridge/blob/master/.github/workflows/flutter_ios_test.yml
-
-  # TODO Flutter desktop integration tests
-  desktop_integration_tests:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        package_path:
-          - packages/flutter_mimir
-          - packages/flutter_mimir/example
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: ${{ matrix.package_path }}
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
-
-  # TODO Flutter iOS integration tests
-  ios_integration_tests:
-    strategy:
-      matrix:
-        package_path:
-          - packages/flutter_mimir
-          - packages/flutter_mimir/example
+  macos_integration_test:
     runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: ${{ matrix.package_path }}
 
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
 
-  # TODO Flutter Android integration tests
-  android_integration_tests:
-    strategy:
-      matrix:
-        package_path:
-          - packages/flutter_mimir
-          - packages/flutter_mimir/example
+      - name: Build the XCFramework
+        run: melos run build:apple
+      - name: Copy the XCFramework to the needed location
+        run: |
+          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
+          cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/macos/Frameworks/$CURR_VERSION.zip
+          echo Copied file!
+
+      - name: Run Flutter integration tests
+        working-directory: packages/flutter_mimir/example
+        run: flutter test -d macos integration_test
+
+  windows_integration_test:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
+      - uses: goto-bus-stop/setup-zig@v2
+      - uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "15"
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Build the binaries
+        run: melos run build:other
+      - name: Copy the binaries to the needed location
+        shell: bash
+        run: |
+          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
+          cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/windows/$CURR_VERSION.tar.gz
+          echo Copied file!
+
+      - name: Run Flutter integration tests
+        working-directory: packages/flutter_mimir/example
+        run: flutter test -d windows integration_test
+
+  linux_integration_test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ matrix.package_path }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies for flutter integration test
+        run: sudo apt update && sudo apt-get install -y libglu1-mesa ninja-build clang cmake pkg-config libgtk-3-dev liblzma-dev
+      - uses: pyvista/setup-headless-display-action@v1
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
+      - uses: goto-bus-stop/setup-zig@v2
+      - uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "14" # TODO update to 15
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Build the binaries
+        run: melos run build:other
+      - name: Copy the binaries to the needed location
+        run: |
+          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
+          cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/linux/$CURR_VERSION.tar.gz
+          echo Copied file!
+
+      - name: Run Flutter integration tests
+        working-directory: packages/flutter_mimir/example
+        run: flutter test -d linux integration_test
+
+  ios_integration_test:
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Start iOS Simulator
+        run: |
+          DEVICE_ID=$(xcrun xctrace list devices | grep iPhone | head -1 | awk '{print $NF}' | tr -d '()')
+          echo "DEVICE_ID=$DEVICE_ID" >> $GITHUB_ENV
+          xcrun simctl boot $DEVICE_ID
+
+      - name: Build the XCFramework
+        run: melos run build:apple
+      - name: Copy the XCFramework to the needed location
+        run: |
+          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
+          cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/ios/Frameworks/$CURR_VERSION.zip
+          echo Copied file!
+
+      - name: Run Flutter integration tests
+        working-directory: packages/flutter_mimir/example
+        run: flutter test -d ${{ env.DEVICE_ID }} integration_test

@@ -29,9 +29,8 @@ fn main() {
     }
 
     // Format the generated Dart code
-    std::process::Command::new("flutter")
+    let _format_result = std::process::Command::new("flutter")
         .arg("format")
         .arg("..")
-        .spawn()
-        .expect("Failed to format the generated dart code");
+        .spawn();
 }
