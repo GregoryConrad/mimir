@@ -26,7 +26,7 @@ jobs:
 
       # Rust
       - name: Check Rust code format with rustfmt
-        working-directory: ./packages/mimir/native
+        working-directory: ./packages/mimir/native/src
         run: rustfmt --check lib.rs
       - name: Check Rust code with clippy
         working-directory: ./packages/mimir/native
