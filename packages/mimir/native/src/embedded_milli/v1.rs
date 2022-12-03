@@ -16,6 +16,7 @@ pub struct EmbeddedMilli;
 
 impl super::EmbeddedMilli for EmbeddedMilli {
     fn ensure_instance_initialized(instance_dir: &str) -> Result<()> {
+        super::ensure_instance_dbs_initialized(instance_dir)?;
         let instances = INSTANCES.read();
 
         // If this instance does not yet exist, create it
@@ -35,6 +36,7 @@ impl super::EmbeddedMilli for EmbeddedMilli {
     }
 
     fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> Result<()> {
+        super::ensure_index_migrated(instance_dir, index_name)?;
         Self::ensure_instance_initialized(instance_dir)?;
         let instances = INSTANCES.read();
         let indexes = &instances.get(instance_dir).unwrap().indexes;
@@ -427,13 +429,9 @@ impl TermsMatchingStrategy {
     }
 }
 
-fn create_token(s: &String) -> filter_parser::Token {
-    filter_parser::Span::new_extra(s, s).into()
-}
-
 fn create_condition<'a>(s: &'a String, cond: milli::Condition<'a>) -> milli::FilterCondition<'a> {
     milli::FilterCondition::Condition {
-        fid: create_token(s),
+        fid: s.as_str().into(),
         op: cond,
     }
 }
@@ -450,35 +448,35 @@ fn create_filter_condition(f: &Filter) -> milli::FilterCondition {
             milli::FilterCondition::Not(Box::new(create_filter_condition(filter)))
         }
         Filter::InValues { field, values } => milli::FilterCondition::In {
-            fid: create_token(field),
-            els: values.iter().map(create_token).collect(),
+            fid: field.as_str().into(),
+            els: values.iter().map(String::as_str).map(Into::into).collect(),
         },
         Filter::Exists { field } => create_condition(field, milli::Condition::Exists),
         Filter::GreaterThan { field, value } => {
-            create_condition(field, milli::Condition::GreaterThan(create_token(value)))
+            create_condition(field, milli::Condition::GreaterThan(value.as_str().into()))
         }
         Filter::GreaterThanOrEqual { field, value } => create_condition(
             field,
-            milli::Condition::GreaterThanOrEqual(create_token(value)),
+            milli::Condition::GreaterThanOrEqual(value.as_str().into()),
         ),
         Filter::Equal { field, value } => {
-            create_condition(field, milli::Condition::Equal(create_token(value)))
+            create_condition(field, milli::Condition::Equal(value.as_str().into()))
         }
         Filter::NotEqual { field, value } => {
-            create_condition(field, milli::Condition::NotEqual(create_token(value)))
+            create_condition(field, milli::Condition::NotEqual(value.as_str().into()))
         }
         Filter::LessThan { field, value } => {
-            create_condition(field, milli::Condition::LowerThan(create_token(value)))
+            create_condition(field, milli::Condition::LowerThan(value.as_str().into()))
         }
         Filter::LessThanOrEqual { field, value } => create_condition(
             field,
-            milli::Condition::LowerThanOrEqual(create_token(value)),
+            milli::Condition::LowerThanOrEqual(value.as_str().into()),
         ),
         Filter::Between { field, from, to } => create_condition(
             field,
             milli::Condition::Between {
-                from: create_token(from),
-                to: create_token(to),
+                from: from.as_str().into(),
+                to: to.as_str().into(),
             },
         ),
     }
