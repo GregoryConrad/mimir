@@ -7,13 +7,27 @@ pub extern "C" fn wire_enforce_binding(port_: i64) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_ensure_instance_initialized(port_: i64, instace_dir: *mut wire_uint_8_list) {
+    wire_ensure_instance_initialized_impl(port_, instace_dir)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_ensure_index_initialized(
+    port_: i64,
+    instance_dir: *mut wire_uint_8_list,
+    index_name: *mut wire_uint_8_list,
+) {
+    wire_ensure_index_initialized_impl(port_, instance_dir, index_name)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_add_documents(
     port_: i64,
     instance_dir: *mut wire_uint_8_list,
     index_name: *mut wire_uint_8_list,
-    json_documents: *mut wire_StringList,
+    documents: *mut wire_StringList,
 ) {
-    wire_add_documents_impl(port_, instance_dir, index_name, json_documents)
+    wire_add_documents_impl(port_, instance_dir, index_name, documents)
 }
 
 #[no_mangle]
@@ -40,9 +54,9 @@ pub extern "C" fn wire_set_documents(
     port_: i64,
     instance_dir: *mut wire_uint_8_list,
     index_name: *mut wire_uint_8_list,
-    json_documents: *mut wire_StringList,
+    documents: *mut wire_StringList,
 ) {
-    wire_set_documents_impl(port_, instance_dir, index_name, json_documents)
+    wire_set_documents_impl(port_, instance_dir, index_name, documents)
 }
 
 #[no_mangle]

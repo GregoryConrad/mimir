@@ -24,7 +24,7 @@ class MimirIndexImpl with MimirIndex {
     await milli.addDocuments(
       instanceDir: instanceDir,
       indexName: name,
-      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
+      documents: documents.map((d) => json.encode(d)).toList(),
     );
     _changes.add(null);
   }
@@ -53,7 +53,7 @@ class MimirIndexImpl with MimirIndex {
     await milli.setDocuments(
       instanceDir: instanceDir,
       indexName: name,
-      jsonDocuments: documents.map((d) => json.encode(d)).toList(),
+      documents: documents.map((d) => json.encode(d)).toList(),
     );
     _changes.add(null);
   }

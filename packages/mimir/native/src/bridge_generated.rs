@@ -31,11 +31,45 @@ fn wire_enforce_binding_impl(port_: MessagePort) {
         move || move |task_callback| Ok(enforce_binding()),
     )
 }
+fn wire_ensure_instance_initialized_impl(
+    port_: MessagePort,
+    instace_dir: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "ensure_instance_initialized",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_instace_dir = instace_dir.wire2api();
+            move |task_callback| ensure_instance_initialized(api_instace_dir)
+        },
+    )
+}
+fn wire_ensure_index_initialized_impl(
+    port_: MessagePort,
+    instance_dir: impl Wire2Api<String> + UnwindSafe,
+    index_name: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "ensure_index_initialized",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_instance_dir = instance_dir.wire2api();
+            let api_index_name = index_name.wire2api();
+            move |task_callback| ensure_index_initialized(api_instance_dir, api_index_name)
+        },
+    )
+}
 fn wire_add_documents_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,
     index_name: impl Wire2Api<String> + UnwindSafe,
-    json_documents: impl Wire2Api<Vec<String>> + UnwindSafe,
+    documents: impl Wire2Api<Vec<String>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -46,8 +80,8 @@ fn wire_add_documents_impl(
         move || {
             let api_instance_dir = instance_dir.wire2api();
             let api_index_name = index_name.wire2api();
-            let api_json_documents = json_documents.wire2api();
-            move |task_callback| add_documents(api_instance_dir, api_index_name, api_json_documents)
+            let api_documents = documents.wire2api();
+            move |task_callback| add_documents(api_instance_dir, api_index_name, api_documents)
         },
     )
 }
@@ -95,7 +129,7 @@ fn wire_set_documents_impl(
     port_: MessagePort,
     instance_dir: impl Wire2Api<String> + UnwindSafe,
     index_name: impl Wire2Api<String> + UnwindSafe,
-    json_documents: impl Wire2Api<Vec<String>> + UnwindSafe,
+    documents: impl Wire2Api<Vec<String>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -106,8 +140,8 @@ fn wire_set_documents_impl(
         move || {
             let api_instance_dir = instance_dir.wire2api();
             let api_index_name = index_name.wire2api();
-            let api_json_documents = json_documents.wire2api();
-            move |task_callback| set_documents(api_instance_dir, api_index_name, api_json_documents)
+            let api_documents = documents.wire2api();
+            move |task_callback| set_documents(api_instance_dir, api_index_name, api_documents)
         },
     )
 }
