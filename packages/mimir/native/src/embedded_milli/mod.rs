@@ -131,21 +131,18 @@ pub(crate) fn ensure_instance_initialized(instance_dir: &str) -> Result<()> {
     Ok(())
 }
 
-pub(crate) fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> Result<()> {
-    ensure_instance_initialized(instance_dir)?;
+fn ensure_index_migrated(instance_dir: &str, index_name: &str) -> Result<()> {
     let instances = INSTANCES.read();
     let instance = instances.get(instance_dir).unwrap();
-
-    // Handle any migration needed for the index
     let milli_version = instance.milli_index_version(index_name)?;
     match milli_version {
-        Some(CURR_EMBEDDED_MILLI_VERSION) => (), // already at latest version
+        Some(CURR_EMBEDDED_MILLI_VERSION) => Ok(()), // already at latest version
         None => {
             // Registering a new index, let's put it in the database
             drop(instances);
             let mut instances = INSTANCES.write();
             let instance = instances.get_mut(instance_dir).unwrap();
-            instance.update_milli_index_version(index_name)?;
+            instance.update_milli_index_version(index_name)
         }
         Some(old_milli_version) => {
             // Index using an old version of milli, let's migrate it to the latest
@@ -188,14 +185,18 @@ pub(crate) fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> 
                 }
             };
 
-            migration_status?;
+            migration_status
         }
     }
+}
 
-    // If this index does not yet exist, create it
+pub(crate) fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> Result<()> {
+    ensure_instance_initialized(instance_dir)?;
+    ensure_index_migrated(instance_dir, index_name)?;
+
+    // If this index does not yet exist in memory or on disk, create it
     let instances = INSTANCES.read();
-    let instance = instances.get(instance_dir).unwrap();
-    let indexes = &instance.indexes;
+    let indexes = &instances.get(instance_dir).unwrap().indexes;
     if !indexes.contains_key(index_name) {
         drop(instances); // prevent deadlock with the prev read lock and now write lock
         let mut instances = INSTANCES.write();
