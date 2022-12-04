@@ -1,3 +1,7 @@
+## 0.0.0
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.0.0-dev.5
 
  - **FIX**: add FLUTTER_TARGET_PLATFORM to windows cmake.
