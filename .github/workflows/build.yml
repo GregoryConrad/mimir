@@ -25,21 +25,22 @@ jobs:
           components: rustfmt, clippy
 
       # Rust
-      - name: Check Rust code format with rustfmt
+      - name: Check Rust format
         working-directory: ./packages/mimir/native/src
         run: rustfmt --check lib.rs
-      - name: Check Rust code with clippy
-        working-directory: ./packages/mimir/native
+      - name: Rust code analysis
         run: cargo clippy -- -D warnings
-      - name: Build Rust code (embedded_milli)
+      - name: Run Rust tests
+        run: cargo test
+      - name: Build Rust code (embedded_milli) for Dart tests
         run: cargo build -r
 
       # Dart/Flutter
-      - name: Check format
+      - name: Check Dart format
         run: melos run check-format --no-select
-      - name: Analyze
+      - name: Dart code analysis
         run: melos run analyze --no-select
-      - name: Run tests
+      - name: Run Dart tests
         run: melos run test
 
   macos_integration_test:

@@ -66,6 +66,7 @@ pub enum Filter {
 }
 
 /// Represents the synonyms of a given word
+#[derive(Clone, Debug, Eq, PartialEq)]
 #[frb(dart_metadata=("freezed"))]
 pub struct Synonyms {
     pub word: String,
@@ -73,6 +74,7 @@ pub struct Synonyms {
 }
 
 /// The settings of a mimir index
+#[derive(Clone, Debug, Eq, PartialEq)]
 #[frb(dart_metadata=("freezed"))]
 pub struct MimirIndexSettings {
     pub searchable_fields: Option<Vec<String>>,

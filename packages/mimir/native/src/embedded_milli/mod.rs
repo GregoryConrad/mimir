@@ -104,11 +104,15 @@ impl Instance {
     }
 
     // &mut self so that we are forced to grab write lock to use this method
-    fn update_milli_index_version(&mut self, index_name: &str) -> Result<()> {
+    fn set_milli_index_version(&mut self, index_name: &str, version: u32) -> Result<()> {
         let mut wtxn = self.env.write_txn()?;
         self.index_milli_versions
-            .put(&mut wtxn, index_name, &CURR_EMBEDDED_MILLI_VERSION)?;
+            .put(&mut wtxn, index_name, &version)?;
         wtxn.commit().map_err(anyhow::Error::from)
+    }
+
+    fn update_milli_index_version(&mut self, index_name: &str) -> Result<()> {
+        self.set_milli_index_version(index_name, CURR_EMBEDDED_MILLI_VERSION)
     }
 }
 
@@ -206,10 +210,7 @@ pub(crate) fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> 
         // Now that we have the write lock, check that we actually need to do anything
         if !indexes.contains_key(index_name) {
             let path = Path::new(instance_dir).join(index_name);
-            fs::create_dir_all(&path)?;
-            let mut options = heed::EnvOpenOptions::new();
-            options.map_size(MAX_MAP_SIZE);
-            let index = Index::new(options, &path)?;
+            let index = CurrEmbeddedMilli::create_index(&path)?;
             indexes.insert(index_name.to_string(), RwLock::new(index));
         }
     }
@@ -316,4 +317,67 @@ pub(crate) fn set_settings(
     run_with_index_lock(instance_dir, index_name, |index_lock| {
         CurrEmbeddedMilli::set_settings(&index_lock.write(), settings)
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{
+        api::MimirIndexSettings,
+        embedded_milli::{
+            ensure_index_initialized, get_all_documents, get_settings, EmbeddedMilli, Instance,
+        },
+    };
+    use anyhow::Result;
+    use serde_json::json;
+    use std::{env::temp_dir, path::Path};
+
+    #[test]
+    fn migration_from_v1() -> Result<()> {
+        use crate::embedded_milli::v1::EmbeddedMilli;
+        let migrate_from_version = 1;
+
+        let tmp_path = temp_dir().join("migration_from_v1_test");
+        let tmp_dir = tmp_path.as_os_str().to_str().unwrap();
+        let index_name = "test-v1-index";
+        let index_path = &Path::new(tmp_dir).join(index_name);
+
+        let actual_settings = MimirIndexSettings {
+            searchable_fields: None,
+            filterable_fields: Vec::new(),
+            sortable_fields: Vec::new(),
+            ranking_rules: Vec::new(),
+            stop_words: Vec::new(),
+            synonyms: Vec::new(),
+            typos_enabled: true,
+            min_word_size_for_one_typo: 3,
+            min_word_size_for_two_typos: 4,
+            disallow_typos_on_words: Vec::new(),
+            disallow_typos_on_fields: Vec::new(),
+        };
+        let actual_documents = vec![json!({
+            "id": 1234,
+            "some-field": "some test text data",
+        })]
+        .iter()
+        .map(|doc| doc.as_object().unwrap().clone())
+        .collect::<Vec<_>>();
+
+        // Set up the instance with info for migration
+        let mut instance = Instance::new(tmp_dir).unwrap();
+        instance.set_milli_index_version(index_name, migrate_from_version)?;
+        instance.env.prepare_for_closing().wait();
+        EmbeddedMilli::import_dump(
+            index_path,
+            (actual_settings.clone(), actual_documents.clone()),
+        )?;
+
+        // Perform the migration by initializing the current version instance & index
+        ensure_index_initialized(tmp_dir, index_name)?;
+
+        // Ensure info from the latest version is correct
+        assert_eq!(get_all_documents(tmp_dir, index_name)?, actual_documents);
+        assert_eq!(get_settings(tmp_dir, index_name)?, actual_settings);
+
+        Ok(())
+    }
 }
