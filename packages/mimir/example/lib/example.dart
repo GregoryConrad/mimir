@@ -43,9 +43,6 @@ Future<void> run(String path, DynamicLibrary lib) async {
   // We also could have just created a new settings object like:
   // `new MimirIndexSettings(...)`.
   await index.updateSettings(
-    // By default, we cannot sort by any fields (to save device memory).
-    // Let's also specify that we want to sort based on a movie's year:
-    sortableFields: ['year'],
     // By default, mimir allows you to search by any fields in the documents
     // you add to an index. While this is convenient, it can often use more
     // memory than is really required on a device. To improve effeciency,
