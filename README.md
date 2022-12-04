@@ -64,14 +64,16 @@ final moviesIndex = instance.getIndex('movies');
 await index.updateSettings(...); // see setSettings below for arguments
 final currSettings = await index.getSettings();
 await index.setSettings(currSettings.copyWith(
-  // Fields in the document that are included in full-text search.
+  // Fields in documents that are included in full-text search.
   // Use null, the default, to search all fields
   searchableFields: <String>[],
-  // Fields in the document that can be queried/filtered by.
+  // Fields in documents that can be queried/filtered by.
   // You probably don't need to change this; it is automatically
   // updated for you.
   filterableFields: <String>[],
-  // Fields in the document that can be sorted by in searches/queries.
+  // Fields in documents that can be sorted by in searches/queries.
+  // You probably don't need to change this; it is automatically
+  // updated for you.
   sortableFields: <String>[],
   // The ranking rules of this index, see:
   // https://docs.meilisearch.com/reference/api/settings.html#ranking-rules

@@ -168,23 +168,30 @@ class MimirIndexImpl with MimirIndex {
       );
       return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
     } on FfiException catch (e) {
-      // Check to see if this error was caused by any filters not being
-      // indexed for search
+      // Check to see if this error was caused by any filters or sortBys
+      // not being indexed for search
       final filtersNotAdded = filter != null &&
           e.code == 'RESULT_ERROR' &&
           e.message.contains('not filterable');
+      final sortBysNotAdded = sortBy != null &&
+          e.code == 'RESULT_ERROR' &&
+          e.message.contains('not sortable');
 
-      // If so, let's add them as a convenience to the user
-      if (filtersNotAdded) {
-        // Update the current settings to include the filters
+      if (filtersNotAdded || sortBysNotAdded) {
         final currSettings = await getSettings();
+
         final filterableFields = currSettings.filterableFields.toSet()
-          ..addAll(_getFieldsFromFilter(filter));
+          ..addAll(filter?.getFields() ?? []);
+        final sortableFields = currSettings.sortableFields.toSet()
+          ..addAll(sortBy?.map((s) => s.field0) ?? []);
+
+        // Update the current settings to include the filters/sortBys
         await setSettings(currSettings.copyWith(
           filterableFields: filterableFields.toList(),
+          sortableFields: sortableFields.toList(),
         ));
 
-        // Finally, retry the search with the filterable fields added
+        // Finally, retry the search with the new settings configuration
         return search(
           query: query,
           resultsLimit: resultsLimit,
@@ -193,27 +200,10 @@ class MimirIndexImpl with MimirIndex {
           filter: filter,
         );
       } else {
-        // Not an error caused by missing filterable fields; rethrow it
+        // Not an error caused by missing filterable/sortable fields; rethrow it
         rethrow;
       }
     }
-  }
-
-  Iterable<String> _getFieldsFromFilter(Filter filter) {
-    return filter.when(
-      or: (filters) => filters.expand(_getFieldsFromFilter),
-      and: (filters) => filters.expand(_getFieldsFromFilter),
-      not: (filter) => _getFieldsFromFilter(filter),
-      exists: (field) => [field],
-      inValues: (field, _) => [field],
-      greaterThan: (field, _) => [field],
-      greaterThanOrEqual: (field, _) => [field],
-      equal: (field, _) => [field],
-      notEqual: (field, _) => [field],
-      lessThan: (field, _) => [field],
-      lessThanOrEqual: (field, _) => [field],
-      between: (field, _, __) => [field],
-    );
   }
 
   @override
@@ -247,4 +237,25 @@ class MimirIndexImpl with MimirIndex {
       ),
     );
   }
+}
+
+extension on Filter {
+  Iterable<String> _convert(Filter filter) {
+    return filter.when(
+      or: (filters) => filters.expand(_convert),
+      and: (filters) => filters.expand(_convert),
+      not: (filter) => _convert(filter),
+      exists: (field) => [field],
+      inValues: (field, _) => [field],
+      greaterThan: (field, _) => [field],
+      greaterThanOrEqual: (field, _) => [field],
+      equal: (field, _) => [field],
+      notEqual: (field, _) => [field],
+      lessThan: (field, _) => [field],
+      lessThanOrEqual: (field, _) => [field],
+      between: (field, _, __) => [field],
+    );
+  }
+
+  Iterable<String> getFields() => _convert(this);
 }
