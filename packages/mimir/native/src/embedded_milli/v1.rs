@@ -384,6 +384,161 @@ impl super::EmbeddedMilli for EmbeddedMilli {
         builder.execute(|_| {}, || false)?;
         wtxn.commit().map_err(anyhow::Error::from)
     }
+
+    fn dump(instance_dir: &str, index_name: &str) -> Result<super::MilliDump> {
+        // Initialize the index just for a dump
+        let mut options = heed::EnvOpenOptions::new();
+        options.map_size(super::MAX_MAP_SIZE);
+        let index = Index::new(options, Path::new(instance_dir).join(index_name))?;
+
+        let rtxn = index.read_txn()?;
+
+        let settings = MimirIndexSettings {
+            searchable_fields: index
+                .searchable_fields(&rtxn)?
+                .map(|fields| fields.into_iter().map(String::from).collect()),
+            filterable_fields: index.filterable_fields(&rtxn)?.into_iter().collect(),
+            sortable_fields: index.sortable_fields(&rtxn)?.into_iter().collect(),
+            ranking_rules: index
+                .criteria(&rtxn)?
+                .into_iter()
+                .map(|rule| match rule {
+                    Criterion::Words => "words",
+                    Criterion::Typo => "typo",
+                    Criterion::Proximity => "proximity",
+                    Criterion::Attribute => "attribute",
+                    Criterion::Sort => "sort",
+                    Criterion::Exactness => "exactness",
+                    Criterion::Asc(_) => "",
+                    Criterion::Desc(_) => "",
+                })
+                .filter(|s| !s.is_empty())
+                .map(String::from)
+                .collect(),
+            stop_words: index
+                .stop_words(&rtxn)?
+                .map(|words| words.stream().into_strs())
+                .unwrap_or_else(|| Ok(Vec::new()))?,
+            synonyms: index
+                .synonyms(&rtxn)?
+                .into_iter()
+                .map(|(word, synonyms)| {
+                    (
+                        word[0].clone(),
+                        synonyms
+                            .iter()
+                            .flat_map(|v| v.iter())
+                            .map(String::from)
+                            .collect(),
+                    )
+                })
+                .map(|(word, synonyms)| Synonyms { word, synonyms })
+                .collect(),
+            typos_enabled: index.authorize_typos(&rtxn)?,
+            min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?,
+            min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?,
+            disallow_typos_on_words: index
+                .exact_words(&rtxn)?
+                .map(|words| words.stream().into_strs())
+                .unwrap_or_else(|| Ok(Vec::new()))?,
+            disallow_typos_on_fields: index
+                .exact_attributes(&rtxn)?
+                .into_iter()
+                .map(String::from)
+                .collect(),
+        };
+
+        let fields_ids_map = index.fields_ids_map(&rtxn)?;
+        let documents = index.all_documents(&rtxn)?;
+        let documents = documents
+            .map(|doc| milli::all_obkv_to_json(doc?.1, &fields_ids_map))
+            .map(|r| r.map_err(anyhow::Error::from))
+            .collect::<Result<_>>()?;
+
+        // Close the index entirely
+        drop(rtxn);
+        index.prepare_for_closing().wait();
+
+        Ok((settings, documents))
+    }
+
+    fn import_dump(instance_dir: &str, index_name: &str, dump: super::MilliDump) -> Result<()> {
+        // Initialize the index just for a dump
+        let mut options = heed::EnvOpenOptions::new();
+        options.map_size(super::MAX_MAP_SIZE);
+        let index = Index::new(options, Path::new(instance_dir).join(index_name))?;
+        let mut wtxn = index.write_txn()?;
+        let (settings, documents) = dump;
+
+        // Destructure the settings into the corresponding fields
+        let MimirIndexSettings {
+            searchable_fields,
+            filterable_fields,
+            sortable_fields,
+            ranking_rules,
+            stop_words,
+            synonyms,
+            typos_enabled,
+            min_word_size_for_one_typo,
+            min_word_size_for_two_typos,
+            disallow_typos_on_words,
+            disallow_typos_on_fields,
+        } = settings;
+
+        // Set up the settings update
+        let indexer_config = update::IndexerConfig::default();
+        let mut builder = update::Settings::new(&mut wtxn, &index, &indexer_config);
+
+        // Copy over the given settings
+        match searchable_fields {
+            Some(fields) => builder.set_searchable_fields(fields),
+            None => builder.reset_searchable_fields(),
+        }
+        builder.set_filterable_fields(filterable_fields.into_iter().collect());
+        builder.set_sortable_fields(sortable_fields.into_iter().collect());
+        builder.set_criteria(ranking_rules);
+        builder.set_stop_words(stop_words.into_iter().collect());
+        builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
+        builder.set_autorize_typos(typos_enabled);
+        builder.set_min_word_len_one_typo(min_word_size_for_one_typo);
+        builder.set_min_word_len_two_typos(min_word_size_for_two_typos);
+        builder.set_exact_words(disallow_typos_on_words.into_iter().collect());
+        builder.set_exact_attributes(disallow_typos_on_fields.into_iter().collect());
+
+        // Execute the settings update
+        builder.execute(|_| {}, || false)?;
+
+        // Create a batch builder to convert json_documents into milli's format
+        let mut builder = DocumentsBatchBuilder::new(Vec::new());
+        for doc in documents {
+            builder.append_json_object(&doc)?;
+        }
+
+        // Flush the contents of the builder and retreive the buffer to make a batch reader
+        let buff = builder.into_inner()?;
+        let reader = DocumentsBatchReader::from_reader(Cursor::new(buff))?;
+
+        // Create the configs needed for the batch document addition
+        let indexer_config = update::IndexerConfig::default();
+        let indexing_config = update::IndexDocumentsConfig::default();
+
+        // Make an index write transaction with a batch step to index the new documents
+        update::IndexDocuments::new(
+            &mut wtxn,
+            &index,
+            &indexer_config,
+            indexing_config,
+            |_| (),
+            || false,
+        )?
+        .add_documents(reader)
+        .map(|t| t.0)?
+        .execute()?;
+
+        wtxn.commit()?;
+        index.prepare_for_closing().wait();
+        Ok(())
+    }
 }
 
 lazy_static! {
@@ -429,9 +584,9 @@ impl TermsMatchingStrategy {
     }
 }
 
-fn create_condition<'a>(s: &'a String, cond: milli::Condition<'a>) -> milli::FilterCondition<'a> {
+fn create_condition<'a>(s: &'a str, cond: milli::Condition<'a>) -> milli::FilterCondition<'a> {
     milli::FilterCondition::Condition {
-        fid: s.as_str().into(),
+        fid: s.into(),
         op: cond,
     }
 }
