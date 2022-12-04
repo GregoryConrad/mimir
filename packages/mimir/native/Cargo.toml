@@ -16,5 +16,5 @@ serde = "1.0.*"
 serde_json = "1.0.*"
 parking_lot = "0.12.*"
 lazy_static = "1.*"
-# milli = { git = "https://github.com/meilisearch/milli", tag = "v0.38.0", package = "milli" }
-milli = { git = "https://github.com/GregoryConrad/milli", branch="filter-parser-convenience", package = "milli" }
+# milli_v1 = { git = "https://github.com/meilisearch/milli", tag = "v0.38.0", package = "milli" }
+milli_v1 = { git = "https://github.com/GregoryConrad/milli", branch="filter-parser-convenience", package = "milli" }

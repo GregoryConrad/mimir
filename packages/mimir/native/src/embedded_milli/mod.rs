@@ -2,7 +2,7 @@ use std::{collections::HashMap, fs, path::Path};
 
 use anyhow::Result;
 use lazy_static::lazy_static;
-use milli::heed;
+use milli_v1::heed;
 use parking_lot::RwLock;
 
 use crate::api;

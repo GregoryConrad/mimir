@@ -12,6 +12,8 @@ use crate::api::{Filter, MimirIndexSettings, SortBy, Synonyms, TermsMatchingStra
 
 use super::Document;
 
+use milli_v1 as milli;
+
 pub struct EmbeddedMilli;
 
 impl super::EmbeddedMilli for EmbeddedMilli {
