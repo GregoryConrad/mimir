@@ -1,7 +1,7 @@
 use anyhow::Result;
 use flutter_rust_bridge::frb;
 
-use crate::embedded_milli::{CurrEmbeddedMilli, DocumentExt, EmbeddedMilli, StringExt};
+use crate::embedded_milli::{self, Document};
 
 /// Enforce the binding for this library (to prevent tree-shaking)
 #[no_mangle]
@@ -90,12 +90,12 @@ pub struct MimirIndexSettings {
 
 /// Ensures an instance of milli (represented by just a directory) is initialized
 pub fn ensure_instance_initialized(instace_dir: String) -> Result<()> {
-    CurrEmbeddedMilli::ensure_instance_initialized(instace_dir.as_str())
+    embedded_milli::ensure_instance_initialized(instace_dir.as_str())
 }
 
 /// Ensures a milli index is initialized
 pub fn ensure_index_initialized(instance_dir: String, index_name: String) -> Result<()> {
-    CurrEmbeddedMilli::ensure_index_initialized(instance_dir.as_str(), index_name.as_str())
+    embedded_milli::ensure_index_initialized(instance_dir.as_str(), index_name.as_str())
 }
 
 /// Adds the given list of documents to the specified milli index
@@ -110,7 +110,7 @@ pub fn add_documents(
         .iter()
         .map(StringExt::to_document)
         .collect::<Result<_>>()?;
-    CurrEmbeddedMilli::add_documents(instance_dir, index_name, documents)
+    embedded_milli::add_documents(instance_dir.as_str(), index_name.as_str(), documents)
 }
 
 /// Deletes the documents with the given ids from the milli index
@@ -119,12 +119,12 @@ pub fn delete_documents(
     index_name: String,
     document_ids: Vec<String>,
 ) -> Result<()> {
-    CurrEmbeddedMilli::delete_documents(instance_dir, index_name, document_ids)
+    embedded_milli::delete_documents(instance_dir.as_str(), index_name.as_str(), document_ids)
 }
 
 /// Deletes all the documents from the milli index
 pub fn delete_all_documents(instance_dir: String, index_name: String) -> Result<()> {
-    CurrEmbeddedMilli::delete_all_documents(instance_dir, index_name)
+    embedded_milli::delete_all_documents(instance_dir.as_str(), index_name.as_str())
 }
 
 /// Replaces all documents with the given documents
@@ -137,7 +137,7 @@ pub fn set_documents(
         .iter()
         .map(StringExt::to_document)
         .collect::<Result<_>>()?;
-    CurrEmbeddedMilli::set_documents(instance_dir, index_name, documents)
+    embedded_milli::set_documents(instance_dir.as_str(), index_name.as_str(), documents)
 }
 
 /// Returns the document with the specified id from the index, if one exists
@@ -146,7 +146,7 @@ pub fn get_document(
     index_name: String,
     document_id: String,
 ) -> Result<Option<String>> {
-    CurrEmbeddedMilli::get_document(instance_dir, index_name, document_id)?
+    embedded_milli::get_document(instance_dir.as_str(), index_name.as_str(), document_id)?
         .as_ref()
         .map(DocumentExt::to_string)
         .transpose()
@@ -154,7 +154,7 @@ pub fn get_document(
 
 /// Returns all documents stored in the index.
 pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec<String>> {
-    CurrEmbeddedMilli::get_all_documents(instance_dir, index_name)?
+    embedded_milli::get_all_documents(instance_dir.as_str(), index_name.as_str())?
         .iter()
         .map(DocumentExt::to_string)
         .collect()
@@ -172,9 +172,9 @@ pub fn search_documents(
     filter: Filter,
     matching_strategy: TermsMatchingStrategy,
 ) -> Result<Vec<String>> {
-    CurrEmbeddedMilli::search_documents(
-        instance_dir,
-        index_name,
+    embedded_milli::search_documents(
+        instance_dir.as_str(),
+        index_name.as_str(),
         query,
         limit,
         sort_criteria,
@@ -193,7 +193,7 @@ pub fn search_documents(
 
 /// Gets the settings of the specified index
 pub fn get_settings(instance_dir: String, index_name: String) -> Result<MimirIndexSettings> {
-    CurrEmbeddedMilli::get_settings(instance_dir, index_name)
+    embedded_milli::get_settings(instance_dir.as_str(), index_name.as_str())
 }
 
 /// Sets the settings of the specified index
@@ -202,5 +202,25 @@ pub fn set_settings(
     index_name: String,
     settings: MimirIndexSettings,
 ) -> Result<()> {
-    CurrEmbeddedMilli::set_settings(instance_dir, index_name, settings)
+    embedded_milli::set_settings(instance_dir.as_str(), index_name.as_str(), settings)
+}
+
+trait StringExt {
+    fn to_document(&self) -> Result<Document>;
+}
+
+impl StringExt for String {
+    fn to_document(&self) -> Result<Document> {
+        serde_json::from_str(self).map_err(anyhow::Error::from)
+    }
+}
+
+trait DocumentExt {
+    fn to_string(&self) -> Result<String>;
+}
+
+impl DocumentExt for Document {
+    fn to_string(&self) -> Result<String> {
+        serde_json::to_string(self).map_err(anyhow::Error::from)
+    }
 }
