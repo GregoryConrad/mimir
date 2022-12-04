@@ -153,7 +153,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
         query.map(|q| search.query(q));
         search.limit(limit.unwrap_or(u32::MAX).try_into()?);
         matching_strategy
-            .map(|s| s.to_milli())
+            .map(Into::into)
             .map(|s| search.terms_matching_strategy(s));
         sort_criteria.map(|criteria| {
             let criteria = criteria
@@ -309,9 +309,9 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
     }
 }
 
-impl TermsMatchingStrategy {
-    fn to_milli(&self) -> milli::TermsMatchingStrategy {
-        match self {
+impl From<TermsMatchingStrategy> for milli::TermsMatchingStrategy {
+    fn from(strat: TermsMatchingStrategy) -> Self {
+        match strat {
             TermsMatchingStrategy::Last => milli::TermsMatchingStrategy::Last,
             TermsMatchingStrategy::First => milli::TermsMatchingStrategy::First,
             TermsMatchingStrategy::Frequency => milli::TermsMatchingStrategy::Frequency,
