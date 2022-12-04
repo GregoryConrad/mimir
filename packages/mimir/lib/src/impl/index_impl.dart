@@ -180,12 +180,11 @@ class MimirIndexImpl with MimirIndex {
       if (filtersNotAdded || sortBysNotAdded) {
         final currSettings = await getSettings();
 
+        // Update the current settings to include the filters/sortBys
         final filterableFields = currSettings.filterableFields.toSet()
           ..addAll(filter?.getFields() ?? []);
         final sortableFields = currSettings.sortableFields.toSet()
           ..addAll(sortBy?.map((s) => s.field0) ?? []);
-
-        // Update the current settings to include the filters/sortBys
         await setSettings(currSettings.copyWith(
           filterableFields: filterableFields.toList(),
           sortableFields: sortableFields.toList(),
