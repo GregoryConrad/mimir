@@ -161,10 +161,8 @@ class MimirIndexImpl with MimirIndex {
         query: query,
         limit: resultsLimit,
         sortCriteria: sortBy,
-        // TODO remove the ?? below once following resolved
-        //  https://github.com/fzyzcjy/flutter_rust_bridge/issues/828
-        matchingStrategy: matchingStrategy ?? TermsMatchingStrategy.Last,
-        filter: filter ?? const Filter.or([]),
+        matchingStrategy: matchingStrategy,
+        filter: filter,
       );
       return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
     } on FfiException catch (e) {
