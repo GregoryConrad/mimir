@@ -165,10 +165,8 @@ pub fn search_documents(
     query: Option<String>,
     limit: Option<u32>,
     sort_criteria: Option<Vec<SortBy>>,
-    // TODO make these following two optional!
-    //  https://github.com/GregoryConrad/mimir/issues/77
-    filter: Filter,
-    matching_strategy: TermsMatchingStrategy,
+    filter: Option<Filter>,
+    matching_strategy: Option<TermsMatchingStrategy>,
 ) -> Result<Vec<String>> {
     embedded_milli::search_documents(
         instance_dir.as_str(),
@@ -176,13 +174,8 @@ pub fn search_documents(
         query,
         limit,
         sort_criteria,
-        Some(filter)
-            // TODO Remove the following and_then when filter is a true Option
-            .and_then(|f| match f {
-                Filter::Or(x) if x.is_empty() => None,
-                f => Some(f),
-            }),
-        Some(matching_strategy),
+        filter,
+        matching_strategy,
     )?
     .iter()
     .map(DocumentExt::to_string)
