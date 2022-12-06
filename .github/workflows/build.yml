@@ -178,5 +178,5 @@ jobs:
       - name: Run Flutter integration tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-            api-level: 30
+            api-level: 29
             script: cd packages/flutter_mimir/example && flutter test -d android integration_test
