@@ -27,8 +27,15 @@ pub(crate) type Document = serde_json::Map<String, serde_json::Value>;
 // Represents a dump from a milli index
 type Dump = (MimirIndexSettings, Vec<Document>);
 
-// This is 2^30, so it will be a multiple of whatever the system page size is
-const MAX_MAP_SIZE: usize = 1_073_741_824;
+// The following two constants are for the map size used in heed/LMDB.
+// We assume any OS we run on will have a page size less than 16 MiB (2^24)
+// and that 16 MiB will be a multiple of the OS page size (which it should be).
+// Then, we find the maximum multiple of MAX_OS_PAGE_SIZE that is less than u32::MAX.
+// This will work for both 32-bit & 64-bit platforms, but will limit the db size to just
+// several GB on 64-bit platforms.
+// I tried using usize::MAX instead of u32::MAX but it was erroring out on macOS.
+const MAX_OS_PAGE_SIZE: usize = 16_777_216;
+const MAX_MAP_SIZE: usize = u32::MAX as usize - (u32::MAX as usize % MAX_OS_PAGE_SIZE);
 
 /// Defines what an embedded instance of milli should be able to do.
 /// Essentially a wrapper around different versions of milli to expose a common API.
