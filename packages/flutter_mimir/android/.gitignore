@@ -7,3 +7,5 @@
 /build
 /captures
 .cxx
+src/main/jniLibs/
+*.tar.gz

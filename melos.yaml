@@ -36,7 +36,7 @@ scripts:
 
   build:android:
     run: bash scripts/build-android.sh
-    description: Build the .aar for Android.
+    description: Build the .tar.gz for Android.
 
   build:other:
     run: bash scripts/build-other.sh

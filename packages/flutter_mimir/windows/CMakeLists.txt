@@ -25,14 +25,13 @@ if(NOT EXISTS ${MimirArchivePath})
   )
 endif()
 
-# Extract the binaries if they haven't been extracted already.
-if(NOT IS_DIRECTORY ${MimirLibRoot})
-  file(MAKE_DIRECTORY ${MimirLibRoot})
-  execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${MimirArchivePath}
-    WORKING_DIRECTORY ${MimirLibRoot}
-  )
-endif()
+# Extract the binaries, overriding any already present.
+file(REMOVE_RECURSE ${MimirLibRoot})
+file(MAKE_DIRECTORY ${MimirLibRoot})
+execute_process(
+  COMMAND ${CMAKE_COMMAND} -E tar xzf ${MimirArchivePath}
+  WORKING_DIRECTORY ${MimirLibRoot}
+)
 
 # List of absolute paths to libraries that should be bundled with the plugin.
 # This list could contain prebuilt libraries, or libraries created by an
