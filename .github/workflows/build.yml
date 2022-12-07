@@ -182,8 +182,9 @@ jobs:
       - name: Run Flutter integration tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
+          api-level: 33
+          target: google_apis
           architecture: arm64-v8a
-          ram-size: 2048M
+          ram-size: 1024M
           disk-size: 2048M
           script: cd packages/flutter_mimir/example && flutter test -d android integration_test
