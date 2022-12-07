@@ -187,4 +187,4 @@ jobs:
           arch: x86_64
           ram-size: 1024M
           disk-size: 2048M
-          script: cd packages/flutter_mimir/example && flutter test -d android-x64 integration_test
+          script: cd packages/flutter_mimir/example && flutter test -d `flutter devices | grep android | tr " " "\n" | grep emulator-` integration_test
