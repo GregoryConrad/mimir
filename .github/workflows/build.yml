@@ -183,5 +183,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
             api-level: 29
-            ram-size: 8192M
+            ram-size: 2048M
+            disk-size: 2048M
             script: cd packages/flutter_mimir/example && flutter test -d android integration_test
