@@ -18,7 +18,9 @@ fn main() {
     let raw_opts = RawOpts {
         rust_input: vec![RUST_INPUT.to_string()],
         dart_output: vec![DART_OUTPUT.to_string()],
-        ..Default::default() // use defaults for the rest
+        wasm: true,
+        inline_rust: true,
+        ..Default::default()
     };
 
     // Generate Rust & Dart ffi bridges
@@ -29,7 +31,7 @@ fn main() {
     }
 
     // Format the generated Dart code
-    let _format_result = std::process::Command::new("flutter")
+    _ = std::process::Command::new("flutter")
         .arg("format")
         .arg("..")
         .spawn();
