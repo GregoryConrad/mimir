@@ -110,7 +110,7 @@ jobs:
       - uses: goto-bus-stop/setup-zig@v2
       - uses: KyleMayes/install-llvm-action@v1
         with:
-          version: "14" # TODO update to 15
+          version: "15"
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -168,7 +168,7 @@ jobs:
           toolchain: stable
       - uses: nttld/setup-ndk@v1
         with:
-          ndk-version: r21e # TODO try latest version?
+          ndk-version: r25b
       - uses: actions/setup-java@v3
         with:
           distribution: zulu

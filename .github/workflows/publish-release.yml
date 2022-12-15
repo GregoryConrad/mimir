@@ -21,7 +21,7 @@ jobs:
           toolchain: stable
       - uses: nttld/setup-ndk@v1
         with:
-          ndk-version: r21e # TODO try latest version?
+          ndk-version: r25b
 
       - name: Build all library binaries
         run: melos run build
