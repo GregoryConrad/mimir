@@ -40,7 +40,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
 
         // Make an index write transaction with a batch step to index the new documents
         let mut wtxn = index.write_txn()?;
-        update::IndexDocuments::new(
+        let (builder, indexing_result) = update::IndexDocuments::new(
             &mut wtxn,
             index,
             &indexer_config,
@@ -48,11 +48,11 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             |_| (),
             || false,
         )?
-        .add_documents(reader)
-        .map(|t| t.0)?
-        .execute()?;
+        .add_documents(reader)?;
+        indexing_result?; // check to make sure there is no UserError
+        builder.execute()?;
 
-        wtxn.commit().map_err(anyhow::Error::from)
+        wtxn.commit().map_err(Into::into)
     }
 
     fn delete_documents(index: &Index, document_ids: Vec<String>) -> Result<()> {
@@ -95,7 +95,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
         let indexing_config = update::IndexDocumentsConfig::default();
 
         // Make a batch step to index the new documents
-        update::IndexDocuments::new(
+        let (builder, indexing_result) = update::IndexDocuments::new(
             &mut wtxn,
             index,
             &indexer_config,
@@ -103,11 +103,11 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             |_| (),
             || false,
         )?
-        .add_documents(reader)
-        .map(|t| t.0)?
-        .execute()?;
+        .add_documents(reader)?;
+        indexing_result?; // check to make sure there is no UserError
+        builder.execute()?;
 
-        wtxn.commit().map_err(anyhow::Error::from)
+        wtxn.commit().map_err(Into::into)
     }
 
     fn get_document(index: &Index, document_id: String) -> Result<Option<Document>> {

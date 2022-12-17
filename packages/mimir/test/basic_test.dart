@@ -1,3 +1,4 @@
+import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:mimir/mimir.dart';
 import 'package:test/test.dart';
 
@@ -225,5 +226,40 @@ void main() {
     );
     final searchResults = await index.search();
     expect(searchResults.length, numDocs);
+  });
+
+  test('Adding invalid documents throws errors', () {
+    final index = useTestIndex();
+    const missingIdDoc = {'name': 'test'};
+    const invalidIdDoc = {'id': 'abc123='};
+    expect(() => index.addDocument(missingIdDoc),
+        throwsA(const TypeMatcher<FfiException>()));
+    expect(() => index.addDocument(invalidIdDoc),
+        throwsA(const TypeMatcher<FfiException>()));
+  });
+
+  test('Setting invalid documents throws errors', () {
+    final index = useTestIndex();
+    const missingIdDoc = {'name': 'test'};
+    const invalidIdDoc = {'id': 'abc123='};
+    expect(() => index.setDocuments([missingIdDoc]),
+        throwsA(const TypeMatcher<FfiException>()));
+    expect(() => index.setDocuments([invalidIdDoc]),
+        throwsA(const TypeMatcher<FfiException>()));
+  });
+
+  test('Setting/adding an invalid batch adds no documents', () async {
+    final index = useTestIndex();
+    const invalidBatch = [
+      {'id': '1234'},
+      {'id': 'abc123='},
+    ];
+    try {
+      await index.setDocuments(invalidBatch);
+    } catch (_) {}
+    try {
+      await index.addDocuments(invalidBatch);
+    } catch (_) {}
+    expect((await index.getAllDocuments()).length, 0);
   });
 }
