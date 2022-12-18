@@ -17,7 +17,7 @@ rustup target add \
         x86_64-linux-android \
         i686-linux-android
 
-# Build the android libraries in the aar directory
+# Build the android libraries in the jniLibs directory
 cargo ndk -o $JNI_DIR \
         --manifest-path ../Cargo.toml \
         -t armeabi-v7a \
