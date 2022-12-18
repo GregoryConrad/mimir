@@ -2,11 +2,6 @@ use super::*;
 // Section: wire functions
 
 #[no_mangle]
-pub extern "C" fn wire_enforce_binding(port_: i64) {
-    wire_enforce_binding_impl(port_)
-}
-
-#[no_mangle]
 pub extern "C" fn wire_ensure_instance_initialized(port_: i64, instace_dir: *mut wire_uint_8_list) {
     wire_ensure_instance_initialized_impl(port_, instace_dir)
 }

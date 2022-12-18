@@ -14,11 +14,6 @@ import 'dart:ffi' as ffi;
 part 'bridge_generated.freezed.dart';
 
 abstract class EmbeddedMilli {
-  /// Enforce the binding for this library (to prevent tree-shaking)
-  Future<void> enforceBinding({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kEnforceBindingConstMeta;
-
   /// Ensures an instance of milli (represented by just a directory) is initialized
   Future<void> ensureInstanceInitialized(
       {required String instaceDir, dynamic hint});
@@ -252,22 +247,6 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
   factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) =>
       EmbeddedMilliImpl(module as ExternalLibrary);
   EmbeddedMilliImpl.raw(this._platform);
-  Future<void> enforceBinding({dynamic hint}) {
-    return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_enforce_binding(port_),
-      parseSuccessData: _wire2api_unit,
-      constMeta: kEnforceBindingConstMeta,
-      argValues: [],
-      hint: hint,
-    ));
-  }
-
-  FlutterRustBridgeTaskConstMeta get kEnforceBindingConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "enforce_binding",
-        argNames: [],
-      );
-
   Future<void> ensureInstanceInitialized(
       {required String instaceDir, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instaceDir);
@@ -926,15 +905,6 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
           lookup)
       : _lookup = lookup;
 
-  void enforce_binding() {
-    return _enforce_binding();
-  }
-
-  late final _enforce_bindingPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function()>>('enforce_binding');
-  late final _enforce_binding =
-      _enforce_bindingPtr.asFunction<void Function()>();
-
   void store_dart_post_cobject(
     DartPostCObjectFnType ptr,
   ) {
@@ -1004,20 +974,6 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
           'init_frb_dart_api_dl');
   late final _init_frb_dart_api_dl = _init_frb_dart_api_dlPtr
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
-
-  void wire_enforce_binding(
-    int port_,
-  ) {
-    return _wire_enforce_binding(
-      port_,
-    );
-  }
-
-  late final _wire_enforce_bindingPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-          'wire_enforce_binding');
-  late final _wire_enforce_binding =
-      _wire_enforce_bindingPtr.asFunction<void Function(int)>();
 
   void wire_ensure_instance_initialized(
     int port_,
