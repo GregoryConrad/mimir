@@ -9,7 +9,7 @@ on:
         default: ' '
         type: choice
         options:
-          - ' '
+          - '--'
           - '--prerelease'
           - '--graduate'
 
