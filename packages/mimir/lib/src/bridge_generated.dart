@@ -18,11 +18,6 @@ import 'package:meta/meta.dart';
 part 'bridge_generated.freezed.dart';
 
 abstract class EmbeddedMilli {
-  /// Enforce the binding for this library (to prevent tree-shaking)
-  Future<void> enforceBinding({dynamic hint});
-
-  FlutterRustBridgeTaskConstMeta get kEnforceBindingConstMeta;
-
   /// Ensures an instance of milli (represented by just a directory) is initialized
   Future<void> ensureInstanceInitialized(
       {required String instaceDir, dynamic hint});
@@ -256,22 +251,6 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
   factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) =>
       EmbeddedMilliImpl(module as ExternalLibrary);
   EmbeddedMilliImpl.raw(this._platform);
-  Future<void> enforceBinding({dynamic hint}) {
-    return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_enforce_binding(port_),
-      parseSuccessData: _wire2api_unit,
-      constMeta: kEnforceBindingConstMeta,
-      argValues: [],
-      hint: hint,
-    ));
-  }
-
-  FlutterRustBridgeTaskConstMeta get kEnforceBindingConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "enforce_binding",
-        argNames: [],
-      );
-
   Future<void> ensureInstanceInitialized(
       {required String instaceDir, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instaceDir);
