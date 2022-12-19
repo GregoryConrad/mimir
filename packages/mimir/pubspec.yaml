@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   ffi: ^2.0.1
-  flutter_rust_bridge: ^1.53.0
+  flutter_rust_bridge: ^1.56.0
   freezed_annotation: ^2.2.0
   meta: ^1.8.0
 

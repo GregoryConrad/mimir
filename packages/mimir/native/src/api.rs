@@ -3,10 +3,6 @@ use flutter_rust_bridge::frb;
 
 use crate::embedded_milli::{self, Document};
 
-/// Enforce the binding for this library (to prevent tree-shaking)
-#[no_mangle]
-pub extern "C" fn enforce_binding() {}
-
 /// See https://docs.meilisearch.com/reference/api/search.html#matching-strategy
 pub enum TermsMatchingStrategy {
     /// Remove last word first

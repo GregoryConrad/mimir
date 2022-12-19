@@ -4,11 +4,11 @@ use lib_flutter_rust_bridge_codegen::{
 
 // Adopted from https://github.com/fzyzcjy/flutter_rust_bridge/blob/master/frb_example/pure_dart/rust/build.rs
 
-/// Path of input Rust code
 const RUST_INPUT: &str = "src/api.rs";
-
-/// Path of output generated Dart code
 const DART_OUTPUT: &str = "../lib/src/bridge_generated.dart";
+
+const IOS_C_OUTPUT: &str = "../../flutter_mimir/ios/Classes/frb.h";
+const MACOS_C_OUTPUT: &str = "../../flutter_mimir/macos/Classes/frb.h";
 
 fn main() {
     // Tell Cargo that if the input Rust code changes, rerun this build script
@@ -18,6 +18,9 @@ fn main() {
     let raw_opts = RawOpts {
         rust_input: vec![RUST_INPUT.to_string()],
         dart_output: vec![DART_OUTPUT.to_string()],
+        c_output: Some(vec![IOS_C_OUTPUT.to_string(), MACOS_C_OUTPUT.to_string()]),
+        inline_rust: true,
+        wasm: true,
         ..Default::default() // use defaults for the rest
     };
 
