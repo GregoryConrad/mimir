@@ -349,6 +349,347 @@ support::lazy_static! {
     pub static ref FLUTTER_RUST_BRIDGE_HANDLER: support::DefaultHandler = Default::default();
 }
 
+/// cbindgen:ignore
+#[cfg(target_family = "wasm")]
+mod web {
+    use super::*;
+    // Section: wire functions
+
+    #[wasm_bindgen]
+    pub fn wire_ensure_instance_initialized(port_: MessagePort, instace_dir: String) {
+        wire_ensure_instance_initialized_impl(port_, instace_dir)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_ensure_index_initialized(
+        port_: MessagePort,
+        instance_dir: String,
+        index_name: String,
+    ) {
+        wire_ensure_index_initialized_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_add_documents(
+        port_: MessagePort,
+        instance_dir: String,
+        index_name: String,
+        documents: JsValue,
+    ) {
+        wire_add_documents_impl(port_, instance_dir, index_name, documents)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_delete_documents(
+        port_: MessagePort,
+        instance_dir: String,
+        index_name: String,
+        document_ids: JsValue,
+    ) {
+        wire_delete_documents_impl(port_, instance_dir, index_name, document_ids)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_delete_all_documents(port_: MessagePort, instance_dir: String, index_name: String) {
+        wire_delete_all_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_set_documents(
+        port_: MessagePort,
+        instance_dir: String,
+        index_name: String,
+        documents: JsValue,
+    ) {
+        wire_set_documents_impl(port_, instance_dir, index_name, documents)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_get_document(
+        port_: MessagePort,
+        instance_dir: String,
+        index_name: String,
+        document_id: String,
+    ) {
+        wire_get_document_impl(port_, instance_dir, index_name, document_id)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_get_all_documents(port_: MessagePort, instance_dir: String, index_name: String) {
+        wire_get_all_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_search_documents(
+        port_: MessagePort,
+        instance_dir: String,
+        index_name: String,
+        query: Option<String>,
+        limit: *mut u32,
+        sort_criteria: JsValue,
+        filter: JsValue,
+        matching_strategy: i32,
+    ) {
+        wire_search_documents_impl(
+            port_,
+            instance_dir,
+            index_name,
+            query,
+            limit,
+            sort_criteria,
+            filter,
+            matching_strategy,
+        )
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_get_settings(port_: MessagePort, instance_dir: String, index_name: String) {
+        wire_get_settings_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire_set_settings(
+        port_: MessagePort,
+        instance_dir: String,
+        index_name: String,
+        settings: JsValue,
+    ) {
+        wire_set_settings_impl(port_, instance_dir, index_name, settings)
+    }
+
+    // Section: allocate functions
+
+    #[wasm_bindgen]
+    pub fn new_box_autoadd_u32_0(value: u32) -> *mut u32 {
+        support::new_leak_box_ptr(value)
+    }
+
+    // Section: related functions
+
+    // Section: impl Wire2Api
+
+    impl Wire2Api<String> for String {
+        fn wire2api(self) -> String {
+            self
+        }
+    }
+    impl Wire2Api<Vec<String>> for JsValue {
+        fn wire2api(self) -> Vec<String> {
+            self.dyn_into::<JsArray>()
+                .unwrap()
+                .iter()
+                .map(Wire2Api::wire2api)
+                .collect()
+        }
+    }
+
+    impl Wire2Api<Filter> for JsValue {
+        fn wire2api(self) -> Filter {
+            let self_ = self.unchecked_into::<JsArray>();
+            match self_.get(0).unchecked_into_f64() as _ {
+                0 => Filter::Or(self_.get(1).wire2api()),
+                1 => Filter::And(self_.get(1).wire2api()),
+                2 => Filter::Not(self_.get(1).wire2api()),
+                3 => Filter::Exists {
+                    field: self_.get(1).wire2api(),
+                },
+                4 => Filter::InValues {
+                    field: self_.get(1).wire2api(),
+                    values: self_.get(2).wire2api(),
+                },
+                5 => Filter::GreaterThan {
+                    field: self_.get(1).wire2api(),
+                    value: self_.get(2).wire2api(),
+                },
+                6 => Filter::GreaterThanOrEqual {
+                    field: self_.get(1).wire2api(),
+                    value: self_.get(2).wire2api(),
+                },
+                7 => Filter::Equal {
+                    field: self_.get(1).wire2api(),
+                    value: self_.get(2).wire2api(),
+                },
+                8 => Filter::NotEqual {
+                    field: self_.get(1).wire2api(),
+                    value: self_.get(2).wire2api(),
+                },
+                9 => Filter::LessThan {
+                    field: self_.get(1).wire2api(),
+                    value: self_.get(2).wire2api(),
+                },
+                10 => Filter::LessThanOrEqual {
+                    field: self_.get(1).wire2api(),
+                    value: self_.get(2).wire2api(),
+                },
+                11 => Filter::Between {
+                    field: self_.get(1).wire2api(),
+                    from: self_.get(2).wire2api(),
+                    to: self_.get(3).wire2api(),
+                },
+                _ => unreachable!(),
+            }
+        }
+    }
+
+    impl Wire2Api<Vec<Filter>> for JsValue {
+        fn wire2api(self) -> Vec<Filter> {
+            self.dyn_into::<JsArray>()
+                .unwrap()
+                .iter()
+                .map(Wire2Api::wire2api)
+                .collect()
+        }
+    }
+    impl Wire2Api<Vec<SortBy>> for JsValue {
+        fn wire2api(self) -> Vec<SortBy> {
+            self.dyn_into::<JsArray>()
+                .unwrap()
+                .iter()
+                .map(Wire2Api::wire2api)
+                .collect()
+        }
+    }
+    impl Wire2Api<Vec<Synonyms>> for JsValue {
+        fn wire2api(self) -> Vec<Synonyms> {
+            self.dyn_into::<JsArray>()
+                .unwrap()
+                .iter()
+                .map(Wire2Api::wire2api)
+                .collect()
+        }
+    }
+    impl Wire2Api<MimirIndexSettings> for JsValue {
+        fn wire2api(self) -> MimirIndexSettings {
+            let self_ = self.dyn_into::<JsArray>().unwrap();
+            assert_eq!(
+                self_.length(),
+                11,
+                "Expected 11 elements, got {}",
+                self_.length()
+            );
+            MimirIndexSettings {
+                searchable_fields: self_.get(0).wire2api(),
+                filterable_fields: self_.get(1).wire2api(),
+                sortable_fields: self_.get(2).wire2api(),
+                ranking_rules: self_.get(3).wire2api(),
+                stop_words: self_.get(4).wire2api(),
+                synonyms: self_.get(5).wire2api(),
+                typos_enabled: self_.get(6).wire2api(),
+                min_word_size_for_one_typo: self_.get(7).wire2api(),
+                min_word_size_for_two_typos: self_.get(8).wire2api(),
+                disallow_typos_on_words: self_.get(9).wire2api(),
+                disallow_typos_on_fields: self_.get(10).wire2api(),
+            }
+        }
+    }
+    impl Wire2Api<Option<String>> for Option<String> {
+        fn wire2api(self) -> Option<String> {
+            self.map(Wire2Api::wire2api)
+        }
+    }
+    impl Wire2Api<Option<Vec<String>>> for Option<JsValue> {
+        fn wire2api(self) -> Option<Vec<String>> {
+            self.map(Wire2Api::wire2api)
+        }
+    }
+
+    impl Wire2Api<Option<Vec<SortBy>>> for JsValue {
+        fn wire2api(self) -> Option<Vec<SortBy>> {
+            (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+        }
+    }
+    impl Wire2Api<SortBy> for JsValue {
+        fn wire2api(self) -> SortBy {
+            let self_ = self.unchecked_into::<JsArray>();
+            match self_.get(0).unchecked_into_f64() as _ {
+                0 => SortBy::Asc(self_.get(1).wire2api()),
+                1 => SortBy::Desc(self_.get(1).wire2api()),
+                _ => unreachable!(),
+            }
+        }
+    }
+    impl Wire2Api<Synonyms> for JsValue {
+        fn wire2api(self) -> Synonyms {
+            let self_ = self.dyn_into::<JsArray>().unwrap();
+            assert_eq!(
+                self_.length(),
+                2,
+                "Expected 2 elements, got {}",
+                self_.length()
+            );
+            Synonyms {
+                word: self_.get(0).wire2api(),
+                synonyms: self_.get(1).wire2api(),
+            }
+        }
+    }
+
+    impl Wire2Api<Vec<u8>> for Box<[u8]> {
+        fn wire2api(self) -> Vec<u8> {
+            self.into_vec()
+        }
+    }
+    // Section: impl Wire2Api for JsValue
+
+    impl Wire2Api<String> for JsValue {
+        fn wire2api(self) -> String {
+            self.as_string().expect("non-UTF-8 string, or not a string")
+        }
+    }
+    impl Wire2Api<bool> for JsValue {
+        fn wire2api(self) -> bool {
+            self.is_truthy()
+        }
+    }
+    impl Wire2Api<Box<Filter>> for JsValue {
+        fn wire2api(self) -> Box<Filter> {
+            Box::new(self.wire2api())
+        }
+    }
+    impl Wire2Api<i32> for JsValue {
+        fn wire2api(self) -> i32 {
+            self.unchecked_into_f64() as _
+        }
+    }
+    impl Wire2Api<Option<String>> for JsValue {
+        fn wire2api(self) -> Option<String> {
+            (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+        }
+    }
+    impl Wire2Api<Option<Vec<String>>> for JsValue {
+        fn wire2api(self) -> Option<Vec<String>> {
+            (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+        }
+    }
+    impl Wire2Api<Option<u32>> for JsValue {
+        fn wire2api(self) -> Option<u32> {
+            (self != 0).then(|| *Wire2Api::<Box<u32>>::wire2api(self))
+        }
+    }
+    impl Wire2Api<TermsMatchingStrategy> for JsValue {
+        fn wire2api(self) -> TermsMatchingStrategy {
+            (self.unchecked_into_f64() as i32).wire2api()
+        }
+    }
+    impl Wire2Api<u32> for JsValue {
+        fn wire2api(self) -> u32 {
+            self.unchecked_into_f64() as _
+        }
+    }
+    impl Wire2Api<u8> for JsValue {
+        fn wire2api(self) -> u8 {
+            self.unchecked_into_f64() as _
+        }
+    }
+    impl Wire2Api<Vec<u8>> for JsValue {
+        fn wire2api(self) -> Vec<u8> {
+            self.unchecked_into::<js_sys::Uint8Array>().to_vec().into()
+        }
+    }
+}
+#[cfg(target_family = "wasm")]
+pub use web::*;
+
 #[cfg(not(target_family = "wasm"))]
 mod io {
     use super::*;

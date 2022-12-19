@@ -20,6 +20,7 @@ fn main() {
         dart_output: vec![DART_OUTPUT.to_string()],
         c_output: Some(vec![IOS_C_OUTPUT.to_string(), MACOS_C_OUTPUT.to_string()]),
         inline_rust: true,
+        wasm: true,
         ..Default::default() // use defaults for the rest
     };
 
