@@ -19,6 +19,7 @@ fn main() {
         rust_input: vec![RUST_INPUT.to_string()],
         dart_output: vec![DART_OUTPUT.to_string()],
         c_output: Some(vec![IOS_C_OUTPUT.to_string(), MACOS_C_OUTPUT.to_string()]),
+        inline_rust: true,
         ..Default::default() // use defaults for the rest
     };
 
