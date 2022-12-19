@@ -15,9 +15,7 @@ jobs:
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v2
       - uses: goto-bus-stop/setup-zig@v2
-      - uses: KyleMayes/install-llvm-action@v1
-        with:
-          version: "15"
+      - run: brew install llvm cmake ninja
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
