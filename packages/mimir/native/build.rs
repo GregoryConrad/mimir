@@ -21,7 +21,7 @@ fn main() {
         c_output: Some(vec![IOS_C_OUTPUT.to_string(), MACOS_C_OUTPUT.to_string()]),
         inline_rust: true,
         wasm: true,
-        ..Default::default() // use defaults for the rest
+        ..Default::default()
     };
 
     // Generate Rust & Dart ffi bridges
@@ -32,7 +32,7 @@ fn main() {
     }
 
     // Format the generated Dart code
-    let _format_result = std::process::Command::new("flutter")
+    _ = std::process::Command::new("flutter")
         .arg("format")
         .arg("..")
         .spawn();
