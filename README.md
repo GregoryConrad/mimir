@@ -234,3 +234,5 @@ Please read these caveats _before_ adding mimir to your project.
     - If you need easy, typo-tolerant full-text search, you will want mimir!
       - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter
       - Why I made mimir in the first place!
+- macOS App Sandbox is *not supported*, meaning you will not be able to submit apps to the *Mac* App Store
+  - See [here](https://github.com/GregoryConrad/mimir/issues/101)
