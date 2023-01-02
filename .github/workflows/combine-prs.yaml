@@ -5,6 +5,7 @@ on:
 
 jobs:
   combine-prs:
+    permissions: write-all
     runs-on: ubuntu-latest
     outputs:
       did-modify-pr: ${{ steps.creation.outputs.result }}
@@ -88,6 +89,7 @@ jobs:
             return 'true';
 
   generate-files:
+    permissions: write-all
     runs-on: ubuntu-latest
     needs: combine-prs
     if: needs.combine-prs.outputs.did-modify-pr == 'true'
