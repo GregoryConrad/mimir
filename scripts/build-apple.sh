@@ -11,7 +11,8 @@ for TARGET in \
         x86_64-apple-darwin aarch64-apple-darwin
 do
     rustup target add $TARGET
-    cargo build -r --target=$TARGET
+    # Apple's App Sandbox disallows SysV semaphores; use POSIX semaphores instead
+    cargo build -r --target=$TARGET --features posix-sem
 done
 
 # Create XCFramework zip
