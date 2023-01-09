@@ -77,14 +77,18 @@ jobs:
             }
 
             console.log('Creating combined PR');
-            await github.rest.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'Combined PR',
-              head: 'combine-prs-branch',
-              base: baseBranch,
-              body: body
-            });
+            try {
+              await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: 'Combined PR',
+                head: 'combine-prs-branch',
+                base: baseBranch,
+                body: body
+              });
+            } catch (error) {
+              console.log('Failed to create combined PR: ' + error);
+            }
 
             return 'true';
 
