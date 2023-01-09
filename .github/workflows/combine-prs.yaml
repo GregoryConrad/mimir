@@ -1,0 +1,115 @@
+name: Combine Dependabot PRs
+
+on:
+  pull_request
+
+jobs:
+  combine-prs:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    outputs:
+      did-modify-pr: ${{ steps.creation.outputs.result }}
+
+    steps:
+      - uses: actions/github-script@v6
+        id: creation
+        name: Create Combined PR
+        with:
+          result-encoding: string
+          script: |
+            const pulls = await github.paginate('GET /repos/:owner/:repo/pulls', {
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            let branchesAndPRStrings = [];
+            let baseBranch = null;
+            let baseBranchSHA = null;
+            for (const pull of pulls) {
+              const branch = pull['head']['ref'];
+              console.log('Pull for branch: ' + branch);
+              if (branch.startsWith('dependabot/')) {
+                console.log('Adding branch to array: ' + branch);
+                const prString = '#' + pull['number'] + ' ' + pull['title'];
+                branchesAndPRStrings.push({ branch, prString });
+                baseBranch = pull['base']['ref'];
+                baseBranchSHA = pull['base']['sha'];
+              }
+            }
+            if (branchesAndPRStrings.length == 0) {
+              console.log('No PRs/branches matched criteria');
+              return 'false';
+            }
+
+            try {
+              await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: 'refs/heads/combine-prs-branch',
+                sha: baseBranchSHA
+              });
+            } catch (error) {
+              console.log('Failed to create combined branch: ' + error);
+            }
+
+            let combinedPRs = [];
+            let mergeFailedPRs = [];
+            for(const { branch, prString } of branchesAndPRStrings) {
+              try {
+                await github.rest.repos.merge({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  base: 'combine-prs-branch',
+                  head: branch,
+                });
+                console.log('Merged branch ' + branch);
+                combinedPRs.push(prString);
+              } catch (error) {
+                console.log('Failed to merge branch ' + branch);
+                mergeFailedPRs.push(prString);
+              }
+            }
+
+            const combinedPRsString = combinedPRs.join('\n');
+            let body = '✅ This PR was created by the Combine PRs action by combining the following PRs:\n' + combinedPRsString;
+            if(mergeFailedPRs.length > 0) {
+              const mergeFailedPRsString = mergeFailedPRs.join('\n');
+              body += '\n\n⚠️ The following PRs were left out due to merge conflicts:\n' + mergeFailedPRsString
+            }
+
+            console.log('Creating combined PR');
+            try {
+              await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: 'Combined PR',
+                head: 'combine-prs-branch',
+                base: baseBranch,
+                body: body
+              });
+            } catch (error) {
+              console.log('Failed to create combined PR: ' + error);
+            }
+
+            return 'true';
+
+  generate-files:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    needs: combine-prs
+    if: needs.combine-prs.outputs.did-modify-pr == 'true'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: combine-prs-branch
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
+      - run: |
+          cargo build -r
+          git config --global user.name 'MimirActionsBot'
+          git config --global user.email 'mimiractionsbot@users.noreply.github.com'
+          git commit -am "chore: update generated files"
+          git push

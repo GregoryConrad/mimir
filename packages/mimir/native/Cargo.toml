@@ -1,19 +1,25 @@
 [package]
 name = "embedded_milli"
 version = "0.0.0"
-edition = "2018"
+edition = "2021"
 
 [lib]
 crate-type = ["staticlib", "cdylib"]
 
 [build-dependencies]
-flutter_rust_bridge_codegen = "1.50.*"
+flutter_rust_bridge_codegen = "=1.60.0"
 
 [dependencies]
-flutter_rust_bridge = "1.50.*"
+flutter_rust_bridge = "=1.60.0"
 anyhow = "1.0.*"
 serde = "1.0.*"
 serde_json = "1.0.*"
 parking_lot = "0.12.*"
 lazy_static = "1.*"
 milli_v1 = { git = "https://github.com/meilisearch/milli", tag = "v0.38.0", package = "milli" }
+
+[features]
+# POSIX semaphores are needed for Apple's App Sandbox.
+# Default LMDB uses SysV semaphores but App Sandbox disallows them.
+# See https://github.com/GregoryConrad/mimir/issues/98
+posix-sem = ["milli_v1/lmdb-posix-sem",]

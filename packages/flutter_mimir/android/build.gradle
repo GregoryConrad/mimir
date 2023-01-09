@@ -1,4 +1,3 @@
-def releaseTagVersion = 'mimir-v0.0.0' // generated; do not edit
 group 'com.gsconrad.flutter_mimir'
 version '0.0.1'
 
@@ -18,14 +17,6 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-
-        ivy {
-            url 'https://github.com/'
-            patternLayout {
-                artifact '/[organisation]/[module]/releases/download/[revision]/EmbeddedMilli.[ext]'
-            }
-            metadataSources { artifact() } 
-        }
     }
 }
 
@@ -37,9 +28,11 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
-}
 
-dependencies {
-    // Get the AAR from correct GitHub release (from the ivy repo above)
-    implementation "GregoryConrad:mimir:${releaseTagVersion}@aar"
+    // Trigger the binary download/update over in CMakeLists.txt
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
 }

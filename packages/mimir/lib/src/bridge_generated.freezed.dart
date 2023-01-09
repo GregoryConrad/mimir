@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'bridge_generated.dart';
 
@@ -173,6 +173,7 @@ class _$Filter_Or implements Filter_Or {
   final List<Filter> _field0;
   @override
   List<Filter> get field0 {
+    if (_field0 is EqualUnmodifiableListView) return _field0;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_field0);
   }
@@ -372,6 +373,7 @@ class _$Filter_And implements Filter_And {
   final List<Filter> _field0;
   @override
   List<Filter> get field0 {
+    if (_field0 is EqualUnmodifiableListView) return _field0;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_field0);
   }
@@ -978,6 +980,7 @@ class _$Filter_InValues implements Filter_InValues {
   final List<String> _values;
   @override
   List<String> get values {
+    if (_values is EqualUnmodifiableListView) return _values;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_values);
   }
@@ -2828,6 +2831,8 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   List<String>? get searchableFields {
     final value = _searchableFields;
     if (value == null) return null;
+    if (_searchableFields is EqualUnmodifiableListView)
+      return _searchableFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -2835,6 +2840,8 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   final List<String> _filterableFields;
   @override
   List<String> get filterableFields {
+    if (_filterableFields is EqualUnmodifiableListView)
+      return _filterableFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_filterableFields);
   }
@@ -2842,6 +2849,7 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   final List<String> _sortableFields;
   @override
   List<String> get sortableFields {
+    if (_sortableFields is EqualUnmodifiableListView) return _sortableFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_sortableFields);
   }
@@ -2849,6 +2857,7 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   final List<String> _rankingRules;
   @override
   List<String> get rankingRules {
+    if (_rankingRules is EqualUnmodifiableListView) return _rankingRules;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_rankingRules);
   }
@@ -2856,6 +2865,7 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   final List<String> _stopWords;
   @override
   List<String> get stopWords {
+    if (_stopWords is EqualUnmodifiableListView) return _stopWords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_stopWords);
   }
@@ -2863,6 +2873,7 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   final List<Synonyms> _synonyms;
   @override
   List<Synonyms> get synonyms {
+    if (_synonyms is EqualUnmodifiableListView) return _synonyms;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_synonyms);
   }
@@ -2876,6 +2887,8 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   final List<String> _disallowTyposOnWords;
   @override
   List<String> get disallowTyposOnWords {
+    if (_disallowTyposOnWords is EqualUnmodifiableListView)
+      return _disallowTyposOnWords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_disallowTyposOnWords);
   }
@@ -2883,6 +2896,8 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   final List<String> _disallowTyposOnFields;
   @override
   List<String> get disallowTyposOnFields {
+    if (_disallowTyposOnFields is EqualUnmodifiableListView)
+      return _disallowTyposOnFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_disallowTyposOnFields);
   }
@@ -3431,6 +3446,7 @@ class _$_Synonyms implements _Synonyms {
   final List<String> _synonyms;
   @override
   List<String> get synonyms {
+    if (_synonyms is EqualUnmodifiableListView) return _synonyms;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_synonyms);
   }

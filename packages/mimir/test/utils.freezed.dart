@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'utils.dart';
 
@@ -256,6 +256,7 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   Set<String>? get searchableFields {
     final value = _searchableFields;
     if (value == null) return null;
+    if (_searchableFields is EqualUnmodifiableSetView) return _searchableFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(value);
   }
@@ -263,6 +264,7 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   final Set<String> _filterableFields;
   @override
   Set<String> get filterableFields {
+    if (_filterableFields is EqualUnmodifiableSetView) return _filterableFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(_filterableFields);
   }
@@ -270,6 +272,7 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   final Set<String> _sortableFields;
   @override
   Set<String> get sortableFields {
+    if (_sortableFields is EqualUnmodifiableSetView) return _sortableFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(_sortableFields);
   }
@@ -277,6 +280,7 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   final List<String> _rankingRules;
   @override
   List<String> get rankingRules {
+    if (_rankingRules is EqualUnmodifiableListView) return _rankingRules;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_rankingRules);
   }
@@ -284,6 +288,7 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   final Set<String> _stopWords;
   @override
   Set<String> get stopWords {
+    if (_stopWords is EqualUnmodifiableSetView) return _stopWords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(_stopWords);
   }
@@ -291,6 +296,7 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   final Set<Synonyms> _synonyms;
   @override
   Set<Synonyms> get synonyms {
+    if (_synonyms is EqualUnmodifiableSetView) return _synonyms;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(_synonyms);
   }
@@ -304,6 +310,8 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   final Set<String> _disallowTyposOnWords;
   @override
   Set<String> get disallowTyposOnWords {
+    if (_disallowTyposOnWords is EqualUnmodifiableSetView)
+      return _disallowTyposOnWords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(_disallowTyposOnWords);
   }
@@ -311,6 +319,8 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   final Set<String> _disallowTyposOnFields;
   @override
   Set<String> get disallowTyposOnFields {
+    if (_disallowTyposOnFields is EqualUnmodifiableSetView)
+      return _disallowTyposOnFields;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableSetView(_disallowTyposOnFields);
   }

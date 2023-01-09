@@ -5,9 +5,8 @@ BUILD_DIR=platform-build
 mkdir $BUILD_DIR
 cd $BUILD_DIR
 
-# Create aar build directory
-AAR_DIR=aar
-JNI_DIR=$AAR_DIR/jni
+# Create the jniLibs build directory
+JNI_DIR=jniLibs
 mkdir -p $JNI_DIR
 
 # Set up cargo-ndk
@@ -18,7 +17,7 @@ rustup target add \
         x86_64-linux-android \
         i686-linux-android
 
-# Build the android libraries in the aar directory
+# Build the android libraries in the jniLibs directory
 cargo ndk -o $JNI_DIR \
         --manifest-path ../Cargo.toml \
         -t armeabi-v7a \
@@ -27,16 +26,10 @@ cargo ndk -o $JNI_DIR \
         -t x86_64 \
         build --release 
 
-# Add the required AndroidManifest.xml to the aar directory
-cat << EOF > $AAR_DIR/AndroidManifest.xml
-<?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.gsconrad.embedded_milli" />
-EOF
-
-# Create the aar (which is actually just a zip)
-cd $AAR_DIR
-zip -r ../EmbeddedMilli.aar *
+# Archive the dynamic libs
+cd $JNI_DIR
+tar -czvf ../EmbeddedMilliAndroid.tar.gz *
 cd -
 
 # Cleanup
-rm -rf $AAR_DIR
+rm -rf $JNI_DIR
