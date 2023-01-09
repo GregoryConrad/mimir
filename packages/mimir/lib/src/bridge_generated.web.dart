@@ -41,6 +41,11 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire>
   }
 
   @protected
+  int api2wire_box_autoadd_terms_matching_strategy(TermsMatchingStrategy raw) {
+    return api2wire_terms_matching_strategy(raw);
+  }
+
+  @protected
   int api2wire_box_autoadd_u32(int raw) {
     return api2wire_u32(raw);
   }
@@ -140,6 +145,19 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire>
   }
 
   @protected
+  List<dynamic>? api2wire_opt_box_autoadd_filter(Filter? raw) {
+    return raw == null ? null : api2wire_box_autoadd_filter(raw);
+  }
+
+  @protected
+  int? api2wire_opt_box_autoadd_terms_matching_strategy(
+      TermsMatchingStrategy? raw) {
+    return raw == null
+        ? null
+        : api2wire_box_autoadd_terms_matching_strategy(raw);
+  }
+
+  @protected
   int? api2wire_opt_box_autoadd_u32(int? raw) {
     return raw == null ? null : api2wire_box_autoadd_u32(raw);
   }
@@ -215,8 +233,8 @@ class EmbeddedMilliWasmModule implements WasmModule {
       String? query,
       int? limit,
       List<dynamic>? sort_criteria,
-      List<dynamic> filter,
-      int matching_strategy);
+      List<dynamic>? filter,
+      int? matching_strategy);
 
   external dynamic /* void */ wire_get_settings(
       NativePortType port_, String instance_dir, String index_name);
@@ -273,8 +291,8 @@ class EmbeddedMilliWire
           String? query,
           int? limit,
           List<dynamic>? sort_criteria,
-          List<dynamic> filter,
-          int matching_strategy) =>
+          List<dynamic>? filter,
+          int? matching_strategy) =>
       wasmModule.wire_search_documents(port_, instance_dir, index_name, query,
           limit, sort_criteria, filter, matching_strategy);
 

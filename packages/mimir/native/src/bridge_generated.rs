@@ -180,8 +180,8 @@ fn wire_search_documents_impl(
     query: impl Wire2Api<Option<String>> + UnwindSafe,
     limit: impl Wire2Api<Option<u32>> + UnwindSafe,
     sort_criteria: impl Wire2Api<Option<Vec<SortBy>>> + UnwindSafe,
-    filter: impl Wire2Api<Filter> + UnwindSafe,
-    matching_strategy: impl Wire2Api<TermsMatchingStrategy> + UnwindSafe,
+    filter: impl Wire2Api<Option<Filter>> + UnwindSafe,
+    matching_strategy: impl Wire2Api<Option<TermsMatchingStrategy>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -422,7 +422,7 @@ mod web {
         limit: JsValue,
         sort_criteria: JsValue,
         filter: JsValue,
-        matching_strategy: i32,
+        matching_strategy: JsValue,
     ) {
         wire_search_documents_impl(
             port_,
@@ -581,6 +581,11 @@ mod web {
             self.map(Wire2Api::wire2api)
         }
     }
+    impl Wire2Api<Option<Filter>> for JsValue {
+        fn wire2api(self) -> Option<Filter> {
+            (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+        }
+    }
 
     impl Wire2Api<Option<Vec<SortBy>>> for JsValue {
         fn wire2api(self) -> Option<Vec<SortBy>> {
@@ -647,6 +652,11 @@ mod web {
     }
     impl Wire2Api<Option<Vec<String>>> for JsValue {
         fn wire2api(self) -> Option<Vec<String>> {
+            (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+        }
+    }
+    impl Wire2Api<Option<TermsMatchingStrategy>> for JsValue {
+        fn wire2api(self) -> Option<TermsMatchingStrategy> {
             (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
         }
     }
@@ -768,7 +778,7 @@ mod io {
         limit: *mut u32,
         sort_criteria: *mut wire_list_sort_by,
         filter: *mut wire_Filter,
-        matching_strategy: i32,
+        matching_strategy: *mut i32,
     ) {
         wire_search_documents_impl(
             port_,
@@ -820,6 +830,11 @@ mod io {
     #[no_mangle]
     pub extern "C" fn new_box_autoadd_mimir_index_settings_0() -> *mut wire_MimirIndexSettings {
         support::new_leak_box_ptr(wire_MimirIndexSettings::new_with_null_ptr())
+    }
+
+    #[no_mangle]
+    pub extern "C" fn new_box_autoadd_terms_matching_strategy_0(value: i32) -> *mut i32 {
+        support::new_leak_box_ptr(value)
     }
 
     #[no_mangle]
@@ -898,6 +913,12 @@ mod io {
         fn wire2api(self) -> MimirIndexSettings {
             let wrap = unsafe { support::box_from_leak_ptr(self) };
             Wire2Api::<MimirIndexSettings>::wire2api(*wrap).into()
+        }
+    }
+    impl Wire2Api<TermsMatchingStrategy> for *mut i32 {
+        fn wire2api(self) -> TermsMatchingStrategy {
+            let wrap = unsafe { support::box_from_leak_ptr(self) };
+            Wire2Api::<TermsMatchingStrategy>::wire2api(*wrap).into()
         }
     }
     impl Wire2Api<u32> for *mut u32 {

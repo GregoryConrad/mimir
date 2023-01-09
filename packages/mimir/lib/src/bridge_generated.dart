@@ -87,8 +87,8 @@ abstract class EmbeddedMilli {
       String? query,
       int? limit,
       List<SortBy>? sortCriteria,
-      required Filter filter,
-      required TermsMatchingStrategy matchingStrategy,
+      Filter? filter,
+      TermsMatchingStrategy? matchingStrategy,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta;
@@ -432,16 +432,17 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
       String? query,
       int? limit,
       List<SortBy>? sortCriteria,
-      required Filter filter,
-      required TermsMatchingStrategy matchingStrategy,
+      Filter? filter,
+      TermsMatchingStrategy? matchingStrategy,
       dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     var arg2 = _platform.api2wire_opt_String(query);
     var arg3 = _platform.api2wire_opt_box_autoadd_u32(limit);
     var arg4 = _platform.api2wire_opt_list_sort_by(sortCriteria);
-    var arg5 = _platform.api2wire_box_autoadd_filter(filter);
-    var arg6 = api2wire_terms_matching_strategy(matchingStrategy);
+    var arg5 = _platform.api2wire_opt_box_autoadd_filter(filter);
+    var arg6 = _platform
+        .api2wire_opt_box_autoadd_terms_matching_strategy(matchingStrategy);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_search_documents(
           port_, arg0, arg1, arg2, arg3, arg4, arg5, arg6),
