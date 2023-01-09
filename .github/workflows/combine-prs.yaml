@@ -94,14 +94,15 @@ jobs:
     needs: combine-prs
     if: needs.combine-prs.outputs.did-modify-pr == 'true'
     steps:
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v3
+        with:
+          ref: combine-prs-branch
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           components: rustfmt, clippy
-      - uses: actions/checkout@v3
-        with:
-          ref: combine-prs-branch
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v2
       - run: |
           cargo build -r
           git config --global user.name 'MimirActionsBot'
