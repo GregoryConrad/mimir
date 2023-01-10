@@ -16,3 +16,7 @@ This file is a WIP.
   - [Zig](https://ziglang.org/learn/getting-started/#installing-zig)
   - llvm (with `clang-cl`!)
     - Need to run `brew install llvm` on macOS since Apple's doesn't have it
+  - ninja
+    - Need to run `brew install ninja` on macOS
+  - cmake
+    - Need to run `brew install cmake` on macOS

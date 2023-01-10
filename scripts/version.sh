@@ -16,4 +16,7 @@ do
     rm packages/flutter_mimir/$CMAKE_PLATFORM/*.bak
 done
 
+# Web
+# TODO
+
 git add packages/flutter_mimir/

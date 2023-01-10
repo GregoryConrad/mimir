@@ -27,7 +27,7 @@ scripts:
     run: bash scripts/version.sh
 
   build:
-    run: melos run build:apple && melos run build:android && melos run build:other
+    run: melos run build:apple && melos run build:android && melos run build:other && melos run build:web
     description: Build all native libraries for the project.
 
   build:apple:
@@ -37,6 +37,10 @@ scripts:
   build:android:
     run: bash scripts/build-android.sh
     description: Build the .tar.gz for Android.
+
+  build:web:
+    run: bash scripts/build-web.sh
+    description: Build the .wasm for web.
 
   build:other:
     run: bash scripts/build-other.sh
