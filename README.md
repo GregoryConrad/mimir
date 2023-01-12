@@ -217,11 +217,10 @@ as it almost reads as pure English, even for complex conditions.
 ## Important Caveats
 Please read these caveats _before_ adding mimir to your project.
 
-- Document `id`s
-  - Documents in mimir need to have an `id` field!
-    - Can be a number or a string matching this regex: `^[a-zA-Z0-9-_]*$`
-  - Current bug in milli: you need your `id` field at _the top_ of your documents
-    - See https://github.com/meilisearch/product/discussions/206 for more
+- Every document added to mimir needs to have an `id` field
+  - Can be a number or a string matching this regex: `^[a-zA-Z0-9-_]*$`
+- macOS App Sandbox is *not supported*, meaning you will not be able to submit apps to the *Mac* App Store
+  - See [here](https://github.com/GregoryConrad/mimir/issues/101)
 - Resource usage
   - Note: most modern devices run mimir just fine; however:
   - Milli, a core component of Meilisearch, is what gives mimir a lot of its power
@@ -234,5 +233,3 @@ Please read these caveats _before_ adding mimir to your project.
     - If you need easy, typo-tolerant full-text search, you will want mimir!
       - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter
       - Why I made mimir in the first place!
-- macOS App Sandbox is *not supported*, meaning you will not be able to submit apps to the *Mac* App Store
-  - See [here](https://github.com/GregoryConrad/mimir/issues/101)
