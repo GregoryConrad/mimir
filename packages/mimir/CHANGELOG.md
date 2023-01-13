@@ -1,3 +1,8 @@
+## 0.0.1-dev.1
+
+ - **FIX**: update to use latest milli api.
+ - **FIX**: remove the invalid id (from video) TODO.
+
 ## 0.0.1-dev.0
 
  - **REFACTOR**: switch macOS and iOS build to use C generation.

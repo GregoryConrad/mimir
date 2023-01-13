@@ -1,3 +1,7 @@
+## 0.0.1-dev.1
+
+ - Update a dependency to the latest release.
+
 ## 0.0.1-dev.0
 
  - **REFACTOR**: switch macOS and iOS build to use C generation.
