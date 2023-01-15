@@ -262,4 +262,19 @@ void main() {
     } catch (_) {}
     expect((await index.getAllDocuments()).length, 0);
   });
+
+  test('Queries with 0 & 1 and/or sub-filter(s) work', () async {
+    final index = useTestIndex();
+    await index.addDocuments(allDocs);
+
+    // 0 sub-filters
+    expect(await index.search(filter: Mimir.and([])), <MimirDocument>[]);
+    expect(await index.search(filter: Mimir.or([])), <MimirDocument>[]);
+
+    // 1 sub-filter
+    final idFilter = Mimir.where('id', isEqualTo: '4');
+    final expectedDocs = [allDocs.last];
+    expect(await index.search(filter: Mimir.and([idFilter])), expectedDocs);
+    expect(await index.search(filter: Mimir.or([idFilter])), expectedDocs);
+  });
 }
