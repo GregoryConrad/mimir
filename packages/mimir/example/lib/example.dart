@@ -74,8 +74,7 @@ Future<void> run(String path, DynamicLibrary lib) async {
       // Let's sort the results by year in descending order here (new to old):
       SortBy.desc('year'),
       // If any two movies had the same year, we could sort by title next:
-      // To enable sorting by title, add it to the sortableFields above
-      // SortBy.asc('title'),
+      SortBy.asc('title'),
     ],
   );
 
