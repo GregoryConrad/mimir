@@ -8,7 +8,7 @@
 <img src="https://github.com/GregoryConrad/mimir/blob/main/assets/banner.jpg?raw=true" width="100%" alt="Mimir Banner" />
 </p>
 
-A batteries-included database for Dart & Flutter based on [Meilisearch](https://www.meilisearch.com).
+A batteries-included NoSQL database for Dart & Flutter based on [Meilisearch](https://www.meilisearch.com).
 
 ---
 
@@ -217,22 +217,19 @@ as it almost reads as pure English, even for complex conditions.
 ## Important Caveats
 Please read these caveats _before_ adding mimir to your project.
 
-- Document `id`s
-  - Documents in mimir need to have an `id` field!
-    - Can be a number or a string matching this regex: `^[a-zA-Z0-9-_]*$`
-  - Current bug in milli: you need your `id` field at _the top_ of your documents
-    - See https://github.com/meilisearch/product/discussions/206 for more
+- Every document in mimir needs to have a field ending in `id` (or simply just `id`)
+  - If you have multiple fields ending in `id`, please open an issue so we can discuss
+  - The contents of the `id` field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
+    - In English: IDs can be alphanumeric and contain `-` and `_`
+- macOS App Sandbox is *not supported*, meaning you will not be able to submit apps to the *Mac* App Store
+  - You will still be able to distribute macOS applications on your own
+  - See [here](https://github.com/GregoryConrad/mimir/issues/101)
 - Resource usage
-  - Note: most modern devices run mimir just fine; however:
-  - Milli, a core component of Meilisearch, is what gives mimir a lot of its power
-  - Unfortunately, Milli is somewhat resource intensive, making mimir itself somewhat heavy-weight
-  - Several thousand detailed documents can easily consume several MB of disk space & RAM
+  - While modern devices run mimir just fine, several thousand detailed documents can easily consume several MB of disk space and RAM
+  - This is due to Milli, a heavy-weight core component of Meilisearch, which gives mimir a lot of its power
   - If you do not need all the features provided by mimir, also consider a more lightweight alternative!
     - [Hive](https://pub.dev/packages/hive) for simple key-value storage
     - [Isar](https://pub.dev/packages/isar) for more sophisticated use-cases
       - Note: while Isar does have full-text search, it is *not* typo-tolerant!
     - If you need easy, typo-tolerant full-text search, you will want mimir!
-      - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter
-      - Why I made mimir in the first place!
-- macOS App Sandbox is *not supported*, meaning you will not be able to submit apps to the *Mac* App Store
-  - See [here](https://github.com/GregoryConrad/mimir/issues/101)
+      - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter, which is why I made mimir in the first place!

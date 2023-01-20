@@ -201,7 +201,7 @@ void wire_search_documents(int64_t port_,
                            uint32_t *limit,
                            struct wire_list_sort_by *sort_criteria,
                            struct wire_Filter *filter,
-                           int32_t matching_strategy);
+                           int32_t *matching_strategy);
 
 void wire_get_settings(int64_t port_,
                        struct wire_uint_8_list *instance_dir,
@@ -217,6 +217,8 @@ struct wire_StringList *new_StringList_0(int32_t len);
 struct wire_Filter *new_box_autoadd_filter_0(void);
 
 struct wire_MimirIndexSettings *new_box_autoadd_mimir_index_settings_0(void);
+
+int32_t *new_box_autoadd_terms_matching_strategy_0(int32_t value);
 
 uint32_t *new_box_autoadd_u32_0(uint32_t value);
 
@@ -276,6 +278,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_StringList_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_filter_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_mimir_index_settings_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_terms_matching_strategy_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u32_0);
     dummy_var ^= ((int64_t) (void*) new_box_filter_0);
     dummy_var ^= ((int64_t) (void*) new_list_filter_0);

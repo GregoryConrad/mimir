@@ -1,8 +1,8 @@
 name: mimir
 description: >
-  Extremely powerful, reactive database with
+  Extremely powerful, reactive NoSQL database with
   typo-tolerant full-text search and declarative queries.
-version: 0.0.0
+version: 0.0.1-dev.1
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
 
@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   ffi: ^2.0.1
-  flutter_rust_bridge: "1.60.0"
+  flutter_rust_bridge: "1.61.1"
   freezed_annotation: ^2.2.0
   meta: ^1.8.0
 

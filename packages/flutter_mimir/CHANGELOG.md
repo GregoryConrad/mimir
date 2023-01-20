@@ -1,3 +1,26 @@
+## 0.0.1-dev.1
+
+ - Update a dependency to the latest release.
+
+## 0.0.1-dev.0
+
+ - **REFACTOR**: switch macOS and iOS build to use C generation.
+ - **FIX**: disable macOS App Sandbox.
+ - **FIX**: force library bundling for macOS/iOS in release mode.
+ - **FIX**: ensure CMake will use local binaries if present.
+ - **FIX**: add cache layer of downloads for iOS/macOS.
+ - **FIX**: add FLUTTER_TARGET_PLATFORM to windows cmake.
+ - **FIX**: hopefully finished the linux cmake.
+ - **FIX**: work toward linux ffi support.
+ - **FIX**: update pubspec.yaml to meet pub.dev guidelines.
+ - **FIX**: add android ffi support ([#58](https://github.com/GregoryConrad/mimir/issues/58)).
+ - **FIX**: cocoapod distribution uses GitHub release ([#57](https://github.com/GregoryConrad/mimir/issues/57)).
+ - **FIX**: cocoapod source distribution ([#56](https://github.com/GregoryConrad/mimir/issues/56)).
+ - **FIX**: add proper rust support for macOS/iOS ([#44](https://github.com/GregoryConrad/mimir/issues/44)).
+ - **FEAT**: switch android build over to CMake to enable CI testing.
+ - **DOCS**: update package description to make pub.dev happy.
+ - **DOCS**: update the changelog to remove previous commits.
+
 ## 0.0.0
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

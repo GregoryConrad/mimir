@@ -1,6 +1,6 @@
 use milli_v1 as milli;
 
-use std::{convert::TryInto, io::Cursor, path::Path};
+use std::{convert::TryInto, io::Cursor, path::Path, str::FromStr};
 
 use anyhow::{anyhow, Result};
 use milli::{
@@ -267,7 +267,14 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
         }
         builder.set_filterable_fields(filterable_fields.into_iter().collect());
         builder.set_sortable_fields(sortable_fields.into_iter().collect());
-        builder.set_criteria(ranking_rules);
+        builder.set_criteria(
+            ranking_rules
+                .iter()
+                .map(String::as_str)
+                .map(milli::Criterion::from_str)
+                .map(|r| r.map_err(anyhow::Error::from))
+                .collect::<Result<_>>()?,
+        );
         builder.set_stop_words(stop_words.into_iter().collect());
         builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
         builder.set_autorize_typos(typos_enabled);
