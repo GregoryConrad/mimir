@@ -14,9 +14,5 @@ This file is a WIP.
   - [Android NDK](https://developer.android.com/ndk/downloads)
     - NDK version 25 (`r25b`)
   - [Zig](https://ziglang.org/learn/getting-started/#installing-zig)
-  - llvm (with `clang-cl`!)
+  - llvm (with `clang-cl` and WASM/WASI support!)
     - Need to run `brew install llvm` on macOS since Apple's doesn't have it
-  - ninja
-    - Need to run `brew install ninja` on macOS
-  - cmake
-    - Need to run `brew install cmake` on macOS
