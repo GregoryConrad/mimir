@@ -85,21 +85,17 @@ class Body extends HookConsumerWidget {
           ),
         ),
       ),
-      body: Column(children: [
-        Expanded(
-          child: searchResults.when(
-            data: (searchResults) => ListView.builder(
-              padding: const EdgeInsets.only(top: 16, bottom: 8),
-              itemCount: searchResults.length,
-              itemBuilder: (_, index) => MovieCard(movie: searchResults[index]),
-            ),
-            error: (e, s) => Center(child: Text('Error: $e')),
-            loading: () => const Center(
-              child: CircularProgressIndicator.adaptive(),
-            ),
-          ),
+      body: searchResults.when(
+        data: (searchResults) => ListView.builder(
+          padding: const EdgeInsets.only(top: 16, bottom: 8),
+          itemCount: searchResults.length,
+          itemBuilder: (_, index) => MovieCard(movie: searchResults[index]),
         ),
-      ]),
+        error: (e, s) => Center(child: Text('Error: $e')),
+        loading: () => const Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      ),
     );
   }
 }

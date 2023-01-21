@@ -18,10 +18,10 @@ fn main() {
     let raw_opts = RawOpts {
         rust_input: vec![RUST_INPUT.to_string()],
         dart_output: vec![DART_OUTPUT.to_string()],
-        c_output: Some(vec![IOS_C_OUTPUT.to_string(), MACOS_C_OUTPUT.to_string()]),
+        c_output: Some(vec![IOS_C_OUTPUT.to_string()]),
         inline_rust: true,
         wasm: true,
-        ..Default::default() // use defaults for the rest
+        ..Default::default()
     };
 
     // Generate Rust & Dart ffi bridges
@@ -31,8 +31,11 @@ fn main() {
         frb_codegen(config, &all_symbols).unwrap();
     }
 
+    // Copy ios/ generated C files to macos/
+    std::fs::copy(IOS_C_OUTPUT, MACOS_C_OUTPUT).unwrap();
+
     // Format the generated Dart code
-    let _format_result = std::process::Command::new("flutter")
+    _ = std::process::Command::new("flutter")
         .arg("format")
         .arg("..")
         .spawn();

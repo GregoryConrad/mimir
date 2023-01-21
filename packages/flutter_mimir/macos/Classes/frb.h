@@ -3,6 +3,8 @@
 #include <stdlib.h>
 typedef struct _Dart_Handle* Dart_Handle;
 
+typedef struct DartCObject DartCObject;
+
 typedef int64_t DartPort;
 
 typedef bool (*DartPostCObjectFnType)(DartPort port_id, void *message);
@@ -146,11 +148,7 @@ typedef struct wire_MimirIndexSettings {
   struct wire_StringList *disallow_typos_on_fields;
 } wire_MimirIndexSettings;
 
-typedef struct WireSyncReturnStruct {
-  uint8_t *ptr;
-  int32_t len;
-  bool success;
-} WireSyncReturnStruct;
+typedef struct DartCObject *WireSyncReturn;
 
 void store_dart_post_cobject(DartPostCObjectFnType ptr);
 
@@ -203,7 +201,7 @@ void wire_search_documents(int64_t port_,
                            uint32_t *limit,
                            struct wire_list_sort_by *sort_criteria,
                            struct wire_Filter *filter,
-                           int32_t matching_strategy);
+                           int32_t *matching_strategy);
 
 void wire_get_settings(int64_t port_,
                        struct wire_uint_8_list *instance_dir,
@@ -219,6 +217,8 @@ struct wire_StringList *new_StringList_0(int32_t len);
 struct wire_Filter *new_box_autoadd_filter_0(void);
 
 struct wire_MimirIndexSettings *new_box_autoadd_mimir_index_settings_0(void);
+
+int32_t *new_box_autoadd_terms_matching_strategy_0(int32_t value);
 
 uint32_t *new_box_autoadd_u32_0(uint32_t value);
 
@@ -260,7 +260,7 @@ union SortByKind *inflate_SortBy_Asc(void);
 
 union SortByKind *inflate_SortBy_Desc(void);
 
-void free_WireSyncReturnStruct(struct WireSyncReturnStruct val);
+void free_WireSyncReturn(WireSyncReturn ptr);
 
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
@@ -278,6 +278,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) new_StringList_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_filter_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_mimir_index_settings_0);
+    dummy_var ^= ((int64_t) (void*) new_box_autoadd_terms_matching_strategy_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u32_0);
     dummy_var ^= ((int64_t) (void*) new_box_filter_0);
     dummy_var ^= ((int64_t) (void*) new_list_filter_0);
@@ -298,7 +299,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) inflate_Filter_Between);
     dummy_var ^= ((int64_t) (void*) inflate_SortBy_Asc);
     dummy_var ^= ((int64_t) (void*) inflate_SortBy_Desc);
-    dummy_var ^= ((int64_t) (void*) free_WireSyncReturnStruct);
+    dummy_var ^= ((int64_t) (void*) free_WireSyncReturn);
     dummy_var ^= ((int64_t) (void*) store_dart_post_cobject);
     dummy_var ^= ((int64_t) (void*) get_dart_object);
     dummy_var ^= ((int64_t) (void*) drop_dart_object);
