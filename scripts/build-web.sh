@@ -28,5 +28,5 @@ export NM="$LLVM_BIN/llvm-nm"
 # Build for web
 TARGET=wasm32-wasi
 rustup target add $TARGET
-cargo build -r --target=$TARGET --features posix-sem # TODO enable POSIX sem?
+cargo build -r --target=$TARGET
 cp ../target/wasm32-wasi/release/embedded_milli.wasm .
