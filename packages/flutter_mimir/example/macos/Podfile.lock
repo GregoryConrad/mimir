@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos
 
 SPEC CHECKSUMS:
-  flutter_mimir: 9a814ba6262a9335f1869a6ddf2c44a8395d4bdc
+  flutter_mimir: abc5575f7deea72a2716fb3a75295984681dfd87
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
 
