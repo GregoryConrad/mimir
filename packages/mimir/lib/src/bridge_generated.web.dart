@@ -189,7 +189,6 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire>
     return raw;
   }
 // Section: finalizer
-
 }
 
 // Section: WASM wire module
