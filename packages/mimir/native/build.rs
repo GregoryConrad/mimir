@@ -12,7 +12,7 @@ const MACOS_C_OUTPUT: &str = "../../flutter_mimir/macos/Classes/frb.h";
 
 fn main() {
     // Tell Cargo that if the input Rust code changes, rerun this build script
-    println!("cargo:rerun-if-changed={}", RUST_INPUT);
+    println!("cargo:rerun-if-changed={RUST_INPUT}");
 
     // Options for frb_codegen
     let raw_opts = RawOpts {
