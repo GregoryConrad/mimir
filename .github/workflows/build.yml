@@ -53,7 +53,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.3.10' # TODO remove this fix
+          flutter-version: '3.7.0-28.0.pre.21'
       - uses: bluefireteam/melos-action@v2
       - uses: actions-rs/toolchain@v1
         with:
