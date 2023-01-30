@@ -1,4 +1,4 @@
-set(MimirVersion "mimir-v0.0.1-dev.1") # generated; do not edit
+set(MimirVersion "mimir-v0.0.1-dev.2") # generated; do not edit
 
 # TODO Remove this workaround once Flutter supports Windows ARM.
 # https://github.com/flutter/flutter/issues/116196
