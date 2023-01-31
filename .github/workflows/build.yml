@@ -52,8 +52,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.3.10' # TODO remove this fix
       - uses: bluefireteam/melos-action@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -69,7 +67,7 @@ jobs:
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
-        run: flutter test -d macos integration_test
+        run: flutter test -v -d macos integration_test
 
   windows_integration_test:
     runs-on: windows-latest
