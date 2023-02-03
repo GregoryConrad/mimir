@@ -6,10 +6,6 @@ version: 0.0.1-dev.4
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
 issue_tracker: https://github.com/GregoryConrad/mimir/issues
-screenshots:
-  - path: assets/demo.gif
-    description: >
-      GIF of the example Flutter app, showcasing a movie search.
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
