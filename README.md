@@ -38,7 +38,7 @@ await index.addDocuments(myMovies);
 // Perform a search!
 final results = await index.search(query: 'jarrassic par'); // returns Jurassic Park!
 ```
-![Demo Video](https://media3.giphy.com/media/5CXp6KYJIyuhLApWNK/giphy.gif)
+![Demo Video](assets/demo.gif)
 
 ## Reference Documentation
 A collection of commonly used APIs ready for copy-paste into your application.
