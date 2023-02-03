@@ -1,3 +1,7 @@
+## 0.0.1-dev.4
+
+ - **DOCS**: fix pub.dev screenshot.
+
 ## 0.0.1-dev.3
 
  - **DOCS**: update with in-repo demo gif.
