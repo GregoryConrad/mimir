@@ -1,3 +1,7 @@
+## 0.0.1-dev.3
+
+ - **DOCS**: update with in-repo demo gif.
+
 ## 0.0.1-dev.2
 
  - **REFACTOR**: clean up some of the example code.
