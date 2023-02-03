@@ -7,9 +7,9 @@ homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
 issue_tracker: https://github.com/GregoryConrad/mimir/issues
 screenshots:
-  - description: >
+  - path: assets/demo.gif
+    description: >
       GIF of the example Flutter app, showcasing a movie search.
-    path: ../../assets/demo.gif
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
