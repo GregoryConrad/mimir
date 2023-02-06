@@ -20,7 +20,7 @@ A batteries-included NoSQL database for Dart & Flutter based on [Meilisearch](ht
 - 🔌 Cross-platform support ([web hopefully coming soon!](https://github.com/GregoryConrad/mimir/issues/10))
 
 ## Getting Started
-- With Flutter, run `flutter pub add flutter_mimir`
+- With Flutter, run `flutter pub add mimir flutter_mimir`
 - For Dart-only, run `dart pub add mimir`
 
 Also read the [caveats below](#important-caveats).
