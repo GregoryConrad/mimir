@@ -1,3 +1,17 @@
+## 0.0.1-dev.4
+
+ - **DOCS**: fix pub.dev screenshot.
+
+## 0.0.1-dev.3
+
+ - **DOCS**: update with in-repo demo gif.
+
+## 0.0.1-dev.2
+
+ - **REFACTOR**: clean up some of the example code.
+ - **FIX**: make macos example app work with flutter 3.7.
+ - **DOCS**: clarify some wording.
+
 ## 0.0.1-dev.1
 
  - **FIX**: update to use latest milli api.

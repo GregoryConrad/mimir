@@ -20,7 +20,7 @@ A batteries-included NoSQL database for Dart & Flutter based on [Meilisearch](ht
 - 🔌 Cross-platform support ([web hopefully coming soon!](https://github.com/GregoryConrad/mimir/issues/10))
 
 ## Getting Started
-- With Flutter, run `flutter pub add flutter_mimir`
+- With Flutter, run `flutter pub add mimir flutter_mimir`
 - For Dart-only, run `dart pub add mimir`
 
 Also read the [caveats below](#important-caveats).
@@ -38,7 +38,7 @@ await index.addDocuments(myMovies);
 // Perform a search!
 final results = await index.search(query: 'jarrassic par'); // returns Jurassic Park!
 ```
-![Demo Video](https://media3.giphy.com/media/5CXp6KYJIyuhLApWNK/giphy.gif)
+![Demo Video](assets/demo.gif)
 
 ## Reference Documentation
 A collection of commonly used APIs ready for copy-paste into your application.
@@ -221,9 +221,9 @@ Please read these caveats _before_ adding mimir to your project.
   - If you have multiple fields ending in `id`, please open an issue so we can discuss
   - The contents of the `id` field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
     - In English: IDs can be alphanumeric and contain `-` and `_`
-- macOS App Sandbox is *not supported*, meaning you will not be able to submit apps to the *Mac* App Store
+- macOS App Sandbox is *not supported* at the moment, meaning you will not be able to submit apps to the *Mac* App Store
   - You will still be able to distribute macOS applications on your own
-  - See [here](https://github.com/GregoryConrad/mimir/issues/101)
+  - See more details [here](https://github.com/GregoryConrad/mimir/issues/101)
 - Resource usage
   - While modern devices run mimir just fine, several thousand detailed documents can easily consume several MB of disk space and RAM
   - This is due to Milli, a heavy-weight core component of Meilisearch, which gives mimir a lot of its power
