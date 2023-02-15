@@ -1,3 +1,7 @@
+## 0.0.1-dev.5
+
+ - **FIX**: remove pubspec screenshot attribute.
+
 ## 0.0.1-dev.4
 
  - **DOCS**: fix pub.dev screenshot.
