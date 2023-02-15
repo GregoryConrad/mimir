@@ -8,7 +8,8 @@
 <img src="https://github.com/GregoryConrad/mimir/blob/main/assets/banner.jpg?raw=true" width="100%" alt="Mimir Banner" />
 </p>
 
-A batteries-included NoSQL database for Dart & Flutter based on [Meilisearch](https://www.meilisearch.com).
+A batteries-included NoSQL database for Dart & Flutter based on an embedded
+[Meilisearch](https://www.meilisearch.com) instance.
 
 ---
 
