@@ -6,7 +6,7 @@ typedef MimirDocument = Map<String, dynamic>;
 /// Represents an index in mimir (and also milli, the engine of Meilisearch)
 ///
 /// An index consists of documents, which is what searching is based off of
-mixin MimirIndex {
+abstract class MimirIndex {
   /// The path-friendly name (id) of this index
   String get name;
 

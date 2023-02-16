@@ -10,7 +10,7 @@ import 'package:mimir/src/index.dart';
 /// make sense; you can just use ffi to access the engine, Milli, directly.
 /// With this approach, its easier on constrained resources (no http server)
 /// and more simple (no management of the server needed).
-mixin MimirInstance {
+abstract class MimirInstance {
   /// The file-system path for the directory of this instance
   String get path;
 

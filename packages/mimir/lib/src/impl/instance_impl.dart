@@ -2,7 +2,7 @@ import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/index_impl.dart';
 import 'package:mimir/src/instance.dart';
 
-class MimirInstanceImpl with MimirInstance {
+class MimirInstanceImpl extends MimirInstance {
   MimirInstanceImpl(this.path, this.milli);
 
   final EmbeddedMilli milli;

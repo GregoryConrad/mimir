@@ -6,7 +6,7 @@ import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/index.dart';
 
-class MimirIndexImpl with MimirIndex {
+class MimirIndexImpl extends MimirIndex {
   MimirIndexImpl(this.instance, this.name);
 
   final MimirInstanceImpl instance;
