@@ -180,11 +180,11 @@ void main() {
     final actualDocumentsStream = index.documents.asBroadcastStream();
 
     await expectLater(actualDocumentsStream, emits(equals([])));
-    index.addDocuments(allDocs);
+    await index.addDocuments(allDocs);
     await expectLater(actualDocumentsStream, emits(equals(allDocs)));
-    index.deleteAllDocuments();
+    await index.deleteAllDocuments();
     await expectLater(actualDocumentsStream, emits(equals([])));
-    index.addDocument(allDocs[0]);
+    await index.addDocument(allDocs[0]);
     await expectLater(actualDocumentsStream, emits(equals([allDocs[0]])));
   });
 
@@ -194,9 +194,9 @@ void main() {
         index.searchStream(query: 'horry botter').asBroadcastStream();
 
     await expectLater(actualDocumentsStream, emits(equals([])));
-    index.addDocuments(allDocs);
+    await index.addDocuments(allDocs);
     await expectLater(actualDocumentsStream, emits(equals([allDocs[3]])));
-    index.deleteAllDocuments();
+    await index.deleteAllDocuments();
     await expectLater(actualDocumentsStream, emits(equals([])));
   });
 
