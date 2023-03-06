@@ -1,6 +1,8 @@
 import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/instance.dart';
+
+// ignore: directives_ordering
 import 'package:mimir/src/impl/ffi/stub.dart'
     if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart'
     if (dart.library.html) 'package:mimir/src/impl/ffi/web.dart';
@@ -106,7 +108,9 @@ class MimirInterface {
       MapEntry(
         isGreaterThanOrEqualTo != null,
         () => Filter.greaterThanOrEqual(
-            field: field, value: isGreaterThanOrEqualTo!),
+          field: field,
+          value: isGreaterThanOrEqualTo!,
+        ),
       ),
       MapEntry(
         isLessThanOrEqualTo != null,

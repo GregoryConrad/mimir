@@ -153,18 +153,23 @@ void main() {
   });
 
   test('Multiprocessing functionality when adding documents', () async {
-    const concurrentDocs = 100, batchDocs = 10000;
+    const concurrentDocs = 100;
+    const batchDocs = 10000;
     final index = useTestIndex();
 
     // Add docs concurrently
-    await Future.wait(Iterable<int>.generate(concurrentDocs)
-        .map((i) => {'id': i})
-        .map(index.addDocument));
+    await Future.wait(
+      Iterable<int>.generate(concurrentDocs)
+          .map((i) => {'id': i})
+          .map(index.addDocument),
+    );
 
     // Add docs in batch
-    await index.addDocuments(Iterable<int>.generate(batchDocs)
-        .map((i) => {'id': i + concurrentDocs})
-        .toList());
+    await index.addDocuments(
+      Iterable<int>.generate(batchDocs)
+          .map((i) => {'id': i + concurrentDocs})
+          .toList(),
+    );
 
     final allDocs = await index.getAllDocuments();
     expect(allDocs.length, concurrentDocs + batchDocs);
@@ -232,20 +237,28 @@ void main() {
     final index = useTestIndex();
     const missingIdDoc = {'name': 'test'};
     const invalidIdDoc = {'id': 'abc123='};
-    expect(() => index.addDocument(missingIdDoc),
-        throwsA(const TypeMatcher<FfiException>()));
-    expect(() => index.addDocument(invalidIdDoc),
-        throwsA(const TypeMatcher<FfiException>()));
+    expect(
+      () => index.addDocument(missingIdDoc),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
+    expect(
+      () => index.addDocument(invalidIdDoc),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
   });
 
   test('Setting invalid documents throws errors', () {
     final index = useTestIndex();
     const missingIdDoc = {'name': 'test'};
     const invalidIdDoc = {'id': 'abc123='};
-    expect(() => index.setDocuments([missingIdDoc]),
-        throwsA(const TypeMatcher<FfiException>()));
-    expect(() => index.setDocuments([invalidIdDoc]),
-        throwsA(const TypeMatcher<FfiException>()));
+    expect(
+      () => index.setDocuments([missingIdDoc]),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
+    expect(
+      () => index.setDocuments([invalidIdDoc]),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
   });
 
   test('Setting/adding an invalid batch adds no documents', () async {

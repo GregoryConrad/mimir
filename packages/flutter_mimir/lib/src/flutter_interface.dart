@@ -1,6 +1,8 @@
 import 'package:flutter_mimir/flutter_mimir.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart' as pp;
+
+// ignore: always_use_package_imports
 import 'ffi/stub.dart'
     if (dart.library.io) 'ffi/io.dart'
     if (dart.library.html) 'ffi/web.dart';
