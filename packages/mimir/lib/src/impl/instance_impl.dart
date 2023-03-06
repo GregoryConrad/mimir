@@ -6,7 +6,7 @@ import 'package:mimir/src/instance.dart';
 // ignore_for_file: public_member_api_docs
 
 @internal
-class MimirInstanceImpl with MimirInstance {
+class MimirInstanceImpl extends MimirInstance {
   MimirInstanceImpl(this.path, this.milli);
 
   final EmbeddedMilli milli;

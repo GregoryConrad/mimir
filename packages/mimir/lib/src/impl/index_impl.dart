@@ -10,7 +10,7 @@ import 'package:mimir/src/index.dart';
 // ignore_for_file: public_member_api_docs
 
 @internal
-class MimirIndexImpl with MimirIndex {
+class MimirIndexImpl extends MimirIndex {
   MimirIndexImpl(this.instance, this.name);
 
   final MimirInstanceImpl instance;

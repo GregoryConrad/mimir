@@ -177,50 +177,27 @@ void main() {
 
   test('Documents stream', () async {
     final index = useTestIndex();
+    final actualDocumentsStream = index.documents.asBroadcastStream();
 
-    final expectedDocumentsStream = <List<Map<String, dynamic>>>[
-      [], // should start off with the current documents when accessing stream
-      allDocs, // we add all documents
-      [], // we delete all documents
-      [allDocs[0]], // we add just one document
-    ];
-
-    // Will be populated throughout the rest of the test
-    final actualDocumentsStream = index.documents.toList();
-
-    await useForceStreamUpdate();
-    await index.addDocuments(allDocs);
-    await useForceStreamUpdate();
-    await index.deleteAllDocuments();
-    await useForceStreamUpdate();
-    await index.addDocument(allDocs[0]);
-    await useForceStreamUpdate();
-    await index.close();
-
-    expect(await actualDocumentsStream, expectedDocumentsStream);
+    await expectLater(actualDocumentsStream, emits(equals([])));
+    index.addDocuments(allDocs);
+    await expectLater(actualDocumentsStream, emits(equals(allDocs)));
+    index.deleteAllDocuments();
+    await expectLater(actualDocumentsStream, emits(equals([])));
+    index.addDocument(allDocs[0]);
+    await expectLater(actualDocumentsStream, emits(equals([allDocs[0]])));
   });
 
   test('Search stream', () async {
     final index = useTestIndex();
-
-    final expectedDocumentsStream = <List<Map<String, dynamic>>>[
-      [], // should start off with the docs that match search
-      [allDocs[3]], // search should only match one document
-      [], // we delete all documents, so no search result
-    ];
-
-    // Will be populated throughout the rest of the test
     final actualDocumentsStream =
-        index.searchStream(query: 'horry botter').toList();
+        index.searchStream(query: 'horry botter').asBroadcastStream();
 
-    await useForceStreamUpdate();
-    await index.addDocuments(allDocs);
-    await useForceStreamUpdate();
-    await index.deleteAllDocuments();
-    await useForceStreamUpdate();
-    await index.close();
-
-    expect(await actualDocumentsStream, expectedDocumentsStream);
+    await expectLater(actualDocumentsStream, emits(equals([])));
+    index.addDocuments(allDocs);
+    await expectLater(actualDocumentsStream, emits(equals([allDocs[3]])));
+    index.deleteAllDocuments();
+    await expectLater(actualDocumentsStream, emits(equals([])));
   });
 
   test('Search with no parameters should return all documents', () async {

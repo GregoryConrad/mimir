@@ -8,7 +8,8 @@
 <img src="https://github.com/GregoryConrad/mimir/blob/main/assets/banner.jpg?raw=true" width="100%" alt="Mimir Banner" />
 </p>
 
-A batteries-included NoSQL database for Dart & Flutter based on [Meilisearch](https://www.meilisearch.com).
+A batteries-included NoSQL database for Dart & Flutter based on an embedded
+[Meilisearch](https://www.meilisearch.com) instance.
 
 ---
 
@@ -38,7 +39,7 @@ await index.addDocuments(myMovies);
 // Perform a search!
 final results = await index.search(query: 'jarrassic par'); // returns Jurassic Park!
 ```
-![Demo Video](assets/demo.gif)
+![Demo Video](https://github.com/GregoryConrad/mimir/blob/main/assets/demo.gif?raw=true)
 
 ## Reference Documentation
 A collection of commonly used APIs ready for copy-paste into your application.

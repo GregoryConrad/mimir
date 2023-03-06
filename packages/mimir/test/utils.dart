@@ -38,12 +38,6 @@ MimirInstance useInstance() {
 
 MimirIndex useTestIndex() => useInstance().getIndex('test');
 
-// Force the current context of running code to go to end of the event queue
-// so that an async stream's next change can be processed correctly.
-// This is kinda janky but works fine because of Dart's design w/ event loop.
-Future<void> useForceStreamUpdate() =>
-    Future.delayed(const Duration(milliseconds: 10));
-
 List<Map<String, dynamic>> useExercises() {
   final exercisesStr = File('test/assets/exercises.json').readAsStringSync();
   final exerciseLibrary = json.decode(exercisesStr) as Map<String, dynamic>;
