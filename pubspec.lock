@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: args
-      sha256: "139d809800a412ebb26a3892da228b2d0ba36f0ef5d9a82166e5e52ec8d61611"
+      sha256: "4cab82a83ffef80b262ddedf47a0a8e56ee6fbf7fe21e6e768b02792034dd440"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   async:
     dependency: transitive
     description:
@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: cli_launcher
-      sha256: "0ca98ae09f45fb2d128fa6b127c215e26a4edc69f1986fc6e45f7b8e3360cf38"
+      sha256: "5e7e0282b79e8642edd6510ee468ae2976d847a0a29b3916e85f5fa1bfe24005"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.0"
+    version: "0.3.1"
   cli_util:
     dependency: transitive
     description:
@@ -77,10 +77,10 @@ packages:
     dependency: transitive
     description:
       name: conventional_commit
-      sha256: "40321e55c2416c0940a846bf938c0a70efaf9eb72da042d5ea76b79b6f5045ee"
+      sha256: "8eee25c315cf1946215d02d598402ca75cfee8a8ab482f3fac34cb0717323afa"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0-dev.0"
+    version: "0.6.0"
   convert:
     dependency: transitive
     description:
@@ -165,10 +165,10 @@ packages:
     dependency: "direct dev"
     description:
       name: melos
-      sha256: "739431cbc88d802dc215c0a7bac6e48a9a7fe2c42ef15cbe2f8c54433e6588d6"
+      sha256: cd8e7db0250ee822c5354a8214afc751b6c1c41aadfbbef927456d509d953244
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0-dev.0"
+    version: "3.0.0"
   meta:
     dependency: transitive
     description:
@@ -333,9 +333,9 @@ packages:
     dependency: transitive
     description:
       name: yaml_edit
-      sha256: "4240d1b19841b8af5786121e4e357735cc2a8ffb19176bff5769d73c34e2a8a5"
+      sha256: "0b968021754d8fbd3e9c83563b538ee417d88b2cc587606da5615546b7ee033b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.3"
+    version: "2.1.0"
 sdks:
   dart: ">=2.19.0 <4.0.0"
