@@ -153,18 +153,23 @@ void main() {
   });
 
   test('Multiprocessing functionality when adding documents', () async {
-    const concurrentDocs = 100, batchDocs = 10000;
+    const concurrentDocs = 100;
+    const batchDocs = 10000;
     final index = useTestIndex();
 
     // Add docs concurrently
-    await Future.wait(Iterable<int>.generate(concurrentDocs)
-        .map((i) => {'id': i})
-        .map(index.addDocument));
+    await Future.wait(
+      Iterable<int>.generate(concurrentDocs)
+          .map((i) => {'id': i})
+          .map(index.addDocument),
+    );
 
     // Add docs in batch
-    await index.addDocuments(Iterable<int>.generate(batchDocs)
-        .map((i) => {'id': i + concurrentDocs})
-        .toList());
+    await index.addDocuments(
+      Iterable<int>.generate(batchDocs)
+          .map((i) => {'id': i + concurrentDocs})
+          .toList(),
+    );
 
     final allDocs = await index.getAllDocuments();
     expect(allDocs.length, concurrentDocs + batchDocs);
@@ -175,11 +180,11 @@ void main() {
     final actualDocumentsStream = index.documents.asBroadcastStream();
 
     await expectLater(actualDocumentsStream, emits(equals([])));
-    index.addDocuments(allDocs);
+    await index.addDocuments(allDocs);
     await expectLater(actualDocumentsStream, emits(equals(allDocs)));
-    index.deleteAllDocuments();
+    await index.deleteAllDocuments();
     await expectLater(actualDocumentsStream, emits(equals([])));
-    index.addDocument(allDocs[0]);
+    await index.addDocument(allDocs[0]);
     await expectLater(actualDocumentsStream, emits(equals([allDocs[0]])));
   });
 
@@ -189,9 +194,9 @@ void main() {
         index.searchStream(query: 'horry botter').asBroadcastStream();
 
     await expectLater(actualDocumentsStream, emits(equals([])));
-    index.addDocuments(allDocs);
+    await index.addDocuments(allDocs);
     await expectLater(actualDocumentsStream, emits(equals([allDocs[3]])));
-    index.deleteAllDocuments();
+    await index.deleteAllDocuments();
     await expectLater(actualDocumentsStream, emits(equals([])));
   });
 
@@ -209,20 +214,28 @@ void main() {
     final index = useTestIndex();
     const missingIdDoc = {'name': 'test'};
     const invalidIdDoc = {'id': 'abc123='};
-    expect(() => index.addDocument(missingIdDoc),
-        throwsA(const TypeMatcher<FfiException>()));
-    expect(() => index.addDocument(invalidIdDoc),
-        throwsA(const TypeMatcher<FfiException>()));
+    expect(
+      () => index.addDocument(missingIdDoc),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
+    expect(
+      () => index.addDocument(invalidIdDoc),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
   });
 
   test('Setting invalid documents throws errors', () {
     final index = useTestIndex();
     const missingIdDoc = {'name': 'test'};
     const invalidIdDoc = {'id': 'abc123='};
-    expect(() => index.setDocuments([missingIdDoc]),
-        throwsA(const TypeMatcher<FfiException>()));
-    expect(() => index.setDocuments([invalidIdDoc]),
-        throwsA(const TypeMatcher<FfiException>()));
+    expect(
+      () => index.setDocuments([missingIdDoc]),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
+    expect(
+      () => index.setDocuments([invalidIdDoc]),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
   });
 
   test('Setting/adding an invalid batch adds no documents', () async {

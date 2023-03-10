@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:mimir/mimir.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mimir/mimir.dart';
 import 'package:test/test.dart';
 
 part 'utils.freezed.dart';
@@ -43,6 +43,7 @@ List<Map<String, dynamic>> useExercises() {
   final exerciseLibrary = json.decode(exercisesStr) as Map<String, dynamic>;
   return (exerciseLibrary['exercises'] as List)
       .cast<Map<String, dynamic>>()
+      // ignore: avoid_dynamic_calls
       .map((e) => e..['id'] = e['name'].hashCode)
       .toList();
 }

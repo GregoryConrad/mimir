@@ -15,9 +15,10 @@ abstract class MimirIndex {
   /// Searches based on the provided [query], if not null.
   /// Filters the results based on the [filter], if not null.
   /// Sorts the results based on relevance, or the [sortBy] if not null.
-  /// Returns at most [resultsLimit] documents (if not null; otherwise all matches).
-  /// Uses the provided [matchingStrategy] (if not null) to get to [resultsLimit]
-  /// documents (if not already there).
+  /// Returns at most [resultsLimit] documents
+  /// (if not null; otherwise all matches).
+  /// Uses the provided [matchingStrategy]
+  /// (if not null) to get to [resultsLimit] documents (if not already there).
   Future<List<MimirDocument>> search({
     String? query,
     Filter? filter,
