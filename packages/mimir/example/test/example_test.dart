@@ -1,4 +1,4 @@
-import 'package:example/example.dart' as example;
+import 'package:mimir_example/mimir_example.dart' as example;
 import 'package:test/test.dart';
 
 void main() {

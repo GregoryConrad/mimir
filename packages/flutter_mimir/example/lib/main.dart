@@ -9,18 +9,20 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Get the index
+  // Get a copy of the index.
   final instance = await Mimir.defaultInstance;
   final index = instance.getIndex('movies');
 
-  // Add all the documents async (do NOT await)
+  // Add all the documents async.
+  // We are purposefully not awaiting here so we can show the loading state
+  // in the UI.
   rootBundle
       .loadString('assets/tmdb_movies.json')
       .then((l) => json.decode(l) as List)
       .then((l) => l.cast<Map<String, dynamic>>())
-      .then((l) => index.addDocuments(l));
+      .then(index.addDocuments);
 
-  // Finally, run our application
+  // Finally, run our application.
   runApp(ProviderScope(
     overrides: [indexProvider.overrideWith((_) => index)],
     child: MaterialApp(
@@ -32,14 +34,14 @@ void main() async {
   ));
 }
 
-// The providers needed for this example
+// The providers needed for this example.
 final indexProvider = Provider<MimirIndex>((_) => throw UnimplementedError());
 final queryProvider = StateProvider((_) => '');
 final searchProvider = StreamProvider((ref) {
   final index = ref.watch(indexProvider);
   final query = ref.watch(queryProvider);
 
-  // When query is null/empty, all docs will be returned
+  // When query is null/empty, all docs will be returned.
   return index.searchStream(query: query);
 });
 
