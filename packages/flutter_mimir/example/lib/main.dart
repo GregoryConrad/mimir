@@ -2,29 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mimir/flutter_mimir.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_unstate/flutter_unstate.dart';
+import 'package:unstate/unstate.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Get a copy of the index.
-  final instance = await Mimir.defaultInstance;
-  final index = instance.getIndex('movies');
-
-  // Add all the documents async.
-  // We are purposefully not awaiting here so we can show the loading state
-  // in the UI.
-  rootBundle
-      .loadString('assets/tmdb_movies.json')
-      .then((l) => json.decode(l) as List)
-      .then((l) => l.cast<Map<String, dynamic>>())
-      .then(index.addDocuments);
-
   // Finally, run our application.
-  runApp(ProviderScope(
-    overrides: [indexProvider.overrideWith((_) => index)],
+  runApp(UnstateBootstrapper(
+    warmUpCapsules: [indexWarmUpCapsule],
     child: MaterialApp(
       title: 'Mimir Demo',
       theme: ThemeData.light(useMaterial3: true),
@@ -34,24 +21,53 @@ void main() async {
   ));
 }
 
-// The providers needed for this example.
-final indexProvider = Provider<MimirIndex>((_) => throw UnimplementedError());
-final queryProvider = StateProvider((_) => '');
-final searchProvider = StreamProvider((ref) {
-  final index = ref.watch(indexProvider);
-  final query = ref.watch(queryProvider);
+// The capsules needed for this example.
+final indexWarmUpCapsule = Capsule.defaultManager(_indexWarmUp);
+final indexCapsule = Capsule.defaultManager((manager) {
+  return (manager.watchCapsule(indexWarmUpCapsule) as AsyncData<MimirIndex>)
+      .data;
+});
+
+// FIXME following two can probably be a factory
+final queryCapsule = Capsule.defaultManager((_) => '');
+final searchProvider = Capsule.defaultManager((manager) {
+  final index = manager.watchCapsule(indexCapsule);
+  final query = manager.watchCapsule(queryCapsule);
 
   // When query is null/empty, all docs will be returned.
   return index.searchStream(query: query);
 });
 
-class Body extends HookConsumerWidget {
-  const Body({super.key});
+AsyncValue<MimirIndex> _indexWarmUp(
+    CapsuleManager<AsyncValue<MimirIndex>> manager) {
+  final future = manager.use.callOnce(() async {
+    final instance = await Mimir.defaultInstance;
+    final index = instance.getIndex('movies');
+
+    // Add all the documents asynchronously.
+    // We are purposefully not awaiting here so we can show the loading state
+    // in the UI.
+    // TODO switch this to persist plugin usage, where reading from device is
+    //  like online data
+    rootBundle
+        .loadString('assets/tmdb_movies.json')
+        .then((l) => json.decode(l) as List)
+        .then((l) => l.cast<Map<String, dynamic>>())
+        .then(index.addDocuments);
+
+    return index;
+  });
+
+  return manager.use.watchFuture(future);
+}
+
+class Body extends CapsuleConsumer {
+  const Body({super.key}) : super(managerFactory: WidgetManager.new);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final textController = useTextEditingController();
-    final searchResults = ref.watch(searchProvider);
+  Widget build(BuildContext context, WidgetManager manager) {
+    // final textController = manager.use.textEditingController(); FIXME
+    final searchResults = manager.watchCapsule(searchProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -67,8 +83,8 @@ class Body extends HookConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             child: TextField(
-              controller: textController,
-              onChanged: (q) => ref.read(queryProvider.notifier).state = q,
+              // controller: textController, FIXME
+              onChanged: (q) => manager.managerReader(queryCapsule).state = q,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
                 border: const OutlineInputBorder(
@@ -78,8 +94,8 @@ class Body extends HookConsumerWidget {
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.cancel),
                   onPressed: () {
-                    textController.text = '';
-                    ref.read(queryProvider.notifier).state = '';
+                    // textController.text = ''; FIXME
+                    manager.managerReader(queryCapsule).state = '';
                   },
                 ),
               ),
@@ -87,6 +103,7 @@ class Body extends HookConsumerWidget {
           ),
         ),
       ),
+      // FIXME switch this to switch case
       body: searchResults.when(
         data: (searchResults) => ListView.builder(
           padding: const EdgeInsets.only(top: 16, bottom: 8),

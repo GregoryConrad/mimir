@@ -4,7 +4,7 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
+  sdk: ">=2.18.4 <4.0.0"
 
 dependencies:
   flutter:
@@ -14,9 +14,15 @@ dependencies:
   flutter_mimir: ^0.0.1-dev.5
   mimir: ^0.0.1-dev.5
 
-  # These two are needed for the example; they are not required by mimir
-  hooks_riverpod: ^2.1.1
-  flutter_hooks: ^0.18.5+1
+  # These two are used in the example; they are not required by mimir
+  unstate: ^1.0.0
+  flutter_unstate: ^1.0.0
+
+dependency_overrides:
+  unstate:
+    path: ../../../../unstate/packages/unstate
+  flutter_unstate:
+    path: ../../../../unstate/packages/flutter_unstate
 
 dev_dependencies:
   flutter_test:
