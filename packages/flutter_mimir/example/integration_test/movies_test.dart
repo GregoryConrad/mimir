@@ -9,6 +9,7 @@ void main() {
   testWidgets('Searching returns expected titles', (tester) async {
     Future<void> search(String text) async {
       await tester.enterText(find.byType(TextField), text);
+      await tester.pump();
       await tester.pump(const Duration(seconds: 1));
     }
 
