@@ -9,6 +9,10 @@ import 'package:unstate/unstate.dart';
 void main() async {
   runApp(UnstateBootstrapper(
     warmUpCapsules: [indexWarmUpCapsule],
+    loading: const Center(child: CircularProgressIndicator()),
+    errorBuilder: (errors) => Column(
+      children: errors.map((e) => Text('$e')).toList(),
+    ),
     child: MaterialApp(
       title: 'Mimir Demo',
       theme: ThemeData.light(useMaterial3: true),
@@ -23,7 +27,6 @@ final indexAsyncCapsule = Capsule.defaultManager(_indexAsync);
 final indexWarmUpCapsule = Capsule.defaultManager(_indexWarmUp);
 final indexCapsule = Capsule.defaultManager(_index);
 
-// TODO following two should be a factory
 final queryCapsule = Capsule.defaultManager((_) => '');
 final searchProvider = Capsule.defaultManager((manager) {
   final index = manager.watchCapsule(indexCapsule);
@@ -47,6 +50,7 @@ Future<MimirIndex> _indexAsync(
   final index = instance.getIndex('movies');
 
   // Add all the documents asynchronously.
+  // We purposefully don't await this so that loading will be shown in the UI.
   rootBundle
       .loadString('assets/tmdb_movies.json')
       .then((l) => json.decode(l) as List)
@@ -68,12 +72,6 @@ class Body extends CapsuleConsumer {
 
   @override
   Widget build(BuildContext context, WidgetManager manager) {
-    final searchResultsStream = manager.watchCapsule(searchProvider);
-    final use = manager.use;
-
-    final searchResults = use.watchStream(searchResultsStream);
-    final textController = use.textEditingController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mimir Demo'),
@@ -83,45 +81,71 @@ class Body extends CapsuleConsumer {
             onPressed: () => showInfoDialog(context),
           ),
         ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(56),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(56),
           child: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-            child: TextField(
-              controller: textController,
-              onChanged: (q) => manager.managerReader(queryCapsule).state = q,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.zero,
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                ),
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.cancel),
-                  onPressed: () {
-                    textController.text = '';
-                    manager.managerReader(queryCapsule).state = '';
-                  },
-                ),
-              ),
-            ),
+            padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+            child: SearchBar(),
           ),
         ),
       ),
-      body: switch (searchResults) {
-        AsyncData(data: final movies) => MoviesList(movies: movies),
-        AsyncLoading(previousData: None()) =>
-          const CircularProgressIndicator.adaptive(),
-        AsyncLoading(previousData: Some(value: final movies)) =>
-          MoviesList(movies: movies),
-        AsyncError(:final error, :final stackTrace, :final previousData) =>
-          Column(children: [
-          Text('Error: $error\nStack Trace: $stackTrace'),
-          if (previousData case Some(value: final oldMovies))
-            Expanded(child: MoviesList(movies: oldMovies)),
-        ]),
-      },
+      body: const SearchDisplay(),
     );
+  }
+}
+
+class SearchBar extends CapsuleConsumer {
+  const SearchBar({super.key}) : super(managerFactory: WidgetManager.new);
+
+  @override
+  Widget build(BuildContext context, WidgetManager manager) {
+    final searchTextManager = manager.managerReader(queryCapsule);
+    final use = manager.use;
+    final textController = use.textEditingController();
+
+    return TextField(
+      controller: textController,
+      onChanged: (q) => searchTextManager.state = q,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.zero,
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(100)),
+        ),
+        prefixIcon: const Icon(Icons.search),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.cancel),
+          onPressed: () {
+            textController.text = '';
+            searchTextManager.state = '';
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class SearchDisplay extends CapsuleConsumer {
+  const SearchDisplay({super.key}) : super(managerFactory: WidgetManager.new);
+
+  @override
+  Widget build(BuildContext context, WidgetManager manager) {
+    final searchResultsStream = manager.watchCapsule(searchProvider);
+    final use = manager.use;
+    final searchResults = use.watchStream(searchResultsStream);
+
+    return switch (searchResults) {
+      AsyncData(data: final movies) => MoviesList(movies: movies),
+      AsyncLoading(previousData: None()) =>
+        const CircularProgressIndicator.adaptive(),
+      AsyncLoading(previousData: Some(value: final movies)) =>
+        MoviesList(movies: movies),
+      AsyncError(:final error, :final stackTrace, :final previousData) =>
+        Column(children: [
+        Text('Error: $error\nStack Trace: $stackTrace'),
+        if (previousData case Some(value: final oldMovies))
+          Expanded(child: MoviesList(movies: oldMovies)),
+      ]),
+    };
   }
 }
 
