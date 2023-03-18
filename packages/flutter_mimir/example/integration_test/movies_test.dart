@@ -1,13 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mimir_example/main.dart';
-import 'package:flutter_mimir/flutter_mimir.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-Future<void> pause() => Future.delayed(const Duration(milliseconds: 500));
+import 'package:flutter_unstate/flutter_unstate.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -15,24 +9,20 @@ void main() {
   testWidgets('Searching returns expected titles', (tester) async {
     Future<void> search(String text) async {
       await tester.enterText(find.byType(TextField), text);
-      await tester.pump();
-      await pause();
-      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
     }
 
-    final instance = await Mimir.defaultInstance;
-    final index = instance.getIndex('movies');
-
-    await rootBundle
-        .loadString('assets/tmdb_movies.json')
-        .then((l) => json.decode(l) as List)
-        .then((l) => l.cast<Map<String, dynamic>>())
-        .then((l) => index.addDocuments(l));
-
-    await tester.pumpWidget(ProviderScope(
-      overrides: [indexProvider.overrideWith((_) => index)],
+    await tester.pumpWidget(UnstateBootstrapper(
+      warmUpCapsules: [indexWarmUpCapsule],
+      loading: const CircularProgressIndicator(),
+      errorBuilder: (errors) => Column(
+        children: errors.map((e) => Text('$e')).toList(),
+      ),
       child: const MaterialApp(home: Body()),
     ));
+
+    // Wait for inital document add to finish
+    await tester.pumpAndSettle();
 
     // When no search text, Godzilla vs. Kong is the first entry
     await search('');

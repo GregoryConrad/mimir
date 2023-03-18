@@ -7,9 +7,6 @@ import 'package:flutter_unstate/flutter_unstate.dart';
 import 'package:unstate/unstate.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Finally, run our application.
   runApp(UnstateBootstrapper(
     warmUpCapsules: [indexWarmUpCapsule],
     child: MaterialApp(
@@ -22,13 +19,11 @@ void main() async {
 }
 
 // The capsules needed for this example.
+final indexAsyncCapsule = Capsule.defaultManager(_indexAsync);
 final indexWarmUpCapsule = Capsule.defaultManager(_indexWarmUp);
-final indexCapsule = Capsule.defaultManager((manager) {
-  return (manager.watchCapsule(indexWarmUpCapsule) as AsyncData<MimirIndex>)
-      .data;
-});
+final indexCapsule = Capsule.defaultManager(_index);
 
-// FIXME following two can probably be a factory
+// TODO following two should be a factory
 final queryCapsule = Capsule.defaultManager((_) => '');
 final searchProvider = Capsule.defaultManager((manager) {
   final index = manager.watchCapsule(indexCapsule);
@@ -38,26 +33,33 @@ final searchProvider = Capsule.defaultManager((manager) {
   return index.searchStream(query: query);
 });
 
+MimirIndex _index(CapsuleManager<MimirIndex> manager) {
+  return manager
+      .watchCapsule(indexWarmUpCapsule)
+      .data
+      .unwrapOrElse(() => throw 'indexCapsule was not warmed up!');
+}
+
+Future<MimirIndex> _indexAsync(
+  CapsuleManager<Future<MimirIndex>> manager,
+) async {
+  final instance = await Mimir.defaultInstance;
+  final index = instance.getIndex('movies');
+
+  // Add all the documents asynchronously.
+  rootBundle
+      .loadString('assets/tmdb_movies.json')
+      .then((l) => json.decode(l) as List)
+      .then((l) => l.cast<Map<String, dynamic>>())
+      .then(index.setDocuments);
+
+  return index;
+}
+
 AsyncValue<MimirIndex> _indexWarmUp(
-    CapsuleManager<AsyncValue<MimirIndex>> manager) {
-  final future = manager.use.callOnce(() async {
-    final instance = await Mimir.defaultInstance;
-    final index = instance.getIndex('movies');
-
-    // Add all the documents asynchronously.
-    // We are purposefully not awaiting here so we can show the loading state
-    // in the UI.
-    // TODO switch this to persist plugin usage, where reading from device is
-    //  like online data
-    rootBundle
-        .loadString('assets/tmdb_movies.json')
-        .then((l) => json.decode(l) as List)
-        .then((l) => l.cast<Map<String, dynamic>>())
-        .then(index.addDocuments);
-
-    return index;
-  });
-
+  CapsuleManager<AsyncValue<MimirIndex>> manager,
+) {
+  final future = manager.watchCapsule(indexAsyncCapsule);
   return manager.use.watchFuture(future);
 }
 
@@ -66,8 +68,11 @@ class Body extends CapsuleConsumer {
 
   @override
   Widget build(BuildContext context, WidgetManager manager) {
-    // final textController = manager.use.textEditingController(); FIXME
-    final searchResults = manager.watchCapsule(searchProvider);
+    final searchResultsStream = manager.watchCapsule(searchProvider);
+    final use = manager.use;
+
+    final searchResults = use.watchStream(searchResultsStream);
+    final textController = use.textEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +88,7 @@ class Body extends CapsuleConsumer {
           child: Padding(
             padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
             child: TextField(
-              // controller: textController, FIXME
+              controller: textController,
               onChanged: (q) => manager.managerReader(queryCapsule).state = q,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -94,7 +99,7 @@ class Body extends CapsuleConsumer {
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.cancel),
                   onPressed: () {
-                    // textController.text = ''; FIXME
+                    textController.text = '';
                     manager.managerReader(queryCapsule).state = '';
                   },
                 ),
@@ -103,18 +108,34 @@ class Body extends CapsuleConsumer {
           ),
         ),
       ),
-      // FIXME switch this to switch case
-      body: searchResults.when(
-        data: (searchResults) => ListView.builder(
-          padding: const EdgeInsets.only(top: 16, bottom: 8),
-          itemCount: searchResults.length,
-          itemBuilder: (_, index) => MovieCard(movie: searchResults[index]),
-        ),
-        error: (e, s) => Center(child: Text('Error: $e')),
-        loading: () => const Center(
-          child: CircularProgressIndicator.adaptive(),
-        ),
-      ),
+      body: switch (searchResults) {
+        AsyncData(data: final movies) => MoviesList(movies: movies),
+        AsyncLoading(previousData: None()) =>
+          const CircularProgressIndicator.adaptive(),
+        AsyncLoading(previousData: Some(value: final movies)) =>
+          MoviesList(movies: movies),
+        AsyncError(:final error, :final stackTrace, :final previousData) =>
+          Column(children: [
+          Text('Error: $error\nStack Trace: $stackTrace'),
+          if (previousData case Some(value: final oldMovies))
+            Expanded(child: MoviesList(movies: oldMovies)),
+        ]),
+      },
+    );
+  }
+}
+
+class MoviesList extends StatelessWidget {
+  const MoviesList({super.key, required this.movies});
+
+  final List<MimirDocument> movies;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      itemCount: movies.length,
+      itemBuilder: (_, index) => MovieCard(movie: movies[index]),
     );
   }
 }
