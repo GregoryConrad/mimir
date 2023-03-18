@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mimir_example/main.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_unstate/flutter_unstate.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -13,16 +12,8 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
     }
 
-    await tester.pumpWidget(UnstateBootstrapper(
-      warmUpCapsules: [indexWarmUpCapsule],
-      loading: const CircularProgressIndicator(),
-      errorBuilder: (errors) => Column(
-        children: errors.map((e) => Text('$e')).toList(),
-      ),
-      child: const MaterialApp(home: Body()),
-    ));
-
-    // Wait for inital document add to finish
+    // Wait for inital load to finish
+    await tester.pumpWidget(const DemoApp());
     await tester.pumpAndSettle();
 
     // When no search text, Godzilla vs. Kong is the first entry

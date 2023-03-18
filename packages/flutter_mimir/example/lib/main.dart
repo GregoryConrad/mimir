@@ -6,34 +6,44 @@ import 'package:flutter_mimir/flutter_mimir.dart';
 import 'package:flutter_unstate/flutter_unstate.dart';
 import 'package:unstate/unstate.dart';
 
-void main() async {
-  runApp(UnstateBootstrapper(
-    warmUpCapsules: [indexWarmUpCapsule],
-    loading: const Center(child: CircularProgressIndicator()),
-    errorBuilder: (errors) => Column(
-      children: errors.map((e) => Text('$e')).toList(),
-    ),
-    child: MaterialApp(
-      title: 'Mimir Demo',
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: true),
-      home: const Body(),
-    ),
-  ));
+void main() => runApp(const DemoApp());
+
+class DemoApp extends StatelessWidget {
+  const DemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return UnstateBootstrapper(
+      warmUpCapsules: [indexWarmUpCapsule],
+      loading: const Center(child: CircularProgressIndicator()),
+      errorBuilder: (errors) => Column(
+        children: errors.map((e) => Text('$e')).toList(),
+      ),
+      child: MaterialApp(
+        title: 'Mimir Demo',
+        theme: ThemeData.light(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
+        home: const Body(),
+      ),
+    );
+  }
 }
 
 // The capsules needed for this example.
 final indexAsyncCapsule = Capsule.defaultManager(_indexAsync);
 final indexWarmUpCapsule = Capsule.defaultManager(_indexWarmUp);
 final indexCapsule = Capsule.defaultManager(_index);
-
 final queryCapsule = Capsule.defaultManager((_) => '');
-final searchProvider = Capsule.defaultManager((manager) {
+final searchResultsCapsule = Capsule.defaultManager((manager) {
   final index = manager.watchCapsule(indexCapsule);
   final query = manager.watchCapsule(queryCapsule);
 
   // When query is null/empty, all docs will be returned.
-  return index.searchStream(query: query);
+  final stream = manager.use.memo(
+    () => index.searchStream(query: query),
+    [index, query],
+  );
+  return manager.use.watchStream(stream);
 });
 
 MimirIndex _index(CapsuleManager<MimirIndex> manager) {
@@ -50,8 +60,7 @@ Future<MimirIndex> _indexAsync(
   final index = instance.getIndex('movies');
 
   // Add all the documents asynchronously.
-  // We purposefully don't await this so that loading will be shown in the UI.
-  rootBundle
+  await rootBundle
       .loadString('assets/tmdb_movies.json')
       .then((l) => json.decode(l) as List)
       .then((l) => l.cast<Map<String, dynamic>>())
@@ -67,11 +76,11 @@ AsyncValue<MimirIndex> _indexWarmUp(
   return manager.use.watchFuture(future);
 }
 
-class Body extends CapsuleConsumer {
-  const Body({super.key}) : super(managerFactory: WidgetManager.new);
+class Body extends StatelessWidget {
+  const Body({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetManager manager) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mimir Demo'),
@@ -89,7 +98,7 @@ class Body extends CapsuleConsumer {
           ),
         ),
       ),
-      body: const SearchDisplay(),
+      body: const SearchResults(),
     );
   }
 }
@@ -124,14 +133,12 @@ class SearchBar extends CapsuleConsumer {
   }
 }
 
-class SearchDisplay extends CapsuleConsumer {
-  const SearchDisplay({super.key}) : super(managerFactory: WidgetManager.new);
+class SearchResults extends CapsuleConsumer {
+  const SearchResults({super.key}) : super(managerFactory: WidgetManager.new);
 
   @override
   Widget build(BuildContext context, WidgetManager manager) {
-    final searchResultsStream = manager.watchCapsule(searchProvider);
-    final use = manager.use;
-    final searchResults = use.watchStream(searchResultsStream);
+    final searchResults = manager.watchCapsule(searchResultsCapsule);
 
     return switch (searchResults) {
       AsyncData(data: final movies) => MoviesList(movies: movies),
