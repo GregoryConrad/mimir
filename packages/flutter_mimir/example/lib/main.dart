@@ -123,6 +123,8 @@ final class SearchBar extends CapsuleConsumer {
 
   @override
   Widget build(BuildContext context, WidgetManager manager) {
+    final searchResults = manager.watchCapsule(searchResultsCapsule);
+    final isLoading = searchResults is AsyncLoading;
     final searchTextManager = manager.managerReader(queryCapsule);
     final use = manager.use;
     final textController = use.textEditingController();
@@ -136,13 +138,16 @@ final class SearchBar extends CapsuleConsumer {
           borderRadius: BorderRadius.all(Radius.circular(100)),
         ),
         prefixIcon: const Icon(Icons.search),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.cancel),
-          onPressed: () {
-            textController.text = '';
-            searchTextManager.state = '';
-          },
-        ),
+        suffixIcon: Row(mainAxisSize: MainAxisSize.min, children: [
+          if (isLoading) const CircularProgressIndicator.adaptive(),
+          IconButton(
+            icon: const Icon(Icons.cancel),
+            onPressed: () {
+              textController.text = '';
+              searchTextManager.state = '';
+            },
+          ),
+        ]),
       ),
     );
   }
