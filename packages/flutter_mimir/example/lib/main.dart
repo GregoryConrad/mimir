@@ -163,7 +163,7 @@ final class SearchResults extends CapsuleConsumer {
     return switch (searchResults) {
       AsyncData(data: final movies) => MoviesList(movies: movies),
       AsyncLoading(previousData: None()) =>
-        const CircularProgressIndicator.adaptive(),
+        const Center(child: CircularProgressIndicator.adaptive()),
       AsyncLoading(previousData: Some(value: final movies)) =>
         MoviesList(movies: movies),
       AsyncError(:final error, :final stackTrace, :final previousData) =>
