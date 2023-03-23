@@ -8,27 +8,6 @@ import 'package:unstate/unstate.dart';
 
 void main() => runApp(const DemoApp());
 
-class DemoApp extends StatelessWidget {
-  const DemoApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return UnstateBootstrapper(
-      warmUpCapsules: [indexWarmUpCapsule],
-      loading: const Center(child: CircularProgressIndicator()),
-      errorBuilder: (errors) => Column(
-        children: errors.map((e) => Text('$e')).toList(),
-      ),
-      child: MaterialApp(
-        title: 'Mimir Demo',
-        theme: ThemeData.light(useMaterial3: true),
-        darkTheme: ThemeData.dark(useMaterial3: true),
-        home: const Body(),
-      ),
-    );
-  }
-}
-
 // The capsules needed for this example.
 final indexAsyncCapsule = Capsule.defaultManager(_indexAsync);
 final indexWarmUpCapsule = Capsule.defaultManager(_indexWarmUp);
@@ -76,6 +55,42 @@ AsyncValue<MimirIndex> _indexWarmUp(
   return manager.use.watchFuture(future);
 }
 
+class DemoApp extends StatelessWidget {
+  const DemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return UnstateBootstrapper(
+      child: MaterialApp(
+        title: 'Mimir Demo',
+        theme: ThemeData.light(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
+        home: const GlobalWarmUps(child: Body()),
+      ),
+    );
+  }
+}
+
+final class GlobalWarmUps extends CapsuleConsumer {
+  const GlobalWarmUps({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetManager manager) {
+    return [
+      manager.watchCapsule(indexWarmUpCapsule),
+    ].asWarmUpWidget(
+      child: child,
+      loading: const Center(child: CircularProgressIndicator.adaptive()),
+      errorBuilder: (errors) => Column(children: [
+        for (final AsyncError(:error, :stackTrace) in errors)
+          Text('$error\n$stackTrace'),
+      ]),
+    );
+  }
+}
+
 class Body extends StatelessWidget {
   const Body({super.key});
 
@@ -103,8 +118,8 @@ class Body extends StatelessWidget {
   }
 }
 
-class SearchBar extends CapsuleConsumer {
-  const SearchBar({super.key}) : super(managerFactory: WidgetManager.new);
+final class SearchBar extends CapsuleConsumer {
+  const SearchBar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetManager manager) {
@@ -133,8 +148,8 @@ class SearchBar extends CapsuleConsumer {
   }
 }
 
-class SearchResults extends CapsuleConsumer {
-  const SearchResults({super.key}) : super(managerFactory: WidgetManager.new);
+final class SearchResults extends CapsuleConsumer {
+  const SearchResults({super.key});
 
   @override
   Widget build(BuildContext context, WidgetManager manager) {
