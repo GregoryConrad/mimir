@@ -80,7 +80,7 @@ final class GlobalWarmUps extends CapsuleConsumer {
   Widget build(BuildContext context, WidgetManager manager) {
     return [
       manager.watchCapsule(indexWarmUpCapsule),
-    ].asWarmUpWidget(
+    ].toWarmUpWidget(
       child: child,
       loading: const Center(child: CircularProgressIndicator.adaptive()),
       errorBuilder: (errors) => Column(children: [
