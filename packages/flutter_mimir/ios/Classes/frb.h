@@ -135,6 +135,7 @@ typedef struct wire_list_synonyms {
 } wire_list_synonyms;
 
 typedef struct wire_MimirIndexSettings {
+  struct wire_uint_8_list *primary_key;
   struct wire_StringList *searchable_fields;
   struct wire_StringList *filterable_fields;
   struct wire_StringList *sortable_fields;

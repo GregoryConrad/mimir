@@ -73,6 +73,7 @@ pub struct Synonyms {
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[frb(dart_metadata=("freezed"))]
 pub struct MimirIndexSettings {
+    pub primary_key: Option<String>,
     pub searchable_fields: Option<Vec<String>>,
     pub filterable_fields: Vec<String>,
     pub sortable_fields: Vec<String>,
