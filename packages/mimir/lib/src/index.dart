@@ -72,6 +72,7 @@ abstract class MimirIndex {
 
   /// Updates the settings of this index
   Future<void> updateSettings({
+    String? primaryKey,
     List<String>? searchableFields,
     List<String> filterableFields,
     List<String> sortableFields,

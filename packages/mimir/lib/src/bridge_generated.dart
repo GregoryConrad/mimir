@@ -21,92 +21,59 @@ part 'bridge_generated.freezed.dart';
 
 abstract class EmbeddedMilli {
   /// Ensures an instance of milli (represented by just a directory) is initialized
-  Future<void> ensureInstanceInitialized(
-      {required String instaceDir, dynamic hint});
+  Future<void> ensureInstanceInitialized({required String instaceDir, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
 
   /// Ensures a milli index is initialized
-  Future<void> ensureIndexInitialized(
-      {required String instanceDir, required String indexName, dynamic hint});
+  Future<void> ensureIndexInitialized({required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta;
 
   /// Adds the given list of documents to the specified milli index
   ///
   /// Replaces documents that already exist in the index based on document ids.
-  Future<void> addDocuments(
-      {required String instanceDir,
-      required String indexName,
-      required List<String> documents,
-      dynamic hint});
+  Future<void> addDocuments({required String instanceDir, required String indexName, required List<String> documents, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta;
 
   /// Deletes the documents with the given ids from the milli index
-  Future<void> deleteDocuments(
-      {required String instanceDir,
-      required String indexName,
-      required List<String> documentIds,
-      dynamic hint});
+  Future<void> deleteDocuments({required String instanceDir, required String indexName, required List<String> documentIds, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDeleteDocumentsConstMeta;
 
   /// Deletes all the documents from the milli index
-  Future<void> deleteAllDocuments(
-      {required String instanceDir, required String indexName, dynamic hint});
+  Future<void> deleteAllDocuments({required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDeleteAllDocumentsConstMeta;
 
   /// Replaces all documents with the given documents
-  Future<void> setDocuments(
-      {required String instanceDir,
-      required String indexName,
-      required List<String> documents,
-      dynamic hint});
+  Future<void> setDocuments({required String instanceDir, required String indexName, required List<String> documents, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta;
 
   /// Returns the document with the specified id from the index, if one exists
-  Future<String?> getDocument(
-      {required String instanceDir,
-      required String indexName,
-      required String documentId,
-      dynamic hint});
+  Future<String?> getDocument({required String instanceDir, required String indexName, required String documentId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetDocumentConstMeta;
 
   /// Returns all documents stored in the index.
-  Future<List<String>> getAllDocuments(
-      {required String instanceDir, required String indexName, dynamic hint});
+  Future<List<String>> getAllDocuments({required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetAllDocumentsConstMeta;
 
   /// Performs a search against the index and returns the documents found
-  Future<List<String>> searchDocuments(
-      {required String instanceDir,
-      required String indexName,
-      String? query,
-      int? limit,
-      List<SortBy>? sortCriteria,
-      Filter? filter,
-      TermsMatchingStrategy? matchingStrategy,
-      dynamic hint});
+  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, List<SortBy>? sortCriteria, Filter? filter, TermsMatchingStrategy? matchingStrategy, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta;
 
   /// Gets the settings of the specified index
-  Future<MimirIndexSettings> getSettings(
-      {required String instanceDir, required String indexName, dynamic hint});
+  Future<MimirIndexSettings> getSettings({required String instanceDir, required String indexName, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetSettingsConstMeta;
 
   /// Sets the settings of the specified index
-  Future<void> setSettings(
-      {required String instanceDir,
-      required String indexName,
-      required MimirIndexSettings settings,
-      dynamic hint});
+  Future<void> setSettings({required String instanceDir, required String indexName, required MimirIndexSettings settings, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kSetSettingsConstMeta;
 }
@@ -187,6 +154,7 @@ class Filter with _$Filter {
 @freezed
 class MimirIndexSettings with _$MimirIndexSettings {
   const factory MimirIndexSettings({
+    String? primaryKey,
     List<String>? searchableFields,
     required List<String> filterableFields,
     required List<String> sortableFields,
@@ -246,208 +214,214 @@ enum TermsMatchingStrategy {
 
 class EmbeddedMilliImpl implements EmbeddedMilli {
   final EmbeddedMilliPlatform _platform;
-  factory EmbeddedMilliImpl(ExternalLibrary dylib) =>
-      EmbeddedMilliImpl.raw(EmbeddedMilliPlatform(dylib));
+  factory EmbeddedMilliImpl(ExternalLibrary dylib) => EmbeddedMilliImpl.raw(EmbeddedMilliPlatform(dylib));
 
   /// Only valid on web/WASM platforms.
-  factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) =>
-      EmbeddedMilliImpl(module as ExternalLibrary);
+  factory EmbeddedMilliImpl.wasm(FutureOr<WasmModule> module) => EmbeddedMilliImpl(module as ExternalLibrary);
   EmbeddedMilliImpl.raw(this._platform);
-  Future<void> ensureInstanceInitialized(
-      {required String instaceDir, dynamic hint}) {
+  Future<void> ensureInstanceInitialized({required String instaceDir, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instaceDir);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_ensure_instance_initialized(port_, arg0),
+      callFfi: (port_) => _platform.inner.wire_ensure_instance_initialized(port_, arg0),
       parseSuccessData: _wire2api_unit,
       constMeta: kEnsureInstanceInitializedConstMeta,
-      argValues: [instaceDir],
+      argValues: [
+        instaceDir
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "ensure_instance_initialized",
-        argNames: ["instaceDir"],
+        argNames: [
+          "instaceDir"
+        ],
       );
 
-  Future<void> ensureIndexInitialized(
-      {required String instanceDir, required String indexName, dynamic hint}) {
+  Future<void> ensureIndexInitialized({required String instanceDir, required String indexName, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_ensure_index_initialized(port_, arg0, arg1),
+      callFfi: (port_) => _platform.inner.wire_ensure_index_initialized(port_, arg0, arg1),
       parseSuccessData: _wire2api_unit,
       constMeta: kEnsureIndexInitializedConstMeta,
-      argValues: [instanceDir, indexName],
+      argValues: [
+        instanceDir,
+        indexName
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kEnsureIndexInitializedConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "ensure_index_initialized",
-        argNames: ["instanceDir", "indexName"],
+        argNames: [
+          "instanceDir",
+          "indexName"
+        ],
       );
 
-  Future<void> addDocuments(
-      {required String instanceDir,
-      required String indexName,
-      required List<String> documents,
-      dynamic hint}) {
+  Future<void> addDocuments({required String instanceDir, required String indexName, required List<String> documents, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     var arg2 = _platform.api2wire_StringList(documents);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_add_documents(port_, arg0, arg1, arg2),
+      callFfi: (port_) => _platform.inner.wire_add_documents(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_unit,
       constMeta: kAddDocumentsConstMeta,
-      argValues: [instanceDir, indexName, documents],
+      argValues: [
+        instanceDir,
+        indexName,
+        documents
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kAddDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "add_documents",
-        argNames: ["instanceDir", "indexName", "documents"],
+        argNames: [
+          "instanceDir",
+          "indexName",
+          "documents"
+        ],
       );
 
-  Future<void> deleteDocuments(
-      {required String instanceDir,
-      required String indexName,
-      required List<String> documentIds,
-      dynamic hint}) {
+  Future<void> deleteDocuments({required String instanceDir, required String indexName, required List<String> documentIds, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     var arg2 = _platform.api2wire_StringList(documentIds);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_delete_documents(port_, arg0, arg1, arg2),
+      callFfi: (port_) => _platform.inner.wire_delete_documents(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_unit,
       constMeta: kDeleteDocumentsConstMeta,
-      argValues: [instanceDir, indexName, documentIds],
+      argValues: [
+        instanceDir,
+        indexName,
+        documentIds
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kDeleteDocumentsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kDeleteDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "delete_documents",
-        argNames: ["instanceDir", "indexName", "documentIds"],
+        argNames: [
+          "instanceDir",
+          "indexName",
+          "documentIds"
+        ],
       );
 
-  Future<void> deleteAllDocuments(
-      {required String instanceDir, required String indexName, dynamic hint}) {
+  Future<void> deleteAllDocuments({required String instanceDir, required String indexName, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_delete_all_documents(port_, arg0, arg1),
+      callFfi: (port_) => _platform.inner.wire_delete_all_documents(port_, arg0, arg1),
       parseSuccessData: _wire2api_unit,
       constMeta: kDeleteAllDocumentsConstMeta,
-      argValues: [instanceDir, indexName],
+      argValues: [
+        instanceDir,
+        indexName
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kDeleteAllDocumentsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kDeleteAllDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "delete_all_documents",
-        argNames: ["instanceDir", "indexName"],
+        argNames: [
+          "instanceDir",
+          "indexName"
+        ],
       );
 
-  Future<void> setDocuments(
-      {required String instanceDir,
-      required String indexName,
-      required List<String> documents,
-      dynamic hint}) {
+  Future<void> setDocuments({required String instanceDir, required String indexName, required List<String> documents, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     var arg2 = _platform.api2wire_StringList(documents);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_set_documents(port_, arg0, arg1, arg2),
+      callFfi: (port_) => _platform.inner.wire_set_documents(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_unit,
       constMeta: kSetDocumentsConstMeta,
-      argValues: [instanceDir, indexName, documents],
+      argValues: [
+        instanceDir,
+        indexName,
+        documents
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kSetDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "set_documents",
-        argNames: ["instanceDir", "indexName", "documents"],
+        argNames: [
+          "instanceDir",
+          "indexName",
+          "documents"
+        ],
       );
 
-  Future<String?> getDocument(
-      {required String instanceDir,
-      required String indexName,
-      required String documentId,
-      dynamic hint}) {
+  Future<String?> getDocument({required String instanceDir, required String indexName, required String documentId, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     var arg2 = _platform.api2wire_String(documentId);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_get_document(port_, arg0, arg1, arg2),
+      callFfi: (port_) => _platform.inner.wire_get_document(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_opt_String,
       constMeta: kGetDocumentConstMeta,
-      argValues: [instanceDir, indexName, documentId],
+      argValues: [
+        instanceDir,
+        indexName,
+        documentId
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kGetDocumentConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kGetDocumentConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "get_document",
-        argNames: ["instanceDir", "indexName", "documentId"],
+        argNames: [
+          "instanceDir",
+          "indexName",
+          "documentId"
+        ],
       );
 
-  Future<List<String>> getAllDocuments(
-      {required String instanceDir, required String indexName, dynamic hint}) {
+  Future<List<String>> getAllDocuments({required String instanceDir, required String indexName, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_get_all_documents(port_, arg0, arg1),
+      callFfi: (port_) => _platform.inner.wire_get_all_documents(port_, arg0, arg1),
       parseSuccessData: _wire2api_StringList,
       constMeta: kGetAllDocumentsConstMeta,
-      argValues: [instanceDir, indexName],
+      argValues: [
+        instanceDir,
+        indexName
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kGetAllDocumentsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kGetAllDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "get_all_documents",
-        argNames: ["instanceDir", "indexName"],
+        argNames: [
+          "instanceDir",
+          "indexName"
+        ],
       );
 
-  Future<List<String>> searchDocuments(
-      {required String instanceDir,
-      required String indexName,
-      String? query,
-      int? limit,
-      List<SortBy>? sortCriteria,
-      Filter? filter,
-      TermsMatchingStrategy? matchingStrategy,
-      dynamic hint}) {
+  Future<List<String>> searchDocuments({required String instanceDir, required String indexName, String? query, int? limit, List<SortBy>? sortCriteria, Filter? filter, TermsMatchingStrategy? matchingStrategy, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     var arg2 = _platform.api2wire_opt_String(query);
     var arg3 = _platform.api2wire_opt_box_autoadd_u32(limit);
     var arg4 = _platform.api2wire_opt_list_sort_by(sortCriteria);
     var arg5 = _platform.api2wire_opt_box_autoadd_filter(filter);
-    var arg6 = _platform
-        .api2wire_opt_box_autoadd_terms_matching_strategy(matchingStrategy);
+    var arg6 = _platform.api2wire_opt_box_autoadd_terms_matching_strategy(matchingStrategy);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_search_documents(
-          port_, arg0, arg1, arg2, arg3, arg4, arg5, arg6),
+      callFfi: (port_) => _platform.inner.wire_search_documents(port_, arg0, arg1, arg2, arg3, arg4, arg5, arg6),
       parseSuccessData: _wire2api_StringList,
       constMeta: kSearchDocumentsConstMeta,
       argValues: [
@@ -463,8 +437,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kSearchDocumentsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "search_documents",
         argNames: [
           "instanceDir",
@@ -477,47 +450,53 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
         ],
       );
 
-  Future<MimirIndexSettings> getSettings(
-      {required String instanceDir, required String indexName, dynamic hint}) {
+  Future<MimirIndexSettings> getSettings({required String instanceDir, required String indexName, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_get_settings(port_, arg0, arg1),
       parseSuccessData: _wire2api_mimir_index_settings,
       constMeta: kGetSettingsConstMeta,
-      argValues: [instanceDir, indexName],
+      argValues: [
+        instanceDir,
+        indexName
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kGetSettingsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kGetSettingsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "get_settings",
-        argNames: ["instanceDir", "indexName"],
+        argNames: [
+          "instanceDir",
+          "indexName"
+        ],
       );
 
-  Future<void> setSettings(
-      {required String instanceDir,
-      required String indexName,
-      required MimirIndexSettings settings,
-      dynamic hint}) {
+  Future<void> setSettings({required String instanceDir, required String indexName, required MimirIndexSettings settings, dynamic hint}) {
     var arg0 = _platform.api2wire_String(instanceDir);
     var arg1 = _platform.api2wire_String(indexName);
     var arg2 = _platform.api2wire_box_autoadd_mimir_index_settings(settings);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_set_settings(port_, arg0, arg1, arg2),
+      callFfi: (port_) => _platform.inner.wire_set_settings(port_, arg0, arg1, arg2),
       parseSuccessData: _wire2api_unit,
       constMeta: kSetSettingsConstMeta,
-      argValues: [instanceDir, indexName, settings],
+      argValues: [
+        instanceDir,
+        indexName,
+        settings
+      ],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kSetSettingsConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
+  FlutterRustBridgeTaskConstMeta get kSetSettingsConstMeta => const FlutterRustBridgeTaskConstMeta(
         debugName: "set_settings",
-        argNames: ["instanceDir", "indexName", "settings"],
+        argNames: [
+          "instanceDir",
+          "indexName",
+          "settings"
+        ],
       );
 
   void dispose() {
@@ -543,20 +522,20 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
 
   MimirIndexSettings _wire2api_mimir_index_settings(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 11)
-      throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
+    if (arr.length != 12) throw Exception('unexpected arr length: expect 12 but see ${arr.length}');
     return MimirIndexSettings(
-      searchableFields: _wire2api_opt_StringList(arr[0]),
-      filterableFields: _wire2api_StringList(arr[1]),
-      sortableFields: _wire2api_StringList(arr[2]),
-      rankingRules: _wire2api_StringList(arr[3]),
-      stopWords: _wire2api_StringList(arr[4]),
-      synonyms: _wire2api_list_synonyms(arr[5]),
-      typosEnabled: _wire2api_bool(arr[6]),
-      minWordSizeForOneTypo: _wire2api_u8(arr[7]),
-      minWordSizeForTwoTypos: _wire2api_u8(arr[8]),
-      disallowTyposOnWords: _wire2api_StringList(arr[9]),
-      disallowTyposOnFields: _wire2api_StringList(arr[10]),
+      primaryKey: _wire2api_opt_String(arr[0]),
+      searchableFields: _wire2api_opt_StringList(arr[1]),
+      filterableFields: _wire2api_StringList(arr[2]),
+      sortableFields: _wire2api_StringList(arr[3]),
+      rankingRules: _wire2api_StringList(arr[4]),
+      stopWords: _wire2api_StringList(arr[5]),
+      synonyms: _wire2api_list_synonyms(arr[6]),
+      typosEnabled: _wire2api_bool(arr[7]),
+      minWordSizeForOneTypo: _wire2api_u8(arr[8]),
+      minWordSizeForTwoTypos: _wire2api_u8(arr[9]),
+      disallowTyposOnWords: _wire2api_StringList(arr[10]),
+      disallowTyposOnFields: _wire2api_StringList(arr[11]),
     );
   }
 
@@ -570,8 +549,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
 
   Synonyms _wire2api_synonyms(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 2)
-      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return Synonyms(
       word: _wire2api_String(arr[0]),
       synonyms: _wire2api_StringList(arr[1]),

@@ -348,6 +348,7 @@ mod tests {
         let index_path = &Path::new(tmp_dir).join(index_name);
 
         let actual_settings = MimirIndexSettings {
+            primary_key: Some("id".to_string()),
             searchable_fields: None,
             filterable_fields: Vec::new(),
             sortable_fields: Vec::new(),

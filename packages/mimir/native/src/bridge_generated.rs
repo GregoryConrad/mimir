@@ -313,6 +313,7 @@ impl Wire2Api<u8> for u8 {
 impl support::IntoDart for MimirIndexSettings {
     fn into_dart(self) -> support::DartAbi {
         vec![
+            self.primary_key.into_dart(),
             self.searchable_fields.into_dart(),
             self.filterable_fields.into_dart(),
             self.sortable_fields.into_dart(),
@@ -552,22 +553,23 @@ mod web {
             let self_ = self.dyn_into::<JsArray>().unwrap();
             assert_eq!(
                 self_.length(),
-                11,
-                "Expected 11 elements, got {}",
+                12,
+                "Expected 12 elements, got {}",
                 self_.length()
             );
             MimirIndexSettings {
-                searchable_fields: self_.get(0).wire2api(),
-                filterable_fields: self_.get(1).wire2api(),
-                sortable_fields: self_.get(2).wire2api(),
-                ranking_rules: self_.get(3).wire2api(),
-                stop_words: self_.get(4).wire2api(),
-                synonyms: self_.get(5).wire2api(),
-                typos_enabled: self_.get(6).wire2api(),
-                min_word_size_for_one_typo: self_.get(7).wire2api(),
-                min_word_size_for_two_typos: self_.get(8).wire2api(),
-                disallow_typos_on_words: self_.get(9).wire2api(),
-                disallow_typos_on_fields: self_.get(10).wire2api(),
+                primary_key: self_.get(0).wire2api(),
+                searchable_fields: self_.get(1).wire2api(),
+                filterable_fields: self_.get(2).wire2api(),
+                sortable_fields: self_.get(3).wire2api(),
+                ranking_rules: self_.get(4).wire2api(),
+                stop_words: self_.get(5).wire2api(),
+                synonyms: self_.get(6).wire2api(),
+                typos_enabled: self_.get(7).wire2api(),
+                min_word_size_for_one_typo: self_.get(8).wire2api(),
+                min_word_size_for_two_typos: self_.get(9).wire2api(),
+                disallow_typos_on_words: self_.get(10).wire2api(),
+                disallow_typos_on_fields: self_.get(11).wire2api(),
             }
         }
     }
@@ -1057,6 +1059,7 @@ mod io {
     impl Wire2Api<MimirIndexSettings> for wire_MimirIndexSettings {
         fn wire2api(self) -> MimirIndexSettings {
             MimirIndexSettings {
+                primary_key: self.primary_key.wire2api(),
                 searchable_fields: self.searchable_fields.wire2api(),
                 filterable_fields: self.filterable_fields.wire2api(),
                 sortable_fields: self.sortable_fields.wire2api(),
@@ -1139,6 +1142,7 @@ mod io {
     #[repr(C)]
     #[derive(Clone)]
     pub struct wire_MimirIndexSettings {
+        primary_key: *mut wire_uint_8_list,
         searchable_fields: *mut wire_StringList,
         filterable_fields: *mut wire_StringList,
         sortable_fields: *mut wire_StringList,
@@ -1436,6 +1440,7 @@ mod io {
     impl NewWithNullPtr for wire_MimirIndexSettings {
         fn new_with_null_ptr() -> Self {
             Self {
+                primary_key: core::ptr::null_mut(),
                 searchable_fields: core::ptr::null_mut(),
                 filterable_fields: core::ptr::null_mut(),
                 sortable_fields: core::ptr::null_mut(),

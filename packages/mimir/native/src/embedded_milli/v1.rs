@@ -184,6 +184,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
     fn get_settings(index: &Index) -> Result<MimirIndexSettings> {
         let rtxn = index.read_txn()?;
         Ok(MimirIndexSettings {
+            primary_key: index.primary_key(&rtxn)?.map(Into::into),
             searchable_fields: index
                 .searchable_fields(&rtxn)?
                 .map(|fields| fields.into_iter().map(String::from).collect()),
@@ -242,6 +243,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
     fn set_settings(index: &Index, settings: MimirIndexSettings) -> Result<()> {
         // Destructure the settings into the corresponding fields
         let MimirIndexSettings {
+            primary_key,
             searchable_fields,
             filterable_fields,
             sortable_fields,
@@ -261,6 +263,10 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
         let mut builder = update::Settings::new(&mut wtxn, index, &indexer_config);
 
         // Copy over the given settings
+        match primary_key {
+            Some(pkey) => builder.set_primary_key(pkey),
+            None => builder.reset_primary_key(),
+        }
         match searchable_fields {
             Some(fields) => builder.set_searchable_fields(fields),
             None => builder.reset_searchable_fields(),
