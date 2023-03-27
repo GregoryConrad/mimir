@@ -11,8 +11,8 @@ dependencies:
     sdk: flutter
 
   # You can replace these with the latest versions
-  flutter_mimir: ^0.0.1-dev.6
-  mimir: ^0.0.1-dev.6
+  flutter_mimir: ^0.0.1-dev.8
+  mimir: ^0.0.1-dev.8
 
   # These two are used in the example; they are not required by mimir
   unstate: ^1.0.0

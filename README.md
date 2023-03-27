@@ -14,7 +14,7 @@ A batteries-included NoSQL database for Dart & Flutter based on an embedded
 ---
 
 ## Features
-- 🔎 Typo tolerant full-text search *with no extra configuration needed*
+- 🔎 Typo tolerant and relevant full-text search *with no extra configuration needed*
 - 🔥 Blazingly fast search and reads (written in Rust)
 - 🤝 Flutter friendly with a super easy-to-use API (see demo below!)
 - 🔱 Powerful, declarative, and reactive queries
@@ -57,7 +57,11 @@ final instance = Mimir.getInstance(
 ); 
 
 // Get an index (creates one lazily if not already created)
-final moviesIndex = instance.getIndex('movies');
+final index = instance.getIndex('movies');
+
+// Or, specify some default settings and open the index eagerly
+// If you have some settings you want to specify in advance, use openIndex!
+final index = await instance.openIndex('movies', primaryKey: 'CustomIdField');
 ```
 
 #### Configuring an Index
@@ -65,6 +69,10 @@ final moviesIndex = instance.getIndex('movies');
 await index.updateSettings(...); // see setSettings below for arguments
 final currSettings = await index.getSettings();
 await index.setSettings(currSettings.copyWith(
+  // The primary key (PK) is the "ID field" of documents added to mimir.
+  // When null, it is automatically inferred for you, but sometimes you may
+  // need to specify it manually. See the Important Caveats section for more.
+  primaryKey: String?,
   // Fields in documents that are included in full-text search.
   // Use null, the default, to search all fields
   searchableFields: <String>[],
@@ -140,7 +148,7 @@ final allDocsStream = index.documents;
 final documentsStream = index.searchStream(...);
 
 // Performing a search/query (using movies here)!
-final movies = moviesIndex.search(
+final movies = index.search(
   // The string to use for full-text search. Can be user-supplied.
   // To do a regular database query without full-text search, leave this null.
   query: 'some wordz with typoes to saerch for',
@@ -218,10 +226,11 @@ as it almost reads as pure English, even for complex conditions.
 ## Important Caveats
 Please read these caveats _before_ adding mimir to your project.
 
-- Every document in mimir needs to have a field ending in `id` (or simply just `id`)
-  - If you have multiple fields ending in `id`, please open an issue so we can discuss
-  - The contents of the `id` field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
-    - In English: IDs can be alphanumeric and contain `-` and `_`
+- Every document in mimir needs to have a "primary key"
+  - The PK is automatically inferred via a field ending in `id` (or simply just `id`)
+  - If you have multiple fields ending in `id`, use `instance.openIndex('indexName', primaryKey: 'theActualId')`
+  - The contents of the PK field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
+    - In English: PKs can be alphanumeric and contain `-` and `_`
 - macOS App Sandbox is *not supported* at the moment, meaning you will not be able to submit apps to the *Mac* App Store
   - You will still be able to distribute macOS applications on your own
   - See more details [here](https://github.com/GregoryConrad/mimir/issues/101)

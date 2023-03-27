@@ -267,4 +267,64 @@ void main() {
     expect(await index.search(filter: Mimir.and([idFilter])), expectedDocs);
     expect(await index.search(filter: Mimir.or([idFilter])), expectedDocs);
   });
+
+  test('Adding a document with multiple possible PKs errors out', () async {
+    final index = useTestIndex();
+    final doc = {
+      'id': 1234,
+      'anotherId': 4321,
+    };
+    expect(index.addDocument(doc), throwsA(isA<FfiException>()));
+  });
+
+  test('openIndex should use the supplied PK', () async {
+    final index = await useInstance().openIndex('docs', primaryKey: 'id');
+    final doc = {
+      'id': 1234,
+      '_id': 4321,
+    };
+    await index.addDocument(doc);
+    expect(await index.getDocument('1234'), doc);
+  });
+
+  test('Setting a primary key should use that primary key', () async {
+    final index = useTestIndex();
+    await index.updateSettings(primaryKey: 'someKey');
+    final doc = {
+      'someKey': 0,
+      'id': 1234,
+      'anotherId': 4321,
+    };
+    await index.addDocument(doc);
+    expect(await index.getDocument('0'), doc);
+  });
+
+  test('Changing a PK after one is already set will error out', () async {
+    final index = useTestIndex();
+    await index.updateSettings(primaryKey: 'id');
+    final doc = {
+      'id': 1234,
+      'anotherId': 4321,
+    };
+    await index.addDocument(doc);
+
+    await index.updateSettings(primaryKey: 'id'); // should be a no-op
+    expect(
+      index.updateSettings(primaryKey: 'anotherId'),
+      throwsA(isA<FfiException>()),
+    );
+  });
+
+  test('Adding a document without the PK will error out', () async {
+    final index = useTestIndex();
+    await index.updateSettings(primaryKey: 'id');
+    final doc = {
+      '_id': 4321,
+    };
+
+    expect(
+      index.addDocument(doc),
+      throwsA(isA<FfiException>()),
+    );
+  });
 }

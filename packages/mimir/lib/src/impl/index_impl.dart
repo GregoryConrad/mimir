@@ -100,6 +100,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> updateSettings({
+    Object? primaryKey = _defaultOptionalValue,
     Object? searchableFields = _defaultOptionalValue,
     Object filterableFields = _defaultOptionalValue,
     Object sortableFields = _defaultOptionalValue,
@@ -115,6 +116,9 @@ class MimirIndexImpl extends MimirIndex {
     final currSettings = await getSettings();
     return setSettings(
       MimirIndexSettings(
+        primaryKey: primaryKey == _defaultOptionalValue
+            ? currSettings.primaryKey
+            : primaryKey as String?,
         searchableFields: searchableFields == _defaultOptionalValue
             ? currSettings.searchableFields
             : searchableFields as List<String>?,

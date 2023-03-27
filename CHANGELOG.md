@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-03-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.0.1-dev.8`](#mimir---v001-dev8)
+ - [`flutter_mimir` - `v0.0.1-dev.8`](#flutter_mimir---v001-dev8)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.0.1-dev.8`
+
+---
+
+#### `mimir` - `v0.0.1-dev.8`
+
+ - **FIX**: add (unused) uuid dependency. ([67a15a91](https://github.com/GregoryConrad/mimir/commit/67a15a913a23d3f6a3a666a5fd3905a813d8fdb8))
+
+
+## 2023-03-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.0.1-dev.7`](#flutter_mimir---v001-dev7)
+ - [`mimir` - `v0.0.1-dev.7`](#mimir---v001-dev7)
+
+---
+
+#### `flutter_mimir` - `v0.0.1-dev.7`
+
+ - **FEAT**: add manual primary key selection ([#157](https://github.com/GregoryConrad/mimir/issues/157)). ([714533b5](https://github.com/GregoryConrad/mimir/commit/714533b5b2f5b943323bf7ba495f757c7707127d))
+
+#### `mimir` - `v0.0.1-dev.7`
+
+ - **FEAT**: add manual primary key selection ([#157](https://github.com/GregoryConrad/mimir/issues/157)). ([714533b5](https://github.com/GregoryConrad/mimir/commit/714533b5b2f5b943323bf7ba495f757c7707127d))
+
+
 ## 2023-03-13
 
 ### Changes
