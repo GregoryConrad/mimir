@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-03-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.0.1-dev.7`](#flutter_mimir---v001-dev7)
+ - [`mimir` - `v0.0.1-dev.7`](#mimir---v001-dev7)
+
+---
+
+#### `flutter_mimir` - `v0.0.1-dev.7`
+
+ - **FEAT**: add manual primary key selection ([#157](https://github.com/GregoryConrad/mimir/issues/157)). ([714533b5](https://github.com/GregoryConrad/mimir/commit/714533b5b2f5b943323bf7ba495f757c7707127d))
+
+#### `mimir` - `v0.0.1-dev.7`
+
+ - **FEAT**: add manual primary key selection ([#157](https://github.com/GregoryConrad/mimir/issues/157)). ([714533b5](https://github.com/GregoryConrad/mimir/commit/714533b5b2f5b943323bf7ba495f757c7707127d))
+
+
 ## 2023-03-13
 
 ### Changes
