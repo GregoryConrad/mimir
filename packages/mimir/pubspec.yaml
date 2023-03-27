@@ -16,6 +16,9 @@ dependencies:
   freezed_annotation: ^2.2.0
   meta: ^1.8.0
 
+  # TODO https://github.com/fzyzcjy/flutter_rust_bridge/issues/1147
+  uuid: any
+
 dev_dependencies:
   analyzer: ^5.2.0
   build_runner: ^2.3.2
