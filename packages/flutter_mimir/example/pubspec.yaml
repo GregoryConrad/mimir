@@ -11,8 +11,8 @@ dependencies:
     sdk: flutter
 
   # You can replace these with the latest versions
-  flutter_mimir: ^0.0.1-dev.7
-  mimir: ^0.0.1-dev.7
+  flutter_mimir: ^0.0.1-dev.8
+  mimir: ^0.0.1-dev.8
 
   # These two are needed for the example; they are not required by mimir
   hooks_riverpod: ^2.1.1

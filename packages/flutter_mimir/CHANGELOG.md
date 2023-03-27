@@ -1,3 +1,7 @@
+## 0.0.1-dev.8
+
+ - Update a dependency to the latest release.
+
 ## 0.0.1-dev.7
 
  - **FEAT**: add manual primary key selection ([#157](https://github.com/GregoryConrad/mimir/issues/157)). ([714533b5](https://github.com/GregoryConrad/mimir/commit/714533b5b2f5b943323bf7ba495f757c7707127d))
