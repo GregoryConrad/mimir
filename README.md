@@ -72,7 +72,7 @@ await index.setSettings(currSettings.copyWith(
   // The primary key (PK) is the "ID field" of documents added to mimir.
   // When null, it is automatically inferred for you, but sometimes you may
   // need to specify it manually. See the Important Caveats section for more.
-  primaryKey: String?,
+  primaryKey: null,
   // Fields in documents that are included in full-text search.
   // Use null, the default, to search all fields
   searchableFields: <String>[],

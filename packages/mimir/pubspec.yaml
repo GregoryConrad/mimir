@@ -12,7 +12,7 @@ environment:
 
 dependencies:
   ffi: ^2.0.1
-  flutter_rust_bridge: 1.72.0
+  flutter_rust_bridge: 1.72.1
   freezed_annotation: ^2.2.0
   meta: ^1.8.0
 
@@ -20,7 +20,6 @@ dependencies:
   uuid: any
 
 dev_dependencies:
-  analyzer: ^5.2.0
   build_runner: ^2.3.2
   ffigen: ^7.2.0
   freezed: ^2.2.1
