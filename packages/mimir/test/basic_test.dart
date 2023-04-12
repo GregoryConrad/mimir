@@ -327,4 +327,34 @@ void main() {
       throwsA(isA<FfiException>()),
     );
   });
+
+  test('Full text search with CJK works as expected', () async {
+    final index = useTestIndex();
+    const docs = [
+      {'id': 0, 'text': '你好妈妈'},
+      {'id': 1, 'text': '这个饺子好吃'},
+    ];
+    await index.addDocuments(docs);
+
+    // Test to make sure specific nouns return the right documents
+    expect(
+      await index.search(query: '妈妈'),
+      [docs[0]],
+    );
+    expect(
+      await index.search(query: '饺子'),
+      [docs[1]],
+    );
+
+    // hao should not return nihao...
+    expect(
+      await index.search(query: '好'),
+      [docs[1]],
+    );
+    // ...but nihao directly should no longer return haochi
+    expect(
+      await index.search(query: '你好'),
+      [docs[0]],
+    );
+  });
 }
