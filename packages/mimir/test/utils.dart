@@ -30,13 +30,14 @@ Directory useTmpDir() {
   return dir;
 }
 
-MimirInstance useInstance() {
+Future<MimirInstance> useInstance() {
   final dir = useTmpDir();
   final lib = useLibrary();
   return Mimir.getInstance(path: dir.path, library: lib);
 }
 
-MimirIndex useTestIndex() => useInstance().getIndex('test');
+Future<MimirIndex> useTestIndex() async =>
+    (await useInstance()).getIndex('test');
 
 List<Map<String, dynamic>> useExercises() {
   final exercisesStr = File('test/assets/exercises.json').readAsStringSync();
