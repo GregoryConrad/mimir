@@ -59,7 +59,7 @@ A collection of commonly used APIs ready for copy-paste into your application.
 final instance = await Mimir.defaultInstance;
 
 // Dart-only (just mimir)
-final instance = Mimir.getInstance(
+final instance = await Mimir.getInstance(
   path: instanceDirectory,
   // Following line will change based on your platform
   library: DynamicLibrary.open('libembedded_milli.so'),
