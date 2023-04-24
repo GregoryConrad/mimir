@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:meta/meta.dart';
 import 'package:mimir/src/bridge_generated.dart';
@@ -12,3 +13,7 @@ typedef ExternalLibrary = DynamicLibrary;
 // ignore: public_member_api_docs
 EmbeddedMilli createWrapperImpl(ExternalLibrary dylib) =>
     EmbeddedMilliImpl(dylib);
+
+/// Needed by https://github.com/GregoryConrad/mimir/issues/170
+@internal
+String? tmpDir() => Platform.isAndroid ? Directory.systemTemp.path : null;

@@ -21,8 +21,11 @@ part 'bridge_generated.freezed.dart';
 
 abstract class EmbeddedMilli {
   /// Ensures an instance of milli (represented by just a directory) is initialized
+  ///
+  /// `tmp_dir`, if specified, is the directory used to store all temporary files
+  /// (see https://github.com/GregoryConrad/mimir/issues/170)
   Future<void> ensureInstanceInitialized(
-      {required String instaceDir, dynamic hint});
+      {required String instanceDir, String? tmpDir, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta;
 
@@ -255,14 +258,15 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
       EmbeddedMilliImpl(module as ExternalLibrary);
   EmbeddedMilliImpl.raw(this._platform);
   Future<void> ensureInstanceInitialized(
-      {required String instaceDir, dynamic hint}) {
-    var arg0 = _platform.api2wire_String(instaceDir);
+      {required String instanceDir, String? tmpDir, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(instanceDir);
+    var arg1 = _platform.api2wire_opt_String(tmpDir);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) =>
-          _platform.inner.wire_ensure_instance_initialized(port_, arg0),
+          _platform.inner.wire_ensure_instance_initialized(port_, arg0, arg1),
       parseSuccessData: _wire2api_unit,
       constMeta: kEnsureInstanceInitializedConstMeta,
-      argValues: [instaceDir],
+      argValues: [instanceDir, tmpDir],
       hint: hint,
     ));
   }
@@ -270,7 +274,7 @@ class EmbeddedMilliImpl implements EmbeddedMilli {
   FlutterRustBridgeTaskConstMeta get kEnsureInstanceInitializedConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "ensure_instance_initialized",
-        argNames: ["instaceDir"],
+        argNames: ["instanceDir", "tmpDir"],
       );
 
   Future<void> ensureIndexInitialized(

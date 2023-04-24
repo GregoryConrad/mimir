@@ -204,7 +204,7 @@ class EmbeddedMilliWasmModule implements WasmModule {
   external Object /* Promise */ call([String? moduleName]);
   external EmbeddedMilliWasmModule bind(dynamic thisArg, String moduleName);
   external dynamic /* void */ wire_ensure_instance_initialized(
-      NativePortType port_, String instace_dir);
+      NativePortType port_, String instance_dir, String? tmp_dir);
 
   external dynamic /* void */ wire_ensure_index_initialized(
       NativePortType port_, String instance_dir, String index_name);
@@ -252,8 +252,8 @@ class EmbeddedMilliWire
       : super(WasmModule.cast<EmbeddedMilliWasmModule>(module));
 
   void wire_ensure_instance_initialized(
-          NativePortType port_, String instace_dir) =>
-      wasmModule.wire_ensure_instance_initialized(port_, instace_dir);
+          NativePortType port_, String instance_dir, String? tmp_dir) =>
+      wasmModule.wire_ensure_instance_initialized(port_, instance_dir, tmp_dir);
 
   void wire_ensure_index_initialized(
           NativePortType port_, String instance_dir, String index_name) =>

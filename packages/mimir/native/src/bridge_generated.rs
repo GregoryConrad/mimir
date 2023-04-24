@@ -23,7 +23,8 @@ use std::sync::Arc;
 
 fn wire_ensure_instance_initialized_impl(
     port_: MessagePort,
-    instace_dir: impl Wire2Api<String> + UnwindSafe,
+    instance_dir: impl Wire2Api<String> + UnwindSafe,
+    tmp_dir: impl Wire2Api<Option<String>> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -32,8 +33,9 @@ fn wire_ensure_instance_initialized_impl(
             mode: FfiCallMode::Normal,
         },
         move || {
-            let api_instace_dir = instace_dir.wire2api();
-            move |task_callback| ensure_instance_initialized(api_instace_dir)
+            let api_instance_dir = instance_dir.wire2api();
+            let api_tmp_dir = tmp_dir.wire2api();
+            move |task_callback| ensure_instance_initialized(api_instance_dir, api_tmp_dir)
         },
     )
 }
@@ -351,8 +353,12 @@ mod web {
     // Section: wire functions
 
     #[wasm_bindgen]
-    pub fn wire_ensure_instance_initialized(port_: MessagePort, instace_dir: String) {
-        wire_ensure_instance_initialized_impl(port_, instace_dir)
+    pub fn wire_ensure_instance_initialized(
+        port_: MessagePort,
+        instance_dir: String,
+        tmp_dir: Option<String>,
+    ) {
+        wire_ensure_instance_initialized_impl(port_, instance_dir, tmp_dir)
     }
 
     #[wasm_bindgen]
@@ -699,9 +705,10 @@ mod io {
     #[no_mangle]
     pub extern "C" fn wire_ensure_instance_initialized(
         port_: i64,
-        instace_dir: *mut wire_uint_8_list,
+        instance_dir: *mut wire_uint_8_list,
+        tmp_dir: *mut wire_uint_8_list,
     ) {
-        wire_ensure_instance_initialized_impl(port_, instace_dir)
+        wire_ensure_instance_initialized_impl(port_, instance_dir, tmp_dir)
     }
 
     #[no_mangle]
