@@ -88,8 +88,11 @@ pub struct MimirIndexSettings {
 }
 
 /// Ensures an instance of milli (represented by just a directory) is initialized
-pub fn ensure_instance_initialized(instace_dir: String) -> Result<()> {
-    embedded_milli::ensure_instance_initialized(instace_dir.as_str())
+///
+/// `tmp_dir`, if specified, is the directory used to store all temporary files
+/// (see https://github.com/GregoryConrad/mimir/issues/170)
+pub fn ensure_instance_initialized(instance_dir: String, tmp_dir: Option<String>) -> Result<()> {
+    embedded_milli::ensure_instance_initialized(instance_dir.as_str(), tmp_dir)
 }
 
 /// Ensures a milli index is initialized

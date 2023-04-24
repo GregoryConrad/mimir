@@ -10,3 +10,7 @@ typedef ExternalLibrary = Object;
 // ignore: public_member_api_docs
 EmbeddedMilli createWrapperImpl(ExternalLibrary lib) =>
     throw UnimplementedError();
+
+/// Needed by https://github.com/GregoryConrad/mimir/issues/170
+@internal
+String? tmpDir() => null;

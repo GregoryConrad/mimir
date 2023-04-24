@@ -11,3 +11,7 @@ typedef ExternalLibrary = WasmModule;
 // ignore: public_member_api_docs
 EmbeddedMilli createWrapperImpl(ExternalLibrary module) =>
     EmbeddedMilliImpl.wasm(module);
+
+/// Needed by https://github.com/GregoryConrad/mimir/issues/170
+@internal
+String? tmpDir() => null;

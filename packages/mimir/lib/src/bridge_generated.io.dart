@@ -402,21 +402,25 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
 
   void wire_ensure_instance_initialized(
     int port_,
-    ffi.Pointer<wire_uint_8_list> instace_dir,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
+    ffi.Pointer<wire_uint_8_list> tmp_dir,
   ) {
     return _wire_ensure_instance_initialized(
       port_,
-      instace_dir,
+      instance_dir,
+      tmp_dir,
     );
   }
 
   late final _wire_ensure_instance_initializedPtr = _lookup<
           ffi.NativeFunction<
-              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>(
+              ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
       'wire_ensure_instance_initialized');
   late final _wire_ensure_instance_initialized =
-      _wire_ensure_instance_initializedPtr
-          .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+      _wire_ensure_instance_initializedPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_ensure_index_initialized(
     int port_,

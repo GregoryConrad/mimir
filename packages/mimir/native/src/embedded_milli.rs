@@ -122,7 +122,15 @@ impl Instance {
     }
 }
 
-pub(crate) fn ensure_instance_initialized(instance_dir: &str) -> Result<()> {
+pub(crate) fn ensure_instance_initialized(
+    instance_dir: &str,
+    tmp_dir: Option<String>,
+) -> Result<()> {
+    if let Some(tmp_dir) = tmp_dir {
+        // See https://github.com/GregoryConrad/mimir/issues/170 for more on this
+        std::env::set_var("TMPDIR", tmp_dir);
+    }
+
     let instances = INSTANCES.read();
 
     // If this instance does not yet exist, create it
@@ -201,7 +209,7 @@ fn ensure_index_migrated(instance_dir: &str, index_name: &str) -> Result<()> {
 }
 
 pub(crate) fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> Result<()> {
-    ensure_instance_initialized(instance_dir)?;
+    ensure_instance_initialized(instance_dir, None)?;
     ensure_index_migrated(instance_dir, index_name)?;
 
     // If this index does not yet exist in memory or on disk, create it
