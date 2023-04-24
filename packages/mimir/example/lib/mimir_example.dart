@@ -27,7 +27,7 @@ Future<void> run(String path, DynamicLibrary lib) async {
   // If you are going to use Flutter, don't pay too much attention to lib;
   // lib will be created for you automatically under the hood.
   // However, in pure Dart, you need to explicity state how to get it.
-  final instance = Mimir.getInstance(path: path, library: lib);
+  final instance = await Mimir.getInstance(path: path, library: lib);
 
   // Let's create an 'index' of movies that we can search through.
   // An index can be thought of as a grouping of documents of the same type.

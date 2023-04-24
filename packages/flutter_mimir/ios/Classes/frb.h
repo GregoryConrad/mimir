@@ -161,7 +161,9 @@ uintptr_t new_dart_opaque(Dart_Handle handle);
 
 intptr_t init_frb_dart_api_dl(void *obj);
 
-void wire_ensure_instance_initialized(int64_t port_, struct wire_uint_8_list *instace_dir);
+void wire_ensure_instance_initialized(int64_t port_,
+                                      struct wire_uint_8_list *instance_dir,
+                                      struct wire_uint_8_list *tmp_dir);
 
 void wire_ensure_index_initialized(int64_t port_,
                                    struct wire_uint_8_list *instance_dir,

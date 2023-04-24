@@ -19,12 +19,21 @@ A batteries-included NoSQL database for Dart & Flutter based on an embedded
 - 🤝 Flutter friendly with a super easy-to-use API (see demo below!)
 - 🔱 Powerful, declarative, and reactive queries
 - 🔌 Cross-platform support ([web hopefully coming soon!](https://github.com/GregoryConrad/mimir/issues/10))
+- 🉑️ Diverse language support, [including CJK, Hebrew, and more!](https://www.meilisearch.com/docs/learn/what_is_meilisearch/language)
 
 ## Getting Started
 - With Flutter, run `flutter pub add mimir flutter_mimir`
 - For Dart-only, run `dart pub add mimir`
 
 Also read the [caveats below](#important-caveats).
+
+## IMPORTANT: NOT PRODUCTION READY
+While you can currently use mimir to develop locally just fine,
+*it is strongly advised you do not release an app to production quite yet*.
+Once mimir reaches stable (loses the `-dev` in the release tag),
+you can feel free to ship to production;
+I estimate this will be in Q3 2023.
+There may be breaking database changes between now and the first stable release.
 
 ## Demo
 With Flutter, you can get started with as little as:
@@ -240,6 +249,6 @@ Please read these caveats _before_ adding mimir to your project.
   - If you do not need all the features provided by mimir, also consider a more lightweight alternative!
     - [Hive](https://pub.dev/packages/hive) for simple key-value storage
     - [Isar](https://pub.dev/packages/isar) for more sophisticated use-cases
-      - Note: while Isar does have full-text search, it is *not* typo-tolerant!
-    - If you need easy, typo-tolerant full-text search, you will want mimir!
+      - Note: while Isar does have full-text search, it is *neither typo-tolerant nor relevant*!
+    - If you need easy, typo-tolerant, relevant full-text search, you will want mimir!
       - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter, which is why I made mimir in the first place!

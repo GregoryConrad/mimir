@@ -36,11 +36,13 @@ class MimirInterface {
   /// [library] is a WasmModule on web & a DynamicLibrary on dart:io platforms.
   /// [library] is used to create the internal ffi object
   /// that is used to call the Rust APIs.
-  MimirInstance getInstance({
+  Future<MimirInstance> getInstance({
     required String path,
     required ExternalLibrary library,
-  }) {
+  }) async {
     _milli ??= createWrapperImpl(library);
+    await _milli!
+        .ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
     return _instances.putIfAbsent(
       path,
       () => MimirInstanceImpl(path, _milli!),
