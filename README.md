@@ -31,11 +31,9 @@ Also read the [caveats below](#important-caveats).
 While you can currently use mimir to develop locally just fine,
 *it is strongly advised you do not release an app to production quite yet*.
 Once mimir reaches stable (loses the `-dev` in the release tag),
-you can feel free to ship to production.
+you can feel free to ship to production;
 I estimate this will be in Q3 2023.
-
-There may be breaking database changes between now and the first stable release,
-in addition to [a known issue on pre-Android 13 devices.](https://github.com/GregoryConrad/mimir/issues/170)
+There may be breaking database changes between now and the first stable release.
 
 ## Demo
 With Flutter, you can get started with as little as:
