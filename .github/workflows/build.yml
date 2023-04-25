@@ -62,10 +62,9 @@ jobs:
           cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/macos/Frameworks/$CURR_VERSION.zip
           echo Copied file!
 
-      # TODO https://github.com/flutter/flutter/issues/118469
-      # - name: Run Flutter integration tests
-      #   working-directory: packages/flutter_mimir/example
-      #   run: flutter test -d macos integration_test
+      - name: Run Flutter integration tests
+        working-directory: packages/flutter_mimir/example
+        run: flutter test -d macos integration_test
 
   windows_integration_test:
     runs-on: windows-latest
@@ -185,6 +184,6 @@ jobs:
             api-level: 30
             target: aosp_atd
             arch: x86
-            ram-size: 1536M
-            disk-size: 3072M
+            ram-size: 1024M
+            disk-size: 8192M
             script: cd packages/flutter_mimir/example && flutter test -d `flutter devices | grep android | tr ' ' '\n' | grep emulator-` integration_test
