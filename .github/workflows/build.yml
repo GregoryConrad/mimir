@@ -182,9 +182,5 @@ jobs:
           attempt_limit: 5
           action: reactivecircus/android-emulator-runner@v2
           with: |
-            api-level: 30
-            target: aosp_atd
-            arch: x86
-            ram-size: 1024M
-            disk-size: 8192M
+            api-level: 29
             script: cd packages/flutter_mimir/example && flutter test -d `flutter devices | grep android | tr ' ' '\n' | grep emulator-` integration_test
