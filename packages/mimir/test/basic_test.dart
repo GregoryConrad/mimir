@@ -105,9 +105,9 @@ void main() {
     );
   });
 
-  test('Use multiple instances', () {
+  test('Use multiple instances', () async {
     for (final _ in Iterable<int>.generate(100)) {
-      useTestIndex();
+      await useTestIndex();
     }
   });
 
