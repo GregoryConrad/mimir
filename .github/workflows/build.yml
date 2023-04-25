@@ -44,7 +44,8 @@ jobs:
         run: melos run test
 
   macos_integration_test:
-    runs-on: macos-latest
+    # https://github.com/flutter/flutter/issues/118469#issuecomment-1521474790
+    runs-on: macos-13 # TODO macos-latest
 
     steps:
       - uses: actions/checkout@v3
