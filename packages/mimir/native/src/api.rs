@@ -7,14 +7,6 @@ use crate::embedded_milli::{self, Document};
 pub enum TermsMatchingStrategy {
     /// Remove last word first
     Last,
-    /// Remove first word first
-    First,
-    /// Remove more frequent word first
-    Frequency,
-    /// Remove smallest word first
-    Size,
-    /// Only one of the word is mandatory
-    Any,
     /// All words are mandatory
     All,
 }
