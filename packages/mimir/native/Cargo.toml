@@ -19,6 +19,7 @@ lazy_static = "1.*"
 milli_v1 = { git = "https://github.com/meilisearch/meilisearch", package = "milli", branch = "main" }
 
 [features]
+default = ["milli_v1/all-tokenizations",]
 # POSIX semaphores are needed for Apple's App Sandbox.
 # Default LMDB uses SysV semaphores but App Sandbox disallows them.
 # See https://github.com/GregoryConrad/mimir/issues/98
