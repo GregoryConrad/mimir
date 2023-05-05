@@ -347,10 +347,10 @@ void main() {
       [docs[1]],
     );
 
-    // hao should not return nihao...
+    // hao should return nihao and haochi...
     expect(
       await index.search(query: '好'),
-      [docs[1]],
+      docs,
     );
     // ...but nihao directly should no longer return haochi
     expect(
