@@ -1,3 +1,7 @@
+## 0.0.1-dev.10
+
+ - Update a dependency to the latest release.
+
 ## 0.0.1-dev.9
 
  - **FIX**: android tmp files now use application cache dir ([#184](https://github.com/GregoryConrad/mimir/issues/184)). ([7504e2e3](https://github.com/GregoryConrad/mimir/commit/7504e2e30fb88a96ebc461fbae8003c87b696121))
