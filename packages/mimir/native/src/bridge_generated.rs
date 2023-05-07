@@ -290,11 +290,7 @@ impl Wire2Api<TermsMatchingStrategy> for i32 {
     fn wire2api(self) -> TermsMatchingStrategy {
         match self {
             0 => TermsMatchingStrategy::Last,
-            1 => TermsMatchingStrategy::First,
-            2 => TermsMatchingStrategy::Frequency,
-            3 => TermsMatchingStrategy::Size,
-            4 => TermsMatchingStrategy::Any,
-            5 => TermsMatchingStrategy::All,
+            1 => TermsMatchingStrategy::All,
             _ => unreachable!("Invalid variant for TermsMatchingStrategy: {}", self),
         }
     }

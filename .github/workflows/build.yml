@@ -44,7 +44,8 @@ jobs:
         run: melos run test
 
   macos_integration_test:
-    runs-on: macos-latest
+    # https://github.com/flutter/flutter/issues/118469#issuecomment-1521474790
+    runs-on: macos-13 # TODO macos-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -62,10 +63,9 @@ jobs:
           cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/macos/Frameworks/$CURR_VERSION.zip
           echo Copied file!
 
-      # TODO https://github.com/flutter/flutter/issues/118469
-      # - name: Run Flutter integration tests
-      #   working-directory: packages/flutter_mimir/example
-      #   run: flutter test -d macos integration_test
+      - name: Run Flutter integration tests
+        working-directory: packages/flutter_mimir/example
+        run: flutter test -d macos integration_test
 
   windows_integration_test:
     runs-on: windows-latest
@@ -182,9 +182,9 @@ jobs:
           attempt_limit: 5
           action: reactivecircus/android-emulator-runner@v2
           with: |
-            api-level: 30
-            target: aosp_atd
-            arch: x86
+            api-level: 33
+            target: google_apis
+            arch: x86_64
             ram-size: 1024M
-            disk-size: 4096M
+            disk-size: 2048M
             script: cd packages/flutter_mimir/example && flutter test -d `flutter devices | grep android | tr ' ' '\n' | grep emulator-` integration_test
