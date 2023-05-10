@@ -109,9 +109,9 @@ class MimirInterface {
       (
         isGreaterThanOrEqualTo != null,
         () => Filter.greaterThanOrEqual(
-          field: field,
-          value: isGreaterThanOrEqualTo!,
-        ),
+              field: field,
+              value: isGreaterThanOrEqualTo!,
+            ),
       ),
       (
         isLessThanOrEqualTo != null,
@@ -125,17 +125,24 @@ class MimirInterface {
         isLessThan != null,
         () => Filter.lessThan(field: field, value: isLessThan!),
       ),
-      (exists != null, () {
-        final existsFilter = Filter.exists(field: field);
-        return exists! ? existsFilter : Filter.not(existsFilter);
-      }),
+      (
+        exists != null,
+        () {
+          final existsFilter = Filter.exists(field: field);
+          return exists! ? existsFilter : Filter.not(existsFilter);
+        }
+      ),
       (
         containsAtLeastOneOf != null,
         () => Filter.inValues(field: field, values: containsAtLeastOneOf!),
       ),
       (
         isBetween != null,
-        () => Filter.between(field: field, from: isBetween!.$1, to: isBetween.$2),
+        () => Filter.between(
+              field: field,
+              from: isBetween!.$1,
+              to: isBetween.$2,
+            ),
       ),
     ].where((operator) => operator.$1);
     if (givenOperators.length != 1) {
