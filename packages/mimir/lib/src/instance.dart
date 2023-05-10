@@ -1,4 +1,4 @@
-import 'package:mimir/src/index.dart';
+import 'package:mimir/mimir.dart';
 
 /// Represents an instance (essentially a group of indices) of mimir.
 ///
@@ -20,5 +20,31 @@ abstract class MimirInstance {
   ///
   /// The name of the index must be filesystem-path safe.
   /// When in doubt, just stick with a-z, A-Z, 0-9, -, and _ for the name.
+  ///
+  /// If you know any settings of the index in advance (such as a primary key),
+  /// it is preferred to use [openIndex] instead.
   MimirIndex getIndex(String name);
+
+  /// Eagerly opens an index with the supplied [name] and settings.
+  /// If you know the primary key (or any of the other settings) in advance,
+  /// it is recommended to use [openIndex] over [getIndex].
+  /// See also [getIndex] for restrictions on what [name] can be.
+  ///
+  /// While [getIndex] opens indexes lazily (on the first method call),
+  /// [openIndex] both opens and initializes an index before returning.
+  Future<MimirIndex> openIndex(
+    String name, {
+    String? primaryKey,
+    List<String>? searchableFields,
+    List<String> filterableFields,
+    List<String> sortableFields,
+    List<String> rankingRules,
+    List<String> stopWords,
+    List<Synonyms> synonyms,
+    bool typosEnabled,
+    int minWordSizeForOneTypo,
+    int minWordSizeForTwoTypos,
+    List<String> disallowTyposOnWords,
+    List<String> disallowTyposOnFields,
+  });
 }

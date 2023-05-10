@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:mimir/mimir.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mimir/mimir.dart';
 import 'package:test/test.dart';
 
 part 'utils.freezed.dart';
@@ -30,19 +30,21 @@ Directory useTmpDir() {
   return dir;
 }
 
-MimirInstance useInstance() {
+Future<MimirInstance> useInstance() {
   final dir = useTmpDir();
   final lib = useLibrary();
   return Mimir.getInstance(path: dir.path, library: lib);
 }
 
-MimirIndex useTestIndex() => useInstance().getIndex('test');
+Future<MimirIndex> useTestIndex() async =>
+    (await useInstance()).getIndex('test');
 
 List<Map<String, dynamic>> useExercises() {
   final exercisesStr = File('test/assets/exercises.json').readAsStringSync();
   final exerciseLibrary = json.decode(exercisesStr) as Map<String, dynamic>;
   return (exerciseLibrary['exercises'] as List)
       .cast<Map<String, dynamic>>()
+      // ignore: avoid_dynamic_calls
       .map((e) => e..['id'] = e['name'].hashCode)
       .toList();
 }

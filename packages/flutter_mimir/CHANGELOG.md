@@ -1,3 +1,24 @@
+## 0.0.1-dev.10
+
+ - Update a dependency to the latest release.
+
+## 0.0.1-dev.9
+
+ - **FIX**: android tmp files now use application cache dir ([#184](https://github.com/GregoryConrad/mimir/issues/184)). ([7504e2e3](https://github.com/GregoryConrad/mimir/commit/7504e2e30fb88a96ebc461fbae8003c87b696121))
+
+## 0.0.1-dev.8
+
+ - Update a dependency to the latest release.
+
+## 0.0.1-dev.7
+
+ - **FEAT**: add manual primary key selection ([#157](https://github.com/GregoryConrad/mimir/issues/157)). ([714533b5](https://github.com/GregoryConrad/mimir/commit/714533b5b2f5b943323bf7ba495f757c7707127d))
+
+## 0.0.1-dev.6
+
+ - **REFACTOR**: update melos to v3 ([#131](https://github.com/GregoryConrad/mimir/issues/131)). ([0c6c2b8b](https://github.com/GregoryConrad/mimir/commit/0c6c2b8ba013ec6e56e869d498e246cce3cf923b))
+ - **DOCS**: improve quality of examples ([#150](https://github.com/GregoryConrad/mimir/issues/150)). ([5bcbf664](https://github.com/GregoryConrad/mimir/commit/5bcbf664d7e1ac361e3fb6554eb6553a75cfca81))
+
 ## 0.0.1-dev.5
 
  - **FIX**: remove pubspec screenshot attribute.

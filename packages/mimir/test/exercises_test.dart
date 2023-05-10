@@ -5,7 +5,7 @@ import 'utils.dart';
 
 void main() {
   test('Exercises integration test', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     final exercises = useExercises();
 
     // Add the exercises into the index

@@ -1,0 +1,9 @@
+name: mimir_workspace
+publish_to: none
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+
+dev_dependencies:
+  analyzer: ^5.11.1
+  melos: ^3.0.1

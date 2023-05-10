@@ -22,7 +22,6 @@
 
 # Flutter/Dart/Pub related
 pubspec.lock
-pubspec_overrides.yaml
 **/doc/api/
 .dart_tool/
 .packages
@@ -31,6 +30,10 @@ build/
 .pub/
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Melos
+pubspec_overrides.yaml
+!/pubspec.lock
 
 # Rust related
 /target/

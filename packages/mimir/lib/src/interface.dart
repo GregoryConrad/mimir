@@ -1,6 +1,8 @@
 import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/instance.dart';
+
+// ignore: directives_ordering
 import 'package:mimir/src/impl/ffi/stub.dart'
     if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart'
     if (dart.library.html) 'package:mimir/src/impl/ffi/web.dart';
@@ -34,11 +36,13 @@ class MimirInterface {
   /// [library] is a WasmModule on web & a DynamicLibrary on dart:io platforms.
   /// [library] is used to create the internal ffi object
   /// that is used to call the Rust APIs.
-  MimirInstance getInstance({
+  Future<MimirInstance> getInstance({
     required String path,
     required ExternalLibrary library,
-  }) {
+  }) async {
     _milli ??= createWrapperImpl(library);
+    await _milli!
+        .ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
     return _instances.putIfAbsent(
       path,
       () => MimirInstanceImpl(path, _milli!),
@@ -105,7 +109,9 @@ class MimirInterface {
       (
         isGreaterThanOrEqualTo != null,
         () => Filter.greaterThanOrEqual(
-            field: field, value: isGreaterThanOrEqualTo!),
+          field: field,
+          value: isGreaterThanOrEqualTo!,
+        ),
       ),
       (
         isLessThanOrEqualTo != null,
