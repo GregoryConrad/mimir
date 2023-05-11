@@ -590,6 +590,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_uint_8_list> index_name,
     ffi.Pointer<wire_uint_8_list> query,
     ffi.Pointer<ffi.Uint32> limit,
+    ffi.Pointer<ffi.Uint32> offset,
     ffi.Pointer<wire_list_sort_by> sort_criteria,
     ffi.Pointer<wire_Filter> filter,
     ffi.Pointer<ffi.Int32> matching_strategy,
@@ -600,6 +601,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
       index_name,
       query,
       limit,
+      offset,
       sort_criteria,
       filter,
       matching_strategy,
@@ -614,6 +616,7 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint32>,
               ffi.Pointer<wire_list_sort_by>,
               ffi.Pointer<wire_Filter>,
               ffi.Pointer<ffi.Int32>)>>('wire_search_documents');
@@ -624,9 +627,31 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
           ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<ffi.Uint32>,
+          ffi.Pointer<ffi.Uint32>,
           ffi.Pointer<wire_list_sort_by>,
           ffi.Pointer<wire_Filter>,
           ffi.Pointer<ffi.Int32>)>();
+
+  void wire_number_of_documents(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> instance_dir,
+    ffi.Pointer<wire_uint_8_list> index_name,
+  ) {
+    return _wire_number_of_documents(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire_number_of_documentsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_number_of_documents');
+  late final _wire_number_of_documents =
+      _wire_number_of_documentsPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>();
 
   void wire_get_settings(
     int port_,

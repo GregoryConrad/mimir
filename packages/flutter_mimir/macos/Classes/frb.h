@@ -202,9 +202,14 @@ void wire_search_documents(int64_t port_,
                            struct wire_uint_8_list *index_name,
                            struct wire_uint_8_list *query,
                            uint32_t *limit,
+                           uint32_t *offset,
                            struct wire_list_sort_by *sort_criteria,
                            struct wire_Filter *filter,
                            int32_t *matching_strategy);
+
+void wire_number_of_documents(int64_t port_,
+                              struct wire_uint_8_list *instance_dir,
+                              struct wire_uint_8_list *index_name);
 
 void wire_get_settings(int64_t port_,
                        struct wire_uint_8_list *instance_dir,
@@ -276,6 +281,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_document);
     dummy_var ^= ((int64_t) (void*) wire_get_all_documents);
     dummy_var ^= ((int64_t) (void*) wire_search_documents);
+    dummy_var ^= ((int64_t) (void*) wire_number_of_documents);
     dummy_var ^= ((int64_t) (void*) wire_get_settings);
     dummy_var ^= ((int64_t) (void*) wire_set_settings);
     dummy_var ^= ((int64_t) (void*) new_StringList_0);
