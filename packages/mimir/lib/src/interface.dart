@@ -75,7 +75,7 @@ class MimirInterface {
   /// Mimir.or([
   ///   Mimir.and([
   ///     Mimir.where('fruit', isEqualTo: 'apple'),
-  ///     Mimir.where('year', isBetween: ('2000', '2009')),
+  ///     Mimir.where('year', isBetween: '2000', and: '2009'),
   ///   ]),
   ///   Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
   /// ])
@@ -95,62 +95,56 @@ class MimirInterface {
     List<String>? containsAtLeastOneOf,
 
     // "BETWEEN" operator
-    (String, String)? isBetween,
+    String? isBetween,
+    String? and,
   }) {
     final givenOperators = [
-      (
+      MapEntry(
         isEqualTo != null,
         () => Filter.equal(field: field, value: isEqualTo!),
       ),
-      (
+      MapEntry(
         isNotEqualTo != null,
         () => Filter.notEqual(field: field, value: isNotEqualTo!),
       ),
-      (
+      MapEntry(
         isGreaterThanOrEqualTo != null,
         () => Filter.greaterThanOrEqual(
-              field: field,
-              value: isGreaterThanOrEqualTo!,
-            ),
+          field: field,
+          value: isGreaterThanOrEqualTo!,
+        ),
       ),
-      (
+      MapEntry(
         isLessThanOrEqualTo != null,
         () => Filter.lessThanOrEqual(field: field, value: isLessThanOrEqualTo!),
       ),
-      (
+      MapEntry(
         isGreaterThan != null,
         () => Filter.greaterThan(field: field, value: isGreaterThan!),
       ),
-      (
+      MapEntry(
         isLessThan != null,
         () => Filter.lessThan(field: field, value: isLessThan!),
       ),
-      (
-        exists != null,
-        () {
-          final existsFilter = Filter.exists(field: field);
-          return exists! ? existsFilter : Filter.not(existsFilter);
-        }
-      ),
-      (
+      MapEntry(exists != null, () {
+        final existsFilter = Filter.exists(field: field);
+        return exists! ? existsFilter : Filter.not(existsFilter);
+      }),
+      MapEntry(
         containsAtLeastOneOf != null,
         () => Filter.inValues(field: field, values: containsAtLeastOneOf!),
       ),
-      (
-        isBetween != null,
-        () => Filter.between(
-              field: field,
-              from: isBetween!.$1,
-              to: isBetween.$2,
-            ),
+      MapEntry(
+        isBetween != null && and != null,
+        () => Filter.between(field: field, from: isBetween!, to: and!),
       ),
-    ].where((operator) => operator.$1);
+    ].where((e) => e.key);
     if (givenOperators.length != 1) {
       throw UnsupportedError(
-        'Exactly one operator must be specified for each where call. '
-        'If you need to use multiple conditions, use Mimir.or or Mimir.and.',
+        'Only one operator can be given for each where call. '
+        'If you need to use multiple conditions, use Mimir.or or Mimir.and',
       );
     }
-    return givenOperators.single.$2();
+    return givenOperators.single.value();
   }
 }

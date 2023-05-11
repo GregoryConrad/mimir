@@ -224,7 +224,7 @@ Here's what the recommended approach would look like:
 final filter = Mimir.or([
   Mimir.and([
     Mimir.where('fruit', isEqualTo: 'apple'),
-    Mimir.where('year', isBetween: ('2000', '2009')),
+    Mimir.where('year', isBetween: '2000', and: '2009'),
   ]),
   Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
 ])

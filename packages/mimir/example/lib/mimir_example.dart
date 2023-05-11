@@ -100,7 +100,7 @@ Future<void> run(String path, DynamicLibrary lib) async {
       // The movie cast must include Bruce Willis
       Mimir.where('cast', containsAtLeastOneOf: ['Bruce Willis']),
       // The movie must have been released between 2015 & 2017
-      Mimir.where('year', isBetween: ('2015', '2017')),
+      Mimir.where('year', isBetween: '2015', and: '2017'),
     ]),
   );
 

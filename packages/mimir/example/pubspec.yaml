@@ -4,7 +4,7 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=2.18.4 <3.0.0'
 
 dependencies:
   # These two are needed for the example; they are not required by mimir
