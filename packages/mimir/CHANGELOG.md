@@ -1,3 +1,9 @@
+## 0.0.1-dev.11
+
+ - **REVERT**: "feat: use Dart 3 records for isBetween query field ([#140](https://github.com/GregoryConrad/mimir/issues/140))". ([922debf2](https://github.com/GregoryConrad/mimir/commit/922debf2896fcac5839b9f50e34c8e0daaf5c18b))
+ - **FEAT**: pagination and infinite scroll support ([#195](https://github.com/GregoryConrad/mimir/issues/195)). ([293db82b](https://github.com/GregoryConrad/mimir/commit/293db82b9af97c86cb18bb9bd393bf3195bee0e0))
+ - **FEAT**: use Dart 3 records for isBetween query field ([#140](https://github.com/GregoryConrad/mimir/issues/140)). ([115ab5e4](https://github.com/GregoryConrad/mimir/commit/115ab5e42d8e70fada062de35b6747843e8d6cd9))
+
 ## 0.0.1-dev.10
 
  - **FIX**: milli update and fixes ([#189](https://github.com/GregoryConrad/mimir/issues/189)). ([d3511566](https://github.com/GregoryConrad/mimir/commit/d35115661929bdf93251840fe921ca986a7fb446))
