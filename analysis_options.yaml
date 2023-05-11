@@ -1,4 +1,4 @@
-# Modified from very_good_analysis@4.0.0
+# Modified from very_good_analysis@5.0.0
 analyzer:
   language:
     strict-casts: true
@@ -7,6 +7,7 @@ analyzer:
   errors:
     missing_required_param: error
     missing_return: error
+    record_literal_one_positional_no_trailing_comma: error
   exclude:
     - '**.freezed.dart'
     - '**.g.dart'
@@ -73,7 +74,6 @@ linter:
     - empty_catches
     - empty_constructor_bodies
     - empty_statements
-    - enable_null_safety
     - eol_at_end_of_file
     - exhaustive_cases
     - file_names
@@ -81,6 +81,8 @@ linter:
     - hash_and_equals
     - implicit_call_tearoffs
     - implementation_imports
+    - implicit_reopen
+    - invalid_case_patterns
     - iterable_contains_unrelated_type
     - join_return_with_assignment
     - leading_newlines_in_multiline_strings
@@ -122,7 +124,6 @@ linter:
     - prefer_const_literals_to_create_immutables
     - prefer_constructors_over_static_methods
     - prefer_contains
-    - prefer_equal_for_default_values
     - prefer_final_fields
     - prefer_final_in_for_each
     - prefer_final_locals
@@ -164,6 +165,7 @@ linter:
     - type_init_formals
     - unawaited_futures
     - unnecessary_await_in_return
+    - unnecessary_breaks
     - unnecessary_brace_in_string_interps
     - unnecessary_const
     - unnecessary_constructor_name
