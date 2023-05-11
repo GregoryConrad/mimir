@@ -155,6 +155,7 @@ pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec
 }
 
 /// Performs a search against the index and returns the documents found
+#[allow(clippy::too_many_arguments)]
 pub fn search_documents(
     instance_dir: String,
     index_name: String,

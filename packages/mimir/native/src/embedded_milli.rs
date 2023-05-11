@@ -299,6 +299,7 @@ pub(crate) fn get_all_documents(instance_dir: &str, index_name: &str) -> Result<
     })
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn search_documents(
     instance_dir: &str,
     index_name: &str,
