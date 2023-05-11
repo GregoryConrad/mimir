@@ -160,6 +160,7 @@ pub fn search_documents(
     index_name: String,
     query: Option<String>,
     limit: Option<u32>,
+    offset: Option<u32>,
     sort_criteria: Option<Vec<SortBy>>,
     filter: Option<Filter>,
     matching_strategy: Option<TermsMatchingStrategy>,
@@ -169,6 +170,7 @@ pub fn search_documents(
         index_name.as_str(),
         query,
         limit,
+        offset,
         sort_criteria,
         filter,
         matching_strategy,
@@ -176,6 +178,10 @@ pub fn search_documents(
     .iter()
     .map(DocumentExt::to_string)
     .collect()
+}
+
+pub fn number_of_documents(instance_dir: String, index_name: String) -> Result<u64> {
+    embedded_milli::number_of_documents(&instance_dir, &index_name)
 }
 
 /// Gets the settings of the specified index

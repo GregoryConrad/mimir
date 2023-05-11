@@ -233,9 +233,13 @@ class EmbeddedMilliWasmModule implements WasmModule {
       String index_name,
       String? query,
       int? limit,
+      int? offset,
       List<dynamic>? sort_criteria,
       List<dynamic>? filter,
       int? matching_strategy);
+
+  external dynamic /* void */ wire_number_of_documents(
+      NativePortType port_, String instance_dir, String index_name);
 
   external dynamic /* void */ wire_get_settings(
       NativePortType port_, String instance_dir, String index_name);
@@ -291,11 +295,16 @@ class EmbeddedMilliWire
           String index_name,
           String? query,
           int? limit,
+          int? offset,
           List<dynamic>? sort_criteria,
           List<dynamic>? filter,
           int? matching_strategy) =>
       wasmModule.wire_search_documents(port_, instance_dir, index_name, query,
-          limit, sort_criteria, filter, matching_strategy);
+          limit, offset, sort_criteria, filter, matching_strategy);
+
+  void wire_number_of_documents(
+          NativePortType port_, String instance_dir, String index_name) =>
+      wasmModule.wire_number_of_documents(port_, instance_dir, index_name);
 
   void wire_get_settings(
           NativePortType port_, String instance_dir, String index_name) =>

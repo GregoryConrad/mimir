@@ -57,10 +57,13 @@ pub(crate) trait EmbeddedMilli<Index> {
         index: &Index,
         query: Option<String>,
         limit: Option<u32>,
+        offset: Option<u32>,
         sort_criteria: Option<Vec<SortBy>>,
         filter: Option<Filter>,
         matching_strategy: Option<TermsMatchingStrategy>,
     ) -> Result<Vec<Document>>;
+
+    fn number_of_documents(index: &Index) -> Result<u64>;
 
     fn get_settings(index: &Index) -> Result<MimirIndexSettings>;
 
@@ -301,6 +304,7 @@ pub(crate) fn search_documents(
     index_name: &str,
     query: Option<String>,
     limit: Option<u32>,
+    offset: Option<u32>,
     sort_criteria: Option<Vec<SortBy>>,
     filter: Option<Filter>,
     matching_strategy: Option<TermsMatchingStrategy>,
@@ -310,10 +314,17 @@ pub(crate) fn search_documents(
             &index_lock.read(),
             query,
             limit,
+            offset,
             sort_criteria,
             filter,
             matching_strategy,
         )
+    })
+}
+
+pub(crate) fn number_of_documents(instance_dir: &str, index_name: &str) -> Result<u64> {
+    run_with_index_lock(instance_dir, index_name, |index_lock| {
+        CurrEmbeddedMilli::number_of_documents(&index_lock.read())
     })
 }
 
