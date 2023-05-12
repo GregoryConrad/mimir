@@ -141,6 +141,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
         index: &Index,
         query: Option<String>,
         limit: Option<u32>,
+        offset: Option<u32>,
         sort_criteria: Option<Vec<SortBy>>,
         filter: Option<Filter>,
         matching_strategy: Option<TermsMatchingStrategy>,
@@ -151,6 +152,9 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
 
         // Configure the search based on given parameters
         search.limit(limit.unwrap_or(u32::MAX).try_into()?);
+        if let Some(offset) = offset {
+            search.offset(offset.try_into()?);
+        }
         if let Some(query) = query {
             search.query(query);
         }
@@ -181,6 +185,13 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             .map(|(_id, doc)| milli::all_obkv_to_json(*doc, &fields_ids_map))
             .map(|r| r.map_err(anyhow::Error::from))
             .collect()
+    }
+
+    fn number_of_documents(index: &Index) -> Result<u64> {
+        let rtxn = index.read_txn()?;
+        index
+            .number_of_documents(&rtxn)
+            .map_err(anyhow::Error::from)
     }
 
     fn get_settings(index: &Index) -> Result<MimirIndexSettings> {
