@@ -122,7 +122,7 @@ jobs:
         run: flutter test -d linux integration_test
 
   ios_integration_test:
-    runs-on: macos-13
+    runs-on: macos-13 # TODO switch to macos-latest when it doesn't error out
 
     steps:
       - uses: actions/checkout@v3
