@@ -358,4 +358,34 @@ void main() {
       [docs[0]],
     );
   });
+
+  test('Searching can be done with pagination', () async {
+    final index = await useTestIndex();
+    const docs = [
+      {'id': 'a'},
+      {'id': 'aa'},
+    ];
+    await index.addDocuments(docs);
+
+    // Test to make sure specific offsets return the right documents
+    expect(
+      await index.search(query: 'a', offset: 0, resultsLimit: 1),
+      [docs[0]],
+    );
+    expect(
+      await index.search(query: 'a', offset: 1, resultsLimit: 1),
+      [docs[1]],
+    );
+  });
+
+  test('numberOfDocuments returns the correct number of documents', () async {
+    final index = await useTestIndex();
+    expect(await index.numberOfDocuments, 0);
+    await index.addDocument({'id': 0});
+    expect(await index.numberOfDocuments, 1);
+    await index.addDocument({'id': 1});
+    expect(await index.numberOfDocuments, 2);
+    await index.deleteAllDocuments();
+    expect(await index.numberOfDocuments, 0);
+  });
 }

@@ -157,9 +157,14 @@ class MimirIndexImpl extends MimirIndex {
   }
 
   @override
+  Future<int> get numberOfDocuments =>
+      milli.numberOfDocuments(instanceDir: instanceDir, indexName: name);
+
+  @override
   Future<List<MimirDocument>> search({
     String? query,
     int? resultsLimit,
+    int? offset,
     TermsMatchingStrategy? matchingStrategy,
     List<SortBy>? sortBy,
     Filter? filter,
@@ -170,6 +175,7 @@ class MimirIndexImpl extends MimirIndex {
         indexName: name,
         query: query,
         limit: resultsLimit,
+        offset: offset,
         sortCriteria: sortBy,
         matchingStrategy: matchingStrategy,
         filter: filter,
@@ -204,6 +210,7 @@ class MimirIndexImpl extends MimirIndex {
         return search(
           query: query,
           resultsLimit: resultsLimit,
+          offset: offset,
           matchingStrategy: matchingStrategy,
           sortBy: sortBy,
           filter: filter,
@@ -234,6 +241,7 @@ class MimirIndexImpl extends MimirIndex {
     Filter? filter,
     List<SortBy>? sortBy,
     int? resultsLimit,
+    int? offset,
     TermsMatchingStrategy? matchingStrategy,
   }) {
     return _autoRefresh(
@@ -242,6 +250,7 @@ class MimirIndexImpl extends MimirIndex {
         filter: filter,
         sortBy: sortBy,
         resultsLimit: resultsLimit,
+        offset: offset,
         matchingStrategy: matchingStrategy,
       ),
     );
