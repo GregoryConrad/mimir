@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-05-29
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`flutter_mimir` - `v0.0.1-dev.12`](#flutter_mimir---v001-dev12)
+ - [`mimir` - `v0.0.1-dev.12`](#mimir---v001-dev12)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `flutter_mimir` - `v0.0.1-dev.12`
+
+ - **BREAKING** **FEAT**: Dart 3 support ([#194](https://github.com/GregoryConrad/mimir/issues/194)). ([b987daca](https://github.com/GregoryConrad/mimir/commit/b987daca1a48bbec3fdd815f01b0bb1a62f31bd8))
+
+#### `mimir` - `v0.0.1-dev.12`
+
+ - **BREAKING** **FEAT**: Dart 3 support ([#194](https://github.com/GregoryConrad/mimir/issues/194)). ([b987daca](https://github.com/GregoryConrad/mimir/commit/b987daca1a48bbec3fdd815f01b0bb1a62f31bd8))
+
+
 ## 2023-05-11
 
 ### Changes
