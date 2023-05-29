@@ -45,7 +45,7 @@ void main() {
       const Filter.inValues(field: 'f', values: ['123']),
     );
     expect(
-      where('year', isBetween: '1990', and: '1999'),
+      where('year', isBetween: ('1990', '1999')),
       const Filter.between(field: 'year', from: '1990', to: '1999'),
     );
 
@@ -53,7 +53,7 @@ void main() {
       or([
         and([
           where('fruit', isEqualTo: 'apple'),
-          where('year', isBetween: '2000', and: '2009'),
+          where('year', isBetween: ('2000', '2009')),
         ]),
         not(where('colors', containsAtLeastOneOf: ['red', 'green'])),
       ]),
@@ -76,9 +76,9 @@ void main() {
       reason: 'Too many operators',
     );
     expect(
-      () => where('', isBetween: ''),
+      () => where(''),
       throwsUnsupportedError,
-      reason: 'Incomplete isBetween operator',
+      reason: 'Too few operators',
     );
   });
 }
