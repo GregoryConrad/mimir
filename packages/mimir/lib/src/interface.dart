@@ -1,6 +1,8 @@
 import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/instance.dart';
+
+// ignore: directives_ordering
 import 'package:mimir/src/impl/ffi/stub.dart'
     if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart'
     if (dart.library.html) 'package:mimir/src/impl/ffi/web.dart';
@@ -34,11 +36,13 @@ class MimirInterface {
   /// [library] is a WasmModule on web & a DynamicLibrary on dart:io platforms.
   /// [library] is used to create the internal ffi object
   /// that is used to call the Rust APIs.
-  MimirInstance getInstance({
+  Future<MimirInstance> getInstance({
     required String path,
     required ExternalLibrary library,
-  }) {
+  }) async {
     _milli ??= createWrapperImpl(library);
+    await _milli!
+        .ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
     return _instances.putIfAbsent(
       path,
       () => MimirInstanceImpl(path, _milli!),
@@ -71,7 +75,7 @@ class MimirInterface {
   /// Mimir.or([
   ///   Mimir.and([
   ///     Mimir.where('fruit', isEqualTo: 'apple'),
-  ///     Mimir.where('year', isBetween: '2000', and: '2009'),
+  ///     Mimir.where('year', isBetween: ('2000', '2009')),
   ///   ]),
   ///   Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
   /// ])
@@ -91,54 +95,62 @@ class MimirInterface {
     List<String>? containsAtLeastOneOf,
 
     // "BETWEEN" operator
-    String? isBetween,
-    String? and,
+    (String, String)? isBetween,
   }) {
     final givenOperators = [
-      MapEntry(
+      (
         isEqualTo != null,
         () => Filter.equal(field: field, value: isEqualTo!),
       ),
-      MapEntry(
+      (
         isNotEqualTo != null,
         () => Filter.notEqual(field: field, value: isNotEqualTo!),
       ),
-      MapEntry(
+      (
         isGreaterThanOrEqualTo != null,
         () => Filter.greaterThanOrEqual(
-            field: field, value: isGreaterThanOrEqualTo!),
+              field: field,
+              value: isGreaterThanOrEqualTo!,
+            ),
       ),
-      MapEntry(
+      (
         isLessThanOrEqualTo != null,
         () => Filter.lessThanOrEqual(field: field, value: isLessThanOrEqualTo!),
       ),
-      MapEntry(
+      (
         isGreaterThan != null,
         () => Filter.greaterThan(field: field, value: isGreaterThan!),
       ),
-      MapEntry(
+      (
         isLessThan != null,
         () => Filter.lessThan(field: field, value: isLessThan!),
       ),
-      MapEntry(exists != null, () {
-        final existsFilter = Filter.exists(field: field);
-        return exists! ? existsFilter : Filter.not(existsFilter);
-      }),
-      MapEntry(
+      (
+        exists != null,
+        () {
+          final existsFilter = Filter.exists(field: field);
+          return exists! ? existsFilter : Filter.not(existsFilter);
+        }
+      ),
+      (
         containsAtLeastOneOf != null,
         () => Filter.inValues(field: field, values: containsAtLeastOneOf!),
       ),
-      MapEntry(
-        isBetween != null && and != null,
-        () => Filter.between(field: field, from: isBetween!, to: and!),
+      (
+        isBetween != null,
+        () => Filter.between(
+              field: field,
+              from: isBetween!.$1,
+              to: isBetween.$2,
+            ),
       ),
-    ].where((e) => e.key);
+    ].where((operator) => operator.$1);
     if (givenOperators.length != 1) {
       throw UnsupportedError(
-        'Only one operator can be given for each where call. '
-        'If you need to use multiple conditions, use Mimir.or or Mimir.and',
+        'Exactly one operator must be specified for each where call. '
+        'If you need to use multiple conditions, use Mimir.or or Mimir.and.',
       );
     }
-    return givenOperators.single.value();
+    return givenOperators.single.$2();
   }
 }

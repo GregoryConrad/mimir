@@ -38,7 +38,7 @@ const allDocs = [
 
 void main() {
   test('Basic add/search functionality', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     await index.addDocuments(allDocs);
     final foundDocs = await index.search(query: 'horry');
     expect(
@@ -49,7 +49,7 @@ void main() {
   });
 
   test('Get and set all settings', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     const originalSettings = MimirIndexSettings(
       filterableFields: ['quantity'],
       sortableFields: ['price'],
@@ -105,14 +105,14 @@ void main() {
     );
   });
 
-  test('Use multiple instances', () {
+  test('Use multiple instances', () async {
     for (final _ in Iterable<int>.generate(100)) {
-      useTestIndex();
+      await useTestIndex();
     }
   });
 
   test('Add and get documents', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     await index.addDocuments(allDocs);
 
     expect(await index.getAllDocuments(), allDocs);
@@ -122,7 +122,7 @@ void main() {
   });
 
   test('Add, get, set, and delete documents', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     await index.deleteAllDocuments(); // make sure it doesn't throw
     await index.addDocuments(allDocs);
 
@@ -153,73 +153,55 @@ void main() {
   });
 
   test('Multiprocessing functionality when adding documents', () async {
-    const concurrentDocs = 100, batchDocs = 10000;
-    final index = useTestIndex();
+    const concurrentDocs = 100;
+    const batchDocs = 10000;
+    final index = await useTestIndex();
 
     // Add docs concurrently
-    await Future.wait(Iterable<int>.generate(concurrentDocs)
-        .map((i) => {'id': i})
-        .map(index.addDocument));
+    await Future.wait(
+      Iterable<int>.generate(concurrentDocs)
+          .map((i) => {'id': i})
+          .map(index.addDocument),
+    );
 
     // Add docs in batch
-    await index.addDocuments(Iterable<int>.generate(batchDocs)
-        .map((i) => {'id': i + concurrentDocs})
-        .toList());
+    await index.addDocuments(
+      Iterable<int>.generate(batchDocs)
+          .map((i) => {'id': i + concurrentDocs})
+          .toList(),
+    );
 
     final allDocs = await index.getAllDocuments();
     expect(allDocs.length, concurrentDocs + batchDocs);
   });
 
   test('Documents stream', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
+    final actualDocumentsStream = index.documents.asBroadcastStream();
 
-    final expectedDocumentsStream = <List<Map<String, dynamic>>>[
-      [], // should start off with the current documents when accessing stream
-      allDocs, // we add all documents
-      [], // we delete all documents
-      [allDocs[0]], // we add just one document
-    ];
-
-    // Will be populated throughout the rest of the test
-    final actualDocumentsStream = index.documents.toList();
-
-    await useForceStreamUpdate();
+    await expectLater(actualDocumentsStream, emits(equals([])));
     await index.addDocuments(allDocs);
-    await useForceStreamUpdate();
+    await expectLater(actualDocumentsStream, emits(equals(allDocs)));
     await index.deleteAllDocuments();
-    await useForceStreamUpdate();
+    await expectLater(actualDocumentsStream, emits(equals([])));
     await index.addDocument(allDocs[0]);
-    await useForceStreamUpdate();
-    await index.close();
-
-    expect(await actualDocumentsStream, expectedDocumentsStream);
+    await expectLater(actualDocumentsStream, emits(equals([allDocs[0]])));
   });
 
   test('Search stream', () async {
-    final index = useTestIndex();
-
-    final expectedDocumentsStream = <List<Map<String, dynamic>>>[
-      [], // should start off with the docs that match search
-      [allDocs[3]], // search should only match one document
-      [], // we delete all documents, so no search result
-    ];
-
-    // Will be populated throughout the rest of the test
+    final index = await useTestIndex();
     final actualDocumentsStream =
-        index.searchStream(query: 'horry botter').toList();
+        index.searchStream(query: 'horry botter').asBroadcastStream();
 
-    await useForceStreamUpdate();
+    await expectLater(actualDocumentsStream, emits(equals([])));
     await index.addDocuments(allDocs);
-    await useForceStreamUpdate();
+    await expectLater(actualDocumentsStream, emits(equals([allDocs[3]])));
     await index.deleteAllDocuments();
-    await useForceStreamUpdate();
-    await index.close();
-
-    expect(await actualDocumentsStream, expectedDocumentsStream);
+    await expectLater(actualDocumentsStream, emits(equals([])));
   });
 
   test('Search with no parameters should return all documents', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     const numDocs = 1000;
     await index.addDocuments(
       Iterable.generate(numDocs, (i) => {'id': i}).toList(),
@@ -228,28 +210,36 @@ void main() {
     expect(searchResults.length, numDocs);
   });
 
-  test('Adding invalid documents throws errors', () {
-    final index = useTestIndex();
+  test('Adding invalid documents throws errors', () async {
+    final index = await useTestIndex();
     const missingIdDoc = {'name': 'test'};
     const invalidIdDoc = {'id': 'abc123='};
-    expect(() => index.addDocument(missingIdDoc),
-        throwsA(const TypeMatcher<FfiException>()));
-    expect(() => index.addDocument(invalidIdDoc),
-        throwsA(const TypeMatcher<FfiException>()));
+    expect(
+      () => index.addDocument(missingIdDoc),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
+    expect(
+      () => index.addDocument(invalidIdDoc),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
   });
 
-  test('Setting invalid documents throws errors', () {
-    final index = useTestIndex();
+  test('Setting invalid documents throws errors', () async {
+    final index = await useTestIndex();
     const missingIdDoc = {'name': 'test'};
     const invalidIdDoc = {'id': 'abc123='};
-    expect(() => index.setDocuments([missingIdDoc]),
-        throwsA(const TypeMatcher<FfiException>()));
-    expect(() => index.setDocuments([invalidIdDoc]),
-        throwsA(const TypeMatcher<FfiException>()));
+    expect(
+      () => index.setDocuments([missingIdDoc]),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
+    expect(
+      () => index.setDocuments([invalidIdDoc]),
+      throwsA(const TypeMatcher<FfiException>()),
+    );
   });
 
   test('Setting/adding an invalid batch adds no documents', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     const invalidBatch = [
       {'id': '1234'},
       {'id': 'abc123='},
@@ -264,7 +254,7 @@ void main() {
   });
 
   test('Queries with 0 & 1 and/or sub-filter(s) work', () async {
-    final index = useTestIndex();
+    final index = await useTestIndex();
     await index.addDocuments(allDocs);
 
     // 0 sub-filters
@@ -276,5 +266,126 @@ void main() {
     final expectedDocs = [allDocs.last];
     expect(await index.search(filter: Mimir.and([idFilter])), expectedDocs);
     expect(await index.search(filter: Mimir.or([idFilter])), expectedDocs);
+  });
+
+  test('Adding a document with multiple possible PKs errors out', () async {
+    final index = await useTestIndex();
+    final doc = {
+      'id': 1234,
+      'anotherId': 4321,
+    };
+    expect(index.addDocument(doc), throwsA(isA<FfiException>()));
+  });
+
+  test('openIndex should use the supplied PK', () async {
+    final instance = await useInstance();
+    final index = await instance.openIndex('docs', primaryKey: 'id');
+    final doc = {
+      'id': 1234,
+      '_id': 4321,
+    };
+    await index.addDocument(doc);
+    expect(await index.getDocument('1234'), doc);
+  });
+
+  test('Setting a primary key should use that primary key', () async {
+    final index = await useTestIndex();
+    await index.updateSettings(primaryKey: 'someKey');
+    final doc = {
+      'someKey': 0,
+      'id': 1234,
+      'anotherId': 4321,
+    };
+    await index.addDocument(doc);
+    expect(await index.getDocument('0'), doc);
+  });
+
+  test('Changing a PK after one is already set will error out', () async {
+    final index = await useTestIndex();
+    await index.updateSettings(primaryKey: 'id');
+    final doc = {
+      'id': 1234,
+      'anotherId': 4321,
+    };
+    await index.addDocument(doc);
+
+    await index.updateSettings(primaryKey: 'id'); // should be a no-op
+    expect(
+      index.updateSettings(primaryKey: 'anotherId'),
+      throwsA(isA<FfiException>()),
+    );
+  });
+
+  test('Adding a document without the PK will error out', () async {
+    final index = await useTestIndex();
+    await index.updateSettings(primaryKey: 'id');
+    final doc = {
+      '_id': 4321,
+    };
+
+    expect(
+      index.addDocument(doc),
+      throwsA(isA<FfiException>()),
+    );
+  });
+
+  test('Full text search with CJK works as expected', () async {
+    final index = await useTestIndex();
+    const docs = [
+      {'id': 0, 'text': '你好妈妈'},
+      {'id': 1, 'text': '这个饺子好吃'},
+    ];
+    await index.addDocuments(docs);
+
+    // Test to make sure specific nouns return the right documents
+    expect(
+      await index.search(query: '妈妈'),
+      [docs[0]],
+    );
+    expect(
+      await index.search(query: '饺子'),
+      [docs[1]],
+    );
+
+    // hao should not return nihao...
+    expect(
+      await index.search(query: '好'),
+      [docs[1]],
+    );
+    // ...but nihao directly should no longer return haochi
+    expect(
+      await index.search(query: '你好'),
+      [docs[0]],
+    );
+  });
+
+  test('Searching can be done with pagination', () async {
+    final index = await useTestIndex();
+    const docs = [
+      {'id': 'a'},
+      {'id': 'aa'},
+    ];
+    await index.addDocuments(docs);
+
+    // Test to make sure specific offsets return the right documents
+    expect(
+      await index.search(query: 'a', offset: 0, resultsLimit: 1),
+      [docs[0]],
+    );
+    expect(
+      await index.search(query: 'a', offset: 1, resultsLimit: 1),
+      [docs[1]],
+    );
+  });
+
+  test('numberOfDocuments returns the correct number of documents', () async {
+    final index = await useTestIndex();
+    expect(await index.numberOfDocuments, 0);
+    await index.addDocument({'id': 0});
+    expect(await index.numberOfDocuments, 1);
+    await index.addDocument({'id': 1});
+    expect(await index.numberOfDocuments, 2);
+    await index.deleteAllDocuments();
+    expect(await index.numberOfDocuments, 0);
   });
 }

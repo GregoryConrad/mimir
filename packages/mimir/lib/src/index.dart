@@ -6,7 +6,7 @@ typedef MimirDocument = Map<String, dynamic>;
 /// Represents an index in mimir (and also milli, the engine of Meilisearch)
 ///
 /// An index consists of documents, which is what searching is based off of
-mixin MimirIndex {
+abstract class MimirIndex {
   /// The path-friendly name (id) of this index
   String get name;
 
@@ -15,14 +15,17 @@ mixin MimirIndex {
   /// Searches based on the provided [query], if not null.
   /// Filters the results based on the [filter], if not null.
   /// Sorts the results based on relevance, or the [sortBy] if not null.
-  /// Returns at most [resultsLimit] documents (if not null; otherwise all matches).
-  /// Uses the provided [matchingStrategy] (if not null) to get to [resultsLimit]
-  /// documents (if not already there).
+  /// Returns at most [resultsLimit] documents
+  /// (if not null; otherwise all matches).
+  /// Supply an [offset] in order to implement pagination or infinite scroll.
+  /// Uses the provided [matchingStrategy]
+  /// (if not null) to get to [resultsLimit] documents (if not already there).
   Future<List<MimirDocument>> search({
     String? query,
     Filter? filter,
     List<SortBy>? sortBy,
     int? resultsLimit,
+    int? offset,
     TermsMatchingStrategy? matchingStrategy,
   });
 
@@ -33,8 +36,13 @@ mixin MimirIndex {
     Filter? filter,
     List<SortBy>? sortBy,
     int? resultsLimit,
+    int? offset,
     TermsMatchingStrategy? matchingStrategy,
   });
+
+  /// Returns the number of documents in this index.
+  /// Useful for pagination or infinite scroll.
+  Future<int> get numberOfDocuments;
 
   /// Gets the given document from the index, if it exists
   Future<MimirDocument?> getDocument(String id);
@@ -71,6 +79,7 @@ mixin MimirIndex {
 
   /// Updates the settings of this index
   Future<void> updateSettings({
+    String? primaryKey,
     List<String>? searchableFields,
     List<String> filterableFields,
     List<String> sortableFields,

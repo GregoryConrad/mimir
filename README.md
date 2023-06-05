@@ -8,22 +8,32 @@
 <img src="https://github.com/GregoryConrad/mimir/blob/main/assets/banner.jpg?raw=true" width="100%" alt="Mimir Banner" />
 </p>
 
-A batteries-included NoSQL database for Dart & Flutter based on [Meilisearch](https://www.meilisearch.com).
+A batteries-included NoSQL database for Dart & Flutter based on an embedded
+[Meilisearch](https://www.meilisearch.com) instance.
 
 ---
 
 ## Features
-- 🔎 Typo tolerant full-text search *with no extra configuration needed*
+- 🔎 Typo tolerant and relevant full-text search *with no extra configuration needed*
 - 🔥 Blazingly fast search and reads (written in Rust)
 - 🤝 Flutter friendly with a super easy-to-use API (see demo below!)
 - 🔱 Powerful, declarative, and reactive queries
 - 🔌 Cross-platform support ([web hopefully coming soon!](https://github.com/GregoryConrad/mimir/issues/10))
+- 🉑️ Diverse language support, [including CJK, Hebrew, and more!](https://www.meilisearch.com/docs/learn/what_is_meilisearch/language)
 
 ## Getting Started
 - With Flutter, run `flutter pub add mimir flutter_mimir`
 - For Dart-only, run `dart pub add mimir`
 
 Also read the [caveats below](#important-caveats).
+
+## IMPORTANT: NOT PRODUCTION READY
+While you can currently use mimir to develop locally just fine,
+*it is strongly advised you do not release an app to production quite yet*.
+Once mimir reaches stable (loses the `-dev` in the release tag),
+you can feel free to ship to production;
+I estimate this will be in Q3 2023.
+There may be breaking database changes between now and the first stable release.
 
 ## Demo
 With Flutter, you can get started with as little as:
@@ -38,7 +48,7 @@ await index.addDocuments(myMovies);
 // Perform a search!
 final results = await index.search(query: 'jarrassic par'); // returns Jurassic Park!
 ```
-![Demo Video](assets/demo.gif)
+![Demo Video](https://github.com/GregoryConrad/mimir/blob/main/assets/demo.gif?raw=true)
 
 ## Reference Documentation
 A collection of commonly used APIs ready for copy-paste into your application.
@@ -49,14 +59,18 @@ A collection of commonly used APIs ready for copy-paste into your application.
 final instance = await Mimir.defaultInstance;
 
 // Dart-only (just mimir)
-final instance = Mimir.getInstance(
+final instance = await Mimir.getInstance(
   path: instanceDirectory,
   // Following line will change based on your platform
   library: DynamicLibrary.open('libembedded_milli.so'),
 ); 
 
 // Get an index (creates one lazily if not already created)
-final moviesIndex = instance.getIndex('movies');
+final index = instance.getIndex('movies');
+
+// Or, specify some default settings and open the index eagerly
+// If you have some settings you want to specify in advance, use openIndex!
+final index = await instance.openIndex('movies', primaryKey: 'CustomIdField');
 ```
 
 #### Configuring an Index
@@ -64,6 +78,10 @@ final moviesIndex = instance.getIndex('movies');
 await index.updateSettings(...); // see setSettings below for arguments
 final currSettings = await index.getSettings();
 await index.setSettings(currSettings.copyWith(
+  // The primary key (PK) is the "ID field" of documents added to mimir.
+  // When null, it is automatically inferred for you, but sometimes you may
+  // need to specify it manually. See the Important Caveats section for more.
+  primaryKey: null,
   // Fields in documents that are included in full-text search.
   // Use null, the default, to search all fields
   searchableFields: <String>[],
@@ -139,7 +157,7 @@ final allDocsStream = index.documents;
 final documentsStream = index.searchStream(...);
 
 // Performing a search/query (using movies here)!
-final movies = moviesIndex.search(
+final movies = index.search(
   // The string to use for full-text search. Can be user-supplied.
   // To do a regular database query without full-text search, leave this null.
   query: 'some wordz with typoes to saerch for',
@@ -206,7 +224,7 @@ Here's what the recommended approach would look like:
 final filter = Mimir.or([
   Mimir.and([
     Mimir.where('fruit', isEqualTo: 'apple'),
-    Mimir.where('year', isBetween: '2000', and: '2009'),
+    Mimir.where('year', isBetween: ('2000', '2009')),
   ]),
   Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
 ])
@@ -217,10 +235,11 @@ as it almost reads as pure English, even for complex conditions.
 ## Important Caveats
 Please read these caveats _before_ adding mimir to your project.
 
-- Every document in mimir needs to have a field ending in `id` (or simply just `id`)
-  - If you have multiple fields ending in `id`, please open an issue so we can discuss
-  - The contents of the `id` field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
-    - In English: IDs can be alphanumeric and contain `-` and `_`
+- Every document in mimir needs to have a "primary key"
+  - The PK is automatically inferred via a field ending in `id` (or simply just `id`)
+  - If you have multiple fields ending in `id`, use `instance.openIndex('indexName', primaryKey: 'theActualId')`
+  - The contents of the PK field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
+    - In English: PKs can be alphanumeric and contain `-` and `_`
 - macOS App Sandbox is *not supported* at the moment, meaning you will not be able to submit apps to the *Mac* App Store
   - You will still be able to distribute macOS applications on your own
   - See more details [here](https://github.com/GregoryConrad/mimir/issues/101)
@@ -230,6 +249,6 @@ Please read these caveats _before_ adding mimir to your project.
   - If you do not need all the features provided by mimir, also consider a more lightweight alternative!
     - [Hive](https://pub.dev/packages/hive) for simple key-value storage
     - [Isar](https://pub.dev/packages/isar) for more sophisticated use-cases
-      - Note: while Isar does have full-text search, it is *not* typo-tolerant!
-    - If you need easy, typo-tolerant full-text search, you will want mimir!
+      - Note: while Isar does have full-text search, it is *neither typo-tolerant nor relevant*!
+    - If you need easy, typo-tolerant, relevant full-text search, you will want mimir!
       - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter, which is why I made mimir in the first place!

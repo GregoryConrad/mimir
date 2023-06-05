@@ -8,7 +8,7 @@ const RUST_INPUT: &str = "src/api.rs";
 const DART_OUTPUT: &str = "../lib/src/bridge_generated.dart";
 
 const IOS_C_OUTPUT: &str = "../../flutter_mimir/ios/Classes/frb.h";
-const MACOS_C_OUTPUT: &str = "../../flutter_mimir/macos/Classes/frb.h";
+const MACOS_C_OUTPUT_DIR: &str = "../../flutter_mimir/macos/Classes/";
 
 fn main() {
     // Tell Cargo that if the input Rust code changes, rerun this build script
@@ -19,6 +19,7 @@ fn main() {
         rust_input: vec![RUST_INPUT.to_string()],
         dart_output: vec![DART_OUTPUT.to_string()],
         c_output: Some(vec![IOS_C_OUTPUT.to_string()]),
+        extra_c_output_path: Some(vec![MACOS_C_OUTPUT_DIR.to_string()]),
         inline_rust: true,
         wasm: true,
         ..Default::default()
@@ -31,11 +32,8 @@ fn main() {
         frb_codegen(config, &all_symbols).unwrap();
     }
 
-    // Copy ios/ generated C files to macos/
-    std::fs::copy(IOS_C_OUTPUT, MACOS_C_OUTPUT).unwrap();
-
     // Format the generated Dart code
-    _ = std::process::Command::new("flutter")
+    _ = std::process::Command::new("dart")
         .arg("format")
         .arg("..")
         .spawn();

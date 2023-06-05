@@ -57,10 +57,13 @@ pub(crate) trait EmbeddedMilli<Index> {
         index: &Index,
         query: Option<String>,
         limit: Option<u32>,
+        offset: Option<u32>,
         sort_criteria: Option<Vec<SortBy>>,
         filter: Option<Filter>,
         matching_strategy: Option<TermsMatchingStrategy>,
     ) -> Result<Vec<Document>>;
+
+    fn number_of_documents(index: &Index) -> Result<u64>;
 
     fn get_settings(index: &Index) -> Result<MimirIndexSettings>;
 
@@ -122,7 +125,15 @@ impl Instance {
     }
 }
 
-pub(crate) fn ensure_instance_initialized(instance_dir: &str) -> Result<()> {
+pub(crate) fn ensure_instance_initialized(
+    instance_dir: &str,
+    tmp_dir: Option<String>,
+) -> Result<()> {
+    if let Some(tmp_dir) = tmp_dir {
+        // See https://github.com/GregoryConrad/mimir/issues/170 for more on this
+        std::env::set_var("TMPDIR", tmp_dir);
+    }
+
     let instances = INSTANCES.read();
 
     // If this instance does not yet exist, create it
@@ -201,7 +212,7 @@ fn ensure_index_migrated(instance_dir: &str, index_name: &str) -> Result<()> {
 }
 
 pub(crate) fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> Result<()> {
-    ensure_instance_initialized(instance_dir)?;
+    ensure_instance_initialized(instance_dir, None)?;
     ensure_index_migrated(instance_dir, index_name)?;
 
     // If this index does not yet exist in memory or on disk, create it
@@ -288,11 +299,13 @@ pub(crate) fn get_all_documents(instance_dir: &str, index_name: &str) -> Result<
     })
 }
 
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn search_documents(
     instance_dir: &str,
     index_name: &str,
     query: Option<String>,
     limit: Option<u32>,
+    offset: Option<u32>,
     sort_criteria: Option<Vec<SortBy>>,
     filter: Option<Filter>,
     matching_strategy: Option<TermsMatchingStrategy>,
@@ -302,10 +315,17 @@ pub(crate) fn search_documents(
             &index_lock.read(),
             query,
             limit,
+            offset,
             sort_criteria,
             filter,
             matching_strategy,
         )
+    })
+}
+
+pub(crate) fn number_of_documents(instance_dir: &str, index_name: &str) -> Result<u64> {
+    run_with_index_lock(instance_dir, index_name, |index_lock| {
+        CurrEmbeddedMilli::number_of_documents(&index_lock.read())
     })
 }
 
@@ -348,6 +368,7 @@ mod tests {
         let index_path = &Path::new(tmp_dir).join(index_name);
 
         let actual_settings = MimirIndexSettings {
+            primary_key: Some("id".to_string()),
             searchable_fields: None,
             filterable_fields: Vec::new(),
             sortable_fields: Vec::new(),

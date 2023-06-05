@@ -2597,6 +2597,7 @@ abstract class Filter_Between implements Filter {
 
 /// @nodoc
 mixin _$MimirIndexSettings {
+  String? get primaryKey => throw _privateConstructorUsedError;
   List<String>? get searchableFields => throw _privateConstructorUsedError;
   List<String> get filterableFields => throw _privateConstructorUsedError;
   List<String> get sortableFields => throw _privateConstructorUsedError;
@@ -2621,7 +2622,8 @@ abstract class $MimirIndexSettingsCopyWith<$Res> {
       _$MimirIndexSettingsCopyWithImpl<$Res, MimirIndexSettings>;
   @useResult
   $Res call(
-      {List<String>? searchableFields,
+      {String? primaryKey,
+      List<String>? searchableFields,
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
@@ -2647,6 +2649,7 @@ class _$MimirIndexSettingsCopyWithImpl<$Res, $Val extends MimirIndexSettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? primaryKey = freezed,
     Object? searchableFields = freezed,
     Object? filterableFields = null,
     Object? sortableFields = null,
@@ -2660,6 +2663,10 @@ class _$MimirIndexSettingsCopyWithImpl<$Res, $Val extends MimirIndexSettings>
     Object? disallowTyposOnFields = null,
   }) {
     return _then(_value.copyWith(
+      primaryKey: freezed == primaryKey
+          ? _value.primaryKey
+          : primaryKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       searchableFields: freezed == searchableFields
           ? _value.searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
@@ -2717,7 +2724,8 @@ abstract class _$$_MimirIndexSettingsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<String>? searchableFields,
+      {String? primaryKey,
+      List<String>? searchableFields,
       List<String> filterableFields,
       List<String> sortableFields,
       List<String> rankingRules,
@@ -2741,6 +2749,7 @@ class __$$_MimirIndexSettingsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? primaryKey = freezed,
     Object? searchableFields = freezed,
     Object? filterableFields = null,
     Object? sortableFields = null,
@@ -2754,6 +2763,10 @@ class __$$_MimirIndexSettingsCopyWithImpl<$Res>
     Object? disallowTyposOnFields = null,
   }) {
     return _then(_$_MimirIndexSettings(
+      primaryKey: freezed == primaryKey
+          ? _value.primaryKey
+          : primaryKey // ignore: cast_nullable_to_non_nullable
+              as String?,
       searchableFields: freezed == searchableFields
           ? _value._searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
@@ -2806,7 +2819,8 @@ class __$$_MimirIndexSettingsCopyWithImpl<$Res>
 
 class _$_MimirIndexSettings implements _MimirIndexSettings {
   const _$_MimirIndexSettings(
-      {final List<String>? searchableFields,
+      {this.primaryKey,
+      final List<String>? searchableFields,
       required final List<String> filterableFields,
       required final List<String> sortableFields,
       required final List<String> rankingRules,
@@ -2826,6 +2840,8 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
         _disallowTyposOnWords = disallowTyposOnWords,
         _disallowTyposOnFields = disallowTyposOnFields;
 
+  @override
+  final String? primaryKey;
   final List<String>? _searchableFields;
   @override
   List<String>? get searchableFields {
@@ -2904,7 +2920,7 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
 
   @override
   String toString() {
-    return 'MimirIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
+    return 'MimirIndexSettings(primaryKey: $primaryKey, searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
   }
 
   @override
@@ -2912,6 +2928,8 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MimirIndexSettings &&
+            (identical(other.primaryKey, primaryKey) ||
+                other.primaryKey == primaryKey) &&
             const DeepCollectionEquality()
                 .equals(other._searchableFields, _searchableFields) &&
             const DeepCollectionEquality()
@@ -2938,6 +2956,7 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      primaryKey,
       const DeepCollectionEquality().hash(_searchableFields),
       const DeepCollectionEquality().hash(_filterableFields),
       const DeepCollectionEquality().hash(_sortableFields),
@@ -2960,7 +2979,8 @@ class _$_MimirIndexSettings implements _MimirIndexSettings {
 
 abstract class _MimirIndexSettings implements MimirIndexSettings {
   const factory _MimirIndexSettings(
-          {final List<String>? searchableFields,
+          {final String? primaryKey,
+          final List<String>? searchableFields,
           required final List<String> filterableFields,
           required final List<String> sortableFields,
           required final List<String> rankingRules,
@@ -2973,6 +2993,8 @@ abstract class _MimirIndexSettings implements MimirIndexSettings {
           required final List<String> disallowTyposOnFields}) =
       _$_MimirIndexSettings;
 
+  @override
+  String? get primaryKey;
   @override
   List<String>? get searchableFields;
   @override

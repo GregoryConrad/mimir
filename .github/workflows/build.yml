@@ -41,19 +41,15 @@ jobs:
       - name: Dart code analysis
         run: melos run analyze --no-select
       - name: Run Dart tests
-        uses: Wandalen/wretry.action@master # sometimes stream tests are flaky
-        with:
-          command: melos run test
-          attempt_limit: 5
+        run: melos run test
 
   macos_integration_test:
-    runs-on: macos-latest
+    # https://github.com/flutter/flutter/issues/118469#issuecomment-1521474790
+    runs-on: macos-13 # TODO macos-latest
 
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.3.10' # TODO remove this fix
       - uses: bluefireteam/melos-action@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -126,7 +122,7 @@ jobs:
         run: flutter test -d linux integration_test
 
   ios_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-13 # TODO switch to macos-latest when it doesn't error out
 
     steps:
       - uses: actions/checkout@v3

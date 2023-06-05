@@ -7,14 +7,6 @@ use crate::embedded_milli::{self, Document};
 pub enum TermsMatchingStrategy {
     /// Remove last word first
     Last,
-    /// Remove first word first
-    First,
-    /// Remove more frequent word first
-    Frequency,
-    /// Remove smallest word first
-    Size,
-    /// Only one of the word is mandatory
-    Any,
     /// All words are mandatory
     All,
 }
@@ -73,6 +65,7 @@ pub struct Synonyms {
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[frb(dart_metadata=("freezed"))]
 pub struct MimirIndexSettings {
+    pub primary_key: Option<String>,
     pub searchable_fields: Option<Vec<String>>,
     pub filterable_fields: Vec<String>,
     pub sortable_fields: Vec<String>,
@@ -87,8 +80,11 @@ pub struct MimirIndexSettings {
 }
 
 /// Ensures an instance of milli (represented by just a directory) is initialized
-pub fn ensure_instance_initialized(instace_dir: String) -> Result<()> {
-    embedded_milli::ensure_instance_initialized(instace_dir.as_str())
+///
+/// `tmp_dir`, if specified, is the directory used to store all temporary files
+/// (see https://github.com/GregoryConrad/mimir/issues/170)
+pub fn ensure_instance_initialized(instance_dir: String, tmp_dir: Option<String>) -> Result<()> {
+    embedded_milli::ensure_instance_initialized(instance_dir.as_str(), tmp_dir)
 }
 
 /// Ensures a milli index is initialized
@@ -159,11 +155,13 @@ pub fn get_all_documents(instance_dir: String, index_name: String) -> Result<Vec
 }
 
 /// Performs a search against the index and returns the documents found
+#[allow(clippy::too_many_arguments)]
 pub fn search_documents(
     instance_dir: String,
     index_name: String,
     query: Option<String>,
     limit: Option<u32>,
+    offset: Option<u32>,
     sort_criteria: Option<Vec<SortBy>>,
     filter: Option<Filter>,
     matching_strategy: Option<TermsMatchingStrategy>,
@@ -173,6 +171,7 @@ pub fn search_documents(
         index_name.as_str(),
         query,
         limit,
+        offset,
         sort_criteria,
         filter,
         matching_strategy,
@@ -180,6 +179,10 @@ pub fn search_documents(
     .iter()
     .map(DocumentExt::to_string)
     .collect()
+}
+
+pub fn number_of_documents(instance_dir: String, index_name: String) -> Result<u64> {
+    embedded_milli::number_of_documents(&instance_dir, &index_name)
 }
 
 /// Gets the settings of the specified index

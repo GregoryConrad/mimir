@@ -2,6 +2,10 @@ version: 2
 enable-beta-ecosystems: true
 updates:
   - package-ecosystem: pub
+    directory: "/"
+    schedule:
+      interval: weekly
+  - package-ecosystem: pub
     directory: "/packages/mimir"
     versioning-strategy: increase # https://github.com/dependabot/dependabot-core/issues/6446
     schedule:

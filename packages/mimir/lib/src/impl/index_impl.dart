@@ -2,11 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
+import 'package:meta/meta.dart';
 import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/index.dart';
 
-class MimirIndexImpl with MimirIndex {
+// ignore_for_file: public_member_api_docs
+
+@internal
+class MimirIndexImpl extends MimirIndex {
   MimirIndexImpl(this.instance, this.name);
 
   final MimirInstanceImpl instance;
@@ -62,7 +66,7 @@ class MimirIndexImpl with MimirIndex {
   Future<MimirDocument?> getDocument(String id) {
     return milli
         .getDocument(instanceDir: instanceDir, indexName: name, documentId: id)
-        .then((s) => s == null ? null : json.decode(s));
+        .then((s) => s == null ? null : json.decode(s) as Map<String, dynamic>);
   }
 
   @override
@@ -96,6 +100,7 @@ class MimirIndexImpl with MimirIndex {
 
   @override
   Future<void> updateSettings({
+    Object? primaryKey = _defaultOptionalValue,
     Object? searchableFields = _defaultOptionalValue,
     Object filterableFields = _defaultOptionalValue,
     Object sortableFields = _defaultOptionalValue,
@@ -109,47 +114,57 @@ class MimirIndexImpl with MimirIndex {
     Object disallowTyposOnFields = _defaultOptionalValue,
   }) async {
     final currSettings = await getSettings();
-    return setSettings(MimirIndexSettings(
-      searchableFields: searchableFields == _defaultOptionalValue
-          ? currSettings.searchableFields
-          : searchableFields as List<String>?,
-      filterableFields: filterableFields == _defaultOptionalValue
-          ? currSettings.filterableFields
-          : filterableFields as List<String>,
-      sortableFields: sortableFields == _defaultOptionalValue
-          ? currSettings.sortableFields
-          : sortableFields as List<String>,
-      rankingRules: rankingRules == _defaultOptionalValue
-          ? currSettings.rankingRules
-          : rankingRules as List<String>,
-      stopWords: stopWords == _defaultOptionalValue
-          ? currSettings.stopWords
-          : stopWords as List<String>,
-      synonyms: synonyms == _defaultOptionalValue
-          ? currSettings.synonyms
-          : synonyms as List<Synonyms>,
-      typosEnabled: typosEnabled == _defaultOptionalValue
-          ? currSettings.typosEnabled
-          : typosEnabled as bool,
-      minWordSizeForOneTypo: minWordSizeForOneTypo == _defaultOptionalValue
-          ? currSettings.minWordSizeForOneTypo
-          : minWordSizeForOneTypo as int,
-      minWordSizeForTwoTypos: minWordSizeForTwoTypos == _defaultOptionalValue
-          ? currSettings.minWordSizeForTwoTypos
-          : minWordSizeForTwoTypos as int,
-      disallowTyposOnWords: disallowTyposOnWords == _defaultOptionalValue
-          ? currSettings.disallowTyposOnWords
-          : disallowTyposOnWords as List<String>,
-      disallowTyposOnFields: disallowTyposOnFields == _defaultOptionalValue
-          ? currSettings.disallowTyposOnFields
-          : disallowTyposOnFields as List<String>,
-    ));
+    return setSettings(
+      MimirIndexSettings(
+        primaryKey: primaryKey == _defaultOptionalValue
+            ? currSettings.primaryKey
+            : primaryKey as String?,
+        searchableFields: searchableFields == _defaultOptionalValue
+            ? currSettings.searchableFields
+            : searchableFields as List<String>?,
+        filterableFields: filterableFields == _defaultOptionalValue
+            ? currSettings.filterableFields
+            : filterableFields as List<String>,
+        sortableFields: sortableFields == _defaultOptionalValue
+            ? currSettings.sortableFields
+            : sortableFields as List<String>,
+        rankingRules: rankingRules == _defaultOptionalValue
+            ? currSettings.rankingRules
+            : rankingRules as List<String>,
+        stopWords: stopWords == _defaultOptionalValue
+            ? currSettings.stopWords
+            : stopWords as List<String>,
+        synonyms: synonyms == _defaultOptionalValue
+            ? currSettings.synonyms
+            : synonyms as List<Synonyms>,
+        typosEnabled: typosEnabled == _defaultOptionalValue
+            ? currSettings.typosEnabled
+            : typosEnabled as bool,
+        minWordSizeForOneTypo: minWordSizeForOneTypo == _defaultOptionalValue
+            ? currSettings.minWordSizeForOneTypo
+            : minWordSizeForOneTypo as int,
+        minWordSizeForTwoTypos: minWordSizeForTwoTypos == _defaultOptionalValue
+            ? currSettings.minWordSizeForTwoTypos
+            : minWordSizeForTwoTypos as int,
+        disallowTyposOnWords: disallowTyposOnWords == _defaultOptionalValue
+            ? currSettings.disallowTyposOnWords
+            : disallowTyposOnWords as List<String>,
+        disallowTyposOnFields: disallowTyposOnFields == _defaultOptionalValue
+            ? currSettings.disallowTyposOnFields
+            : disallowTyposOnFields as List<String>,
+      ),
+    );
   }
+
+  @override
+  Future<int> get numberOfDocuments =>
+      milli.numberOfDocuments(instanceDir: instanceDir, indexName: name);
 
   @override
   Future<List<MimirDocument>> search({
     String? query,
     int? resultsLimit,
+    int? offset,
     TermsMatchingStrategy? matchingStrategy,
     List<SortBy>? sortBy,
     Filter? filter,
@@ -160,6 +175,7 @@ class MimirIndexImpl with MimirIndex {
         indexName: name,
         query: query,
         limit: resultsLimit,
+        offset: offset,
         sortCriteria: sortBy,
         matchingStrategy: matchingStrategy,
         filter: filter,
@@ -183,15 +199,18 @@ class MimirIndexImpl with MimirIndex {
           ..addAll(filter?.getFields() ?? []);
         final sortableFields = currSettings.sortableFields.toSet()
           ..addAll(sortBy?.map((s) => s.field0) ?? []);
-        await setSettings(currSettings.copyWith(
-          filterableFields: filterableFields.toList(),
-          sortableFields: sortableFields.toList(),
-        ));
+        await setSettings(
+          currSettings.copyWith(
+            filterableFields: filterableFields.toList(),
+            sortableFields: sortableFields.toList(),
+          ),
+        );
 
         // Finally, retry the search with the new settings configuration
         return search(
           query: query,
           resultsLimit: resultsLimit,
+          offset: offset,
           matchingStrategy: matchingStrategy,
           sortBy: sortBy,
           filter: filter,
@@ -222,6 +241,7 @@ class MimirIndexImpl with MimirIndex {
     Filter? filter,
     List<SortBy>? sortBy,
     int? resultsLimit,
+    int? offset,
     TermsMatchingStrategy? matchingStrategy,
   }) {
     return _autoRefresh(
@@ -230,6 +250,7 @@ class MimirIndexImpl with MimirIndex {
         filter: filter,
         sortBy: sortBy,
         resultsLimit: resultsLimit,
+        offset: offset,
         matchingStrategy: matchingStrategy,
       ),
     );
@@ -237,11 +258,11 @@ class MimirIndexImpl with MimirIndex {
 }
 
 extension on Filter {
-  Iterable<String> _convert(Filter filter) {
+  Iterable<String> _getFields(Filter filter) {
     return filter.when(
-      or: (filters) => filters.expand(_convert),
-      and: (filters) => filters.expand(_convert),
-      not: (filter) => _convert(filter),
+      or: (filters) => filters.expand(_getFields),
+      and: (filters) => filters.expand(_getFields),
+      not: _getFields,
       exists: (field) => [field],
       inValues: (field, _) => [field],
       greaterThan: (field, _) => [field],
@@ -254,5 +275,5 @@ extension on Filter {
     );
   }
 
-  Iterable<String> getFields() => _convert(this);
+  Iterable<String> getFields() => _getFields(this);
 }
