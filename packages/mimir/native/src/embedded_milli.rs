@@ -92,15 +92,20 @@ impl Instance {
     fn new(instance_dir: &str) -> Result<Self> {
         let path = Path::new(instance_dir).join(Self::INSTANCE_DATA_DB_DIR_NAME);
         fs::create_dir_all(&path)?;
+
         let env = heed::EnvOpenOptions::new()
             .map_size(MAX_MAP_SIZE)
             .max_dbs(128)
             .max_readers(4096)
             .open(&path)?;
 
+        let mut txn = env.write_txn()?;
+        let db = env.create_database(&mut txn, Some(Self::INDEX_MILLI_VERSIONS_DB_NAME))?;
+        txn.commit()?;
+
         Ok(Self {
             indexes: HashMap::new(),
-            index_milli_versions: env.create_database(Some(Self::INDEX_MILLI_VERSIONS_DB_NAME))?,
+            index_milli_versions: db,
             env,
         })
     }
