@@ -388,4 +388,41 @@ void main() {
     await index.deleteAllDocuments();
     expect(await index.numberOfDocuments, 0);
   });
+
+  test('isNull filter returns only documents where field is null', () async {
+    final docs = [
+      {'id': 1, 'field': null},
+      {'id': 2, 'field': 1}
+    ];
+    final index = await useTestIndex();
+    await index.addDocuments(docs);
+    expect(
+      await index.search(filter: Mimir.where('field', isNull: true)),
+      docs[0],
+    );
+    expect(
+      await index.search(filter: Mimir.where('field', isNull: false)),
+      docs[1],
+    );
+  });
+
+  test('isEmpty filter returns only documents where field is empty', () async {
+    final docs = [
+      {'id': 1, 'field': <int>[]},
+      {
+        'id': 2,
+        'field': [1234],
+      }
+    ];
+    final index = await useTestIndex();
+    await index.addDocuments(docs);
+    expect(
+      await index.search(filter: Mimir.where('field', isEmpty: true)),
+      docs[0],
+    );
+    expect(
+      await index.search(filter: Mimir.where('field', isEmpty: false)),
+      docs[1],
+    );
+  });
 }
