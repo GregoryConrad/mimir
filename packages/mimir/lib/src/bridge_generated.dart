@@ -190,6 +190,16 @@ class Filter with _$Filter {
     required String from,
     required String to,
   }) = Filter_Between;
+
+  /// Creates a [Filter] for the "IS NULL" operator.
+  const factory Filter.isNull({
+    required String field,
+  }) = Filter_IsNull;
+
+  /// Creates a [Filter] for the "IS EMPTY" operator.
+  const factory Filter.isEmpty({
+    required String field,
+  }) = Filter_IsEmpty;
 }
 
 /// The settings of a mimir index

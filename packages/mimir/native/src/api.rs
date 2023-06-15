@@ -51,6 +51,10 @@ pub enum Filter {
         from: String,
         to: String,
     },
+    /// Creates a [Filter] for the "IS NULL" operator.
+    IsNull { field: String },
+    /// Creates a [Filter] for the "IS EMPTY" operator.
+    IsEmpty { field: String },
 }
 
 /// Represents the synonyms of a given word

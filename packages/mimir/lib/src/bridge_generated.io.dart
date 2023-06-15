@@ -253,6 +253,20 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire> {
       wireObj.kind.ref.Between.ref.to = pre_to;
       return;
     }
+    if (apiObj is Filter_IsNull) {
+      var pre_field = api2wire_String(apiObj.field);
+      wireObj.tag = 12;
+      wireObj.kind = inner.inflate_Filter_IsNull();
+      wireObj.kind.ref.IsNull.ref.field = pre_field;
+      return;
+    }
+    if (apiObj is Filter_IsEmpty) {
+      var pre_field = api2wire_String(apiObj.field);
+      wireObj.tag = 13;
+      wireObj.kind = inner.inflate_Filter_IsEmpty();
+      wireObj.kind.ref.IsEmpty.ref.field = pre_field;
+      return;
+    }
   }
 
   void _api_fill_to_wire_mimir_index_settings(
@@ -958,6 +972,26 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   late final _inflate_Filter_Between = _inflate_Filter_BetweenPtr
       .asFunction<ffi.Pointer<FilterKind> Function()>();
 
+  ffi.Pointer<FilterKind> inflate_Filter_IsNull() {
+    return _inflate_Filter_IsNull();
+  }
+
+  late final _inflate_Filter_IsNullPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<FilterKind> Function()>>(
+          'inflate_Filter_IsNull');
+  late final _inflate_Filter_IsNull = _inflate_Filter_IsNullPtr
+      .asFunction<ffi.Pointer<FilterKind> Function()>();
+
+  ffi.Pointer<FilterKind> inflate_Filter_IsEmpty() {
+    return _inflate_Filter_IsEmpty();
+  }
+
+  late final _inflate_Filter_IsEmptyPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<FilterKind> Function()>>(
+          'inflate_Filter_IsEmpty');
+  late final _inflate_Filter_IsEmpty = _inflate_Filter_IsEmptyPtr
+      .asFunction<ffi.Pointer<FilterKind> Function()>();
+
   ffi.Pointer<SortByKind> inflate_SortBy_Asc() {
     return _inflate_SortBy_Asc();
   }
@@ -1075,6 +1109,10 @@ final class FilterKind extends ffi.Union {
   external ffi.Pointer<wire_Filter_LessThanOrEqual> LessThanOrEqual;
 
   external ffi.Pointer<wire_Filter_Between> Between;
+
+  external ffi.Pointer<wire_Filter_IsNull> IsNull;
+
+  external ffi.Pointer<wire_Filter_IsEmpty> IsEmpty;
 }
 
 final class wire_Filter_Or extends ffi.Struct {
@@ -1141,6 +1179,14 @@ final class wire_Filter_Between extends ffi.Struct {
   external ffi.Pointer<wire_uint_8_list> from;
 
   external ffi.Pointer<wire_uint_8_list> to;
+}
+
+final class wire_Filter_IsNull extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> field;
+}
+
+final class wire_Filter_IsEmpty extends ffi.Struct {
+  external ffi.Pointer<wire_uint_8_list> field;
 }
 
 final class wire_Synonyms extends ffi.Struct {
