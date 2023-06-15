@@ -367,7 +367,6 @@ impl<'a> From<&'a Filter> for milli::FilterCondition<'a> {
                 fid: field.as_str().into(),
                 els: values.iter().map(String::as_str).map(Into::into).collect(),
             },
-            Filter::Exists { field } => create_condition(field.as_str(), milli::Condition::Exists),
             Filter::GreaterThan { field, value } => create_condition(
                 field.as_str(),
                 milli::Condition::GreaterThan(value.as_str().into()),
@@ -399,6 +398,9 @@ impl<'a> From<&'a Filter> for milli::FilterCondition<'a> {
                     to: to.as_str().into(),
                 },
             ),
+            Filter::Exists { field } => create_condition(field.as_str(), milli::Condition::Exists),
+            Filter::IsNull { field } => create_condition(field.as_str(), milli::Condition::Null),
+            Filter::IsEmpty { field } => create_condition(field.as_str(), milli::Condition::Empty),
         }
     }
 }

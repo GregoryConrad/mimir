@@ -41,6 +41,22 @@ void main() {
       const Filter.not(Filter.exists(field: 'f')),
     );
     expect(
+      where('f', isNull: true),
+      const Filter.isNull(field: 'f'),
+    );
+    expect(
+      where('f', isNull: false),
+      const Filter.not(Filter.isNull(field: 'f')),
+    );
+    expect(
+      where('f', isEmpty: true),
+      const Filter.isEmpty(field: 'f'),
+    );
+    expect(
+      where('f', isEmpty: false),
+      const Filter.not(Filter.isEmpty(field: 'f')),
+    );
+    expect(
       where('f', containsAtLeastOneOf: ['123']),
       const Filter.inValues(field: 'f', values: ['123']),
     );

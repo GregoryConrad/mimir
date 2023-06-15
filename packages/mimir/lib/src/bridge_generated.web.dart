@@ -99,6 +99,12 @@ class EmbeddedMilliPlatform extends FlutterRustBridgeBase<EmbeddedMilliWire>
         api2wire_String(raw.to)
       ];
     }
+    if (raw is Filter_IsNull) {
+      return [12, api2wire_String(raw.field)];
+    }
+    if (raw is Filter_IsEmpty) {
+      return [13, api2wire_String(raw.field)];
+    }
 
     throw Exception('unreachable');
   }
