@@ -398,11 +398,11 @@ void main() {
     await index.addDocuments(docs);
     expect(
       await index.search(filter: Mimir.where('field', isNull: true)),
-      docs[0],
+      [docs[0]],
     );
     expect(
       await index.search(filter: Mimir.where('field', isNull: false)),
-      docs[1],
+      [docs[1]],
     );
   });
 
@@ -418,11 +418,11 @@ void main() {
     await index.addDocuments(docs);
     expect(
       await index.search(filter: Mimir.where('field', isEmpty: true)),
-      docs[0],
+      [docs[0]],
     );
     expect(
       await index.search(filter: Mimir.where('field', isEmpty: false)),
-      docs[1],
+      [docs[1]],
     );
   });
 }
