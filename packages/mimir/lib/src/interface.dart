@@ -90,6 +90,8 @@ class MimirInterface {
     String? isGreaterThan,
     String? isLessThan,
     bool? exists,
+    bool? isNull,
+    bool? isEmpty,
 
     // "IN" operator
     List<String>? containsAtLeastOneOf,
@@ -130,6 +132,20 @@ class MimirInterface {
         () {
           final existsFilter = Filter.exists(field: field);
           return exists! ? existsFilter : Filter.not(existsFilter);
+        }
+      ),
+      (
+        isNull != null,
+        () {
+          final isNullFilter = Filter.isNull(field: field);
+          return isNull! ? isNullFilter : Filter.not(isNullFilter);
+        }
+      ),
+      (
+        isEmpty != null,
+        () {
+          final isEmptyFilter = Filter.isEmpty(field: field);
+          return isEmpty! ? isEmptyFilter : Filter.not(isEmptyFilter);
         }
       ),
       (
