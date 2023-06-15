@@ -1,4 +1,4 @@
-set(MimirVersion "mimir-v0.0.1-dev.12") # generated; do not edit
+set(MimirVersion "mimir-v0.0.1-dev.13") # generated; do not edit
 
 # Unlike the Windows & Linux CMakeLists.txt, this Android equivalent is just here
 # to download the Android binaries into src/main/jniLibs/ and does not build anything.

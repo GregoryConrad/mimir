@@ -1,3 +1,7 @@
+## 0.0.1-dev.13
+
+ - **FEAT**: add isNull and isEmpty filters ([#215](https://github.com/GregoryConrad/mimir/issues/215)). ([4752aaa1](https://github.com/GregoryConrad/mimir/commit/4752aaa10f2926e72395aade31679bad6d8302d6))
+
 ## 0.0.1-dev.12
 
 > Note: This release has breaking changes.
