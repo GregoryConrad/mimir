@@ -177,7 +177,7 @@ jobs:
           echo Copied file!
 
       - name: Run Flutter integration tests
-        uses: Wandalen/wretry.action@master # sometimes android tests are flaky
+        uses: Wandalen/wretry.action@v1.0.36 # sometimes android tests are flaky
         with:
           attempt_limit: 5
           action: reactivecircus/android-emulator-runner@v2
