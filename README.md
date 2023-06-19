@@ -45,6 +45,10 @@ final results = await index.search(query: 'jarrassic par'); // returns Jurassic 
 ## Reference Documentation
 A collection of commonly used APIs ready for copy-paste into your application.
 
+*Note: unless otherwise stated, all asynchronous methods exposed in Mimir are fallible
+and synchronous methods are infallible.
+The methods are fail-fast, so you should be aware of any issues early on during development.*
+
 #### Getting & Creating an Index
 ```dart
 // With Flutter (flutter_mimir)
