@@ -1,3 +1,7 @@
+## 0.0.1
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.0.1-dev.13
 
  - **FIX**: switch initial version of milli to latest with needed changes ([#83](https://github.com/GregoryConrad/mimir/issues/83)). ([c76b1469](https://github.com/GregoryConrad/mimir/commit/c76b14697a915f1284fa68b705244feb9d1eb828))

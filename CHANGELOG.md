@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-06-24
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.0.1`](#flutter_mimir---v001)
+ - [`mimir` - `v0.0.1`](#mimir---v001)
+
+Packages graduated to a stable release (see pre-releases prior to the stable version for changelog entries):
+
+ - `flutter_mimir` - `v0.0.1`
+ - `mimir` - `v0.0.1`
+
+---
+
+#### `flutter_mimir` - `v0.0.1`
+
+#### `mimir` - `v0.0.1`
+
+
 ## 2023-06-15
 
 ### Changes
