@@ -1,3 +1,7 @@
+## 0.0.1-dev.0+1
+
+ - **FIX**: partial fix of [#227](https://github.com/GregoryConrad/mimir/issues/227) for iPhone 7s ([#229](https://github.com/GregoryConrad/mimir/issues/229)). ([fa2dcb9b](https://github.com/GregoryConrad/mimir/commit/fa2dcb9b0977db7b6ab5cf33639952c81527d5e4))
+
 ## 0.0.1
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
