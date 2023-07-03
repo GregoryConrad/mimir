@@ -9,7 +9,7 @@ environment:
 dependencies:
   # These two are needed for the example; they are not required by mimir
   collection: ^1.17.0
-  http: ^0.13.5
+  http: ^1.0.0
 
   # You can replace this with the current version of mimir
   mimir: ^0.0.1
