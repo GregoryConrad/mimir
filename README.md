@@ -25,6 +25,7 @@ A batteries-included NoSQL database for Dart & Flutter based on an embedded
 - With Flutter, run `flutter pub add mimir flutter_mimir`
 - For Dart-only, run `dart pub add mimir`
 
+For macOS, [disable "App Sandbox"](https://stackoverflow.com/a/59752583/10003008).
 Also read the [caveats below](#important-caveats).
 
 ## Demo
@@ -236,6 +237,7 @@ Please read these caveats _before_ adding mimir to your project.
   - If you have multiple fields ending in `id`, use `instance.openIndex('indexName', primaryKey: 'theActualId')`
   - The contents of the PK field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
     - In English: PKs can be alphanumeric and contain `-` and `_`
+- Unfortunately, you can only open *1* index on iOS devices at the moment; see [here for more details and a workaround](https://github.com/GregoryConrad/mimir/issues/227).
 - macOS App Sandbox is *not supported* at the moment, meaning you will not be able to submit apps to the *Mac* App Store
   - You will still be able to distribute macOS applications on your own
   - See more details [here](https://github.com/GregoryConrad/mimir/issues/101)
@@ -248,3 +250,5 @@ Please read these caveats _before_ adding mimir to your project.
       - Note: while Isar does have full-text search, it is *neither typo-tolerant nor relevant*!
     - If you need easy, typo-tolerant, relevant full-text search, you will want mimir!
       - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter, which is why I made mimir in the first place!
+  - Mimir can add a couple hundred MB to your app bundle size and <100 MB to the on-device size
+    - These numbers will hopefully be reduced in the future once Dart gets ["Native Assets"](https://github.com/dart-lang/sdk/issues/50565)
