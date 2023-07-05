@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-07-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.0.1-dev.1`](#mimir---v001-dev1)
+ - [`flutter_mimir` - `v0.0.1-dev.1`](#flutter_mimir---v001-dev1)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.0.1-dev.1`
+
+---
+
+#### `mimir` - `v0.0.1-dev.1`
+
+ - **FIX**: second attempt partial fix of [#227](https://github.com/GregoryConrad/mimir/issues/227) ([#230](https://github.com/GregoryConrad/mimir/issues/230)). ([e18c9cb6](https://github.com/GregoryConrad/mimir/commit/e18c9cb610d82c806d5178803a02f23923fd4427))
+
+
 ## 2023-07-03
 
 ### Changes

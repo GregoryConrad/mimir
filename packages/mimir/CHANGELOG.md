@@ -1,3 +1,7 @@
+## 0.0.1-dev.1
+
+ - **FIX**: second attempt partial fix of [#227](https://github.com/GregoryConrad/mimir/issues/227) ([#230](https://github.com/GregoryConrad/mimir/issues/230)). ([e18c9cb6](https://github.com/GregoryConrad/mimir/commit/e18c9cb610d82c806d5178803a02f23923fd4427))
+
 ## 0.0.1-dev.0+1
 
  - **FIX**: partial fix of [#227](https://github.com/GregoryConrad/mimir/issues/227) for iPhone 7s ([#229](https://github.com/GregoryConrad/mimir/issues/229)). ([fa2dcb9b](https://github.com/GregoryConrad/mimir/commit/fa2dcb9b0977db7b6ab5cf33639952c81527d5e4))
