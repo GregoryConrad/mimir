@@ -32,8 +32,11 @@ type Dump = (MimirIndexSettings, Vec<Document>);
 // and that 16 MiB will be a multiple of the OS page size (which it should be).
 // Then, we find the maximum multiple of MAX_OS_PAGE_SIZE that is less than MAX_POSSIBLE_SIZE.
 // MAX_POSSIBLE_SIZE complies with memory constraints imposed by iOS without extra entitlements.
+#[cfg(target_os = "ios")]
+const MAX_POSSIBLE_SIZE: usize = 1_250_000_000;
+#[cfg(not(target_os = "ios"))]
+const MAX_POSSIBLE_SIZE: usize = 2_000_000_000;
 const MAX_OS_PAGE_SIZE: usize = 16_777_216;
-const MAX_POSSIBLE_SIZE: usize = 1_500_000_000;
 const MAX_MAP_SIZE: usize = MAX_POSSIBLE_SIZE - (MAX_POSSIBLE_SIZE % MAX_OS_PAGE_SIZE);
 
 /// Defines what an embedded instance of milli should be able to do.
