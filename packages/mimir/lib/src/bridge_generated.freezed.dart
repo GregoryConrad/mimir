@@ -30,6 +30,8 @@ mixin _$Filter {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -46,6 +48,8 @@ mixin _$Filter {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,6 +66,8 @@ mixin _$Filter {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -80,6 +86,8 @@ mixin _$Filter {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -96,6 +104,8 @@ mixin _$Filter {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -112,6 +122,8 @@ mixin _$Filter {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -216,6 +228,8 @@ class _$Filter_Or implements Filter_Or {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return or(field0);
   }
@@ -235,6 +249,8 @@ class _$Filter_Or implements Filter_Or {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return or?.call(field0);
   }
@@ -254,6 +270,8 @@ class _$Filter_Or implements Filter_Or {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (or != null) {
@@ -278,6 +296,8 @@ class _$Filter_Or implements Filter_Or {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return or(this);
   }
@@ -297,6 +317,8 @@ class _$Filter_Or implements Filter_Or {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return or?.call(this);
   }
@@ -316,6 +338,8 @@ class _$Filter_Or implements Filter_Or {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (or != null) {
@@ -416,6 +440,8 @@ class _$Filter_And implements Filter_And {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return and(field0);
   }
@@ -435,6 +461,8 @@ class _$Filter_And implements Filter_And {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return and?.call(field0);
   }
@@ -454,6 +482,8 @@ class _$Filter_And implements Filter_And {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (and != null) {
@@ -478,6 +508,8 @@ class _$Filter_And implements Filter_And {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return and(this);
   }
@@ -497,6 +529,8 @@ class _$Filter_And implements Filter_And {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return and?.call(this);
   }
@@ -516,6 +550,8 @@ class _$Filter_And implements Filter_And {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (and != null) {
@@ -620,6 +656,8 @@ class _$Filter_Not implements Filter_Not {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return not(field0);
   }
@@ -639,6 +677,8 @@ class _$Filter_Not implements Filter_Not {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return not?.call(field0);
   }
@@ -658,6 +698,8 @@ class _$Filter_Not implements Filter_Not {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (not != null) {
@@ -682,6 +724,8 @@ class _$Filter_Not implements Filter_Not {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return not(this);
   }
@@ -701,6 +745,8 @@ class _$Filter_Not implements Filter_Not {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return not?.call(this);
   }
@@ -720,6 +766,8 @@ class _$Filter_Not implements Filter_Not {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (not != null) {
@@ -814,6 +862,8 @@ class _$Filter_Exists implements Filter_Exists {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return exists(field);
   }
@@ -833,6 +883,8 @@ class _$Filter_Exists implements Filter_Exists {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return exists?.call(field);
   }
@@ -852,6 +904,8 @@ class _$Filter_Exists implements Filter_Exists {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (exists != null) {
@@ -876,6 +930,8 @@ class _$Filter_Exists implements Filter_Exists {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return exists(this);
   }
@@ -895,6 +951,8 @@ class _$Filter_Exists implements Filter_Exists {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return exists?.call(this);
   }
@@ -914,6 +972,8 @@ class _$Filter_Exists implements Filter_Exists {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (exists != null) {
@@ -1024,6 +1084,8 @@ class _$Filter_InValues implements Filter_InValues {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return inValues(field, values);
   }
@@ -1043,6 +1105,8 @@ class _$Filter_InValues implements Filter_InValues {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return inValues?.call(field, values);
   }
@@ -1062,6 +1126,8 @@ class _$Filter_InValues implements Filter_InValues {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (inValues != null) {
@@ -1086,6 +1152,8 @@ class _$Filter_InValues implements Filter_InValues {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return inValues(this);
   }
@@ -1105,6 +1173,8 @@ class _$Filter_InValues implements Filter_InValues {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return inValues?.call(this);
   }
@@ -1124,6 +1194,8 @@ class _$Filter_InValues implements Filter_InValues {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (inValues != null) {
@@ -1230,6 +1302,8 @@ class _$Filter_GreaterThan implements Filter_GreaterThan {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return greaterThan(field, value);
   }
@@ -1249,6 +1323,8 @@ class _$Filter_GreaterThan implements Filter_GreaterThan {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return greaterThan?.call(field, value);
   }
@@ -1268,6 +1344,8 @@ class _$Filter_GreaterThan implements Filter_GreaterThan {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (greaterThan != null) {
@@ -1292,6 +1370,8 @@ class _$Filter_GreaterThan implements Filter_GreaterThan {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return greaterThan(this);
   }
@@ -1311,6 +1391,8 @@ class _$Filter_GreaterThan implements Filter_GreaterThan {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return greaterThan?.call(this);
   }
@@ -1330,6 +1412,8 @@ class _$Filter_GreaterThan implements Filter_GreaterThan {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (greaterThan != null) {
@@ -1437,6 +1521,8 @@ class _$Filter_GreaterThanOrEqual implements Filter_GreaterThanOrEqual {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return greaterThanOrEqual(field, value);
   }
@@ -1456,6 +1542,8 @@ class _$Filter_GreaterThanOrEqual implements Filter_GreaterThanOrEqual {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return greaterThanOrEqual?.call(field, value);
   }
@@ -1475,6 +1563,8 @@ class _$Filter_GreaterThanOrEqual implements Filter_GreaterThanOrEqual {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (greaterThanOrEqual != null) {
@@ -1499,6 +1589,8 @@ class _$Filter_GreaterThanOrEqual implements Filter_GreaterThanOrEqual {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return greaterThanOrEqual(this);
   }
@@ -1518,6 +1610,8 @@ class _$Filter_GreaterThanOrEqual implements Filter_GreaterThanOrEqual {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return greaterThanOrEqual?.call(this);
   }
@@ -1537,6 +1631,8 @@ class _$Filter_GreaterThanOrEqual implements Filter_GreaterThanOrEqual {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (greaterThanOrEqual != null) {
@@ -1642,6 +1738,8 @@ class _$Filter_Equal implements Filter_Equal {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return equal(field, value);
   }
@@ -1661,6 +1759,8 @@ class _$Filter_Equal implements Filter_Equal {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return equal?.call(field, value);
   }
@@ -1680,6 +1780,8 @@ class _$Filter_Equal implements Filter_Equal {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (equal != null) {
@@ -1704,6 +1806,8 @@ class _$Filter_Equal implements Filter_Equal {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return equal(this);
   }
@@ -1723,6 +1827,8 @@ class _$Filter_Equal implements Filter_Equal {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return equal?.call(this);
   }
@@ -1742,6 +1848,8 @@ class _$Filter_Equal implements Filter_Equal {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (equal != null) {
@@ -1847,6 +1955,8 @@ class _$Filter_NotEqual implements Filter_NotEqual {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return notEqual(field, value);
   }
@@ -1866,6 +1976,8 @@ class _$Filter_NotEqual implements Filter_NotEqual {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return notEqual?.call(field, value);
   }
@@ -1885,6 +1997,8 @@ class _$Filter_NotEqual implements Filter_NotEqual {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (notEqual != null) {
@@ -1909,6 +2023,8 @@ class _$Filter_NotEqual implements Filter_NotEqual {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return notEqual(this);
   }
@@ -1928,6 +2044,8 @@ class _$Filter_NotEqual implements Filter_NotEqual {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return notEqual?.call(this);
   }
@@ -1947,6 +2065,8 @@ class _$Filter_NotEqual implements Filter_NotEqual {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (notEqual != null) {
@@ -2052,6 +2172,8 @@ class _$Filter_LessThan implements Filter_LessThan {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return lessThan(field, value);
   }
@@ -2071,6 +2193,8 @@ class _$Filter_LessThan implements Filter_LessThan {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return lessThan?.call(field, value);
   }
@@ -2090,6 +2214,8 @@ class _$Filter_LessThan implements Filter_LessThan {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (lessThan != null) {
@@ -2114,6 +2240,8 @@ class _$Filter_LessThan implements Filter_LessThan {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return lessThan(this);
   }
@@ -2133,6 +2261,8 @@ class _$Filter_LessThan implements Filter_LessThan {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return lessThan?.call(this);
   }
@@ -2152,6 +2282,8 @@ class _$Filter_LessThan implements Filter_LessThan {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (lessThan != null) {
@@ -2258,6 +2390,8 @@ class _$Filter_LessThanOrEqual implements Filter_LessThanOrEqual {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return lessThanOrEqual(field, value);
   }
@@ -2277,6 +2411,8 @@ class _$Filter_LessThanOrEqual implements Filter_LessThanOrEqual {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return lessThanOrEqual?.call(field, value);
   }
@@ -2296,6 +2432,8 @@ class _$Filter_LessThanOrEqual implements Filter_LessThanOrEqual {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (lessThanOrEqual != null) {
@@ -2320,6 +2458,8 @@ class _$Filter_LessThanOrEqual implements Filter_LessThanOrEqual {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return lessThanOrEqual(this);
   }
@@ -2339,6 +2479,8 @@ class _$Filter_LessThanOrEqual implements Filter_LessThanOrEqual {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return lessThanOrEqual?.call(this);
   }
@@ -2358,6 +2500,8 @@ class _$Filter_LessThanOrEqual implements Filter_LessThanOrEqual {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (lessThanOrEqual != null) {
@@ -2472,6 +2616,8 @@ class _$Filter_Between implements Filter_Between {
     required TResult Function(String field, String value) lessThan,
     required TResult Function(String field, String value) lessThanOrEqual,
     required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
   }) {
     return between(field, from, to);
   }
@@ -2491,6 +2637,8 @@ class _$Filter_Between implements Filter_Between {
     TResult? Function(String field, String value)? lessThan,
     TResult? Function(String field, String value)? lessThanOrEqual,
     TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
   }) {
     return between?.call(field, from, to);
   }
@@ -2510,6 +2658,8 @@ class _$Filter_Between implements Filter_Between {
     TResult Function(String field, String value)? lessThan,
     TResult Function(String field, String value)? lessThanOrEqual,
     TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
     required TResult orElse(),
   }) {
     if (between != null) {
@@ -2534,6 +2684,8 @@ class _$Filter_Between implements Filter_Between {
     required TResult Function(Filter_LessThan value) lessThan,
     required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
     required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
   }) {
     return between(this);
   }
@@ -2553,6 +2705,8 @@ class _$Filter_Between implements Filter_Between {
     TResult? Function(Filter_LessThan value)? lessThan,
     TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
   }) {
     return between?.call(this);
   }
@@ -2572,6 +2726,8 @@ class _$Filter_Between implements Filter_Between {
     TResult Function(Filter_LessThan value)? lessThan,
     TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
     TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
     required TResult orElse(),
   }) {
     if (between != null) {
@@ -2592,6 +2748,419 @@ abstract class Filter_Between implements Filter {
   String get to;
   @JsonKey(ignore: true)
   _$$Filter_BetweenCopyWith<_$Filter_Between> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_IsNullCopyWith<$Res> {
+  factory _$$Filter_IsNullCopyWith(
+          _$Filter_IsNull value, $Res Function(_$Filter_IsNull) then) =
+      __$$Filter_IsNullCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field});
+}
+
+/// @nodoc
+class __$$Filter_IsNullCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_IsNull>
+    implements _$$Filter_IsNullCopyWith<$Res> {
+  __$$Filter_IsNullCopyWithImpl(
+      _$Filter_IsNull _value, $Res Function(_$Filter_IsNull) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+  }) {
+    return _then(_$Filter_IsNull(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_IsNull implements Filter_IsNull {
+  const _$Filter_IsNull({required this.field});
+
+  @override
+  final String field;
+
+  @override
+  String toString() {
+    return 'Filter.isNull(field: $field)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_IsNull &&
+            (identical(other.field, field) || other.field == field));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_IsNullCopyWith<_$Filter_IsNull> get copyWith =>
+      __$$Filter_IsNullCopyWithImpl<_$Filter_IsNull>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
+  }) {
+    return isNull(field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
+  }) {
+    return isNull?.call(field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
+    required TResult orElse(),
+  }) {
+    if (isNull != null) {
+      return isNull(field);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
+  }) {
+    return isNull(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
+  }) {
+    return isNull?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
+    required TResult orElse(),
+  }) {
+    if (isNull != null) {
+      return isNull(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_IsNull implements Filter {
+  const factory Filter_IsNull({required final String field}) = _$Filter_IsNull;
+
+  String get field;
+  @JsonKey(ignore: true)
+  _$$Filter_IsNullCopyWith<_$Filter_IsNull> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$Filter_IsEmptyCopyWith<$Res> {
+  factory _$$Filter_IsEmptyCopyWith(
+          _$Filter_IsEmpty value, $Res Function(_$Filter_IsEmpty) then) =
+      __$$Filter_IsEmptyCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String field});
+}
+
+/// @nodoc
+class __$$Filter_IsEmptyCopyWithImpl<$Res>
+    extends _$FilterCopyWithImpl<$Res, _$Filter_IsEmpty>
+    implements _$$Filter_IsEmptyCopyWith<$Res> {
+  __$$Filter_IsEmptyCopyWithImpl(
+      _$Filter_IsEmpty _value, $Res Function(_$Filter_IsEmpty) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? field = null,
+  }) {
+    return _then(_$Filter_IsEmpty(
+      field: null == field
+          ? _value.field
+          : field // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Filter_IsEmpty implements Filter_IsEmpty {
+  const _$Filter_IsEmpty({required this.field});
+
+  @override
+  final String field;
+
+  @override
+  String toString() {
+    return 'Filter.isEmpty(field: $field)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Filter_IsEmpty &&
+            (identical(other.field, field) || other.field == field));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, field);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$Filter_IsEmptyCopyWith<_$Filter_IsEmpty> get copyWith =>
+      __$$Filter_IsEmptyCopyWithImpl<_$Filter_IsEmpty>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
+  }) {
+    return isEmpty(field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
+  }) {
+    return isEmpty?.call(field);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
+    required TResult orElse(),
+  }) {
+    if (isEmpty != null) {
+      return isEmpty(field);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
+  }) {
+    return isEmpty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
+  }) {
+    return isEmpty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
+    required TResult orElse(),
+  }) {
+    if (isEmpty != null) {
+      return isEmpty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Filter_IsEmpty implements Filter {
+  const factory Filter_IsEmpty({required final String field}) =
+      _$Filter_IsEmpty;
+
+  String get field;
+  @JsonKey(ignore: true)
+  _$$Filter_IsEmptyCopyWith<_$Filter_IsEmpty> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

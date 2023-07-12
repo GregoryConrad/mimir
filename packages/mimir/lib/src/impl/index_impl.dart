@@ -264,6 +264,8 @@ extension on Filter {
       and: (filters) => filters.expand(_getFields),
       not: _getFields,
       exists: (field) => [field],
+      isNull: (field) => [field],
+      isEmpty: (field) => [field],
       inValues: (field, _) => [field],
       greaterThan: (field, _) => [field],
       greaterThanOrEqual: (field, _) => [field],

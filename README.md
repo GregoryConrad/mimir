@@ -25,15 +25,8 @@ A batteries-included NoSQL database for Dart & Flutter based on an embedded
 - With Flutter, run `flutter pub add mimir flutter_mimir`
 - For Dart-only, run `dart pub add mimir`
 
+For macOS, [disable "App Sandbox"](https://stackoverflow.com/a/59752583/10003008).
 Also read the [caveats below](#important-caveats).
-
-## IMPORTANT: NOT PRODUCTION READY
-While you can currently use mimir to develop locally just fine,
-*it is strongly advised you do not release an app to production quite yet*.
-Once mimir reaches stable (loses the `-dev` in the release tag),
-you can feel free to ship to production;
-I estimate this will be in Q3 2023.
-There may be breaking database changes between now and the first stable release.
 
 ## Demo
 With Flutter, you can get started with as little as:
@@ -52,6 +45,10 @@ final results = await index.search(query: 'jarrassic par'); // returns Jurassic 
 
 ## Reference Documentation
 A collection of commonly used APIs ready for copy-paste into your application.
+
+*Note: unless otherwise stated, all asynchronous methods exposed in Mimir are fallible
+and synchronous methods are infallible.
+The methods are fail-fast, so you should be aware of any issues early on during development.*
 
 #### Getting & Creating an Index
 ```dart
@@ -224,7 +221,7 @@ Here's what the recommended approach would look like:
 final filter = Mimir.or([
   Mimir.and([
     Mimir.where('fruit', isEqualTo: 'apple'),
-    Mimir.where('year', isBetween: '2000', and: '2009'),
+    Mimir.where('year', isBetween: ('2000', '2009')),
   ]),
   Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
 ])
@@ -240,6 +237,7 @@ Please read these caveats _before_ adding mimir to your project.
   - If you have multiple fields ending in `id`, use `instance.openIndex('indexName', primaryKey: 'theActualId')`
   - The contents of the PK field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
     - In English: PKs can be alphanumeric and contain `-` and `_`
+- Unfortunately, you can only open *1* index on iOS devices at the moment; see [here for more details and a workaround](https://github.com/GregoryConrad/mimir/issues/227).
 - macOS App Sandbox is *not supported* at the moment, meaning you will not be able to submit apps to the *Mac* App Store
   - You will still be able to distribute macOS applications on your own
   - See more details [here](https://github.com/GregoryConrad/mimir/issues/101)
@@ -252,3 +250,5 @@ Please read these caveats _before_ adding mimir to your project.
       - Note: while Isar does have full-text search, it is *neither typo-tolerant nor relevant*!
     - If you need easy, typo-tolerant, relevant full-text search, you will want mimir!
       - I am unaware of any other databases that currently provide typo-tolerant full-text search in Flutter, which is why I made mimir in the first place!
+  - Mimir can add a couple hundred MB to your app bundle size and <100 MB to the on-device size
+    - These numbers will hopefully be reduced in the future once Dart gets ["Native Assets"](https://github.com/dart-lang/sdk/issues/50565)

@@ -104,6 +104,14 @@ typedef struct wire_Filter_Between {
   struct wire_uint_8_list *to;
 } wire_Filter_Between;
 
+typedef struct wire_Filter_IsNull {
+  struct wire_uint_8_list *field;
+} wire_Filter_IsNull;
+
+typedef struct wire_Filter_IsEmpty {
+  struct wire_uint_8_list *field;
+} wire_Filter_IsEmpty;
+
 typedef union FilterKind {
   struct wire_Filter_Or *Or;
   struct wire_Filter_And *And;
@@ -117,6 +125,8 @@ typedef union FilterKind {
   struct wire_Filter_LessThan *LessThan;
   struct wire_Filter_LessThanOrEqual *LessThanOrEqual;
   struct wire_Filter_Between *Between;
+  struct wire_Filter_IsNull *IsNull;
+  struct wire_Filter_IsEmpty *IsEmpty;
 } FilterKind;
 
 typedef struct wire_Filter {
@@ -264,6 +274,10 @@ union FilterKind *inflate_Filter_LessThanOrEqual(void);
 
 union FilterKind *inflate_Filter_Between(void);
 
+union FilterKind *inflate_Filter_IsNull(void);
+
+union FilterKind *inflate_Filter_IsEmpty(void);
+
 union SortByKind *inflate_SortBy_Asc(void);
 
 union SortByKind *inflate_SortBy_Desc(void);
@@ -306,6 +320,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) inflate_Filter_LessThan);
     dummy_var ^= ((int64_t) (void*) inflate_Filter_LessThanOrEqual);
     dummy_var ^= ((int64_t) (void*) inflate_Filter_Between);
+    dummy_var ^= ((int64_t) (void*) inflate_Filter_IsNull);
+    dummy_var ^= ((int64_t) (void*) inflate_Filter_IsEmpty);
     dummy_var ^= ((int64_t) (void*) inflate_SortBy_Asc);
     dummy_var ^= ((int64_t) (void*) inflate_SortBy_Desc);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturn);

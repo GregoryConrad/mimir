@@ -3,38 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mimir/flutter_mimir.dart';
-import 'package:flutter_unstate/flutter_unstate.dart';
-import 'package:unstate/unstate.dart';
+import 'package:flutter_rearch/flutter_rearch.dart';
+import 'package:rearch/rearch.dart';
 
 void main() => runApp(const DemoApp());
 
-// The capsules needed for this example.
-final indexAsyncCapsule = Capsule.defaultManager(_indexAsync);
-final indexWarmUpCapsule = Capsule.defaultManager(_indexWarmUp);
-final indexCapsule = Capsule.defaultManager(_index);
-final queryCapsule = Capsule.defaultManager((_) => '');
-final searchResultsCapsule = Capsule.defaultManager((manager) {
-  final index = manager.watchCapsule(indexCapsule);
-  final query = manager.watchCapsule(queryCapsule);
-
-  // When query is null/empty, all docs will be returned.
-  final stream = manager.use.memo(
-    () => index.searchStream(query: query),
-    [index, query],
-  );
-  return manager.use.watchStream(stream);
-});
-
-MimirIndex _index(CapsuleManager<MimirIndex> manager) {
-  return manager
-      .watchCapsule(indexWarmUpCapsule)
-      .data
-      .unwrapOrElse(() => throw 'indexCapsule was not warmed up!');
-}
-
-Future<MimirIndex> _indexAsync(
-  CapsuleManager<Future<MimirIndex>> manager,
-) async {
+// Some rearch capsules needed for this example.
+Future<MimirIndex> indexAsyncCapsule(CapsuleHandle use) async {
   final instance = await Mimir.defaultInstance;
   final index = instance.getIndex('movies');
 
@@ -48,11 +23,30 @@ Future<MimirIndex> _indexAsync(
   return index;
 }
 
-AsyncValue<MimirIndex> _indexWarmUp(
-  CapsuleManager<AsyncValue<MimirIndex>> manager,
-) {
-  final future = manager.watchCapsule(indexAsyncCapsule);
-  return manager.use.watchFuture(future);
+AsyncValue<MimirIndex> indexWarmUpCapsule(CapsuleHandle use) {
+  final future = use(indexAsyncCapsule);
+  return use.future(future);
+}
+
+MimirIndex indexCapsule(CapsuleHandle use) {
+  return use(indexWarmUpCapsule)
+      .data
+      .unwrapOrElse(() => throw 'indexAsyncCapsule was not warmed up!');
+}
+
+(String, void Function(String)) queryCapsule(CapsuleHandle use) =>
+    use.state('');
+
+AsyncValue<List<Map<String, dynamic>>> searchResultsCapsule(CapsuleHandle use) {
+  final index = use(indexCapsule);
+  final query = use(queryCapsule);
+
+  // When query is null/empty, all docs will be returned.
+  final stream = use.memo(
+    () => index.searchStream(query: use(queryCapsule).$1),
+    [index, query.$1],
+  );
+  return use.stream(stream);
 }
 
 class DemoApp extends StatelessWidget {
@@ -60,7 +54,7 @@ class DemoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UnstateBootstrapper(
+    return RearchBootstrapper(
       child: MaterialApp(
         title: 'Mimir Demo',
         theme: ThemeData.light(useMaterial3: true),
@@ -77,9 +71,9 @@ final class GlobalWarmUps extends CapsuleConsumer {
   final Widget child;
 
   @override
-  Widget build(BuildContext context, WidgetManager manager) {
+  Widget build(BuildContext context, WidgetHandle use) {
     return [
-      manager.watchCapsule(indexWarmUpCapsule),
+      use(indexWarmUpCapsule),
     ].toWarmUpWidget(
       child: child,
       loading: const Center(child: CircularProgressIndicator.adaptive()),
@@ -122,16 +116,14 @@ final class SearchBar extends CapsuleConsumer {
   const SearchBar({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetManager manager) {
-    final searchResults = manager.watchCapsule(searchResultsCapsule);
-    final isLoading = searchResults is AsyncLoading;
-    final searchTextManager = manager.managerReader(queryCapsule);
-    final use = manager.use;
+  Widget build(BuildContext context, WidgetHandle use) {
+    final isLoading = use(searchResultsCapsule) is AsyncLoading;
+    final (_, setQuery) = use(queryCapsule);
     final textController = use.textEditingController();
 
     return TextField(
       controller: textController,
-      onChanged: (q) => searchTextManager.state = q,
+      onChanged: setQuery,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.zero,
         border: const OutlineInputBorder(
@@ -144,7 +136,7 @@ final class SearchBar extends CapsuleConsumer {
             icon: const Icon(Icons.cancel),
             onPressed: () {
               textController.text = '';
-              searchTextManager.state = '';
+              setQuery('');
             },
           ),
         ]),
@@ -157,10 +149,8 @@ final class SearchResults extends CapsuleConsumer {
   const SearchResults({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetManager manager) {
-    final searchResults = manager.watchCapsule(searchResultsCapsule);
-
-    return switch (searchResults) {
+  Widget build(BuildContext context, WidgetHandle use) {
+    return switch (use(searchResultsCapsule)) {
       AsyncData(data: final movies) => MoviesList(movies: movies),
       AsyncLoading(previousData: None()) =>
         const Center(child: CircularProgressIndicator.adaptive()),
@@ -168,10 +158,10 @@ final class SearchResults extends CapsuleConsumer {
         MoviesList(movies: movies),
       AsyncError(:final error, :final stackTrace, :final previousData) =>
         Column(children: [
-        Text('Error: $error\nStack Trace: $stackTrace'),
-        if (previousData case Some(value: final oldMovies))
-          Expanded(child: MoviesList(movies: oldMovies)),
-      ]),
+          Text('Error: $error\nStack Trace: $stackTrace'),
+          if (previousData case Some(value: final oldMovies))
+            Expanded(child: MoviesList(movies: oldMovies)),
+        ]),
     };
   }
 }

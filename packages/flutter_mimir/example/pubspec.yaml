@@ -1,35 +1,27 @@
 name: flutter_mimir_example
-description: flutter_mimir example application
-version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0-339.0.dev <4.0.0"
+  sdk: ^3.0.0
+  flutter: ">=3.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   # You can replace these with the latest versions
-  flutter_mimir: ^0.0.1-dev.11
-  mimir: ^0.0.1-dev.11
+  flutter_mimir: ^0.0.2-dev.1
+  mimir: ^0.0.2-dev.1
 
   # These two are used in the example; they are not required by mimir
-  unstate: ^1.0.0
-  flutter_unstate: ^1.0.0
-
-dependency_overrides:
-  unstate:
-    path: ../../../../unstate/packages/unstate
-  flutter_unstate:
-    path: ../../../../unstate/packages/flutter_unstate
+  rearch: ^0.0.0-dev.3
+  flutter_rearch: ^0.0.0-dev.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
