@@ -8,14 +8,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # You can replace these with the latest versions
   flutter_mimir: ^0.0.2-dev.1
-  mimir: ^0.0.2-dev.1
-
-  # These two are used in the example; they are not required by mimir
-  rearch: ^0.0.0-dev.3
   flutter_rearch: ^0.0.0-dev.3
+  mimir: ^0.0.2-dev.1
+  rearch: ^0.0.0-dev.3
 
 dev_dependencies:
   flutter_test:

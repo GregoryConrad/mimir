@@ -8,7 +8,7 @@ import 'package:rearch/rearch.dart';
 
 void main() => runApp(const DemoApp());
 
-// Some rearch capsules needed for this example.
+/// Represents the [MimirIndex] that contains the movie dataset.
 Future<MimirIndex> indexAsyncCapsule(CapsuleHandle use) async {
   final instance = await Mimir.defaultInstance;
   final index = instance.getIndex('movies');
@@ -23,20 +23,25 @@ Future<MimirIndex> indexAsyncCapsule(CapsuleHandle use) async {
   return index;
 }
 
+/// Allows for the [indexAsyncCapsule] to more easily be warmed up
+/// for use in [indexCapsule].
 AsyncValue<MimirIndex> indexWarmUpCapsule(CapsuleHandle use) {
   final future = use(indexAsyncCapsule);
   return use.future(future);
 }
 
+/// Acts as a proxy to the warmed-up [indexAsyncCapsule].
 MimirIndex indexCapsule(CapsuleHandle use) {
-  return use(indexWarmUpCapsule)
-      .data
-      .unwrapOrElse(() => throw 'indexAsyncCapsule was not warmed up!');
+  return use(indexWarmUpCapsule).data.unwrapOrElse(
+        () => throw StateError('indexAsyncCapsule was not warmed up!'),
+      );
 }
 
+/// Represents the current query to search for ('' for no current query).
 (String, void Function(String)) queryCapsule(CapsuleHandle use) =>
     use.state('');
 
+/// Represents the search results using the query in the [queryCapsule].
 AsyncValue<List<Map<String, dynamic>>> searchResultsCapsule(CapsuleHandle use) {
   final index = use(indexCapsule);
   final query = use(queryCapsule);
@@ -49,7 +54,11 @@ AsyncValue<List<Map<String, dynamic>>> searchResultsCapsule(CapsuleHandle use) {
   return use.stream(stream);
 }
 
+/// {@template DemoApp}
+/// [Widget] serving as the root of this demo application.
+/// {@endtemplate}
 class DemoApp extends StatelessWidget {
+  /// {@macro DemoApp}
   const DemoApp({super.key});
 
   @override
@@ -65,9 +74,15 @@ class DemoApp extends StatelessWidget {
   }
 }
 
+/// {@template GlobalWarmUps}
+/// Warms up all of the global warm up capsules so that the rest of the app
+/// doesn't have to individually handle failure states.
+/// {@endtemplate}
 final class GlobalWarmUps extends CapsuleConsumer {
-  const GlobalWarmUps({super.key, required this.child});
+  /// {@macro GlobalWarmUps}
+  const GlobalWarmUps({required this.child, super.key});
 
+  /// The [Widget] to show when all warm up capsules are [AsyncData]s.
   final Widget child;
 
   @override
@@ -77,15 +92,22 @@ final class GlobalWarmUps extends CapsuleConsumer {
     ].toWarmUpWidget(
       child: child,
       loading: const Center(child: CircularProgressIndicator.adaptive()),
-      errorBuilder: (errors) => Column(children: [
-        for (final AsyncError(:error, :stackTrace) in errors)
-          Text('$error\n$stackTrace'),
-      ]),
+      errorBuilder: (errors) => Column(
+        children: [
+          for (final AsyncError(:error, :stackTrace) in errors)
+            Text('$error\n$stackTrace'),
+        ],
+      ),
     );
   }
 }
 
+/// {@template Body}
+/// Displays the body of the application, including the [SearchBar]
+/// and [SearchResults], nested inside a [Scaffold].
+/// {@endtemplate}
 class Body extends StatelessWidget {
+  /// {@macro Body}
   const Body({super.key});
 
   @override
@@ -112,7 +134,12 @@ class Body extends StatelessWidget {
   }
 }
 
-final class SearchBar extends CapsuleConsumer {
+/// {@template SearchBar}
+/// Displays the search bar at the top of the application
+/// and mutates the [queryCapsule].
+/// {@endtemplate}
+class SearchBar extends CapsuleConsumer {
+  /// {@macro SearchBar}
   const SearchBar({super.key});
 
   @override
@@ -130,22 +157,29 @@ final class SearchBar extends CapsuleConsumer {
           borderRadius: BorderRadius.all(Radius.circular(100)),
         ),
         prefixIcon: const Icon(Icons.search),
-        suffixIcon: Row(mainAxisSize: MainAxisSize.min, children: [
-          if (isLoading) const CircularProgressIndicator.adaptive(),
-          IconButton(
-            icon: const Icon(Icons.cancel),
-            onPressed: () {
-              textController.text = '';
-              setQuery('');
-            },
-          ),
-        ]),
+        suffixIcon: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (isLoading) const CircularProgressIndicator.adaptive(),
+            IconButton(
+              icon: const Icon(Icons.cancel),
+              onPressed: () {
+                textController.text = '';
+                setQuery('');
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-final class SearchResults extends CapsuleConsumer {
+/// {@template SearchResults}
+/// Displays the search results from the [searchResultsCapsule].
+/// {@endtemplate}
+class SearchResults extends CapsuleConsumer {
+  /// {@macro SearchResults}
   const SearchResults({super.key});
 
   @override
@@ -157,18 +191,25 @@ final class SearchResults extends CapsuleConsumer {
       AsyncLoading(previousData: Some(value: final movies)) =>
         MoviesList(movies: movies),
       AsyncError(:final error, :final stackTrace, :final previousData) =>
-        Column(children: [
-          Text('Error: $error\nStack Trace: $stackTrace'),
-          if (previousData case Some(value: final oldMovies))
-            Expanded(child: MoviesList(movies: oldMovies)),
-        ]),
+        Column(
+          children: [
+            Text('Error: $error\nStack Trace: $stackTrace'),
+            if (previousData case Some(value: final oldMovies))
+              Expanded(child: MoviesList(movies: oldMovies)),
+          ],
+        ),
     };
   }
 }
 
+/// {@template MoviesList}
+/// Displays a [List] of movies.
+/// {@endtemplate}
 class MoviesList extends StatelessWidget {
-  const MoviesList({super.key, required this.movies});
+  /// {@macro MoviesList}
+  const MoviesList({required this.movies, super.key});
 
+  /// The [List] of movies as a [MimirDocument]s (`Map<String, dynamic>`s).
   final List<MimirDocument> movies;
 
   @override
@@ -181,9 +222,14 @@ class MoviesList extends StatelessWidget {
   }
 }
 
+/// {@template MovieCard}
+/// Displays movie information as a [Card].
+/// {@endtemplate}
 class MovieCard extends StatelessWidget {
-  const MovieCard({super.key, required this.movie});
+  /// {@macro MovieCard}
+  const MovieCard({required this.movie, super.key});
 
+  /// The movie data being displayed in this [MovieCard].
   final Map<String, dynamic> movie;
 
   @override
@@ -193,53 +239,57 @@ class MovieCard extends StatelessWidget {
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 100),
-        child: Row(children: [
-          AspectRatio(
-            aspectRatio: 188.0 / 282.0,
-            child: Image.network(
-              'https://www.themoviedb.org/t/p/w188_and_h282_bestv2${movie['poster_path']}',
-              fit: BoxFit.fill,
-              errorBuilder: (_, __, ___) => Center(
-                child: Icon(
-                  Icons.cancel,
-                  color: Theme.of(context).colorScheme.error,
+        child: Row(
+          children: [
+            AspectRatio(
+              aspectRatio: 188.0 / 282.0,
+              child: Image.network(
+                'https://www.themoviedb.org/t/p/w188_and_h282_bestv2'
+                '${movie['poster_path']}',
+                fit: BoxFit.fill,
+                errorBuilder: (_, __, ___) => Center(
+                  child: Icon(
+                    Icons.cancel,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
+                loadingBuilder: (_, child, progress) {
+                  if (progress == null) return child;
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  movie['title'] as String,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                  movie['overview'] as String,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-              loadingBuilder: (_, child, progress) {
-                if (progress == null) return child;
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-              },
             ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(
-                movie['title'],
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Text(
-                movie['overview'],
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text((movie['release_date'] as String).split('-')[0]),
-          const SizedBox(width: 12),
-        ]),
+            const SizedBox(width: 8),
+            Text((movie['release_date'] as String).split('-')[0]),
+            const SizedBox(width: 12),
+          ],
+        ),
       ),
     );
   }
 }
 
+/// Displays the movie data info dialog
 void showInfoDialog(BuildContext context) {
-  showDialog(
+  showDialog<void>(
     context: context,
     builder: (context) => AlertDialog(
       title: const Text('info'),
