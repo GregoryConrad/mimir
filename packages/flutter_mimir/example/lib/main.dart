@@ -43,7 +43,7 @@ AsyncValue<List<Map<String, dynamic>>> searchResultsCapsule(CapsuleHandle use) {
 
   // When query is null/empty, all docs will be returned.
   final stream = use.memo(
-    () => index.searchStream(query: use(queryCapsule).$1),
+    () => index.searchStream(query: query.$1),
     [index, query.$1],
   );
   return use.stream(stream);
