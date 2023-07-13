@@ -29,7 +29,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             let curr_max_map_size =
                 (MAX_POSSIBLE_SIZE as f32 * MAP_EXP_BACKOFF_AMOUNT.powi(retry)) as usize;
             map_size = curr_max_map_size - (curr_max_map_size % MAX_OS_PAGE_SIZE);
-            let env_result = heed::EnvOpenOptions::new().map_size(map_size).open(&dir);
+            let env_result = heed::EnvOpenOptions::new().map_size(map_size).open(dir);
             match env_result {
                 Ok(env) => {
                     env.prepare_for_closing();
