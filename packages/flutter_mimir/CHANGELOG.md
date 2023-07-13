@@ -1,3 +1,7 @@
+## 0.0.2-dev.2
+
+ - **DOCS**: rewrite flutter example with rearch ([#232](https://github.com/GregoryConrad/mimir/issues/232)). ([2b604b6a](https://github.com/GregoryConrad/mimir/commit/2b604b6ae350624709d7bf4cfb1da479334608a9))
+
 ## 0.0.2-dev.1
 
 > Note: This release has breaking changes.

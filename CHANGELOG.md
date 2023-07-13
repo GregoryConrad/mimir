@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-07-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.0.2-dev.2`](#flutter_mimir---v002-dev2)
+ - [`mimir` - `v0.0.2-dev.2`](#mimir---v002-dev2)
+
+---
+
+#### `flutter_mimir` - `v0.0.2-dev.2`
+
+ - **DOCS**: rewrite flutter example with rearch ([#232](https://github.com/GregoryConrad/mimir/issues/232)). ([2b604b6a](https://github.com/GregoryConrad/mimir/commit/2b604b6ae350624709d7bf4cfb1da479334608a9))
+
+#### `mimir` - `v0.0.2-dev.2`
+
+ - **FIX**: attempt to use exp backoff for map size ([#233](https://github.com/GregoryConrad/mimir/issues/233)). ([bc6a9c87](https://github.com/GregoryConrad/mimir/commit/bc6a9c87e3afc495da26f80cbbd28c969f0e3dc5))
+
+
 ## 2023-07-05
 
 ### Changes
