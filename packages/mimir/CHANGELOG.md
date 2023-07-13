@@ -1,3 +1,7 @@
+## 0.0.2
+
+ - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
+
 ## 0.0.2-dev.2
 
  - **FIX**: attempt to use exp backoff for map size ([#233](https://github.com/GregoryConrad/mimir/issues/233)). ([bc6a9c87](https://github.com/GregoryConrad/mimir/commit/bc6a9c87e3afc495da26f80cbbd28c969f0e3dc5))

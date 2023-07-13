@@ -1,4 +1,4 @@
-set(MimirVersion "mimir-v0.0.2-dev.2") # generated; do not edit
+set(MimirVersion "mimir-v0.0.2") # generated; do not edit
 
 # The Flutter tooling requires that developers have CMake 3.10 or later
 # installed. You should not increase this version, as doing so will cause
