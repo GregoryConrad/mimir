@@ -10,15 +10,43 @@ use milli::{
 
 use crate::api::{Filter, MimirIndexSettings, SortBy, Synonyms, TermsMatchingStrategy};
 
-use super::{Document, Dump};
+use super::{
+    Document, Dump, MAP_EXP_BACKOFF_AMOUNT, MAP_SIZE_TRIES, MAX_OS_PAGE_SIZE, MAX_POSSIBLE_SIZE,
+};
 
 pub(crate) struct EmbeddedMilli;
 
 impl super::EmbeddedMilli<Index> for EmbeddedMilli {
     fn create_index(dir: &std::path::Path) -> Result<Index> {
         std::fs::create_dir_all(dir)?;
+
+        // We need this exponential backoff retry crap due to iOS' limited address space,
+        // *despite iOS being 64 bit*. See https://github.com/GregoryConrad/mimir/issues/227
+        let mut map_size;
+        let mut retry = 0;
+        loop {
+            // Find the maximum multiple of MAX_OS_PAGE_SIZE that is less than curr_max_map_size.
+            let curr_max_map_size =
+                (MAX_POSSIBLE_SIZE as f32 * MAP_EXP_BACKOFF_AMOUNT.powi(retry)) as usize;
+            map_size = curr_max_map_size - (curr_max_map_size % MAX_OS_PAGE_SIZE);
+            let env_result = heed::EnvOpenOptions::new().map_size(map_size).open(&dir);
+            match env_result {
+                Ok(env) => {
+                    env.prepare_for_closing();
+                    break;
+                }
+                Err(_) if retry < MAP_SIZE_TRIES => {
+                    retry += 1;
+                    continue;
+                }
+                err @ Err(_) => {
+                    err?;
+                }
+            };
+        }
+
         let mut options = heed::EnvOpenOptions::new();
-        options.map_size(super::MAX_MAP_SIZE);
+        options.map_size(map_size);
 
         Index::new(options, dir).map_err(anyhow::Error::from)
     }

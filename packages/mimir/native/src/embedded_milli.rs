@@ -27,17 +27,16 @@ pub(crate) type Document = serde_json::Map<String, serde_json::Value>;
 // Represents a dump from a milli index
 type Dump = (MimirIndexSettings, Vec<Document>);
 
-// The following two constants are for the map size used in heed/LMDB.
+// The following constants are for the map size used in heed/LMDB.
 // We assume any OS we run on will have a page size less than 16 MiB (2^24)
 // and that 16 MiB will be a multiple of the OS page size (which it should be).
-// Then, we find the maximum multiple of MAX_OS_PAGE_SIZE that is less than MAX_POSSIBLE_SIZE.
 // MAX_POSSIBLE_SIZE complies with memory constraints imposed by iOS without extra entitlements.
-#[cfg(target_os = "ios")]
-const MAX_POSSIBLE_SIZE: usize = 1_250_000_000;
-#[cfg(not(target_os = "ios"))]
 const MAX_POSSIBLE_SIZE: usize = 2_000_000_000;
 const MAX_OS_PAGE_SIZE: usize = 16_777_216;
-const MAX_MAP_SIZE: usize = MAX_POSSIBLE_SIZE - (MAX_POSSIBLE_SIZE % MAX_OS_PAGE_SIZE);
+const MAX_METADATA_DB_SIZE: usize = 33_554_432;
+// These are needed because of iOS nonsense; see: https://github.com/GregoryConrad/mimir/issues/227
+const MAP_EXP_BACKOFF_AMOUNT: f32 = 0.85;
+const MAP_SIZE_TRIES: i32 = 8;
 
 /// Defines what an embedded instance of milli should be able to do.
 /// Essentially a wrapper around different versions of milli to expose a common API.
@@ -97,7 +96,7 @@ impl Instance {
         fs::create_dir_all(&path)?;
 
         let env = heed::EnvOpenOptions::new()
-            .map_size(MAX_MAP_SIZE)
+            .map_size(MAX_METADATA_DB_SIZE)
             .max_dbs(128)
             .max_readers(4096)
             .open(&path)?;
