@@ -78,7 +78,7 @@ class DemoApp extends StatelessWidget {
 /// Warms up all of the global warm up capsules so that the rest of the app
 /// doesn't have to individually handle failure states.
 /// {@endtemplate}
-final class GlobalWarmUps extends CapsuleConsumer {
+final class GlobalWarmUps extends RearchConsumer {
   /// {@macro GlobalWarmUps}
   const GlobalWarmUps({required this.child, super.key});
 
@@ -138,7 +138,7 @@ class Body extends StatelessWidget {
 /// Displays the search bar at the top of the application
 /// and mutates the [queryCapsule].
 /// {@endtemplate}
-class SearchBar extends CapsuleConsumer {
+class SearchBar extends RearchConsumer {
   /// {@macro SearchBar}
   const SearchBar({super.key});
 
@@ -178,7 +178,7 @@ class SearchBar extends CapsuleConsumer {
 /// {@template SearchResults}
 /// Displays the search results from the [searchResultsCapsule].
 /// {@endtemplate}
-class SearchResults extends CapsuleConsumer {
+class SearchResults extends RearchConsumer {
   /// {@macro SearchResults}
   const SearchResults({super.key});
 
