@@ -10,7 +10,7 @@ crate-type = ["staticlib", "cdylib"]
 flutter_rust_bridge_codegen = "=1.80.1"
 
 [dependencies]
-flutter_rust_bridge = "=1.79.0"
+flutter_rust_bridge = "=1.80.1"
 anyhow = "1.0.*"
 serde = "1.0.*"
 serde_json = "1.0.*"
