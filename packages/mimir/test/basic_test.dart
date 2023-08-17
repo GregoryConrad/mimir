@@ -392,7 +392,7 @@ void main() {
   test('isNull filter returns only documents where field is null', () async {
     final docs = [
       {'id': 1, 'field': null},
-      {'id': 2, 'field': 1}
+      {'id': 2, 'field': 1},
     ];
     final index = await useTestIndex();
     await index.addDocuments(docs);
