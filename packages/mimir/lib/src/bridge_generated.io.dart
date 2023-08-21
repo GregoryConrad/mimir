@@ -799,9 +799,9 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_list_filter_0Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<wire_list_filter> Function(
-              ffi.Int32)>>('new_list_filter_0');
+          ffi
+          .NativeFunction<ffi.Pointer<wire_list_filter> Function(ffi.Int32)>>(
+      'new_list_filter_0');
   late final _new_list_filter_0 = _new_list_filter_0Ptr
       .asFunction<ffi.Pointer<wire_list_filter> Function(int)>();
 
@@ -814,9 +814,9 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_list_sort_by_0Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<wire_list_sort_by> Function(
-              ffi.Int32)>>('new_list_sort_by_0');
+          ffi
+          .NativeFunction<ffi.Pointer<wire_list_sort_by> Function(ffi.Int32)>>(
+      'new_list_sort_by_0');
   late final _new_list_sort_by_0 = _new_list_sort_by_0Ptr
       .asFunction<ffi.Pointer<wire_list_sort_by> Function(int)>();
 
@@ -829,9 +829,9 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_list_synonyms_0Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<wire_list_synonyms> Function(
-              ffi.Int32)>>('new_list_synonyms_0');
+          ffi
+          .NativeFunction<ffi.Pointer<wire_list_synonyms> Function(ffi.Int32)>>(
+      'new_list_synonyms_0');
   late final _new_list_synonyms_0 = _new_list_synonyms_0Ptr
       .asFunction<ffi.Pointer<wire_list_synonyms> Function(int)>();
 
@@ -844,9 +844,9 @@ class EmbeddedMilliWire implements FlutterRustBridgeWireBase {
   }
 
   late final _new_uint_8_list_0Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<wire_uint_8_list> Function(
-              ffi.Int32)>>('new_uint_8_list_0');
+          ffi
+          .NativeFunction<ffi.Pointer<wire_uint_8_list> Function(ffi.Int32)>>(
+      'new_uint_8_list_0');
   late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
       .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
