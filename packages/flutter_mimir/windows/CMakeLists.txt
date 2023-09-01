@@ -1,9 +1,5 @@
 set(MimirVersion "mimir-v0.0.2+1") # generated; do not edit
 
-# TODO Remove this workaround once Flutter supports Windows ARM.
-# https://github.com/flutter/flutter/issues/116196
-set(FLUTTER_TARGET_PLATFORM windows-x64)
-
 # The Flutter tooling requires that developers have a version of Visual Studio
 # installed that includes CMake 3.14 or later. You should not increase this
 # version, as doing so will cause the plugin to fail to compile for some
