@@ -181,15 +181,13 @@ class MimirIndexImpl extends MimirIndex {
         filter: filter,
       );
       return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
-    } on FfiException catch (e) {
+    } on FrbAnyhowException catch (e) {
       // Check to see if this error was caused by any filters or sortBys
       // not being indexed for search
-      final filtersNotAdded = filter != null &&
-          e.code == 'RESULT_ERROR' &&
-          e.message.contains('not filterable');
-      final sortBysNotAdded = sortBy != null &&
-          e.code == 'RESULT_ERROR' &&
-          e.message.contains('not sortable');
+      final filtersNotAdded =
+          filter != null && e.anyhow.contains('not filterable');
+      final sortBysNotAdded =
+          sortBy != null && e.anyhow.contains('not sortable');
 
       if (filtersNotAdded || sortBysNotAdded) {
         final currSettings = await getSettings();
