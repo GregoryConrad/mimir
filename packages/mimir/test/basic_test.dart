@@ -216,11 +216,11 @@ void main() {
     const invalidIdDoc = {'id': 'abc123='};
     expect(
       () => index.addDocument(missingIdDoc),
-      throwsA(const TypeMatcher<FfiException>()),
+      throwsA(const TypeMatcher<FrbAnyhowException>()),
     );
     expect(
       () => index.addDocument(invalidIdDoc),
-      throwsA(const TypeMatcher<FfiException>()),
+      throwsA(const TypeMatcher<FrbAnyhowException>()),
     );
   });
 
@@ -230,11 +230,11 @@ void main() {
     const invalidIdDoc = {'id': 'abc123='};
     expect(
       () => index.setDocuments([missingIdDoc]),
-      throwsA(const TypeMatcher<FfiException>()),
+      throwsA(const TypeMatcher<FrbAnyhowException>()),
     );
     expect(
       () => index.setDocuments([invalidIdDoc]),
-      throwsA(const TypeMatcher<FfiException>()),
+      throwsA(const TypeMatcher<FrbAnyhowException>()),
     );
   });
 
@@ -274,7 +274,7 @@ void main() {
       'id': 1234,
       'anotherId': 4321,
     };
-    expect(index.addDocument(doc), throwsA(isA<FfiException>()));
+    expect(index.addDocument(doc), throwsA(isA<FrbAnyhowException>()));
   });
 
   test('openIndex should use the supplied PK', () async {
@@ -312,7 +312,7 @@ void main() {
     await index.updateSettings(primaryKey: 'id'); // should be a no-op
     expect(
       index.updateSettings(primaryKey: 'anotherId'),
-      throwsA(isA<FfiException>()),
+      throwsA(isA<FrbAnyhowException>()),
     );
   });
 
@@ -325,7 +325,7 @@ void main() {
 
     expect(
       index.addDocument(doc),
-      throwsA(isA<FfiException>()),
+      throwsA(isA<FrbAnyhowException>()),
     );
   });
 
