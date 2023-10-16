@@ -131,12 +131,12 @@ class _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_ComparableMimirIndexSettingsCopyWith<$Res>
+abstract class _$$ComparableMimirIndexSettingsImplCopyWith<$Res>
     implements $ComparableMimirIndexSettingsCopyWith<$Res> {
-  factory _$$_ComparableMimirIndexSettingsCopyWith(
-          _$_ComparableMimirIndexSettings value,
-          $Res Function(_$_ComparableMimirIndexSettings) then) =
-      __$$_ComparableMimirIndexSettingsCopyWithImpl<$Res>;
+  factory _$$ComparableMimirIndexSettingsImplCopyWith(
+          _$ComparableMimirIndexSettingsImpl value,
+          $Res Function(_$ComparableMimirIndexSettingsImpl) then) =
+      __$$ComparableMimirIndexSettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -154,13 +154,13 @@ abstract class _$$_ComparableMimirIndexSettingsCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ComparableMimirIndexSettingsCopyWithImpl<$Res>
+class __$$ComparableMimirIndexSettingsImplCopyWithImpl<$Res>
     extends _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
-        _$_ComparableMimirIndexSettings>
-    implements _$$_ComparableMimirIndexSettingsCopyWith<$Res> {
-  __$$_ComparableMimirIndexSettingsCopyWithImpl(
-      _$_ComparableMimirIndexSettings _value,
-      $Res Function(_$_ComparableMimirIndexSettings) _then)
+        _$ComparableMimirIndexSettingsImpl>
+    implements _$$ComparableMimirIndexSettingsImplCopyWith<$Res> {
+  __$$ComparableMimirIndexSettingsImplCopyWithImpl(
+      _$ComparableMimirIndexSettingsImpl _value,
+      $Res Function(_$ComparableMimirIndexSettingsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -178,7 +178,7 @@ class __$$_ComparableMimirIndexSettingsCopyWithImpl<$Res>
     Object? disallowTyposOnWords = null,
     Object? disallowTyposOnFields = null,
   }) {
-    return _then(_$_ComparableMimirIndexSettings(
+    return _then(_$ComparableMimirIndexSettingsImpl(
       searchableFields: freezed == searchableFields
           ? _value._searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
@@ -229,8 +229,9 @@ class __$$_ComparableMimirIndexSettingsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
-  const _$_ComparableMimirIndexSettings(
+class _$ComparableMimirIndexSettingsImpl
+    implements _ComparableMimirIndexSettings {
+  const _$ComparableMimirIndexSettingsImpl(
       {required final Set<String>? searchableFields,
       required final Set<String> filterableFields,
       required final Set<String> sortableFields,
@@ -334,7 +335,7 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ComparableMimirIndexSettings &&
+            other is _$ComparableMimirIndexSettingsImpl &&
             const DeepCollectionEquality()
                 .equals(other._searchableFields, _searchableFields) &&
             const DeepCollectionEquality()
@@ -376,9 +377,10 @@ class _$_ComparableMimirIndexSettings implements _ComparableMimirIndexSettings {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ComparableMimirIndexSettingsCopyWith<_$_ComparableMimirIndexSettings>
-      get copyWith => __$$_ComparableMimirIndexSettingsCopyWithImpl<
-          _$_ComparableMimirIndexSettings>(this, _$identity);
+  _$$ComparableMimirIndexSettingsImplCopyWith<
+          _$ComparableMimirIndexSettingsImpl>
+      get copyWith => __$$ComparableMimirIndexSettingsImplCopyWithImpl<
+          _$ComparableMimirIndexSettingsImpl>(this, _$identity);
 }
 
 abstract class _ComparableMimirIndexSettings
@@ -395,7 +397,7 @@ abstract class _ComparableMimirIndexSettings
           required final int minWordSizeForTwoTypos,
           required final Set<String> disallowTyposOnWords,
           required final Set<String> disallowTyposOnFields}) =
-      _$_ComparableMimirIndexSettings;
+      _$ComparableMimirIndexSettingsImpl;
 
   @override
   Set<String>? get searchableFields;
@@ -421,6 +423,7 @@ abstract class _ComparableMimirIndexSettings
   Set<String> get disallowTyposOnFields;
   @override
   @JsonKey(ignore: true)
-  _$$_ComparableMimirIndexSettingsCopyWith<_$_ComparableMimirIndexSettings>
+  _$$ComparableMimirIndexSettingsImplCopyWith<
+          _$ComparableMimirIndexSettingsImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
