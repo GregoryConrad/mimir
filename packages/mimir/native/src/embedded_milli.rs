@@ -88,8 +88,8 @@ struct Instance {
 }
 
 impl Instance {
-    const INSTANCE_DATA_DB_DIR_NAME: &str = "mimir_instance_data.mdb";
-    const INDEX_MILLI_VERSIONS_DB_NAME: &str = "index_versions";
+    const INSTANCE_DATA_DB_DIR_NAME: &'static str = "mimir_instance_data.mdb";
+    const INDEX_MILLI_VERSIONS_DB_NAME: &'static str = "index_versions";
 
     fn new(instance_dir: &str) -> Result<Self> {
         let path = Path::new(instance_dir).join(Self::INSTANCE_DATA_DB_DIR_NAME);
