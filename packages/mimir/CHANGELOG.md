@@ -1,3 +1,8 @@
+## 0.0.2+1
+
+ - **FIX**: update const strings for Rust 1.74. ([872034b0](https://github.com/GregoryConrad/mimir/commit/872034b05dce0a186665abdde7da3bad61fded3c))
+ - **FIX**: update exceptions for FRB 1.82. ([42ec2a7c](https://github.com/GregoryConrad/mimir/commit/42ec2a7cc36bae23ff4fbad88498c241644dc8f2))
+
 ## 0.0.2
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.

@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-12-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.0.2+1`](#flutter_mimir---v0021)
+ - [`mimir` - `v0.0.2+1`](#mimir---v0021)
+
+---
+
+#### `flutter_mimir` - `v0.0.2+1`
+
+ - **DOCS**: update example app with new widget name. ([7b560db3](https://github.com/GregoryConrad/mimir/commit/7b560db34eeb8559115dc222995faca02341debc))
+
+#### `mimir` - `v0.0.2+1`
+
+ - **FIX**: update const strings for Rust 1.74. ([872034b0](https://github.com/GregoryConrad/mimir/commit/872034b05dce0a186665abdde7da3bad61fded3c))
+ - **FIX**: update exceptions for FRB 1.82. ([42ec2a7c](https://github.com/GregoryConrad/mimir/commit/42ec2a7cc36bae23ff4fbad88498c241644dc8f2))
+
+
 ## 2023-07-13
 
 ### Changes

@@ -1,3 +1,7 @@
+## 0.0.2+1
+
+ - **DOCS**: update example app with new widget name. ([7b560db3](https://github.com/GregoryConrad/mimir/commit/7b560db34eeb8559115dc222995faca02341debc))
+
 ## 0.0.2
 
  - Graduate package to a stable release. See pre-releases prior to this version for changelog entries.
