@@ -43,6 +43,12 @@ final results = await index.search(query: 'jarrassic par'); // returns Jurassic 
 ```
 ![Demo Video](https://github.com/GregoryConrad/mimir/blob/main/assets/demo.gif?raw=true)
 
+## Sponsors
+You can become a sponsor of my work [here!](https://github.com/sponsors/GregoryConrad)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/GregoryConrad/GregoryConrad/main/sponsorkit/sponsors.svg"/>
+</p>
+
 ## Reference Documentation
 A collection of commonly used APIs ready for copy-paste into your application.
 
