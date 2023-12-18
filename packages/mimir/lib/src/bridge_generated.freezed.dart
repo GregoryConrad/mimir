@@ -196,7 +196,7 @@ class _$Filter_OrImpl implements Filter_Or {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_OrImpl &&
@@ -408,7 +408,7 @@ class _$Filter_AndImpl implements Filter_And {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_AndImpl &&
@@ -625,7 +625,7 @@ class _$Filter_NotImpl implements Filter_Not {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_NotImpl &&
@@ -831,7 +831,7 @@ class _$Filter_ExistsImpl implements Filter_Exists {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_ExistsImpl &&
@@ -1052,7 +1052,7 @@ class _$Filter_InValuesImpl implements Filter_InValues {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_InValuesImpl &&
@@ -1271,7 +1271,7 @@ class _$Filter_GreaterThanImpl implements Filter_GreaterThan {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_GreaterThanImpl &&
@@ -1492,7 +1492,7 @@ class _$Filter_GreaterThanOrEqualImpl implements Filter_GreaterThanOrEqual {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_GreaterThanOrEqualImpl &&
@@ -1710,7 +1710,7 @@ class _$Filter_EqualImpl implements Filter_Equal {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_EqualImpl &&
@@ -1927,7 +1927,7 @@ class _$Filter_NotEqualImpl implements Filter_NotEqual {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_NotEqualImpl &&
@@ -2145,7 +2145,7 @@ class _$Filter_LessThanImpl implements Filter_LessThan {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_LessThanImpl &&
@@ -2366,7 +2366,7 @@ class _$Filter_LessThanOrEqualImpl implements Filter_LessThanOrEqual {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_LessThanOrEqualImpl &&
@@ -2592,7 +2592,7 @@ class _$Filter_BetweenImpl implements Filter_Between {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_BetweenImpl &&
@@ -2806,7 +2806,7 @@ class _$Filter_IsNullImpl implements Filter_IsNull {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_IsNullImpl &&
@@ -3013,7 +3013,7 @@ class _$Filter_IsEmptyImpl implements Filter_IsEmpty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Filter_IsEmptyImpl &&
@@ -3505,7 +3505,7 @@ class _$MimirIndexSettingsImpl implements _MimirIndexSettings {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MimirIndexSettingsImpl &&
@@ -3729,7 +3729,7 @@ class _$SortBy_AscImpl implements SortBy_Asc {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SortBy_AscImpl &&
@@ -3866,7 +3866,7 @@ class _$SortBy_DescImpl implements SortBy_Desc {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SortBy_DescImpl &&
@@ -4064,7 +4064,7 @@ class _$SynonymsImpl implements _Synonyms {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SynonymsImpl &&
