@@ -135,7 +135,7 @@ jobs:
         id: start_simulator
         name: Start iOS Simulator
         with:
-          model: 'iPhone 15'
+          model: 'iPhone 14'
 
       - name: Build the XCFramework
         run: melos run build:apple
