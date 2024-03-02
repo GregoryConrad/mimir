@@ -122,7 +122,7 @@ jobs:
         run: flutter test -d linux integration_test
 
   ios_integration_test:
-    runs-on: macos-13 # TODO switch to macos-latest when it doesn't error out
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -131,12 +131,11 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-
-      - name: Start iOS Simulator
-        run: |
-          DEVICE_ID=$(xcrun xctrace list devices | grep iPhone | head -1 | awk '{print $NF}' | tr -d '()')
-          echo "DEVICE_ID=$DEVICE_ID" >> $GITHUB_ENV
-          xcrun simctl boot $DEVICE_ID
+      - uses: futureware-tech/simulator-action@v3
+        id: start_simulator
+        name: Start iOS Simulator
+        with:
+          model: 'iPhone 15'
 
       - name: Build the XCFramework
         run: melos run build:apple
@@ -148,7 +147,7 @@ jobs:
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
-        run: flutter test -d ${{ env.DEVICE_ID }} integration_test
+        run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
 
   android_integration_test:
     runs-on: macos-latest
