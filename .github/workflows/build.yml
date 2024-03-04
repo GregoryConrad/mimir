@@ -83,6 +83,7 @@ jobs:
 
       - name: Build the binaries
         run: dart pub global run melos run build:other
+        shell: bash
       - name: Copy the binaries to the needed location
         shell: bash
         run: |
