@@ -82,7 +82,7 @@ jobs:
           toolchain: stable
 
       - name: Build the binaries
-        run: melos run build:other
+        run: dart pub global run melos run build:other
       - name: Copy the binaries to the needed location
         shell: bash
         run: |
