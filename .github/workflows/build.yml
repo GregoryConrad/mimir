@@ -37,9 +37,9 @@ jobs:
 
       # Dart/Flutter
       - name: Check Dart format
-        run: melos run check-format --no-select
+        run: melos format --set-exit-if-changed
       - name: Dart code analysis
-        run: melos run analyze --no-select
+        run: melos analyze
       - name: Run Dart tests
         run: melos run test
 

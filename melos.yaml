@@ -10,18 +10,6 @@ command:
       preCommit: bash scripts/version.sh
 
 scripts:
-  analyze:
-    exec: flutter analyze .
-    description: Analyze a specific package in this project.
-
-  check-format:
-    exec: dart format --set-exit-if-changed .
-    description: Check the format of a specific package in this project.
-
-  format:
-    exec: dart format .
-    description: Format a specific package in this project.
-
   build:
     run: melos run build:apple && melos run build:android && melos run build:other
     description: Build all native libraries for the project.
