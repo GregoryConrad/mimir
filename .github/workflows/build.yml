@@ -151,7 +151,8 @@ jobs:
         run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
 
   android_integration_test:
-    runs-on: macos-latest
+    # https://github.com/nttld/setup-ndk/issues/548
+    runs-on: macos-13 # TODO macos-latest
 
     steps:
       - uses: actions/checkout@v3
