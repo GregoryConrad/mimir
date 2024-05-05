@@ -167,7 +167,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: zulu
-          java-version: "11.x"
+          java-version: "17.x"
 
       - name: Build the binaries
         run: melos run build:android
