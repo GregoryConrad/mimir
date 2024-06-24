@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["staticlib", "cdylib"]
 
 [build-dependencies]
-flutter_rust_bridge_codegen = "=1.82.6"
+flutter_rust_bridge_codegen = "=2.0.0"
 
 [dependencies]
 flutter_rust_bridge = "=2.0.0"
