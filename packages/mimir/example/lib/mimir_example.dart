@@ -13,13 +13,13 @@ final uri = Uri.parse(
 Future<void> main() async {
   final tmpDir = getTmpDir();
   try {
-    await run(tmpDir.path, getLibraryPath());
+    await run(tmpDir.path, getLibrary());
   } finally {
     tmpDir.deleteSync(recursive: true);
   }
 }
 
-Future<void> run(String path, String dylibPath) async {
+Future<void> run(String path, DynamicLibrary lib) async {
   // First, we get our instance of Mimir from:
   // - path, the path to the instance directory (that holds all of our data)
   // - lib, an instance of DynamicLibrary
@@ -27,7 +27,7 @@ Future<void> run(String path, String dylibPath) async {
   // If you are going to use Flutter, don't pay too much attention to lib;
   // lib will be created for you automatically under the hood.
   // However, in pure Dart, you need to explicity state how to get it.
-  final instance = await Mimir.getInstance(path: path, dylibPath: dylibPath);
+  final instance = await Mimir.getInstance(path: path, library: lib);
 
   // Let's create an 'index' of movies that we can search through.
   // An index can be thought of as a grouping of documents of the same type.
@@ -117,7 +117,7 @@ Future<void> run(String path, String dylibPath) async {
   );
 }
 
-String getLibraryPath() {
+DynamicLibrary getLibrary() {
   // If you are running this example locally, you will need to run
   // `cargo build -r` to generate the needed dylib.
   const libName = 'embedded_milli';
@@ -132,7 +132,7 @@ String getLibraryPath() {
     Platform.isLinux: 'so',
   }[true]!;
   final dylibPath = '../../../target/release/$libPrefix$libName.$libSuffix';
-  return dylibPath;
+  return DynamicLibrary.open(dylibPath);
 }
 
 Directory getTmpDir() => Directory.systemTemp.createTempSync();
