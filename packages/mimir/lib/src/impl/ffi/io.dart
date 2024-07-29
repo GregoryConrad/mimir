@@ -1,18 +1,16 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:meta/meta.dart';
-import 'package:mimir/src/bridge_generated.dart';
-
-/// Represents the external library for mimir
-///
-/// Will be a DynamicLibrary for dart:io or WasmModule for dart:html
-typedef ExternalLibrary = DynamicLibrary;
+import 'package:mimir/src/frb_generated.dart';
 
 @internal
 // ignore: public_member_api_docs
-EmbeddedMilli createWrapperImpl(ExternalLibrary dylib) =>
-    EmbeddedMilliImpl(dylib);
+Future<RustLibApi> createWrapperImpl(String dylibPath) async {
+  await RustLib.init(externalLibrary: ExternalLibrary.open(dylibPath));
+  return RustLib.instance.api;
+}
 
 /// Needed by https://github.com/GregoryConrad/mimir/issues/170
 @internal

@@ -8,11 +8,11 @@ repository: https://github.com/GregoryConrad/mimir
 issue_tracker: https://github.com/GregoryConrad/mimir/issues
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
   ffi: ^2.0.1
-  flutter_rust_bridge: 1.82.6
+  flutter_rust_bridge: 2.1.0
   freezed_annotation: ^2.2.0
   meta: ^1.8.0
 
@@ -24,3 +24,9 @@ dev_dependencies:
   ffigen: ^8.0.2
   freezed: ^2.2.1
   test: ^1.22.0
+
+
+flutter_rust_bridge:
+  rust_input: crate::api
+  rust_root: native/
+  dart_output: lib/src/

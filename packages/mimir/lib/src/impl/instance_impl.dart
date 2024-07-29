@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:mimir/mimir.dart';
-import 'package:mimir/src/bridge_generated.dart';
+import 'package:mimir/src/api.dart';
+import 'package:mimir/src/frb_generated.dart';
 import 'package:mimir/src/impl/index_impl.dart';
 
 // ignore_for_file: public_member_api_docs
@@ -9,7 +10,7 @@ import 'package:mimir/src/impl/index_impl.dart';
 class MimirInstanceImpl extends MimirInstance {
   MimirInstanceImpl(this.path, this.milli);
 
-  final EmbeddedMilli milli;
+  final RustLibApi milli;
 
   @override
   final String path;

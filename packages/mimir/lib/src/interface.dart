@@ -1,11 +1,13 @@
-import 'package:mimir/src/bridge_generated.dart';
+import 'dart:ffi';
+
+import 'package:mimir/src/api.dart';
+import 'package:mimir/src/frb_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/instance.dart';
 
 // ignore: directives_ordering
 import 'package:mimir/src/impl/ffi/stub.dart'
-    if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart'
-    if (dart.library.html) 'package:mimir/src/impl/ffi/web.dart';
+    if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart';
 
 /// The exposed API to interact with mimir
 // Instead of just having a Mimir namespace, we have to do this instead,
@@ -23,7 +25,7 @@ class MimirInterface {
 
   // Internal ffi wrapper that is instantianted lazily.
   // Should only have one instance per process.
-  EmbeddedMilli? _milli;
+  RustLibApi? _milli;
 
   // Instances map. Should only have one instance per app for streams to work.
   final _instances = <String, MimirInstance>{};
@@ -33,16 +35,15 @@ class MimirInterface {
   /// The [path] has to point to a directory; a directory will be
   /// created for you at the given path if one does not already exist.
   ///
-  /// [library] is a WasmModule on web & a DynamicLibrary on dart:io platforms.
-  /// [library] is used to create the internal ffi object
-  /// that is used to call the Rust APIs.
+  /// [dylibPath] is the path to the library object created from compiling
+  /// the rust code.
   Future<MimirInstance> getInstance({
     required String path,
-    required ExternalLibrary library,
+    required String dylibPath,
   }) async {
-    _milli ??= createWrapperImpl(library);
+    _milli ??= await createWrapperImpl(dylibPath);
     await _milli!
-        .ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
+        .crateApiEnsureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
     return _instances.putIfAbsent(
       path,
       () => MimirInstanceImpl(path, _milli!),

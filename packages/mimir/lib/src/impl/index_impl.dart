@@ -3,7 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:meta/meta.dart';
-import 'package:mimir/src/bridge_generated.dart';
+import 'package:mimir/src/api.dart';
+import 'package:mimir/src/frb_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/index.dart';
 
@@ -21,11 +22,11 @@ class MimirIndexImpl extends MimirIndex {
   final _changes = StreamController<void>.broadcast();
 
   String get instanceDir => instance.path;
-  EmbeddedMilli get milli => instance.milli;
+  RustLibApi get milli => instance.milli;
 
   @override
   Future<void> addDocuments(List<MimirDocument> documents) async {
-    await milli.addDocuments(
+    await milli.crateApiAddDocuments(
       instanceDir: instanceDir,
       indexName: name,
       documents: documents.map((d) => json.encode(d)).toList(),
@@ -35,7 +36,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> deleteDocuments(List<String> ids) async {
-    await milli.deleteDocuments(
+    await milli.crateApiDeleteDocuments(
       instanceDir: instanceDir,
       indexName: name,
       documentIds: ids,
@@ -45,7 +46,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> deleteAllDocuments() async {
-    await milli.deleteAllDocuments(
+    await milli.crateApiDeleteAllDocuments(
       instanceDir: instanceDir,
       indexName: name,
     );
@@ -54,7 +55,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> setDocuments(List<MimirDocument> documents) async {
-    await milli.setDocuments(
+    await milli.crateApiSetDocuments(
       instanceDir: instanceDir,
       indexName: name,
       documents: documents.map((d) => json.encode(d)).toList(),
@@ -65,13 +66,13 @@ class MimirIndexImpl extends MimirIndex {
   @override
   Future<MimirDocument?> getDocument(String id) {
     return milli
-        .getDocument(instanceDir: instanceDir, indexName: name, documentId: id)
+        .crateApiGetDocument(instanceDir: instanceDir, indexName: name, documentId: id)
         .then((s) => s == null ? null : json.decode(s) as Map<String, dynamic>);
   }
 
   @override
   Future<List<MimirDocument>> getAllDocuments() async {
-    final jsonDocs = await milli.getAllDocuments(
+    final jsonDocs = await milli.crateApiGetAllDocuments(
       instanceDir: instanceDir,
       indexName: name,
     );
@@ -80,7 +81,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<MimirIndexSettings> getSettings() {
-    return milli.getSettings(
+    return milli.crateApiGetSettings(
       instanceDir: instanceDir,
       indexName: name,
     );
@@ -88,7 +89,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> setSettings(MimirIndexSettings settings) async {
-    await milli.setSettings(
+    await milli.crateApiSetSettings(
       instanceDir: instanceDir,
       indexName: name,
       settings: settings,
@@ -157,8 +158,8 @@ class MimirIndexImpl extends MimirIndex {
   }
 
   @override
-  Future<int> get numberOfDocuments =>
-      milli.numberOfDocuments(instanceDir: instanceDir, indexName: name);
+  Future<BigInt> get numberOfDocuments =>
+      milli.crateApiNumberOfDocuments(instanceDir: instanceDir, indexName: name);
 
   @override
   Future<List<MimirDocument>> search({
@@ -170,7 +171,7 @@ class MimirIndexImpl extends MimirIndex {
     Filter? filter,
   }) async {
     try {
-      final jsonDocs = await milli.searchDocuments(
+      final jsonDocs = await milli.crateApiSearchDocuments(
         instanceDir: instanceDir,
         indexName: name,
         query: query,
@@ -181,13 +182,13 @@ class MimirIndexImpl extends MimirIndex {
         filter: filter,
       );
       return jsonDocs.map((s) => json.decode(s)).cast<MimirDocument>().toList();
-    } on FrbAnyhowException catch (e) {
+    } on AnyhowException catch (e) {
       // Check to see if this error was caused by any filters or sortBys
       // not being indexed for search
       final filtersNotAdded =
-          filter != null && e.anyhow.contains('not filterable');
+          filter != null && e.message.contains('not filterable');
       final sortBysNotAdded =
-          sortBy != null && e.anyhow.contains('not sortable');
+          sortBy != null && e.message.contains('not sortable');
 
       if (filtersNotAdded || sortBysNotAdded) {
         final currSettings = await getSettings();

@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 
 part 'utils.freezed.dart';
 
-DynamicLibrary useLibrary() {
+String useLibraryPath() {
   const libName = 'embedded_milli';
   final libPrefix = {
     Platform.isWindows: '',
@@ -21,7 +21,7 @@ DynamicLibrary useLibrary() {
     Platform.isLinux: 'so',
   }[true]!;
   final dylibPath = '../../target/release/$libPrefix$libName.$libSuffix';
-  return DynamicLibrary.open(dylibPath);
+  return dylibPath;
 }
 
 Directory useTmpDir() {
@@ -32,8 +32,8 @@ Directory useTmpDir() {
 
 Future<MimirInstance> useInstance() {
   final dir = useTmpDir();
-  final lib = useLibrary();
-  return Mimir.getInstance(path: dir.path, library: lib);
+  final libPath = useLibraryPath();
+  return Mimir.getInstance(path: dir.path, dylibPath: libPath);
 }
 
 Future<MimirIndex> useTestIndex() async =>

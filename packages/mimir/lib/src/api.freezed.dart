@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'bridge_generated.dart';
+part of 'api.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'bridge_generated.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Filter {
@@ -144,6 +144,9 @@ class _$FilterCopyWithImpl<$Res, $Val extends Filter>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -163,6 +166,8 @@ class __$$Filter_OrImplCopyWithImpl<$Res>
       _$Filter_OrImpl _value, $Res Function(_$Filter_OrImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -179,8 +184,10 @@ class __$$Filter_OrImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_OrImpl implements Filter_Or {
-  const _$Filter_OrImpl(final List<Filter> field0) : _field0 = field0;
+class _$Filter_OrImpl extends Filter_Or {
+  const _$Filter_OrImpl(final List<Filter> field0)
+      : _field0 = field0,
+        super._();
 
   final List<Filter> _field0;
   @override
@@ -207,7 +214,9 @@ class _$Filter_OrImpl implements Filter_Or {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_field0));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_OrImplCopyWith<_$Filter_OrImpl> get copyWith =>
@@ -349,11 +358,15 @@ class _$Filter_OrImpl implements Filter_Or {
   }
 }
 
-abstract class Filter_Or implements Filter {
+abstract class Filter_Or extends Filter {
   const factory Filter_Or(final List<Filter> field0) = _$Filter_OrImpl;
+  const Filter_Or._() : super._();
 
   List<Filter> get field0;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_OrImplCopyWith<_$Filter_OrImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -375,6 +388,8 @@ class __$$Filter_AndImplCopyWithImpl<$Res>
       _$Filter_AndImpl _value, $Res Function(_$Filter_AndImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -391,8 +406,10 @@ class __$$Filter_AndImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_AndImpl implements Filter_And {
-  const _$Filter_AndImpl(final List<Filter> field0) : _field0 = field0;
+class _$Filter_AndImpl extends Filter_And {
+  const _$Filter_AndImpl(final List<Filter> field0)
+      : _field0 = field0,
+        super._();
 
   final List<Filter> _field0;
   @override
@@ -419,7 +436,9 @@ class _$Filter_AndImpl implements Filter_And {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_field0));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_AndImplCopyWith<_$Filter_AndImpl> get copyWith =>
@@ -561,11 +580,15 @@ class _$Filter_AndImpl implements Filter_And {
   }
 }
 
-abstract class Filter_And implements Filter {
+abstract class Filter_And extends Filter {
   const factory Filter_And(final List<Filter> field0) = _$Filter_AndImpl;
+  const Filter_And._() : super._();
 
   List<Filter> get field0;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_AndImplCopyWith<_$Filter_AndImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -589,6 +612,8 @@ class __$$Filter_NotImplCopyWithImpl<$Res>
       _$Filter_NotImpl _value, $Res Function(_$Filter_NotImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -602,6 +627,8 @@ class __$$Filter_NotImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FilterCopyWith<$Res> get field0 {
@@ -613,8 +640,8 @@ class __$$Filter_NotImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_NotImpl implements Filter_Not {
-  const _$Filter_NotImpl(this.field0);
+class _$Filter_NotImpl extends Filter_Not {
+  const _$Filter_NotImpl(this.field0) : super._();
 
   @override
   final Filter field0;
@@ -635,7 +662,9 @@ class _$Filter_NotImpl implements Filter_Not {
   @override
   int get hashCode => Object.hash(runtimeType, field0);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_NotImplCopyWith<_$Filter_NotImpl> get copyWith =>
@@ -777,11 +806,15 @@ class _$Filter_NotImpl implements Filter_Not {
   }
 }
 
-abstract class Filter_Not implements Filter {
+abstract class Filter_Not extends Filter {
   const factory Filter_Not(final Filter field0) = _$Filter_NotImpl;
+  const Filter_Not._() : super._();
 
   Filter get field0;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_NotImplCopyWith<_$Filter_NotImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -803,6 +836,8 @@ class __$$Filter_ExistsImplCopyWithImpl<$Res>
       _$Filter_ExistsImpl _value, $Res Function(_$Filter_ExistsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -819,8 +854,8 @@ class __$$Filter_ExistsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_ExistsImpl implements Filter_Exists {
-  const _$Filter_ExistsImpl({required this.field});
+class _$Filter_ExistsImpl extends Filter_Exists {
+  const _$Filter_ExistsImpl({required this.field}) : super._();
 
   @override
   final String field;
@@ -841,7 +876,9 @@ class _$Filter_ExistsImpl implements Filter_Exists {
   @override
   int get hashCode => Object.hash(runtimeType, field);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_ExistsImplCopyWith<_$Filter_ExistsImpl> get copyWith =>
@@ -983,12 +1020,16 @@ class _$Filter_ExistsImpl implements Filter_Exists {
   }
 }
 
-abstract class Filter_Exists implements Filter {
+abstract class Filter_Exists extends Filter {
   const factory Filter_Exists({required final String field}) =
       _$Filter_ExistsImpl;
+  const Filter_Exists._() : super._();
 
   String get field;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_ExistsImplCopyWith<_$Filter_ExistsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1010,6 +1051,8 @@ class __$$Filter_InValuesImplCopyWithImpl<$Res>
       _$Filter_InValuesImpl _value, $Res Function(_$Filter_InValuesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1031,10 +1074,11 @@ class __$$Filter_InValuesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_InValuesImpl implements Filter_InValues {
+class _$Filter_InValuesImpl extends Filter_InValues {
   const _$Filter_InValuesImpl(
       {required this.field, required final List<String> values})
-      : _values = values;
+      : _values = values,
+        super._();
 
   @override
   final String field;
@@ -1064,7 +1108,9 @@ class _$Filter_InValuesImpl implements Filter_InValues {
   int get hashCode => Object.hash(
       runtimeType, field, const DeepCollectionEquality().hash(_values));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_InValuesImplCopyWith<_$Filter_InValuesImpl> get copyWith =>
@@ -1207,14 +1253,18 @@ class _$Filter_InValuesImpl implements Filter_InValues {
   }
 }
 
-abstract class Filter_InValues implements Filter {
+abstract class Filter_InValues extends Filter {
   const factory Filter_InValues(
       {required final String field,
       required final List<String> values}) = _$Filter_InValuesImpl;
+  const Filter_InValues._() : super._();
 
   String get field;
   List<String> get values;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_InValuesImplCopyWith<_$Filter_InValuesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1236,6 +1286,8 @@ class __$$Filter_GreaterThanImplCopyWithImpl<$Res>
       $Res Function(_$Filter_GreaterThanImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1257,8 +1309,9 @@ class __$$Filter_GreaterThanImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_GreaterThanImpl implements Filter_GreaterThan {
-  const _$Filter_GreaterThanImpl({required this.field, required this.value});
+class _$Filter_GreaterThanImpl extends Filter_GreaterThan {
+  const _$Filter_GreaterThanImpl({required this.field, required this.value})
+      : super._();
 
   @override
   final String field;
@@ -1282,7 +1335,9 @@ class _$Filter_GreaterThanImpl implements Filter_GreaterThan {
   @override
   int get hashCode => Object.hash(runtimeType, field, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_GreaterThanImplCopyWith<_$Filter_GreaterThanImpl> get copyWith =>
@@ -1425,14 +1480,18 @@ class _$Filter_GreaterThanImpl implements Filter_GreaterThan {
   }
 }
 
-abstract class Filter_GreaterThan implements Filter {
+abstract class Filter_GreaterThan extends Filter {
   const factory Filter_GreaterThan(
       {required final String field,
       required final String value}) = _$Filter_GreaterThanImpl;
+  const Filter_GreaterThan._() : super._();
 
   String get field;
   String get value;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_GreaterThanImplCopyWith<_$Filter_GreaterThanImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1456,6 +1515,8 @@ class __$$Filter_GreaterThanOrEqualImplCopyWithImpl<$Res>
       $Res Function(_$Filter_GreaterThanOrEqualImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1477,9 +1538,10 @@ class __$$Filter_GreaterThanOrEqualImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_GreaterThanOrEqualImpl implements Filter_GreaterThanOrEqual {
+class _$Filter_GreaterThanOrEqualImpl extends Filter_GreaterThanOrEqual {
   const _$Filter_GreaterThanOrEqualImpl(
-      {required this.field, required this.value});
+      {required this.field, required this.value})
+      : super._();
 
   @override
   final String field;
@@ -1503,7 +1565,9 @@ class _$Filter_GreaterThanOrEqualImpl implements Filter_GreaterThanOrEqual {
   @override
   int get hashCode => Object.hash(runtimeType, field, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_GreaterThanOrEqualImplCopyWith<_$Filter_GreaterThanOrEqualImpl>
@@ -1646,14 +1710,18 @@ class _$Filter_GreaterThanOrEqualImpl implements Filter_GreaterThanOrEqual {
   }
 }
 
-abstract class Filter_GreaterThanOrEqual implements Filter {
+abstract class Filter_GreaterThanOrEqual extends Filter {
   const factory Filter_GreaterThanOrEqual(
       {required final String field,
       required final String value}) = _$Filter_GreaterThanOrEqualImpl;
+  const Filter_GreaterThanOrEqual._() : super._();
 
   String get field;
   String get value;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_GreaterThanOrEqualImplCopyWith<_$Filter_GreaterThanOrEqualImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1675,6 +1743,8 @@ class __$$Filter_EqualImplCopyWithImpl<$Res>
       _$Filter_EqualImpl _value, $Res Function(_$Filter_EqualImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1696,8 +1766,9 @@ class __$$Filter_EqualImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_EqualImpl implements Filter_Equal {
-  const _$Filter_EqualImpl({required this.field, required this.value});
+class _$Filter_EqualImpl extends Filter_Equal {
+  const _$Filter_EqualImpl({required this.field, required this.value})
+      : super._();
 
   @override
   final String field;
@@ -1721,7 +1792,9 @@ class _$Filter_EqualImpl implements Filter_Equal {
   @override
   int get hashCode => Object.hash(runtimeType, field, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_EqualImplCopyWith<_$Filter_EqualImpl> get copyWith =>
@@ -1863,14 +1936,18 @@ class _$Filter_EqualImpl implements Filter_Equal {
   }
 }
 
-abstract class Filter_Equal implements Filter {
+abstract class Filter_Equal extends Filter {
   const factory Filter_Equal(
       {required final String field,
       required final String value}) = _$Filter_EqualImpl;
+  const Filter_Equal._() : super._();
 
   String get field;
   String get value;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_EqualImplCopyWith<_$Filter_EqualImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1892,6 +1969,8 @@ class __$$Filter_NotEqualImplCopyWithImpl<$Res>
       _$Filter_NotEqualImpl _value, $Res Function(_$Filter_NotEqualImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1913,8 +1992,9 @@ class __$$Filter_NotEqualImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_NotEqualImpl implements Filter_NotEqual {
-  const _$Filter_NotEqualImpl({required this.field, required this.value});
+class _$Filter_NotEqualImpl extends Filter_NotEqual {
+  const _$Filter_NotEqualImpl({required this.field, required this.value})
+      : super._();
 
   @override
   final String field;
@@ -1938,7 +2018,9 @@ class _$Filter_NotEqualImpl implements Filter_NotEqual {
   @override
   int get hashCode => Object.hash(runtimeType, field, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_NotEqualImplCopyWith<_$Filter_NotEqualImpl> get copyWith =>
@@ -2081,14 +2163,18 @@ class _$Filter_NotEqualImpl implements Filter_NotEqual {
   }
 }
 
-abstract class Filter_NotEqual implements Filter {
+abstract class Filter_NotEqual extends Filter {
   const factory Filter_NotEqual(
       {required final String field,
       required final String value}) = _$Filter_NotEqualImpl;
+  const Filter_NotEqual._() : super._();
 
   String get field;
   String get value;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_NotEqualImplCopyWith<_$Filter_NotEqualImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2110,6 +2196,8 @@ class __$$Filter_LessThanImplCopyWithImpl<$Res>
       _$Filter_LessThanImpl _value, $Res Function(_$Filter_LessThanImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2131,8 +2219,9 @@ class __$$Filter_LessThanImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_LessThanImpl implements Filter_LessThan {
-  const _$Filter_LessThanImpl({required this.field, required this.value});
+class _$Filter_LessThanImpl extends Filter_LessThan {
+  const _$Filter_LessThanImpl({required this.field, required this.value})
+      : super._();
 
   @override
   final String field;
@@ -2156,7 +2245,9 @@ class _$Filter_LessThanImpl implements Filter_LessThan {
   @override
   int get hashCode => Object.hash(runtimeType, field, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_LessThanImplCopyWith<_$Filter_LessThanImpl> get copyWith =>
@@ -2299,14 +2390,18 @@ class _$Filter_LessThanImpl implements Filter_LessThan {
   }
 }
 
-abstract class Filter_LessThan implements Filter {
+abstract class Filter_LessThan extends Filter {
   const factory Filter_LessThan(
       {required final String field,
       required final String value}) = _$Filter_LessThanImpl;
+  const Filter_LessThan._() : super._();
 
   String get field;
   String get value;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_LessThanImplCopyWith<_$Filter_LessThanImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2330,6 +2425,8 @@ class __$$Filter_LessThanOrEqualImplCopyWithImpl<$Res>
       $Res Function(_$Filter_LessThanOrEqualImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2351,9 +2448,9 @@ class __$$Filter_LessThanOrEqualImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_LessThanOrEqualImpl implements Filter_LessThanOrEqual {
-  const _$Filter_LessThanOrEqualImpl(
-      {required this.field, required this.value});
+class _$Filter_LessThanOrEqualImpl extends Filter_LessThanOrEqual {
+  const _$Filter_LessThanOrEqualImpl({required this.field, required this.value})
+      : super._();
 
   @override
   final String field;
@@ -2377,7 +2474,9 @@ class _$Filter_LessThanOrEqualImpl implements Filter_LessThanOrEqual {
   @override
   int get hashCode => Object.hash(runtimeType, field, value);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_LessThanOrEqualImplCopyWith<_$Filter_LessThanOrEqualImpl>
@@ -2520,14 +2619,18 @@ class _$Filter_LessThanOrEqualImpl implements Filter_LessThanOrEqual {
   }
 }
 
-abstract class Filter_LessThanOrEqual implements Filter {
+abstract class Filter_LessThanOrEqual extends Filter {
   const factory Filter_LessThanOrEqual(
       {required final String field,
       required final String value}) = _$Filter_LessThanOrEqualImpl;
+  const Filter_LessThanOrEqual._() : super._();
 
   String get field;
   String get value;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_LessThanOrEqualImplCopyWith<_$Filter_LessThanOrEqualImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2549,6 +2652,8 @@ class __$$Filter_BetweenImplCopyWithImpl<$Res>
       _$Filter_BetweenImpl _value, $Res Function(_$Filter_BetweenImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2575,9 +2680,10 @@ class __$$Filter_BetweenImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_BetweenImpl implements Filter_Between {
+class _$Filter_BetweenImpl extends Filter_Between {
   const _$Filter_BetweenImpl(
-      {required this.field, required this.from, required this.to});
+      {required this.field, required this.from, required this.to})
+      : super._();
 
   @override
   final String field;
@@ -2604,7 +2710,9 @@ class _$Filter_BetweenImpl implements Filter_Between {
   @override
   int get hashCode => Object.hash(runtimeType, field, from, to);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_BetweenImplCopyWith<_$Filter_BetweenImpl> get copyWith =>
@@ -2747,16 +2855,20 @@ class _$Filter_BetweenImpl implements Filter_Between {
   }
 }
 
-abstract class Filter_Between implements Filter {
+abstract class Filter_Between extends Filter {
   const factory Filter_Between(
       {required final String field,
       required final String from,
       required final String to}) = _$Filter_BetweenImpl;
+  const Filter_Between._() : super._();
 
   String get field;
   String get from;
   String get to;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_BetweenImplCopyWith<_$Filter_BetweenImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2778,6 +2890,8 @@ class __$$Filter_IsNullImplCopyWithImpl<$Res>
       _$Filter_IsNullImpl _value, $Res Function(_$Filter_IsNullImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2794,8 +2908,8 @@ class __$$Filter_IsNullImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_IsNullImpl implements Filter_IsNull {
-  const _$Filter_IsNullImpl({required this.field});
+class _$Filter_IsNullImpl extends Filter_IsNull {
+  const _$Filter_IsNullImpl({required this.field}) : super._();
 
   @override
   final String field;
@@ -2816,7 +2930,9 @@ class _$Filter_IsNullImpl implements Filter_IsNull {
   @override
   int get hashCode => Object.hash(runtimeType, field);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_IsNullImplCopyWith<_$Filter_IsNullImpl> get copyWith =>
@@ -2958,12 +3074,16 @@ class _$Filter_IsNullImpl implements Filter_IsNull {
   }
 }
 
-abstract class Filter_IsNull implements Filter {
+abstract class Filter_IsNull extends Filter {
   const factory Filter_IsNull({required final String field}) =
       _$Filter_IsNullImpl;
+  const Filter_IsNull._() : super._();
 
   String get field;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_IsNullImplCopyWith<_$Filter_IsNullImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2985,6 +3105,8 @@ class __$$Filter_IsEmptyImplCopyWithImpl<$Res>
       _$Filter_IsEmptyImpl _value, $Res Function(_$Filter_IsEmptyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3001,8 +3123,8 @@ class __$$Filter_IsEmptyImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Filter_IsEmptyImpl implements Filter_IsEmpty {
-  const _$Filter_IsEmptyImpl({required this.field});
+class _$Filter_IsEmptyImpl extends Filter_IsEmpty {
+  const _$Filter_IsEmptyImpl({required this.field}) : super._();
 
   @override
   final String field;
@@ -3023,7 +3145,9 @@ class _$Filter_IsEmptyImpl implements Filter_IsEmpty {
   @override
   int get hashCode => Object.hash(runtimeType, field);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$Filter_IsEmptyImplCopyWith<_$Filter_IsEmptyImpl> get copyWith =>
@@ -3166,12 +3290,16 @@ class _$Filter_IsEmptyImpl implements Filter_IsEmpty {
   }
 }
 
-abstract class Filter_IsEmpty implements Filter {
+abstract class Filter_IsEmpty extends Filter {
   const factory Filter_IsEmpty({required final String field}) =
       _$Filter_IsEmptyImpl;
+  const Filter_IsEmpty._() : super._();
 
   String get field;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Filter
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$Filter_IsEmptyImplCopyWith<_$Filter_IsEmptyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3191,7 +3319,9 @@ mixin _$MimirIndexSettings {
   List<String> get disallowTyposOnWords => throw _privateConstructorUsedError;
   List<String> get disallowTyposOnFields => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MimirIndexSettings
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MimirIndexSettingsCopyWith<MimirIndexSettings> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3227,6 +3357,8 @@ class _$MimirIndexSettingsCopyWithImpl<$Res, $Val extends MimirIndexSettings>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MimirIndexSettings
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3327,6 +3459,8 @@ class __$$MimirIndexSettingsImplCopyWithImpl<$Res>
       $Res Function(_$MimirIndexSettingsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MimirIndexSettings
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3550,7 +3684,9 @@ class _$MimirIndexSettingsImpl implements _MimirIndexSettings {
       const DeepCollectionEquality().hash(_disallowTyposOnWords),
       const DeepCollectionEquality().hash(_disallowTyposOnFields));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MimirIndexSettings
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MimirIndexSettingsImplCopyWith<_$MimirIndexSettingsImpl> get copyWith =>
@@ -3598,8 +3734,11 @@ abstract class _MimirIndexSettings implements MimirIndexSettings {
   List<String> get disallowTyposOnWords;
   @override
   List<String> get disallowTyposOnFields;
+
+  /// Create a copy of MimirIndexSettings
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MimirIndexSettingsImplCopyWith<_$MimirIndexSettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3646,7 +3785,9 @@ mixin _$SortBy {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SortByCopyWith<SortBy> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -3668,6 +3809,8 @@ class _$SortByCopyWithImpl<$Res, $Val extends SortBy>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3701,6 +3844,8 @@ class __$$SortBy_AscImplCopyWithImpl<$Res>
       _$SortBy_AscImpl _value, $Res Function(_$SortBy_AscImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3717,8 +3862,8 @@ class __$$SortBy_AscImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SortBy_AscImpl implements SortBy_Asc {
-  const _$SortBy_AscImpl(this.field0);
+class _$SortBy_AscImpl extends SortBy_Asc {
+  const _$SortBy_AscImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -3739,7 +3884,9 @@ class _$SortBy_AscImpl implements SortBy_Asc {
   @override
   int get hashCode => Object.hash(runtimeType, field0);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SortBy_AscImplCopyWith<_$SortBy_AscImpl> get copyWith =>
@@ -3808,13 +3955,17 @@ class _$SortBy_AscImpl implements SortBy_Asc {
   }
 }
 
-abstract class SortBy_Asc implements SortBy {
+abstract class SortBy_Asc extends SortBy {
   const factory SortBy_Asc(final String field0) = _$SortBy_AscImpl;
+  const SortBy_Asc._() : super._();
 
   @override
   String get field0;
+
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SortBy_AscImplCopyWith<_$SortBy_AscImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3838,6 +3989,8 @@ class __$$SortBy_DescImplCopyWithImpl<$Res>
       _$SortBy_DescImpl _value, $Res Function(_$SortBy_DescImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3854,8 +4007,8 @@ class __$$SortBy_DescImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SortBy_DescImpl implements SortBy_Desc {
-  const _$SortBy_DescImpl(this.field0);
+class _$SortBy_DescImpl extends SortBy_Desc {
+  const _$SortBy_DescImpl(this.field0) : super._();
 
   @override
   final String field0;
@@ -3876,7 +4029,9 @@ class _$SortBy_DescImpl implements SortBy_Desc {
   @override
   int get hashCode => Object.hash(runtimeType, field0);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SortBy_DescImplCopyWith<_$SortBy_DescImpl> get copyWith =>
@@ -3945,13 +4100,17 @@ class _$SortBy_DescImpl implements SortBy_Desc {
   }
 }
 
-abstract class SortBy_Desc implements SortBy {
+abstract class SortBy_Desc extends SortBy {
   const factory SortBy_Desc(final String field0) = _$SortBy_DescImpl;
+  const SortBy_Desc._() : super._();
 
   @override
   String get field0;
+
+  /// Create a copy of SortBy
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SortBy_DescImplCopyWith<_$SortBy_DescImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3961,7 +4120,9 @@ mixin _$Synonyms {
   String get word => throw _privateConstructorUsedError;
   List<String> get synonyms => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Synonyms
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SynonymsCopyWith<Synonyms> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3984,6 +4145,8 @@ class _$SynonymsCopyWithImpl<$Res, $Val extends Synonyms>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Synonyms
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4022,6 +4185,8 @@ class __$$SynonymsImplCopyWithImpl<$Res>
       _$SynonymsImpl _value, $Res Function(_$SynonymsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Synonyms
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4076,7 +4241,9 @@ class _$SynonymsImpl implements _Synonyms {
   int get hashCode => Object.hash(
       runtimeType, word, const DeepCollectionEquality().hash(_synonyms));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Synonyms
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SynonymsImplCopyWith<_$SynonymsImpl> get copyWith =>
@@ -4092,8 +4259,11 @@ abstract class _Synonyms implements Synonyms {
   String get word;
   @override
   List<String> get synonyms;
+
+  /// Create a copy of Synonyms
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SynonymsImplCopyWith<_$SynonymsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
