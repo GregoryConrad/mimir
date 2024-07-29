@@ -2,27 +2,12 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mimir/mimir.dart';
 import 'package:test/test.dart';
 
 part 'utils.freezed.dart';
-
-String useLibraryPath() {
-  const libName = 'embedded_milli';
-  final libPrefix = {
-    Platform.isWindows: '',
-    Platform.isMacOS: 'lib',
-    Platform.isLinux: 'lib',
-  }[true]!;
-  final libSuffix = {
-    Platform.isWindows: 'dll',
-    Platform.isMacOS: 'dylib',
-    Platform.isLinux: 'so',
-  }[true]!;
-  final dylibPath = '../../target/release/$libPrefix$libName.$libSuffix';
-  return dylibPath;
-}
 
 Directory useTmpDir() {
   final dir = Directory.systemTemp.createTempSync();
@@ -32,8 +17,8 @@ Directory useTmpDir() {
 
 Future<MimirInstance> useInstance() {
   final dir = useTmpDir();
-  final libPath = useLibraryPath();
-  return Mimir.getInstance(path: dir.path, dylibPath: libPath);
+  const ioDirectory = '../../target/release/';
+  return Mimir.getInstance(path: dir.path, ioDirectory: ioDirectory);
 }
 
 Future<MimirIndex> useTestIndex() async =>

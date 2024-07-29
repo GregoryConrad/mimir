@@ -7,8 +7,9 @@ import 'package:mimir/src/frb_generated.dart';
 
 @internal
 // ignore: public_member_api_docs
-Future<RustLibApi> createWrapperImpl(String dylibPath) async {
-  await RustLib.init(externalLibrary: ExternalLibrary.open(dylibPath));
+Future<RustLibApi> createWrapperImpl(ExternalLibraryLoaderConfig libraryLoaderConfig) async {
+  final lib = await loadExternalLibrary(libraryLoaderConfig);
+  await RustLib.init(externalLibrary: lib);
   return RustLib.instance.api;
 }
 

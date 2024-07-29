@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:mimir/src/api.dart';
 import 'package:mimir/src/frb_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
@@ -35,13 +36,18 @@ class MimirInterface {
   /// The [path] has to point to a directory; a directory will be
   /// created for you at the given path if one does not already exist.
   ///
-  /// [dylibPath] is the path to the library object created from compiling
-  /// the rust code.
+  /// In io (native), [ioDirectory] is the directory path used to locate
+  /// the compiled rust library file.
+  /// 
+  /// In Web, [webPrefix] is the prefix path for the wasm.
   Future<MimirInstance> getInstance({
     required String path,
-    required String dylibPath,
+    String? ioDirectory,
+    String? webPrefix,
   }) async {
-    _milli ??= await createWrapperImpl(dylibPath);
+    final libraryLoaderConfig = ExternalLibraryLoaderConfig(
+      stem: 'embedded_milli', ioDirectory: ioDirectory, webPrefix: webPrefix,);
+    _milli ??= await createWrapperImpl(libraryLoaderConfig);
     await _milli!
         .crateApiEnsureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
     return _instances.putIfAbsent(
