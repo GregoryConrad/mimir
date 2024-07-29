@@ -380,13 +380,13 @@ void main() {
 
   test('numberOfDocuments returns the correct number of documents', () async {
     final index = await useTestIndex();
-    expect(await index.numberOfDocuments, 0);
+    expect(await index.numberOfDocuments, BigInt.from(0));
     await index.addDocument({'id': 0});
-    expect(await index.numberOfDocuments, 1);
+    expect(await index.numberOfDocuments, BigInt.from(1));
     await index.addDocument({'id': 1});
-    expect(await index.numberOfDocuments, 2);
+    expect(await index.numberOfDocuments, BigInt.from(2));
     await index.deleteAllDocuments();
-    expect(await index.numberOfDocuments, 0);
+    expect(await index.numberOfDocuments, BigInt.from(0));
   });
 
   test('isNull filter returns only documents where field is null', () async {
