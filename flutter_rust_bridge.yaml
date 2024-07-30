@@ -1,6 +1,7 @@
 rust_input: crate::api
 rust_root: packages/mimir/native/
 dart_output: packages/mimir/lib/src/
+full_dep: true
 c_output: packages/flutter_mimir/ios/Classes/frb.h
 duplicated_c_output:
   - packages/flutter_mimir/macos/Classes/frb.h

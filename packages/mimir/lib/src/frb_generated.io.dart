@@ -8,7 +8,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
-import 'lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 
 abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
@@ -19,31 +18,11 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
     required super.portManager,
   });
 
-  CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_MapStringValuePtr => wire
-          ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValuePtr;
-
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw);
 
   @protected
-  MapStringValue
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          dynamic raw);
-
-  @protected
-  MapStringValue
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          dynamic raw);
-
-  @protected
   String dco_decode_String(dynamic raw);
-
-  @protected
-  DocumentExt dco_decode_TraitDef_DocumentExt(dynamic raw);
-
-  @protected
-  StringExt dco_decode_TraitDef_StringExt(dynamic raw);
 
   @protected
   bool dco_decode_bool(dynamic raw);
@@ -129,20 +108,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void dco_decode_unit(dynamic raw);
 
   @protected
-  BigInt dco_decode_usize(dynamic raw);
-
-  @protected
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
-
-  @protected
-  MapStringValue
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          SseDeserializer deserializer);
-
-  @protected
-  MapStringValue
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          SseDeserializer deserializer);
 
   @protected
   String sse_decode_String(SseDeserializer deserializer);
@@ -234,21 +200,346 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_decode_unit(SseDeserializer deserializer);
 
   @protected
-  BigInt sse_decode_usize(SseDeserializer deserializer);
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_AnyhowException(
+      AnyhowException raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    throw UnimplementedError();
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_String(String raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_list_prim_u_8_strict(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_filter> cst_encode_box_autoadd_filter(Filter raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_filter();
+    cst_api_fill_to_wire_filter(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_mimir_index_settings>
+      cst_encode_box_autoadd_mimir_index_settings(MimirIndexSettings raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_mimir_index_settings();
+    cst_api_fill_to_wire_mimir_index_settings(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<ffi.Int32> cst_encode_box_autoadd_terms_matching_strategy(
+      TermsMatchingStrategy raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_terms_matching_strategy(
+        cst_encode_terms_matching_strategy(raw));
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint32> cst_encode_box_autoadd_u_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return wire.cst_new_box_autoadd_u_32(cst_encode_u_32(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_filter> cst_encode_box_filter(Filter raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_filter();
+    cst_api_fill_to_wire_filter(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_String> cst_encode_list_String(List<String> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_String(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      ans.ref.ptr[i] = cst_encode_String(raw[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_filter> cst_encode_list_filter(List<Filter> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_filter(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_filter(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_list_prim_u_8_strict(
+      Uint8List raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_prim_u_8_strict(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_sort_by> cst_encode_list_sort_by(List<SortBy> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_sort_by(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_sort_by(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_synonyms> cst_encode_list_synonyms(
+      List<Synonyms> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_synonyms(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_synonyms(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_opt_String(
+      String? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_String(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_filter> cst_encode_opt_box_autoadd_filter(Filter? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_filter(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Int32> cst_encode_opt_box_autoadd_terms_matching_strategy(
+      TermsMatchingStrategy? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_terms_matching_strategy(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint32> cst_encode_opt_box_autoadd_u_32(int? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_String> cst_encode_opt_list_String(
+      List<String>? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_list_String(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_sort_by> cst_encode_opt_list_sort_by(
+      List<SortBy>? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_list_sort_by(raw);
+  }
+
+  @protected
+  int cst_encode_u_64(BigInt raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw.toSigned(64).toInt();
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_filter(
+      Filter apiObj, ffi.Pointer<wire_cst_filter> wireObj) {
+    cst_api_fill_to_wire_filter(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_mimir_index_settings(
+      MimirIndexSettings apiObj,
+      ffi.Pointer<wire_cst_mimir_index_settings> wireObj) {
+    cst_api_fill_to_wire_mimir_index_settings(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_filter(
+      Filter apiObj, ffi.Pointer<wire_cst_filter> wireObj) {
+    cst_api_fill_to_wire_filter(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_filter(Filter apiObj, wire_cst_filter wireObj) {
+    if (apiObj is Filter_Or) {
+      var pre_field0 = cst_encode_list_filter(apiObj.field0);
+      wireObj.tag = 0;
+      wireObj.kind.Or.field0 = pre_field0;
+      return;
+    }
+    if (apiObj is Filter_And) {
+      var pre_field0 = cst_encode_list_filter(apiObj.field0);
+      wireObj.tag = 1;
+      wireObj.kind.And.field0 = pre_field0;
+      return;
+    }
+    if (apiObj is Filter_Not) {
+      var pre_field0 = cst_encode_box_filter(apiObj.field0);
+      wireObj.tag = 2;
+      wireObj.kind.Not.field0 = pre_field0;
+      return;
+    }
+    if (apiObj is Filter_Exists) {
+      var pre_field = cst_encode_String(apiObj.field);
+      wireObj.tag = 3;
+      wireObj.kind.Exists.field = pre_field;
+      return;
+    }
+    if (apiObj is Filter_InValues) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_values = cst_encode_list_String(apiObj.values);
+      wireObj.tag = 4;
+      wireObj.kind.InValues.field = pre_field;
+      wireObj.kind.InValues.values = pre_values;
+      return;
+    }
+    if (apiObj is Filter_GreaterThan) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 5;
+      wireObj.kind.GreaterThan.field = pre_field;
+      wireObj.kind.GreaterThan.value = pre_value;
+      return;
+    }
+    if (apiObj is Filter_GreaterThanOrEqual) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 6;
+      wireObj.kind.GreaterThanOrEqual.field = pre_field;
+      wireObj.kind.GreaterThanOrEqual.value = pre_value;
+      return;
+    }
+    if (apiObj is Filter_Equal) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 7;
+      wireObj.kind.Equal.field = pre_field;
+      wireObj.kind.Equal.value = pre_value;
+      return;
+    }
+    if (apiObj is Filter_NotEqual) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 8;
+      wireObj.kind.NotEqual.field = pre_field;
+      wireObj.kind.NotEqual.value = pre_value;
+      return;
+    }
+    if (apiObj is Filter_LessThan) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 9;
+      wireObj.kind.LessThan.field = pre_field;
+      wireObj.kind.LessThan.value = pre_value;
+      return;
+    }
+    if (apiObj is Filter_LessThanOrEqual) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_value = cst_encode_String(apiObj.value);
+      wireObj.tag = 10;
+      wireObj.kind.LessThanOrEqual.field = pre_field;
+      wireObj.kind.LessThanOrEqual.value = pre_value;
+      return;
+    }
+    if (apiObj is Filter_Between) {
+      var pre_field = cst_encode_String(apiObj.field);
+      var pre_from = cst_encode_String(apiObj.from);
+      var pre_to = cst_encode_String(apiObj.to);
+      wireObj.tag = 11;
+      wireObj.kind.Between.field = pre_field;
+      wireObj.kind.Between.from = pre_from;
+      wireObj.kind.Between.to = pre_to;
+      return;
+    }
+    if (apiObj is Filter_IsNull) {
+      var pre_field = cst_encode_String(apiObj.field);
+      wireObj.tag = 12;
+      wireObj.kind.IsNull.field = pre_field;
+      return;
+    }
+    if (apiObj is Filter_IsEmpty) {
+      var pre_field = cst_encode_String(apiObj.field);
+      wireObj.tag = 13;
+      wireObj.kind.IsEmpty.field = pre_field;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_mimir_index_settings(
+      MimirIndexSettings apiObj, wire_cst_mimir_index_settings wireObj) {
+    wireObj.primary_key = cst_encode_opt_String(apiObj.primaryKey);
+    wireObj.searchable_fields =
+        cst_encode_opt_list_String(apiObj.searchableFields);
+    wireObj.filterable_fields = cst_encode_list_String(apiObj.filterableFields);
+    wireObj.sortable_fields = cst_encode_list_String(apiObj.sortableFields);
+    wireObj.ranking_rules = cst_encode_list_String(apiObj.rankingRules);
+    wireObj.stop_words = cst_encode_list_String(apiObj.stopWords);
+    wireObj.synonyms = cst_encode_list_synonyms(apiObj.synonyms);
+    wireObj.typos_enabled = cst_encode_bool(apiObj.typosEnabled);
+    wireObj.min_word_size_for_one_typo =
+        cst_encode_u_8(apiObj.minWordSizeForOneTypo);
+    wireObj.min_word_size_for_two_typos =
+        cst_encode_u_8(apiObj.minWordSizeForTwoTypos);
+    wireObj.disallow_typos_on_words =
+        cst_encode_list_String(apiObj.disallowTyposOnWords);
+    wireObj.disallow_typos_on_fields =
+        cst_encode_list_String(apiObj.disallowTyposOnFields);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_sort_by(SortBy apiObj, wire_cst_sort_by wireObj) {
+    if (apiObj is SortBy_Asc) {
+      var pre_field0 = cst_encode_String(apiObj.field0);
+      wireObj.tag = 0;
+      wireObj.kind.Asc.field0 = pre_field0;
+      return;
+    }
+    if (apiObj is SortBy_Desc) {
+      var pre_field0 = cst_encode_String(apiObj.field0);
+      wireObj.tag = 1;
+      wireObj.kind.Desc.field0 = pre_field0;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_synonyms(
+      Synonyms apiObj, wire_cst_synonyms wireObj) {
+    wireObj.word = cst_encode_String(apiObj.word);
+    wireObj.synonyms = cst_encode_list_String(apiObj.synonyms);
+  }
+
+  @protected
+  bool cst_encode_bool(bool raw);
+
+  @protected
+  int cst_encode_i_32(int raw);
+
+  @protected
+  int cst_encode_terms_matching_strategy(TermsMatchingStrategy raw);
+
+  @protected
+  int cst_encode_u_32(int raw);
+
+  @protected
+  int cst_encode_u_8(int raw);
+
+  @protected
+  void cst_encode_unit(void raw);
 
   @protected
   void sse_encode_AnyhowException(
       AnyhowException self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          MapStringValue self, SseSerializer serializer);
-
-  @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          MapStringValue self, SseSerializer serializer);
 
   @protected
   void sse_encode_String(String self, SseSerializer serializer);
@@ -341,13 +632,17 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_unit(void self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_usize(BigInt self, SseSerializer serializer);
 }
 
 // Section: wire_class
 
+// ignore_for_file: camel_case_types, non_constant_identifier_names, avoid_positional_boolean_parameters, annotate_overrides, constant_identifier_names
+// AUTO GENERATED FILE, DO NOT EDIT.
+//
+// Generated by `package:ffigen`.
+// ignore_for_file: type=lint
+
+/// generated by flutter_rust_bridge
 class RustLibWire implements BaseWire {
   factory RustLibWire.fromExternalLibrary(ExternalLibrary lib) =>
       RustLibWire(lib.ffiDynamicLibrary);
@@ -360,35 +655,725 @@ class RustLibWire implements BaseWire {
   RustLibWire(ffi.DynamicLibrary dynamicLibrary)
       : _lookup = dynamicLibrary.lookup;
 
-  void
-      rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-    ffi.Pointer<ffi.Void> ptr,
+  /// The symbols are looked up with [lookup].
+  RustLibWire.fromLookup(
+      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
+          lookup)
+      : _lookup = lookup;
+
+  void store_dart_post_cobject(
+    DartPostCObjectFnType ptr,
   ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
+    return _store_dart_post_cobject(
       ptr,
     );
   }
 
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValuePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_mimir_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue');
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValuePtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+  late final _store_dart_post_cobjectPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
+          'store_dart_post_cobject');
+  late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
+      .asFunction<void Function(DartPostCObjectFnType)>();
 
-  void
-      rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-    ffi.Pointer<ffi.Void> ptr,
+  void wire__crate__api__add_documents(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+    ffi.Pointer<wire_cst_list_String> documents,
   ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-      ptr,
+    return _wire__crate__api__add_documents(
+      port_,
+      instance_dir,
+      index_name,
+      documents,
     );
   }
 
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValuePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'frbgen_mimir_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue');
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValuePtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+  late final _wire__crate__api__add_documentsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_String>)>>(
+      'frbgen_mimir_wire__crate__api__add_documents');
+  late final _wire__crate__api__add_documents =
+      _wire__crate__api__add_documentsPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_String>)>();
+
+  void wire__crate__api__delete_all_documents(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+  ) {
+    return _wire__crate__api__delete_all_documents(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire__crate__api__delete_all_documentsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_mimir_wire__crate__api__delete_all_documents');
+  late final _wire__crate__api__delete_all_documents =
+      _wire__crate__api__delete_all_documentsPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__delete_documents(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+    ffi.Pointer<wire_cst_list_String> document_ids,
+  ) {
+    return _wire__crate__api__delete_documents(
+      port_,
+      instance_dir,
+      index_name,
+      document_ids,
+    );
+  }
+
+  late final _wire__crate__api__delete_documentsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_String>)>>(
+      'frbgen_mimir_wire__crate__api__delete_documents');
+  late final _wire__crate__api__delete_documents =
+      _wire__crate__api__delete_documentsPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_String>)>();
+
+  void wire__crate__api__ensure_index_initialized(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+  ) {
+    return _wire__crate__api__ensure_index_initialized(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire__crate__api__ensure_index_initializedPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_mimir_wire__crate__api__ensure_index_initialized');
+  late final _wire__crate__api__ensure_index_initialized =
+      _wire__crate__api__ensure_index_initializedPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__ensure_instance_initialized(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> tmp_dir,
+  ) {
+    return _wire__crate__api__ensure_instance_initialized(
+      port_,
+      instance_dir,
+      tmp_dir,
+    );
+  }
+
+  late final _wire__crate__api__ensure_instance_initializedPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_mimir_wire__crate__api__ensure_instance_initialized');
+  late final _wire__crate__api__ensure_instance_initialized =
+      _wire__crate__api__ensure_instance_initializedPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__get_all_documents(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+  ) {
+    return _wire__crate__api__get_all_documents(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire__crate__api__get_all_documentsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_mimir_wire__crate__api__get_all_documents');
+  late final _wire__crate__api__get_all_documents =
+      _wire__crate__api__get_all_documentsPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__get_document(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> document_id,
+  ) {
+    return _wire__crate__api__get_document(
+      port_,
+      instance_dir,
+      index_name,
+      document_id,
+    );
+  }
+
+  late final _wire__crate__api__get_documentPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_mimir_wire__crate__api__get_document');
+  late final _wire__crate__api__get_document =
+      _wire__crate__api__get_documentPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__get_settings(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+  ) {
+    return _wire__crate__api__get_settings(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire__crate__api__get_settingsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_mimir_wire__crate__api__get_settings');
+  late final _wire__crate__api__get_settings =
+      _wire__crate__api__get_settingsPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__number_of_documents(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+  ) {
+    return _wire__crate__api__number_of_documents(
+      port_,
+      instance_dir,
+      index_name,
+    );
+  }
+
+  late final _wire__crate__api__number_of_documentsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
+      'frbgen_mimir_wire__crate__api__number_of_documents');
+  late final _wire__crate__api__number_of_documents =
+      _wire__crate__api__number_of_documentsPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+
+  void wire__crate__api__search_documents(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> query,
+    ffi.Pointer<ffi.Uint32> limit,
+    ffi.Pointer<ffi.Uint32> offset,
+    ffi.Pointer<wire_cst_list_sort_by> sort_criteria,
+    ffi.Pointer<wire_cst_filter> filter,
+    ffi.Pointer<ffi.Int32> matching_strategy,
+  ) {
+    return _wire__crate__api__search_documents(
+      port_,
+      instance_dir,
+      index_name,
+      query,
+      limit,
+      offset,
+      sort_criteria,
+      filter,
+      matching_strategy,
+    );
+  }
+
+  late final _wire__crate__api__search_documentsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<ffi.Uint32>,
+                  ffi.Pointer<ffi.Uint32>,
+                  ffi.Pointer<wire_cst_list_sort_by>,
+                  ffi.Pointer<wire_cst_filter>,
+                  ffi.Pointer<ffi.Int32>)>>(
+      'frbgen_mimir_wire__crate__api__search_documents');
+  late final _wire__crate__api__search_documents =
+      _wire__crate__api__search_documentsPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<wire_cst_list_sort_by>,
+              ffi.Pointer<wire_cst_filter>,
+              ffi.Pointer<ffi.Int32>)>();
+
+  void wire__crate__api__set_documents(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+    ffi.Pointer<wire_cst_list_String> documents,
+  ) {
+    return _wire__crate__api__set_documents(
+      port_,
+      instance_dir,
+      index_name,
+      documents,
+    );
+  }
+
+  late final _wire__crate__api__set_documentsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_String>)>>(
+      'frbgen_mimir_wire__crate__api__set_documents');
+  late final _wire__crate__api__set_documents =
+      _wire__crate__api__set_documentsPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_String>)>();
+
+  void wire__crate__api__set_settings(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
+    ffi.Pointer<wire_cst_mimir_index_settings> settings,
+  ) {
+    return _wire__crate__api__set_settings(
+      port_,
+      instance_dir,
+      index_name,
+      settings,
+    );
+  }
+
+  late final _wire__crate__api__set_settingsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+                  ffi.Pointer<wire_cst_mimir_index_settings>)>>(
+      'frbgen_mimir_wire__crate__api__set_settings');
+  late final _wire__crate__api__set_settings =
+      _wire__crate__api__set_settingsPtr.asFunction<
+          void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_mimir_index_settings>)>();
+
+  ffi.Pointer<wire_cst_filter> cst_new_box_autoadd_filter() {
+    return _cst_new_box_autoadd_filter();
+  }
+
+  late final _cst_new_box_autoadd_filterPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_filter> Function()>>(
+          'frbgen_mimir_cst_new_box_autoadd_filter');
+  late final _cst_new_box_autoadd_filter = _cst_new_box_autoadd_filterPtr
+      .asFunction<ffi.Pointer<wire_cst_filter> Function()>();
+
+  ffi.Pointer<wire_cst_mimir_index_settings>
+      cst_new_box_autoadd_mimir_index_settings() {
+    return _cst_new_box_autoadd_mimir_index_settings();
+  }
+
+  late final _cst_new_box_autoadd_mimir_index_settingsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Pointer<wire_cst_mimir_index_settings> Function()>>(
+      'frbgen_mimir_cst_new_box_autoadd_mimir_index_settings');
+  late final _cst_new_box_autoadd_mimir_index_settings =
+      _cst_new_box_autoadd_mimir_index_settingsPtr
+          .asFunction<ffi.Pointer<wire_cst_mimir_index_settings> Function()>();
+
+  ffi.Pointer<ffi.Int32> cst_new_box_autoadd_terms_matching_strategy(
+    int value,
+  ) {
+    return _cst_new_box_autoadd_terms_matching_strategy(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_terms_matching_strategyPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int32> Function(ffi.Int32)>>(
+          'frbgen_mimir_cst_new_box_autoadd_terms_matching_strategy');
+  late final _cst_new_box_autoadd_terms_matching_strategy =
+      _cst_new_box_autoadd_terms_matching_strategyPtr
+          .asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
+
+  ffi.Pointer<ffi.Uint32> cst_new_box_autoadd_u_32(
+    int value,
+  ) {
+    return _cst_new_box_autoadd_u_32(
+      value,
+    );
+  }
+
+  late final _cst_new_box_autoadd_u_32Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>(
+          'frbgen_mimir_cst_new_box_autoadd_u_32');
+  late final _cst_new_box_autoadd_u_32 = _cst_new_box_autoadd_u_32Ptr
+      .asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
+
+  ffi.Pointer<wire_cst_filter> cst_new_box_filter() {
+    return _cst_new_box_filter();
+  }
+
+  late final _cst_new_box_filterPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_filter> Function()>>(
+          'frbgen_mimir_cst_new_box_filter');
+  late final _cst_new_box_filter = _cst_new_box_filterPtr
+      .asFunction<ffi.Pointer<wire_cst_filter> Function()>();
+
+  ffi.Pointer<wire_cst_list_String> cst_new_list_String(
+    int len,
+  ) {
+    return _cst_new_list_String(
+      len,
+    );
+  }
+
+  late final _cst_new_list_StringPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_String> Function(
+              ffi.Int32)>>('frbgen_mimir_cst_new_list_String');
+  late final _cst_new_list_String = _cst_new_list_StringPtr
+      .asFunction<ffi.Pointer<wire_cst_list_String> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_filter> cst_new_list_filter(
+    int len,
+  ) {
+    return _cst_new_list_filter(
+      len,
+    );
+  }
+
+  late final _cst_new_list_filterPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_filter> Function(
+              ffi.Int32)>>('frbgen_mimir_cst_new_list_filter');
+  late final _cst_new_list_filter = _cst_new_list_filterPtr
+      .asFunction<ffi.Pointer<wire_cst_list_filter> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_new_list_prim_u_8_strict(
+    int len,
+  ) {
+    return _cst_new_list_prim_u_8_strict(
+      len,
+    );
+  }
+
+  late final _cst_new_list_prim_u_8_strictPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(
+              ffi.Int32)>>('frbgen_mimir_cst_new_list_prim_u_8_strict');
+  late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
+      .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_sort_by> cst_new_list_sort_by(
+    int len,
+  ) {
+    return _cst_new_list_sort_by(
+      len,
+    );
+  }
+
+  late final _cst_new_list_sort_byPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_sort_by> Function(
+              ffi.Int32)>>('frbgen_mimir_cst_new_list_sort_by');
+  late final _cst_new_list_sort_by = _cst_new_list_sort_byPtr
+      .asFunction<ffi.Pointer<wire_cst_list_sort_by> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_synonyms> cst_new_list_synonyms(
+    int len,
+  ) {
+    return _cst_new_list_synonyms(
+      len,
+    );
+  }
+
+  late final _cst_new_list_synonymsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_synonyms> Function(
+              ffi.Int32)>>('frbgen_mimir_cst_new_list_synonyms');
+  late final _cst_new_list_synonyms = _cst_new_list_synonymsPtr
+      .asFunction<ffi.Pointer<wire_cst_list_synonyms> Function(int)>();
+
+  int dummy_method_to_enforce_bundling() {
+    return _dummy_method_to_enforce_bundling();
+  }
+
+  late final _dummy_method_to_enforce_bundlingPtr =
+      _lookup<ffi.NativeFunction<ffi.Int64 Function()>>(
+          'dummy_method_to_enforce_bundling');
+  late final _dummy_method_to_enforce_bundling =
+      _dummy_method_to_enforce_bundlingPtr.asFunction<int Function()>();
+}
+
+typedef DartPostCObjectFnType
+    = ffi.Pointer<ffi.NativeFunction<DartPostCObjectFnTypeFunction>>;
+typedef DartPostCObjectFnTypeFunction = ffi.Bool Function(
+    DartPort port_id, ffi.Pointer<ffi.Void> message);
+typedef DartDartPostCObjectFnTypeFunction = bool Function(
+    DartDartPort port_id, ffi.Pointer<ffi.Void> message);
+typedef DartPort = ffi.Int64;
+typedef DartDartPort = int;
+
+final class wire_cst_list_prim_u_8_strict extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_String extends ffi.Struct {
+  external ffi.Pointer<ffi.Pointer<wire_cst_list_prim_u_8_strict>> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_SortBy_Asc extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field0;
+}
+
+final class wire_cst_SortBy_Desc extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field0;
+}
+
+final class SortByKind extends ffi.Union {
+  external wire_cst_SortBy_Asc Asc;
+
+  external wire_cst_SortBy_Desc Desc;
+}
+
+final class wire_cst_sort_by extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external SortByKind kind;
+}
+
+final class wire_cst_list_sort_by extends ffi.Struct {
+  external ffi.Pointer<wire_cst_sort_by> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_filter extends ffi.Struct {
+  external ffi.Pointer<wire_cst_filter> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_filter extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external FilterKind kind;
+}
+
+final class FilterKind extends ffi.Union {
+  external wire_cst_Filter_Or Or;
+
+  external wire_cst_Filter_And And;
+
+  external wire_cst_Filter_Not Not;
+
+  external wire_cst_Filter_Exists Exists;
+
+  external wire_cst_Filter_InValues InValues;
+
+  external wire_cst_Filter_GreaterThan GreaterThan;
+
+  external wire_cst_Filter_GreaterThanOrEqual GreaterThanOrEqual;
+
+  external wire_cst_Filter_Equal Equal;
+
+  external wire_cst_Filter_NotEqual NotEqual;
+
+  external wire_cst_Filter_LessThan LessThan;
+
+  external wire_cst_Filter_LessThanOrEqual LessThanOrEqual;
+
+  external wire_cst_Filter_Between Between;
+
+  external wire_cst_Filter_IsNull IsNull;
+
+  external wire_cst_Filter_IsEmpty IsEmpty;
+}
+
+final class wire_cst_Filter_Or extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_filter> field0;
+}
+
+final class wire_cst_Filter_And extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_filter> field0;
+}
+
+final class wire_cst_Filter_Not extends ffi.Struct {
+  external ffi.Pointer<wire_cst_filter> field0;
+}
+
+final class wire_cst_Filter_Exists extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+}
+
+final class wire_cst_Filter_InValues extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_String> values;
+}
+
+final class wire_cst_Filter_GreaterThan extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_Filter_GreaterThanOrEqual extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_Filter_Equal extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_Filter_NotEqual extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_Filter_LessThan extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_Filter_LessThanOrEqual extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> value;
+}
+
+final class wire_cst_Filter_Between extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> from;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> to;
+}
+
+final class wire_cst_Filter_IsNull extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+}
+
+final class wire_cst_Filter_IsEmpty extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+}
+
+final class wire_cst_synonyms extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> word;
+
+  external ffi.Pointer<wire_cst_list_String> synonyms;
+}
+
+final class wire_cst_list_synonyms extends ffi.Struct {
+  external ffi.Pointer<wire_cst_synonyms> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_mimir_index_settings extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> primary_key;
+
+  external ffi.Pointer<wire_cst_list_String> searchable_fields;
+
+  external ffi.Pointer<wire_cst_list_String> filterable_fields;
+
+  external ffi.Pointer<wire_cst_list_String> sortable_fields;
+
+  external ffi.Pointer<wire_cst_list_String> ranking_rules;
+
+  external ffi.Pointer<wire_cst_list_String> stop_words;
+
+  external ffi.Pointer<wire_cst_list_synonyms> synonyms;
+
+  @ffi.Bool()
+  external bool typos_enabled;
+
+  @ffi.Uint8()
+  external int min_word_size_for_one_typo;
+
+  @ffi.Uint8()
+  external int min_word_size_for_two_typos;
+
+  external ffi.Pointer<wire_cst_list_String> disallow_typos_on_words;
+
+  external ffi.Pointer<wire_cst_list_String> disallow_typos_on_fields;
 }

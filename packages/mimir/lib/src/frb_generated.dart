@@ -9,7 +9,6 @@ import 'dart:convert';
 import 'frb_generated.dart';
 import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
-import 'lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 /// Main entrypoint of the Rust API
@@ -120,15 +119,6 @@ abstract class RustLibApi extends BaseApi {
       {required String instanceDir,
       required String indexName,
       required MimirIndexSettings settings});
-
-  RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_MapStringValue;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_MapStringValue;
-
-  CrossPlatformFinalizerArg
-      get rust_arc_decrement_strong_count_MapStringValuePtr;
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -146,16 +136,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       required List<String> documents}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        sse_encode_list_String(documents, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 3, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        var arg2 = cst_encode_list_String(documents);
+        return wire.wire__crate__api__add_documents(port_, arg0, arg1, arg2);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiAddDocumentsConstMeta,
       argValues: [instanceDir, indexName, documents],
@@ -173,15 +161,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       {required String instanceDir, required String indexName}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 4, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        return wire.wire__crate__api__delete_all_documents(port_, arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiDeleteAllDocumentsConstMeta,
       argValues: [instanceDir, indexName],
@@ -201,16 +187,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       required List<String> documentIds}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        sse_encode_list_String(documentIds, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 5, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        var arg2 = cst_encode_list_String(documentIds);
+        return wire.wire__crate__api__delete_documents(port_, arg0, arg1, arg2);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiDeleteDocumentsConstMeta,
       argValues: [instanceDir, indexName, documentIds],
@@ -228,15 +212,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       {required String instanceDir, required String indexName}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 6, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        return wire.wire__crate__api__ensure_index_initialized(
+            port_, arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiEnsureIndexInitializedConstMeta,
       argValues: [instanceDir, indexName],
@@ -255,15 +238,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       {required String instanceDir, String? tmpDir}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_opt_String(tmpDir, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 7, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_opt_String(tmpDir);
+        return wire.wire__crate__api__ensure_instance_initialized(
+            port_, arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiEnsureInstanceInitializedConstMeta,
       argValues: [instanceDir, tmpDir],
@@ -282,15 +264,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       {required String instanceDir, required String indexName}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 8, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        return wire.wire__crate__api__get_all_documents(port_, arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_list_String,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_list_String,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiGetAllDocumentsConstMeta,
       argValues: [instanceDir, indexName],
@@ -310,16 +290,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       required String documentId}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        sse_encode_String(documentId, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 9, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        var arg2 = cst_encode_String(documentId);
+        return wire.wire__crate__api__get_document(port_, arg0, arg1, arg2);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_opt_String,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_opt_String,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiGetDocumentConstMeta,
       argValues: [instanceDir, indexName, documentId],
@@ -337,15 +315,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       {required String instanceDir, required String indexName}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 10, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        return wire.wire__crate__api__get_settings(port_, arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_mimir_index_settings,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_mimir_index_settings,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiGetSettingsConstMeta,
       argValues: [instanceDir, indexName],
@@ -363,15 +339,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       {required String instanceDir, required String indexName}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 11, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        return wire.wire__crate__api__number_of_documents(port_, arg0, arg1);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_u_64,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_u_64,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiNumberOfDocumentsConstMeta,
       argValues: [instanceDir, indexName],
@@ -396,22 +370,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       TermsMatchingStrategy? matchingStrategy}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        sse_encode_opt_String(query, serializer);
-        sse_encode_opt_box_autoadd_u_32(limit, serializer);
-        sse_encode_opt_box_autoadd_u_32(offset, serializer);
-        sse_encode_opt_list_sort_by(sortCriteria, serializer);
-        sse_encode_opt_box_autoadd_filter(filter, serializer);
-        sse_encode_opt_box_autoadd_terms_matching_strategy(
-            matchingStrategy, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 12, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        var arg2 = cst_encode_opt_String(query);
+        var arg3 = cst_encode_opt_box_autoadd_u_32(limit);
+        var arg4 = cst_encode_opt_box_autoadd_u_32(offset);
+        var arg5 = cst_encode_opt_list_sort_by(sortCriteria);
+        var arg6 = cst_encode_opt_box_autoadd_filter(filter);
+        var arg7 = cst_encode_opt_box_autoadd_terms_matching_strategy(
+            matchingStrategy);
+        return wire.wire__crate__api__search_documents(
+            port_, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_list_String,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_list_String,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiSearchDocumentsConstMeta,
       argValues: [
@@ -449,16 +422,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       required List<String> documents}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        sse_encode_list_String(documents, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 13, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        var arg2 = cst_encode_list_String(documents);
+        return wire.wire__crate__api__set_documents(port_, arg0, arg1, arg2);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiSetDocumentsConstMeta,
       argValues: [instanceDir, indexName, documents],
@@ -478,16 +449,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       required MimirIndexSettings settings}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(instanceDir, serializer);
-        sse_encode_String(indexName, serializer);
-        sse_encode_box_autoadd_mimir_index_settings(settings, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 14, port: port_);
+        var arg0 = cst_encode_String(instanceDir);
+        var arg1 = cst_encode_String(indexName);
+        var arg2 = cst_encode_box_autoadd_mimir_index_settings(settings);
+        return wire.wire__crate__api__set_settings(port_, arg0, arg1, arg2);
       },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: sse_decode_AnyhowException,
+      codec: DcoCodec(
+        decodeSuccessData: dco_decode_unit,
+        decodeErrorData: dco_decode_AnyhowException,
       ),
       constMeta: kCrateApiSetSettingsConstMeta,
       argValues: [instanceDir, indexName, settings],
@@ -500,14 +469,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         argNames: ["instanceDir", "indexName", "settings"],
       );
 
-  RustArcIncrementStrongCountFnType
-      get rust_arc_increment_strong_count_MapStringValue => wire
-          .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue;
-
-  RustArcDecrementStrongCountFnType
-      get rust_arc_decrement_strong_count_MapStringValue => wire
-          .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue;
-
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -515,37 +476,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  MapStringValue
-      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MapStringValueImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  MapStringValue
-      dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return MapStringValueImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   String dco_decode_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as String;
-  }
-
-  @protected
-  DocumentExt dco_decode_TraitDef_DocumentExt(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    throw UnimplementedError();
-  }
-
-  @protected
-  StringExt dco_decode_TraitDef_StringExt(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    throw UnimplementedError();
   }
 
   @protected
@@ -816,34 +749,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  BigInt dco_decode_usize(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dcoDecodeU64(raw);
-  }
-
-  @protected
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_String(deserializer);
     return AnyhowException(inner);
-  }
-
-  @protected
-  MapStringValue
-      sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MapStringValueImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
-  }
-
-  @protected
-  MapStringValue
-      sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return MapStringValueImpl.frbInternalSseDecode(
-        sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
@@ -1169,9 +1078,39 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  BigInt sse_decode_usize(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getBigUint64();
+  bool cst_encode_bool(bool raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_i_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_terms_matching_strategy(TermsMatchingStrategy raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_u_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_u_8(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  void cst_encode_unit(void raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
   }
 
   @protected
@@ -1179,26 +1118,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       AnyhowException self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.message, serializer);
-  }
-
-  @protected
-  void
-      sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          MapStringValue self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as MapStringValueImpl).frbInternalSseEncode(move: true),
-        serializer);
-  }
-
-  @protected
-  void
-      sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-          MapStringValue self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-        (self as MapStringValueImpl).frbInternalSseEncode(move: null),
-        serializer);
   }
 
   @protected
@@ -1488,30 +1407,4 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_unit(void self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
   }
-
-  @protected
-  void sse_encode_usize(BigInt self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putBigUint64(self);
-  }
-}
-
-@sealed
-class MapStringValueImpl extends RustOpaque implements MapStringValue {
-  // Not to be used by end users
-  MapStringValueImpl.frbInternalDcoDecode(List<dynamic> wire)
-      : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  MapStringValueImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-      : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        RustLib.instance.api.rust_arc_increment_strong_count_MapStringValue,
-    rustArcDecrementStrongCount:
-        RustLib.instance.api.rust_arc_decrement_strong_count_MapStringValue,
-    rustArcDecrementStrongCountPtr:
-        RustLib.instance.api.rust_arc_decrement_strong_count_MapStringValuePtr,
-  );
 }

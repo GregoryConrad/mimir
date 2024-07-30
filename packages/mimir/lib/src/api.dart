@@ -4,12 +4,12 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import 'frb_generated.dart';
-import 'lib.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'api.freezed.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_receiver_is_total_eq`, `assert_receiver_is_total_eq`, `clone`, `clone`, `eq`, `eq`, `fmt`, `fmt`
+// These functions are ignored (category: IgnoreBecauseExplicitAttribute): `to_document`, `to_string`
 // These functions are ignored (category: IgnoreBecauseNotAllowedOwner): `to_document`, `to_string`
 
 /// Ensures an instance of milli (represented by just a directory) is initialized
@@ -113,14 +113,6 @@ Future<void> setSettings(
         required MimirIndexSettings settings}) =>
     RustLib.instance.api.crateApiSetSettings(
         instanceDir: instanceDir, indexName: indexName, settings: settings);
-
-abstract class DocumentExt {
-  Future<String> toString();
-}
-
-abstract class StringExt {
-  Future<MapStringValue> toDocument();
-}
 
 @freezed
 sealed class Filter with _$Filter {

@@ -25,7 +25,6 @@
 
 // Section: imports
 
-use crate::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
@@ -33,9 +32,9 @@ use flutter_rust_bridge::{Handler, IntoIntoDart};
 // Section: boilerplate
 
 flutter_rust_bridge::frb_generated_boilerplate!(
-    default_stream_sink_codec = SseCodec,
-    default_rust_opaque = RustOpaqueMoi,
-    default_rust_auto_opaque = RustAutoOpaqueMoi,
+    default_stream_sink_codec = DcoCodec,
+    default_rust_opaque = RustOpaqueNom,
+    default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.1.0";
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1727542745;
@@ -48,32 +47,22 @@ flutter_rust_bridge::frb_generated_default_handler!();
 
 fn wire__crate__api__add_documents_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
+    documents: impl CstDecode<Vec<String>>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "add_documents",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            let api_documents = <Vec<String>>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
+            let api_documents = documents.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok = crate::api::add_documents(
                             api_instance_dir,
@@ -89,31 +78,20 @@ fn wire__crate__api__add_documents_impl(
 }
 fn wire__crate__api__delete_all_documents_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "delete_all_documents",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok =
                             crate::api::delete_all_documents(api_instance_dir, api_index_name)?;
@@ -126,32 +104,22 @@ fn wire__crate__api__delete_all_documents_impl(
 }
 fn wire__crate__api__delete_documents_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
+    document_ids: impl CstDecode<Vec<String>>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "delete_documents",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            let api_document_ids = <Vec<String>>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
+            let api_document_ids = document_ids.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok = crate::api::delete_documents(
                             api_instance_dir,
@@ -167,31 +135,20 @@ fn wire__crate__api__delete_documents_impl(
 }
 fn wire__crate__api__ensure_index_initialized_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ensure_index_initialized",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok =
                             crate::api::ensure_index_initialized(api_instance_dir, api_index_name)?;
@@ -204,31 +161,20 @@ fn wire__crate__api__ensure_index_initialized_impl(
 }
 fn wire__crate__api__ensure_instance_initialized_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    tmp_dir: impl CstDecode<Option<String>>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "ensure_instance_initialized",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_tmp_dir = <Option<String>>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_tmp_dir = tmp_dir.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok =
                             crate::api::ensure_instance_initialized(api_instance_dir, api_tmp_dir)?;
@@ -241,31 +187,20 @@ fn wire__crate__api__ensure_instance_initialized_impl(
 }
 fn wire__crate__api__get_all_documents_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "get_all_documents",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok =
                             crate::api::get_all_documents(api_instance_dir, api_index_name)?;
@@ -278,32 +213,22 @@ fn wire__crate__api__get_all_documents_impl(
 }
 fn wire__crate__api__get_document_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
+    document_id: impl CstDecode<String>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "get_document",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            let api_document_id = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
+            let api_document_id = document_id.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok = crate::api::get_document(
                             api_instance_dir,
@@ -319,31 +244,20 @@ fn wire__crate__api__get_document_impl(
 }
 fn wire__crate__api__get_settings_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "get_settings",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok = crate::api::get_settings(api_instance_dir, api_index_name)?;
                         Ok(output_ok)
@@ -355,31 +269,20 @@ fn wire__crate__api__get_settings_impl(
 }
 fn wire__crate__api__number_of_documents_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "number_of_documents",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok =
                             crate::api::number_of_documents(api_instance_dir, api_index_name)?;
@@ -392,39 +295,32 @@ fn wire__crate__api__number_of_documents_impl(
 }
 fn wire__crate__api__search_documents_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
+    query: impl CstDecode<Option<String>>,
+    limit: impl CstDecode<Option<u32>>,
+    offset: impl CstDecode<Option<u32>>,
+    sort_criteria: impl CstDecode<Option<Vec<crate::api::SortBy>>>,
+    filter: impl CstDecode<Option<crate::api::Filter>>,
+    matching_strategy: impl CstDecode<Option<crate::api::TermsMatchingStrategy>>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "search_documents",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            let api_query = <Option<String>>::sse_decode(&mut deserializer);
-            let api_limit = <Option<u32>>::sse_decode(&mut deserializer);
-            let api_offset = <Option<u32>>::sse_decode(&mut deserializer);
-            let api_sort_criteria =
-                <Option<Vec<crate::api::SortBy>>>::sse_decode(&mut deserializer);
-            let api_filter = <Option<crate::api::Filter>>::sse_decode(&mut deserializer);
-            let api_matching_strategy =
-                <Option<crate::api::TermsMatchingStrategy>>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
+            let api_query = query.cst_decode();
+            let api_limit = limit.cst_decode();
+            let api_offset = offset.cst_decode();
+            let api_sort_criteria = sort_criteria.cst_decode();
+            let api_filter = filter.cst_decode();
+            let api_matching_strategy = matching_strategy.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok = crate::api::search_documents(
                             api_instance_dir,
@@ -445,32 +341,22 @@ fn wire__crate__api__search_documents_impl(
 }
 fn wire__crate__api__set_documents_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
+    documents: impl CstDecode<Vec<String>>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "set_documents",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            let api_documents = <Vec<String>>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
+            let api_documents = documents.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok = crate::api::set_documents(
                             api_instance_dir,
@@ -486,32 +372,22 @@ fn wire__crate__api__set_documents_impl(
 }
 fn wire__crate__api__set_settings_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
+    instance_dir: impl CstDecode<String>,
+    index_name: impl CstDecode<String>,
+    settings: impl CstDecode<crate::api::MimirIndexSettings>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "set_settings",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_instance_dir = <String>::sse_decode(&mut deserializer);
-            let api_index_name = <String>::sse_decode(&mut deserializer);
-            let api_settings = <crate::api::MimirIndexSettings>::sse_decode(&mut deserializer);
-            deserializer.end();
+            let api_instance_dir = instance_dir.cst_decode();
+            let api_index_name = index_name.cst_decode();
+            let api_settings = settings.cst_decode();
             move |context| {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || {
                         let output_ok = crate::api::set_settings(
                             api_instance_dir,
@@ -526,39 +402,53 @@ fn wire__crate__api__set_settings_impl(
     )
 }
 
-// Section: related_funcs
-
-flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
-    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Map<String, Value>>
-);
-
 // Section: dart2rust
 
+impl CstDecode<bool> for bool {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> bool {
+        self
+    }
+}
+impl CstDecode<i32> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> i32 {
+        self
+    }
+}
+impl CstDecode<crate::api::TermsMatchingStrategy> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> crate::api::TermsMatchingStrategy {
+        match self {
+            0 => crate::api::TermsMatchingStrategy::Last,
+            1 => crate::api::TermsMatchingStrategy::All,
+            _ => unreachable!("Invalid variant for TermsMatchingStrategy: {}", self),
+        }
+    }
+}
+impl CstDecode<u32> for u32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u32 {
+        self
+    }
+}
+impl CstDecode<u64> for u64 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u64 {
+        self
+    }
+}
+impl CstDecode<u8> for u8 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u8 {
+        self
+    }
+}
 impl SseDecode for flutter_rust_bridge::for_generated::anyhow::Error {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <String>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::anyhow::anyhow!("{}", inner);
-    }
-}
-
-impl SseDecode for Map<String, Value> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Map<String, Value>>,
-        >>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
-    }
-}
-
-impl SseDecode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Map<String, Value>>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <usize>::sse_decode(deserializer);
-        return decode_rust_opaque_moi(inner);
     }
 }
 
@@ -923,13 +813,6 @@ impl SseDecode for () {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {}
 }
 
-impl SseDecode for usize {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        deserializer.cursor.read_u64::<NativeEndian>().unwrap() as _
-    }
-}
-
 fn pde_ffi_dispatcher_primary_impl(
     func_id: i32,
     port: flutter_rust_bridge::for_generated::MessagePort,
@@ -939,18 +822,6 @@ fn pde_ffi_dispatcher_primary_impl(
 ) {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
-        3 => wire__crate__api__add_documents_impl(port, ptr, rust_vec_len, data_len),
-        4 => wire__crate__api__delete_all_documents_impl(port, ptr, rust_vec_len, data_len),
-        5 => wire__crate__api__delete_documents_impl(port, ptr, rust_vec_len, data_len),
-        6 => wire__crate__api__ensure_index_initialized_impl(port, ptr, rust_vec_len, data_len),
-        7 => wire__crate__api__ensure_instance_initialized_impl(port, ptr, rust_vec_len, data_len),
-        8 => wire__crate__api__get_all_documents_impl(port, ptr, rust_vec_len, data_len),
-        9 => wire__crate__api__get_document_impl(port, ptr, rust_vec_len, data_len),
-        10 => wire__crate__api__get_settings_impl(port, ptr, rust_vec_len, data_len),
-        11 => wire__crate__api__number_of_documents_impl(port, ptr, rust_vec_len, data_len),
-        12 => wire__crate__api__search_documents_impl(port, ptr, rust_vec_len, data_len),
-        13 => wire__crate__api__set_documents_impl(port, ptr, rust_vec_len, data_len),
-        14 => wire__crate__api__set_settings_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -968,24 +839,6 @@ fn pde_ffi_dispatcher_sync_impl(
 }
 
 // Section: rust2dart
-
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<Map<String, Value>> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<Map<String, Value>>
-{
-}
-
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<Map<String, Value>>> for Map<String, Value> {
-    fn into_into_dart(self) -> FrbWrapper<Map<String, Value>> {
-        self.into()
-    }
-}
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::Filter {
@@ -1167,24 +1020,6 @@ impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(format!("{:?}", self), serializer);
-    }
-}
-
-impl SseEncode for Map<String, Value> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Map < String , Value >>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
-    }
-}
-
-impl SseEncode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Map<String, Value>>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        let (ptr, size) = self.sse_encode_raw();
-        <usize>::sse_encode(ptr, serializer);
-        <i32>::sse_encode(size, serializer);
     }
 }
 
@@ -1489,16 +1324,6 @@ impl SseEncode for () {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {}
 }
 
-impl SseEncode for usize {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer
-            .cursor
-            .write_u64::<NativeEndian>(self as _)
-            .unwrap();
-    }
-}
-
 #[cfg(not(target_family = "wasm"))]
 mod io {
     // This file is automatically generated, so please do not edit it.
@@ -1507,7 +1332,6 @@ mod io {
     // Section: imports
 
     use super::*;
-    use crate::*;
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,
     };
@@ -1518,18 +1342,704 @@ mod io {
 
     flutter_rust_bridge::frb_generated_boilerplate_io!();
 
-    #[no_mangle]
-    pub extern "C" fn frbgen_mimir_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Map < String , Value >>>::increment_strong_count(ptr as _);
+    // Section: dart2rust
+
+    impl CstDecode<flutter_rust_bridge::for_generated::anyhow::Error>
+        for *mut wire_cst_list_prim_u_8_strict
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> flutter_rust_bridge::for_generated::anyhow::Error {
+            unimplemented!()
+        }
+    }
+    impl CstDecode<String> for *mut wire_cst_list_prim_u_8_strict {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> String {
+            let vec: Vec<u8> = self.cst_decode();
+            String::from_utf8(vec).unwrap()
+        }
+    }
+    impl CstDecode<crate::api::Filter> for *mut wire_cst_filter {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::Filter {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<crate::api::Filter>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<crate::api::MimirIndexSettings> for *mut wire_cst_mimir_index_settings {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::MimirIndexSettings {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<crate::api::MimirIndexSettings>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<crate::api::TermsMatchingStrategy> for *mut i32 {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::TermsMatchingStrategy {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<crate::api::TermsMatchingStrategy>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<u32> for *mut u32 {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> u32 {
+            unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
+        }
+    }
+    impl CstDecode<Box<crate::api::Filter>> for *mut wire_cst_filter {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Box<crate::api::Filter> {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<crate::api::Filter>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<crate::api::Filter> for wire_cst_filter {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::Filter {
+            match self.tag {
+                0 => {
+                    let ans = unsafe { self.kind.Or };
+                    crate::api::Filter::Or(ans.field0.cst_decode())
+                }
+                1 => {
+                    let ans = unsafe { self.kind.And };
+                    crate::api::Filter::And(ans.field0.cst_decode())
+                }
+                2 => {
+                    let ans = unsafe { self.kind.Not };
+                    crate::api::Filter::Not(ans.field0.cst_decode())
+                }
+                3 => {
+                    let ans = unsafe { self.kind.Exists };
+                    crate::api::Filter::Exists {
+                        field: ans.field.cst_decode(),
+                    }
+                }
+                4 => {
+                    let ans = unsafe { self.kind.InValues };
+                    crate::api::Filter::InValues {
+                        field: ans.field.cst_decode(),
+                        values: ans.values.cst_decode(),
+                    }
+                }
+                5 => {
+                    let ans = unsafe { self.kind.GreaterThan };
+                    crate::api::Filter::GreaterThan {
+                        field: ans.field.cst_decode(),
+                        value: ans.value.cst_decode(),
+                    }
+                }
+                6 => {
+                    let ans = unsafe { self.kind.GreaterThanOrEqual };
+                    crate::api::Filter::GreaterThanOrEqual {
+                        field: ans.field.cst_decode(),
+                        value: ans.value.cst_decode(),
+                    }
+                }
+                7 => {
+                    let ans = unsafe { self.kind.Equal };
+                    crate::api::Filter::Equal {
+                        field: ans.field.cst_decode(),
+                        value: ans.value.cst_decode(),
+                    }
+                }
+                8 => {
+                    let ans = unsafe { self.kind.NotEqual };
+                    crate::api::Filter::NotEqual {
+                        field: ans.field.cst_decode(),
+                        value: ans.value.cst_decode(),
+                    }
+                }
+                9 => {
+                    let ans = unsafe { self.kind.LessThan };
+                    crate::api::Filter::LessThan {
+                        field: ans.field.cst_decode(),
+                        value: ans.value.cst_decode(),
+                    }
+                }
+                10 => {
+                    let ans = unsafe { self.kind.LessThanOrEqual };
+                    crate::api::Filter::LessThanOrEqual {
+                        field: ans.field.cst_decode(),
+                        value: ans.value.cst_decode(),
+                    }
+                }
+                11 => {
+                    let ans = unsafe { self.kind.Between };
+                    crate::api::Filter::Between {
+                        field: ans.field.cst_decode(),
+                        from: ans.from.cst_decode(),
+                        to: ans.to.cst_decode(),
+                    }
+                }
+                12 => {
+                    let ans = unsafe { self.kind.IsNull };
+                    crate::api::Filter::IsNull {
+                        field: ans.field.cst_decode(),
+                    }
+                }
+                13 => {
+                    let ans = unsafe { self.kind.IsEmpty };
+                    crate::api::Filter::IsEmpty {
+                        field: ans.field.cst_decode(),
+                    }
+                }
+                _ => unreachable!(),
+            }
+        }
+    }
+    impl CstDecode<Vec<String>> for *mut wire_cst_list_String {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<String> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<crate::api::Filter>> for *mut wire_cst_list_filter {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<crate::api::Filter> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_strict {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<u8> {
+            unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            }
+        }
+    }
+    impl CstDecode<Vec<crate::api::SortBy>> for *mut wire_cst_list_sort_by {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<crate::api::SortBy> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<crate::api::Synonyms>> for *mut wire_cst_list_synonyms {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<crate::api::Synonyms> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<crate::api::MimirIndexSettings> for wire_cst_mimir_index_settings {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::MimirIndexSettings {
+            crate::api::MimirIndexSettings {
+                primary_key: self.primary_key.cst_decode(),
+                searchable_fields: self.searchable_fields.cst_decode(),
+                filterable_fields: self.filterable_fields.cst_decode(),
+                sortable_fields: self.sortable_fields.cst_decode(),
+                ranking_rules: self.ranking_rules.cst_decode(),
+                stop_words: self.stop_words.cst_decode(),
+                synonyms: self.synonyms.cst_decode(),
+                typos_enabled: self.typos_enabled.cst_decode(),
+                min_word_size_for_one_typo: self.min_word_size_for_one_typo.cst_decode(),
+                min_word_size_for_two_typos: self.min_word_size_for_two_typos.cst_decode(),
+                disallow_typos_on_words: self.disallow_typos_on_words.cst_decode(),
+                disallow_typos_on_fields: self.disallow_typos_on_fields.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<crate::api::SortBy> for wire_cst_sort_by {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::SortBy {
+            match self.tag {
+                0 => {
+                    let ans = unsafe { self.kind.Asc };
+                    crate::api::SortBy::Asc(ans.field0.cst_decode())
+                }
+                1 => {
+                    let ans = unsafe { self.kind.Desc };
+                    crate::api::SortBy::Desc(ans.field0.cst_decode())
+                }
+                _ => unreachable!(),
+            }
+        }
+    }
+    impl CstDecode<crate::api::Synonyms> for wire_cst_synonyms {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::Synonyms {
+            crate::api::Synonyms {
+                word: self.word.cst_decode(),
+                synonyms: self.synonyms.cst_decode(),
+            }
+        }
+    }
+    impl NewWithNullPtr for wire_cst_filter {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                tag: -1,
+                kind: FilterKind { nil__: () },
+            }
+        }
+    }
+    impl Default for wire_cst_filter {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_mimir_index_settings {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                primary_key: core::ptr::null_mut(),
+                searchable_fields: core::ptr::null_mut(),
+                filterable_fields: core::ptr::null_mut(),
+                sortable_fields: core::ptr::null_mut(),
+                ranking_rules: core::ptr::null_mut(),
+                stop_words: core::ptr::null_mut(),
+                synonyms: core::ptr::null_mut(),
+                typos_enabled: Default::default(),
+                min_word_size_for_one_typo: Default::default(),
+                min_word_size_for_two_typos: Default::default(),
+                disallow_typos_on_words: core::ptr::null_mut(),
+                disallow_typos_on_fields: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_mimir_index_settings {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_sort_by {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                tag: -1,
+                kind: SortByKind { nil__: () },
+            }
+        }
+    }
+    impl Default for wire_cst_sort_by {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_synonyms {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                word: core::ptr::null_mut(),
+                synonyms: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_synonyms {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
     }
 
     #[no_mangle]
-    pub extern "C" fn frbgen_mimir_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-        ptr: *const std::ffi::c_void,
+    pub extern "C" fn frbgen_mimir_wire__crate__api__add_documents(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+        documents: *mut wire_cst_list_String,
     ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Map < String , Value >>>::decrement_strong_count(ptr as _);
+        wire__crate__api__add_documents_impl(port_, instance_dir, index_name, documents)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__delete_all_documents(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__crate__api__delete_all_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__delete_documents(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+        document_ids: *mut wire_cst_list_String,
+    ) {
+        wire__crate__api__delete_documents_impl(port_, instance_dir, index_name, document_ids)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__ensure_index_initialized(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__crate__api__ensure_index_initialized_impl(port_, instance_dir, index_name)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__ensure_instance_initialized(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        tmp_dir: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__crate__api__ensure_instance_initialized_impl(port_, instance_dir, tmp_dir)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__get_all_documents(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__crate__api__get_all_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__get_document(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+        document_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__crate__api__get_document_impl(port_, instance_dir, index_name, document_id)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__get_settings(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__crate__api__get_settings_impl(port_, instance_dir, index_name)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__number_of_documents(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__crate__api__number_of_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__search_documents(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+        query: *mut wire_cst_list_prim_u_8_strict,
+        limit: *mut u32,
+        offset: *mut u32,
+        sort_criteria: *mut wire_cst_list_sort_by,
+        filter: *mut wire_cst_filter,
+        matching_strategy: *mut i32,
+    ) {
+        wire__crate__api__search_documents_impl(
+            port_,
+            instance_dir,
+            index_name,
+            query,
+            limit,
+            offset,
+            sort_criteria,
+            filter,
+            matching_strategy,
+        )
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__set_documents(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+        documents: *mut wire_cst_list_String,
+    ) {
+        wire__crate__api__set_documents_impl(port_, instance_dir, index_name, documents)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_wire__crate__api__set_settings(
+        port_: i64,
+        instance_dir: *mut wire_cst_list_prim_u_8_strict,
+        index_name: *mut wire_cst_list_prim_u_8_strict,
+        settings: *mut wire_cst_mimir_index_settings,
+    ) {
+        wire__crate__api__set_settings_impl(port_, instance_dir, index_name, settings)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_box_autoadd_filter() -> *mut wire_cst_filter {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_filter::new_with_null_ptr())
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_box_autoadd_mimir_index_settings(
+    ) -> *mut wire_cst_mimir_index_settings {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_mimir_index_settings::new_with_null_ptr(),
+        )
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_box_autoadd_terms_matching_strategy(
+        value: i32,
+    ) -> *mut i32 {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_box_autoadd_u_32(value: u32) -> *mut u32 {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_box_filter() -> *mut wire_cst_filter {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_filter::new_with_null_ptr())
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_list_String(len: i32) -> *mut wire_cst_list_String {
+        let wrap = wire_cst_list_String {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <*mut wire_cst_list_prim_u_8_strict>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_list_filter(len: i32) -> *mut wire_cst_list_filter {
+        let wrap = wire_cst_list_filter {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_filter>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_list_prim_u_8_strict(
+        len: i32,
+    ) -> *mut wire_cst_list_prim_u_8_strict {
+        let ans = wire_cst_list_prim_u_8_strict {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_list_sort_by(len: i32) -> *mut wire_cst_list_sort_by {
+        let wrap = wire_cst_list_sort_by {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_sort_by>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[no_mangle]
+    pub extern "C" fn frbgen_mimir_cst_new_list_synonyms(len: i32) -> *mut wire_cst_list_synonyms {
+        let wrap = wire_cst_list_synonyms {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_synonyms>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_filter {
+        tag: i32,
+        kind: FilterKind,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub union FilterKind {
+        Or: wire_cst_Filter_Or,
+        And: wire_cst_Filter_And,
+        Not: wire_cst_Filter_Not,
+        Exists: wire_cst_Filter_Exists,
+        InValues: wire_cst_Filter_InValues,
+        GreaterThan: wire_cst_Filter_GreaterThan,
+        GreaterThanOrEqual: wire_cst_Filter_GreaterThanOrEqual,
+        Equal: wire_cst_Filter_Equal,
+        NotEqual: wire_cst_Filter_NotEqual,
+        LessThan: wire_cst_Filter_LessThan,
+        LessThanOrEqual: wire_cst_Filter_LessThanOrEqual,
+        Between: wire_cst_Filter_Between,
+        IsNull: wire_cst_Filter_IsNull,
+        IsEmpty: wire_cst_Filter_IsEmpty,
+        nil__: (),
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_Or {
+        field0: *mut wire_cst_list_filter,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_And {
+        field0: *mut wire_cst_list_filter,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_Not {
+        field0: *mut wire_cst_filter,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_Exists {
+        field: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_InValues {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        values: *mut wire_cst_list_String,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_GreaterThan {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        value: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_GreaterThanOrEqual {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        value: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_Equal {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        value: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_NotEqual {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        value: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_LessThan {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        value: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_LessThanOrEqual {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        value: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_Between {
+        field: *mut wire_cst_list_prim_u_8_strict,
+        from: *mut wire_cst_list_prim_u_8_strict,
+        to: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_IsNull {
+        field: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_Filter_IsEmpty {
+        field: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_String {
+        ptr: *mut *mut wire_cst_list_prim_u_8_strict,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_filter {
+        ptr: *mut wire_cst_filter,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_prim_u_8_strict {
+        ptr: *mut u8,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_sort_by {
+        ptr: *mut wire_cst_sort_by,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_synonyms {
+        ptr: *mut wire_cst_synonyms,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_mimir_index_settings {
+        primary_key: *mut wire_cst_list_prim_u_8_strict,
+        searchable_fields: *mut wire_cst_list_String,
+        filterable_fields: *mut wire_cst_list_String,
+        sortable_fields: *mut wire_cst_list_String,
+        ranking_rules: *mut wire_cst_list_String,
+        stop_words: *mut wire_cst_list_String,
+        synonyms: *mut wire_cst_list_synonyms,
+        typos_enabled: bool,
+        min_word_size_for_one_typo: u8,
+        min_word_size_for_two_typos: u8,
+        disallow_typos_on_words: *mut wire_cst_list_String,
+        disallow_typos_on_fields: *mut wire_cst_list_String,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_sort_by {
+        tag: i32,
+        kind: SortByKind,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub union SortByKind {
+        Asc: wire_cst_SortBy_Asc,
+        Desc: wire_cst_SortBy_Desc,
+        nil__: (),
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SortBy_Asc {
+        field0: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SortBy_Desc {
+        field0: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_synonyms {
+        word: *mut wire_cst_list_prim_u_8_strict,
+        synonyms: *mut wire_cst_list_String,
     }
 }
 #[cfg(not(target_family = "wasm"))]
@@ -1544,7 +2054,6 @@ mod web {
     // Section: imports
 
     use super::*;
-    use crate::*;
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,
     };
@@ -1557,18 +2066,387 @@ mod web {
 
     flutter_rust_bridge::frb_generated_boilerplate_web!();
 
-    #[wasm_bindgen]
-    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Map < String , Value >>>::increment_strong_count(ptr as _);
+    // Section: dart2rust
+
+    impl CstDecode<flutter_rust_bridge::for_generated::anyhow::Error> for String {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> flutter_rust_bridge::for_generated::anyhow::Error {
+            unimplemented!()
+        }
+    }
+    impl CstDecode<String> for String {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> String {
+            self
+        }
+    }
+    impl CstDecode<crate::api::Filter> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::Filter {
+            let self_ = self.unchecked_into::<flutter_rust_bridge::for_generated::js_sys::Array>();
+            match self_.get(0).unchecked_into_f64() as _ {
+                0 => crate::api::Filter::Or(self_.get(1).cst_decode()),
+                1 => crate::api::Filter::And(self_.get(1).cst_decode()),
+                2 => crate::api::Filter::Not(self_.get(1).cst_decode()),
+                3 => crate::api::Filter::Exists {
+                    field: self_.get(1).cst_decode(),
+                },
+                4 => crate::api::Filter::InValues {
+                    field: self_.get(1).cst_decode(),
+                    values: self_.get(2).cst_decode(),
+                },
+                5 => crate::api::Filter::GreaterThan {
+                    field: self_.get(1).cst_decode(),
+                    value: self_.get(2).cst_decode(),
+                },
+                6 => crate::api::Filter::GreaterThanOrEqual {
+                    field: self_.get(1).cst_decode(),
+                    value: self_.get(2).cst_decode(),
+                },
+                7 => crate::api::Filter::Equal {
+                    field: self_.get(1).cst_decode(),
+                    value: self_.get(2).cst_decode(),
+                },
+                8 => crate::api::Filter::NotEqual {
+                    field: self_.get(1).cst_decode(),
+                    value: self_.get(2).cst_decode(),
+                },
+                9 => crate::api::Filter::LessThan {
+                    field: self_.get(1).cst_decode(),
+                    value: self_.get(2).cst_decode(),
+                },
+                10 => crate::api::Filter::LessThanOrEqual {
+                    field: self_.get(1).cst_decode(),
+                    value: self_.get(2).cst_decode(),
+                },
+                11 => crate::api::Filter::Between {
+                    field: self_.get(1).cst_decode(),
+                    from: self_.get(2).cst_decode(),
+                    to: self_.get(3).cst_decode(),
+                },
+                12 => crate::api::Filter::IsNull {
+                    field: self_.get(1).cst_decode(),
+                },
+                13 => crate::api::Filter::IsEmpty {
+                    field: self_.get(1).cst_decode(),
+                },
+                _ => unreachable!(),
+            }
+        }
+    }
+    impl CstDecode<Vec<String>> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<String> {
+            self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+                .unwrap()
+                .iter()
+                .map(CstDecode::cst_decode)
+                .collect()
+        }
+    }
+    impl CstDecode<Vec<crate::api::Filter>>
+        for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<crate::api::Filter> {
+            self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+                .unwrap()
+                .iter()
+                .map(CstDecode::cst_decode)
+                .collect()
+        }
+    }
+    impl CstDecode<Vec<u8>> for Box<[u8]> {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<u8> {
+            self.into_vec()
+        }
+    }
+    impl CstDecode<Vec<crate::api::SortBy>>
+        for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<crate::api::SortBy> {
+            self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+                .unwrap()
+                .iter()
+                .map(CstDecode::cst_decode)
+                .collect()
+        }
+    }
+    impl CstDecode<Vec<crate::api::Synonyms>>
+        for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<crate::api::Synonyms> {
+            self.dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+                .unwrap()
+                .iter()
+                .map(CstDecode::cst_decode)
+                .collect()
+        }
+    }
+    impl CstDecode<crate::api::MimirIndexSettings>
+        for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::MimirIndexSettings {
+            let self_ = self
+                .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+                .unwrap();
+            assert_eq!(
+                self_.length(),
+                12,
+                "Expected 12 elements, got {}",
+                self_.length()
+            );
+            crate::api::MimirIndexSettings {
+                primary_key: self_.get(0).cst_decode(),
+                searchable_fields: self_.get(1).cst_decode(),
+                filterable_fields: self_.get(2).cst_decode(),
+                sortable_fields: self_.get(3).cst_decode(),
+                ranking_rules: self_.get(4).cst_decode(),
+                stop_words: self_.get(5).cst_decode(),
+                synonyms: self_.get(6).cst_decode(),
+                typos_enabled: self_.get(7).cst_decode(),
+                min_word_size_for_one_typo: self_.get(8).cst_decode(),
+                min_word_size_for_two_typos: self_.get(9).cst_decode(),
+                disallow_typos_on_words: self_.get(10).cst_decode(),
+                disallow_typos_on_fields: self_.get(11).cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<Option<String>> for Option<String> {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Option<String> {
+            self.map(CstDecode::cst_decode)
+        }
+    }
+    impl CstDecode<crate::api::SortBy> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::SortBy {
+            let self_ = self.unchecked_into::<flutter_rust_bridge::for_generated::js_sys::Array>();
+            match self_.get(0).unchecked_into_f64() as _ {
+                0 => crate::api::SortBy::Asc(self_.get(1).cst_decode()),
+                1 => crate::api::SortBy::Desc(self_.get(1).cst_decode()),
+                _ => unreachable!(),
+            }
+        }
+    }
+    impl CstDecode<crate::api::Synonyms> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::Synonyms {
+            let self_ = self
+                .dyn_into::<flutter_rust_bridge::for_generated::js_sys::Array>()
+                .unwrap();
+            assert_eq!(
+                self_.length(),
+                2,
+                "Expected 2 elements, got {}",
+                self_.length()
+            );
+            crate::api::Synonyms {
+                word: self_.get(0).cst_decode(),
+                synonyms: self_.get(1).cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<flutter_rust_bridge::for_generated::anyhow::Error>
+        for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> flutter_rust_bridge::for_generated::anyhow::Error {
+            unimplemented!()
+        }
+    }
+    impl CstDecode<String> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> String {
+            self.as_string().expect("non-UTF-8 string, or not a string")
+        }
+    }
+    impl CstDecode<bool> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> bool {
+            self.is_truthy()
+        }
+    }
+    impl CstDecode<Box<crate::api::Filter>>
+        for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Box<crate::api::Filter> {
+            Box::new(self.cst_decode())
+        }
+    }
+    impl CstDecode<i32> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> i32 {
+            self.unchecked_into_f64() as _
+        }
+    }
+    impl CstDecode<Vec<u8>> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<u8> {
+            self.unchecked_into::<flutter_rust_bridge::for_generated::js_sys::Uint8Array>()
+                .to_vec()
+                .into()
+        }
+    }
+    impl CstDecode<crate::api::TermsMatchingStrategy>
+        for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::TermsMatchingStrategy {
+            (self.unchecked_into_f64() as i32).cst_decode()
+        }
+    }
+    impl CstDecode<u32> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> u32 {
+            self.unchecked_into_f64() as _
+        }
+    }
+    impl CstDecode<u64> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> u64 {
+            ::std::convert::TryInto::<u64>::try_into(self).unwrap() as _
+        }
+    }
+    impl CstDecode<u8> for flutter_rust_bridge::for_generated::wasm_bindgen::JsValue {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> u8 {
+            self.unchecked_into_f64() as _
+        }
     }
 
     #[wasm_bindgen]
-    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerMapStringValue(
-        ptr: *const std::ffi::c_void,
+    pub fn wire__crate__api__add_documents(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+        documents: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
     ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Map < String , Value >>>::decrement_strong_count(ptr as _);
+        wire__crate__api__add_documents_impl(port_, instance_dir, index_name, documents)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__delete_all_documents(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+    ) {
+        wire__crate__api__delete_all_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__delete_documents(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+        document_ids: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ) {
+        wire__crate__api__delete_documents_impl(port_, instance_dir, index_name, document_ids)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__ensure_index_initialized(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+    ) {
+        wire__crate__api__ensure_index_initialized_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__ensure_instance_initialized(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        tmp_dir: Option<String>,
+    ) {
+        wire__crate__api__ensure_instance_initialized_impl(port_, instance_dir, tmp_dir)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__get_all_documents(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+    ) {
+        wire__crate__api__get_all_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__get_document(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+        document_id: String,
+    ) {
+        wire__crate__api__get_document_impl(port_, instance_dir, index_name, document_id)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__get_settings(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+    ) {
+        wire__crate__api__get_settings_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__number_of_documents(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+    ) {
+        wire__crate__api__number_of_documents_impl(port_, instance_dir, index_name)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__search_documents(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+        query: Option<String>,
+        limit: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+        offset: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+        sort_criteria: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+        filter: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+        matching_strategy: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ) {
+        wire__crate__api__search_documents_impl(
+            port_,
+            instance_dir,
+            index_name,
+            query,
+            limit,
+            offset,
+            sort_criteria,
+            filter,
+            matching_strategy,
+        )
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__set_documents(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+        documents: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ) {
+        wire__crate__api__set_documents_impl(port_, instance_dir, index_name, documents)
+    }
+
+    #[wasm_bindgen]
+    pub fn wire__crate__api__set_settings(
+        port_: flutter_rust_bridge::for_generated::MessagePort,
+        instance_dir: String,
+        index_name: String,
+        settings: flutter_rust_bridge::for_generated::wasm_bindgen::JsValue,
+    ) {
+        wire__crate__api__set_settings_impl(port_, instance_dir, index_name, settings)
     }
 }
 #[cfg(target_family = "wasm")]
