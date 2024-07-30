@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
-import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mimir/mimir.dart';
 import 'package:test/test.dart';

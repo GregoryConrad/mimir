@@ -3,10 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:meta/meta.dart';
-import 'package:mimir/src/api.dart';
-import 'package:mimir/src/frb_generated.dart';
+import 'package:mimir/mimir.dart';
+import 'package:mimir/src/api.dart' as api;
 import 'package:mimir/src/impl/instance_impl.dart';
-import 'package:mimir/src/index.dart';
 
 // ignore_for_file: public_member_api_docs
 
@@ -22,11 +21,10 @@ class MimirIndexImpl extends MimirIndex {
   final _changes = StreamController<void>.broadcast();
 
   String get instanceDir => instance.path;
-  RustLibApi get milli => instance.milli;
 
   @override
   Future<void> addDocuments(List<MimirDocument> documents) async {
-    await milli.crateApiAddDocuments(
+    await api.addDocuments(
       instanceDir: instanceDir,
       indexName: name,
       documents: documents.map((d) => json.encode(d)).toList(),
@@ -36,7 +34,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> deleteDocuments(List<String> ids) async {
-    await milli.crateApiDeleteDocuments(
+    await api.deleteDocuments(
       instanceDir: instanceDir,
       indexName: name,
       documentIds: ids,
@@ -46,7 +44,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> deleteAllDocuments() async {
-    await milli.crateApiDeleteAllDocuments(
+    await api.deleteAllDocuments(
       instanceDir: instanceDir,
       indexName: name,
     );
@@ -55,7 +53,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<void> setDocuments(List<MimirDocument> documents) async {
-    await milli.crateApiSetDocuments(
+    await api.setDocuments(
       instanceDir: instanceDir,
       indexName: name,
       documents: documents.map((d) => json.encode(d)).toList(),
@@ -65,14 +63,14 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<MimirDocument?> getDocument(String id) {
-    return milli
-        .crateApiGetDocument(instanceDir: instanceDir, indexName: name, documentId: id)
+    return api
+        .getDocument(instanceDir: instanceDir, indexName: name, documentId: id)
         .then((s) => s == null ? null : json.decode(s) as Map<String, dynamic>);
   }
 
   @override
   Future<List<MimirDocument>> getAllDocuments() async {
-    final jsonDocs = await milli.crateApiGetAllDocuments(
+    final jsonDocs = await api.getAllDocuments(
       instanceDir: instanceDir,
       indexName: name,
     );
@@ -81,15 +79,12 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<MimirIndexSettings> getSettings() {
-    return milli.crateApiGetSettings(
-      instanceDir: instanceDir,
-      indexName: name,
-    );
+    return api.getSettings(instanceDir: instanceDir, indexName: name);
   }
 
   @override
   Future<void> setSettings(MimirIndexSettings settings) async {
-    await milli.crateApiSetSettings(
+    await api.setSettings(
       instanceDir: instanceDir,
       indexName: name,
       settings: settings,
@@ -159,7 +154,7 @@ class MimirIndexImpl extends MimirIndex {
 
   @override
   Future<BigInt> get numberOfDocuments =>
-      milli.crateApiNumberOfDocuments(instanceDir: instanceDir, indexName: name);
+      api.numberOfDocuments(instanceDir: instanceDir, indexName: name);
 
   @override
   Future<List<MimirDocument>> search({
@@ -171,7 +166,7 @@ class MimirIndexImpl extends MimirIndex {
     Filter? filter,
   }) async {
     try {
-      final jsonDocs = await milli.crateApiSearchDocuments(
+      final jsonDocs = await api.searchDocuments(
         instanceDir: instanceDir,
         indexName: name,
         query: query,

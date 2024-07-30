@@ -1,17 +1,6 @@
-import 'dart:ffi';
 import 'dart:io';
 
-import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:meta/meta.dart';
-import 'package:mimir/src/frb_generated.dart';
-
-@internal
-// ignore: public_member_api_docs
-Future<RustLibApi> createWrapperImpl(ExternalLibraryLoaderConfig libraryLoaderConfig) async {
-  final lib = await loadExternalLibrary(libraryLoaderConfig);
-  await RustLib.init(externalLibrary: lib);
-  return RustLib.instance.api;
-}
 
 /// Needed by https://github.com/GregoryConrad/mimir/issues/170
 @internal

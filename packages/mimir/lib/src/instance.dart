@@ -1,5 +1,4 @@
 import 'package:mimir/mimir.dart';
-import 'package:mimir/src/api.dart';
 
 /// Represents an instance (essentially a group of indices) of mimir.
 ///

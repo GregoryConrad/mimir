@@ -17,6 +17,7 @@ analyzer:
     - '**.freezed.dart'
     - '**/frb_generated.*dart'
     - '**/src/api.dart'
+    - '**/src/lib.dart'
     - test/.test_coverage.dart
     - lib/generated_plugin_registrant.dart
 
