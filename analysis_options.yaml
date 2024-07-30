@@ -14,7 +14,8 @@ analyzer:
   exclude:
     - '**.freezed.dart'
     - '**.g.dart'
-    - '**/bridge_generated.*dart'
+    - '**/frb_generated.*dart'
+    - lib/src/api.dart
     - test/.test_coverage.dart
     - lib/generated_plugin_registrant.dart
 
