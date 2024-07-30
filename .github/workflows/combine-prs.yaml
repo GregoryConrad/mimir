@@ -108,7 +108,8 @@ jobs:
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v2
       - run: |
-          cargo build -r
+          cargo install flutter_rust_bridge_codegen
+          melos run codegen
           git config --global user.name 'MimirActionsBot'
           git config --global user.email 'mimiractionsbot@users.noreply.github.com'
           git commit -am "chore: update generated files"

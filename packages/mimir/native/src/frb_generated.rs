@@ -1571,6 +1571,5 @@ mod web {
         MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner< Map < String , Value >>>::decrement_strong_count(ptr as _);
     }
 }
-use serde_json::{Map, Value};
 #[cfg(target_family = "wasm")]
 pub use web::*;

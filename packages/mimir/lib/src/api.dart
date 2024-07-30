@@ -115,7 +115,7 @@ Future<void> setSettings(
         instanceDir: instanceDir, indexName: indexName, settings: settings);
 
 abstract class DocumentExt {
-  String toString();
+  Future<String> toString();
 }
 
 abstract class StringExt {
