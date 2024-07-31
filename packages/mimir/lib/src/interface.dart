@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:mimir/src/api.dart';
 import 'package:mimir/src/frb_generated.dart';
@@ -45,7 +47,13 @@ class MimirInterface {
         ioDirectory: ioDirectory,
         webPrefix: webPrefix,
       );
-      final lib = await loadExternalLibrary(libraryLoaderConfig);
+      // TODO(GregoryConrad): remove this once Flutter gets SPM or Native Assets
+      ExternalLibrary lib;
+      if (Platform.isIOS || Platform.isMacOS) {
+        lib = ExternalLibrary.process(iKnowHowToUseIt: true);
+      } else {
+        lib = await loadExternalLibrary(libraryLoaderConfig);
+      }
       await RustLib.init(externalLibrary: lib);
     }
 

@@ -17,7 +17,7 @@ done
 
 # Create XCFramework zip
 FRAMEWORK="EmbeddedMilli.xcframework"
-LIBNAME=libembedded_milli.dylib
+LIBNAME=libembedded_milli.a
 mkdir mac-lipo ios-sim-lipo
 IOS_SIM_LIPO=ios-sim-lipo/$LIBNAME
 MAC_LIPO=mac-lipo/$LIBNAME
