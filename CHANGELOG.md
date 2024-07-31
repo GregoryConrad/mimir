@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-07-31
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`flutter_mimir` - `v0.1.0`](#flutter_mimir---v010)
+ - [`mimir` - `v0.1.0`](#mimir---v010)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `flutter_mimir` - `v0.1.0`
+
+ - **FIX**: allow for windows ARM support. ([140f981f](https://github.com/GregoryConrad/mimir/commit/140f981ffb463c069cff3ee67c32d38742f1bc03))
+ - **BREAKING** **REFACTOR**: update to flutter rust bridge v2 ([#332](https://github.com/GregoryConrad/mimir/issues/332)). ([a9a91fc1](https://github.com/GregoryConrad/mimir/commit/a9a91fc1ae2a1350fab083ddad5e2f8f538c493d))
+
+#### `mimir` - `v0.1.0`
+
+ - **BREAKING** **REFACTOR**: update to flutter rust bridge v2 ([#332](https://github.com/GregoryConrad/mimir/issues/332)). ([a9a91fc1](https://github.com/GregoryConrad/mimir/commit/a9a91fc1ae2a1350fab083ddad5e2f8f538c493d))
+
+
 ## 2023-12-04
 
 ### Changes

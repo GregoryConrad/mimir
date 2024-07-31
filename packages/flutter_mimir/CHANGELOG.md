@@ -1,3 +1,10 @@
+## 0.1.0
+
+> Note: This release has breaking changes.
+
+ - **FIX**: allow for windows ARM support. ([140f981f](https://github.com/GregoryConrad/mimir/commit/140f981ffb463c069cff3ee67c32d38742f1bc03))
+ - **BREAKING** **REFACTOR**: update to flutter rust bridge v2 ([#332](https://github.com/GregoryConrad/mimir/issues/332)). ([a9a91fc1](https://github.com/GregoryConrad/mimir/commit/a9a91fc1ae2a1350fab083ddad5e2f8f538c493d))
+
 ## 0.0.2+1
 
  - **DOCS**: update example app with new widget name. ([7b560db3](https://github.com/GregoryConrad/mimir/commit/7b560db34eeb8559115dc222995faca02341debc))

@@ -1,3 +1,9 @@
+## 0.1.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**: update to flutter rust bridge v2 ([#332](https://github.com/GregoryConrad/mimir/issues/332)). ([a9a91fc1](https://github.com/GregoryConrad/mimir/commit/a9a91fc1ae2a1350fab083ddad5e2f8f538c493d))
+
 ## 0.0.2+1
 
  - **FIX**: update const strings for Rust 1.74. ([872034b0](https://github.com/GregoryConrad/mimir/commit/872034b05dce0a186665abdde7da3bad61fded3c))
