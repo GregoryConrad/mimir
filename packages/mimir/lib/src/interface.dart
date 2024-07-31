@@ -1,11 +1,14 @@
-import 'package:mimir/src/bridge_generated.dart';
+import 'dart:io';
+
+import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:mimir/src/api.dart';
+import 'package:mimir/src/frb_generated.dart';
 import 'package:mimir/src/impl/instance_impl.dart';
 import 'package:mimir/src/instance.dart';
 
 // ignore: directives_ordering
 import 'package:mimir/src/impl/ffi/stub.dart'
-    if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart'
-    if (dart.library.html) 'package:mimir/src/impl/ffi/web.dart';
+    if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart';
 
 /// The exposed API to interact with mimir
 // Instead of just having a Mimir namespace, we have to do this instead,
@@ -21,32 +24,41 @@ class MimirInterface {
   // This class should only ever be instantiated *once*, so private constructor
   MimirInterface._();
 
-  // Internal ffi wrapper that is instantianted lazily.
-  // Should only have one instance per process.
-  EmbeddedMilli? _milli;
-
   // Instances map. Should only have one instance per app for streams to work.
   final _instances = <String, MimirInstance>{};
 
-  /// Creates a MimirInstance from the given [path] and [library]
+  /// Creates a MimirInstance from the given [path].
   ///
   /// The [path] has to point to a directory; a directory will be
   /// created for you at the given path if one does not already exist.
   ///
-  /// [library] is a WasmModule on web & a DynamicLibrary on dart:io platforms.
-  /// [library] is used to create the internal ffi object
-  /// that is used to call the Rust APIs.
+  /// In io (native), [ioDirectory] is the directory path used to locate
+  /// the compiled rust library file.
+  ///
+  /// In Web, [webPrefix] is the prefix path for the wasm.
   Future<MimirInstance> getInstance({
     required String path,
-    required ExternalLibrary library,
+    String? ioDirectory,
+    String? webPrefix,
   }) async {
-    _milli ??= createWrapperImpl(library);
-    await _milli!
-        .ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
-    return _instances.putIfAbsent(
-      path,
-      () => MimirInstanceImpl(path, _milli!),
-    );
+    if (!RustLib.instance.initialized) {
+      final libraryLoaderConfig = ExternalLibraryLoaderConfig(
+        stem: 'embedded_milli',
+        ioDirectory: ioDirectory,
+        webPrefix: webPrefix,
+      );
+      // TODO(GregoryConrad): remove this once Flutter gets SPM or Native Assets
+      ExternalLibrary lib;
+      if (Platform.isIOS || Platform.isMacOS) {
+        lib = ExternalLibrary.process(iKnowHowToUseIt: true);
+      } else {
+        lib = await loadExternalLibrary(libraryLoaderConfig);
+      }
+      await RustLib.init(externalLibrary: lib);
+    }
+
+    await ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
+    return _instances.putIfAbsent(path, () => MimirInstanceImpl(path));
   }
 
   /// Creates an "or" [Filter] of the given sub-filters.

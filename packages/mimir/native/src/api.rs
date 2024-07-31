@@ -204,6 +204,7 @@ pub fn set_settings(
 }
 
 trait StringExt {
+    #[frb(ignore)]
     fn to_document(&self) -> Result<Document>;
 }
 
@@ -214,6 +215,7 @@ impl StringExt for String {
 }
 
 trait DocumentExt {
+    #[frb(ignore)]
     fn to_string(&self) -> Result<String>;
 }
 

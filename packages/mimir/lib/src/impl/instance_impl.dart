@@ -1,15 +1,12 @@
 import 'package:meta/meta.dart';
 import 'package:mimir/mimir.dart';
-import 'package:mimir/src/bridge_generated.dart';
 import 'package:mimir/src/impl/index_impl.dart';
 
 // ignore_for_file: public_member_api_docs
 
 @internal
 class MimirInstanceImpl extends MimirInstance {
-  MimirInstanceImpl(this.path, this.milli);
-
-  final EmbeddedMilli milli;
+  MimirInstanceImpl(this.path);
 
   @override
   final String path;

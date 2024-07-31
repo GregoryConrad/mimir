@@ -1,4 +1,4 @@
-# Modified from very_good_analysis@5.0.0+1
+# Modified from very_good_analysis@6.0.0
 analyzer:
   language:
     strict-casts: true
@@ -10,11 +10,14 @@ analyzer:
     missing_required_param: error
     missing_return: error
     record_literal_one_positional_no_trailing_comma: error
+    collection_methods_unrelated_type: warning
+    unrelated_type_equality_checks: warning
 
   exclude:
     - '**.freezed.dart'
-    - '**.g.dart'
-    - '**/bridge_generated.*dart'
+    - '**/frb_generated.*dart'
+    - '**/src/api.dart'
+    - '**/src/lib.dart'
     - test/.test_coverage.dart
     - lib/generated_plugin_registrant.dart
 
@@ -86,7 +89,6 @@ linter:
     - implementation_imports
     - implicit_reopen
     - invalid_case_patterns
-    - iterable_contains_unrelated_type
     - join_return_with_assignment
     - leading_newlines_in_multiline_strings
     - library_annotations
@@ -94,8 +96,8 @@ linter:
     - library_prefixes
     - library_private_types_in_public_api
     - lines_longer_than_80_chars
-    - list_remove_unrelated_type
     - literal_only_boolean_expressions
+    - missing_code_block_language_in_doc_comment
     - missing_whitespace_between_adjacent_strings
     - no_adjacent_strings_in_list
     - no_default_cases
@@ -104,6 +106,8 @@ linter:
     - no_leading_underscores_for_local_identifiers
     - no_logic_in_create_state
     - no_runtimeType_toString
+    - no_self_assignments
+    - no_wildcard_variable_uses
     - non_constant_identifier_names
     - noop_primitive_operations
     - null_check_on_nullable_type_parameter

@@ -26,6 +26,10 @@ scripts:
     run: bash scripts/build-other.sh
     description: Build the .tar.gz for all other platforms.
 
+  codegen:
+    run: flutter_rust_bridge_codegen generate
+    description: Run the flutter_rust_bridge code generation.
+
   test:
     run: melos run test:dart --no-select && melos run test:flutter --no-select
     description: Run all Dart & Flutter tests in this project.

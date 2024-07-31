@@ -216,11 +216,11 @@ void main() {
     const invalidIdDoc = {'id': 'abc123='};
     expect(
       () => index.addDocument(missingIdDoc),
-      throwsA(const TypeMatcher<FrbAnyhowException>()),
+      throwsA(const TypeMatcher<AnyhowException>()),
     );
     expect(
       () => index.addDocument(invalidIdDoc),
-      throwsA(const TypeMatcher<FrbAnyhowException>()),
+      throwsA(const TypeMatcher<AnyhowException>()),
     );
   });
 
@@ -230,11 +230,11 @@ void main() {
     const invalidIdDoc = {'id': 'abc123='};
     expect(
       () => index.setDocuments([missingIdDoc]),
-      throwsA(const TypeMatcher<FrbAnyhowException>()),
+      throwsA(const TypeMatcher<AnyhowException>()),
     );
     expect(
       () => index.setDocuments([invalidIdDoc]),
-      throwsA(const TypeMatcher<FrbAnyhowException>()),
+      throwsA(const TypeMatcher<AnyhowException>()),
     );
   });
 
@@ -274,7 +274,7 @@ void main() {
       'id': 1234,
       'anotherId': 4321,
     };
-    expect(index.addDocument(doc), throwsA(isA<FrbAnyhowException>()));
+    expect(index.addDocument(doc), throwsA(isA<AnyhowException>()));
   });
 
   test('openIndex should use the supplied PK', () async {
@@ -312,7 +312,7 @@ void main() {
     await index.updateSettings(primaryKey: 'id'); // should be a no-op
     expect(
       index.updateSettings(primaryKey: 'anotherId'),
-      throwsA(isA<FrbAnyhowException>()),
+      throwsA(isA<AnyhowException>()),
     );
   });
 
@@ -325,7 +325,7 @@ void main() {
 
     expect(
       index.addDocument(doc),
-      throwsA(isA<FrbAnyhowException>()),
+      throwsA(isA<AnyhowException>()),
     );
   });
 
@@ -380,13 +380,13 @@ void main() {
 
   test('numberOfDocuments returns the correct number of documents', () async {
     final index = await useTestIndex();
-    expect(await index.numberOfDocuments, 0);
+    expect(await index.numberOfDocuments, BigInt.from(0));
     await index.addDocument({'id': 0});
-    expect(await index.numberOfDocuments, 1);
+    expect(await index.numberOfDocuments, BigInt.from(1));
     await index.addDocument({'id': 1});
-    expect(await index.numberOfDocuments, 2);
+    expect(await index.numberOfDocuments, BigInt.from(2));
     await index.deleteAllDocuments();
-    expect(await index.numberOfDocuments, 0);
+    expect(await index.numberOfDocuments, BigInt.from(0));
   });
 
   test('isNull filter returns only documents where field is null', () async {

@@ -1,4 +1,4 @@
-import 'package:mimir/src/bridge_generated.dart';
+import 'package:mimir/src/api.dart';
 
 /// Represents a document in a mimir (and also milli) index
 typedef MimirDocument = Map<String, dynamic>;
@@ -42,7 +42,7 @@ abstract class MimirIndex {
 
   /// Returns the number of documents in this index.
   /// Useful for pagination or infinite scroll.
-  Future<int> get numberOfDocuments;
+  Future<BigInt> get numberOfDocuments;
 
   /// Gets the given document from the index, if it exists
   Future<MimirDocument?> getDocument(String id);
