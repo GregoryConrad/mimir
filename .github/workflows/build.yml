@@ -44,8 +44,7 @@ jobs:
         run: melos run test
 
   macos_integration_test:
-    # https://github.com/flutter/flutter/issues/118469#issuecomment-1521474790
-    runs-on: macos-13 # TODO macos-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -132,11 +131,6 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - uses: futureware-tech/simulator-action@v3
-        id: start_simulator
-        name: Start iOS Simulator
-        with:
-          model: 'iPhone 14'
 
       - name: Build the XCFramework
         run: melos run build:apple
@@ -146,13 +140,17 @@ jobs:
           cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/ios/Frameworks/$CURR_VERSION.zip
           echo Copied file!
 
+      - uses: futureware-tech/simulator-action@v3
+        id: start_simulator
+        name: Start iOS Simulator
+        with:
+          model: 'iPhone 15'
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
         run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
 
   android_integration_test:
-    # https://github.com/nttld/setup-ndk/issues/548
-    runs-on: macos-13 # TODO macos-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
