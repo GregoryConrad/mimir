@@ -154,7 +154,7 @@ jobs:
         run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
 
   android_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-13
 
     steps:
       - uses: actions/checkout@v3
@@ -188,7 +188,7 @@ jobs:
           with: |
             api-level: 33
             target: google_apis
-            arch: arm64-v8a
+            arch: x86_64
             ram-size: 1024M
             disk-size: 2048M
             script: cd packages/flutter_mimir/example && flutter test -d `flutter devices | grep android | tr ' ' '\n' | grep emulator-` integration_test
