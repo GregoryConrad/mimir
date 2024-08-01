@@ -61,6 +61,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/macos/Frameworks/$CURR_VERSION.zip
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
@@ -89,6 +90,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/windows/$CURR_VERSION.tar.gz
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
@@ -116,6 +118,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/linux/$CURR_VERSION.tar.gz
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
@@ -139,6 +142,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/ios/Frameworks/$CURR_VERSION.zip
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - uses: futureware-tech/simulator-action@v3
         id: start_simulator
@@ -174,6 +178,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilliAndroid.tar.gz packages/flutter_mimir/android/$CURR_VERSION.tar.gz
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         uses: Wandalen/wretry.action@v1.0.36 # sometimes android tests are flaky
