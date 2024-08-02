@@ -44,8 +44,7 @@ jobs:
         run: melos run test
 
   macos_integration_test:
-    # https://github.com/flutter/flutter/issues/118469#issuecomment-1521474790
-    runs-on: macos-13 # TODO macos-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -62,6 +61,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/macos/Frameworks/$CURR_VERSION.zip
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
@@ -90,6 +90,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/windows/$CURR_VERSION.tar.gz
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
@@ -117,6 +118,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/linux/$CURR_VERSION.tar.gz
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
@@ -132,11 +134,6 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - uses: futureware-tech/simulator-action@v3
-        id: start_simulator
-        name: Start iOS Simulator
-        with:
-          model: 'iPhone 14'
 
       - name: Build the XCFramework
         run: melos run build:apple
@@ -145,14 +142,19 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/ios/Frameworks/$CURR_VERSION.zip
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
+      - uses: futureware-tech/simulator-action@v3
+        id: start_simulator
+        name: Start iOS Simulator
+        with:
+          model: 'iPhone 15'
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
         run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
 
   android_integration_test:
-    # https://github.com/nttld/setup-ndk/issues/548
-    runs-on: macos-13 # TODO macos-latest
+    runs-on: macos-13
 
     steps:
       - uses: actions/checkout@v3
@@ -176,6 +178,7 @@ jobs:
           CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
           cp platform-build/EmbeddedMilliAndroid.tar.gz packages/flutter_mimir/android/$CURR_VERSION.tar.gz
           echo Copied file!
+          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Run Flutter integration tests
         uses: Wandalen/wretry.action@v1.0.36 # sometimes android tests are flaky
