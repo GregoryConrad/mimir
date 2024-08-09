@@ -47,13 +47,7 @@ class MimirInterface {
         ioDirectory: ioDirectory,
         webPrefix: webPrefix,
       );
-      // TODO(GregoryConrad): remove this once Flutter gets SPM or Native Assets
-      ExternalLibrary lib;
-      if (Platform.isIOS || Platform.isMacOS) {
-        lib = ExternalLibrary.process(iKnowHowToUseIt: true);
-      } else {
-        lib = await loadExternalLibrary(libraryLoaderConfig);
-      }
+      final lib = await loadExternalLibrary(libraryLoaderConfig);
       await RustLib.init(externalLibrary: lib);
     }
 
