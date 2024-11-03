@@ -106,7 +106,7 @@ jobs:
       - uses: pyvista/setup-headless-display-action@v1
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v2
-      - uses: goto-bus-stop/setup-zig@v2
+      - uses: mlugg/setup-zig@v1
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
