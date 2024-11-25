@@ -5,5 +5,5 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dev_dependencies:
-  analyzer: ^6.4.1
+  analyzer: ^6.8.0
   melos: ^6.2.0
