@@ -1167,14 +1167,14 @@ class RustLibWire implements BaseWire {
       _dummy_method_to_enforce_bundlingPtr.asFunction<int Function()>();
 }
 
-typedef DartPostCObjectFnType
-    = ffi.Pointer<ffi.NativeFunction<DartPostCObjectFnTypeFunction>>;
+typedef DartPort = ffi.Int64;
+typedef DartDartPort = int;
 typedef DartPostCObjectFnTypeFunction = ffi.Bool Function(
     DartPort port_id, ffi.Pointer<ffi.Void> message);
 typedef DartDartPostCObjectFnTypeFunction = bool Function(
     DartDartPort port_id, ffi.Pointer<ffi.Void> message);
-typedef DartPort = ffi.Int64;
-typedef DartDartPort = int;
+typedef DartPostCObjectFnType
+    = ffi.Pointer<ffi.NativeFunction<DartPostCObjectFnTypeFunction>>;
 
 final class wire_cst_list_prim_u_8_strict extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> ptr;
@@ -1216,50 +1216,6 @@ final class wire_cst_list_sort_by extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
-}
-
-final class wire_cst_list_filter extends ffi.Struct {
-  external ffi.Pointer<wire_cst_filter> ptr;
-
-  @ffi.Int32()
-  external int len;
-}
-
-final class wire_cst_filter extends ffi.Struct {
-  @ffi.Int32()
-  external int tag;
-
-  external FilterKind kind;
-}
-
-final class FilterKind extends ffi.Union {
-  external wire_cst_Filter_Or Or;
-
-  external wire_cst_Filter_And And;
-
-  external wire_cst_Filter_Not Not;
-
-  external wire_cst_Filter_Exists Exists;
-
-  external wire_cst_Filter_InValues InValues;
-
-  external wire_cst_Filter_GreaterThan GreaterThan;
-
-  external wire_cst_Filter_GreaterThanOrEqual GreaterThanOrEqual;
-
-  external wire_cst_Filter_Equal Equal;
-
-  external wire_cst_Filter_NotEqual NotEqual;
-
-  external wire_cst_Filter_LessThan LessThan;
-
-  external wire_cst_Filter_LessThanOrEqual LessThanOrEqual;
-
-  external wire_cst_Filter_Between Between;
-
-  external wire_cst_Filter_IsNull IsNull;
-
-  external wire_cst_Filter_IsEmpty IsEmpty;
 }
 
 final class wire_cst_Filter_Or extends ffi.Struct {
@@ -1334,6 +1290,50 @@ final class wire_cst_Filter_IsNull extends ffi.Struct {
 
 final class wire_cst_Filter_IsEmpty extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> field;
+}
+
+final class FilterKind extends ffi.Union {
+  external wire_cst_Filter_Or Or;
+
+  external wire_cst_Filter_And And;
+
+  external wire_cst_Filter_Not Not;
+
+  external wire_cst_Filter_Exists Exists;
+
+  external wire_cst_Filter_InValues InValues;
+
+  external wire_cst_Filter_GreaterThan GreaterThan;
+
+  external wire_cst_Filter_GreaterThanOrEqual GreaterThanOrEqual;
+
+  external wire_cst_Filter_Equal Equal;
+
+  external wire_cst_Filter_NotEqual NotEqual;
+
+  external wire_cst_Filter_LessThan LessThan;
+
+  external wire_cst_Filter_LessThanOrEqual LessThanOrEqual;
+
+  external wire_cst_Filter_Between Between;
+
+  external wire_cst_Filter_IsNull IsNull;
+
+  external wire_cst_Filter_IsEmpty IsEmpty;
+}
+
+final class wire_cst_filter extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external FilterKind kind;
+}
+
+final class wire_cst_list_filter extends ffi.Struct {
+  external ffi.Pointer<wire_cst_filter> ptr;
+
+  @ffi.Int32()
+  external int len;
 }
 
 final class wire_cst_synonyms extends ffi.Struct {
