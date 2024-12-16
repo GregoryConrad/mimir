@@ -3,6 +3,51 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-12-15
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.1.3`](#mimir---v013)
+ - [`flutter_mimir` - `v0.1.3`](#flutter_mimir---v013)
+
+---
+
+#### `mimir` - `v0.1.3`
+
+#### `flutter_mimir` - `v0.1.3`
+
+ - Bump "flutter_mimir" to `0.1.3`.
+
+
+## 2024-12-15
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.1.2+1`](#flutter_mimir---v0121)
+
+---
+
+#### `flutter_mimir` - `v0.1.2+1`
+
+ - **FIX**: update to android gradle v8 ([#369](https://github.com/GregoryConrad/mimir/issues/369)). ([e82ef6a0](https://github.com/GregoryConrad/mimir/commit/e82ef6a0064554bb9aa656ad004ba3c3aac670d6))
+
+
 ## 2024-11-03
 
 ### Changes

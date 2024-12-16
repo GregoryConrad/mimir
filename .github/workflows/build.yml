@@ -92,6 +92,9 @@ jobs:
           echo Copied file!
           rm -rf target/ platform-build/ # free up some space on the runner
 
+      - name: Create Windows boilerplate
+        run: flutter create . --platforms=windows
+        working-directory: packages/flutter_mimir/example
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
         run: flutter test -d windows integration_test
@@ -120,6 +123,9 @@ jobs:
           echo Copied file!
           rm -rf target/ platform-build/ # free up some space on the runner
 
+      - name: Create Linux boilerplate
+        run: flutter create . --platforms=linux
+        working-directory: packages/flutter_mimir/example
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
         run: flutter test -d linux integration_test
@@ -180,6 +186,9 @@ jobs:
           echo Copied file!
           rm -rf target/ platform-build/ # free up some space on the runner
 
+      - name: Create Android boilerplate
+        run: flutter create . --platforms=android
+        working-directory: packages/flutter_mimir/example
       - name: Run Flutter integration tests
         uses: Wandalen/wretry.action@v1.0.36 # sometimes android tests are flaky
         with:
