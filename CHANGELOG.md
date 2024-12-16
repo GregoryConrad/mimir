@@ -15,6 +15,30 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`mimir` - `v0.1.3`](#mimir---v013)
+ - [`flutter_mimir` - `v0.1.3`](#flutter_mimir---v013)
+
+---
+
+#### `mimir` - `v0.1.3`
+
+#### `flutter_mimir` - `v0.1.3`
+
+ - Bump "flutter_mimir" to `0.1.3`.
+
+
+## 2024-12-15
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`flutter_mimir` - `v0.1.2+1`](#flutter_mimir---v0121)
 
 ---
