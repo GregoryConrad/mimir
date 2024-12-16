@@ -1,3 +1,7 @@
+## 0.1.4
+
+ - Bump "flutter_mimir" to `0.1.4`.
+
 ## 0.1.3
 
  - Bump "flutter_mimir" to `0.1.3`.

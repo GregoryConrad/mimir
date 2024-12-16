@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-12-16
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.1.4`](#mimir---v014)
+ - [`flutter_mimir` - `v0.1.4`](#flutter_mimir---v014)
+
+---
+
+#### `mimir` - `v0.1.4`
+
+#### `flutter_mimir` - `v0.1.4`
+
+ - Bump "flutter_mimir" to `0.1.4`.
+
+
 ## 2024-12-15
 
 ### Changes
