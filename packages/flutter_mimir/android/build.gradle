@@ -25,26 +25,14 @@ apply plugin: "com.android.library"
 android {
     namespace = "com.gsconrad.flutter_mimir"
 
-    // Bumping the plugin compileSdk version requires all clients of this plugin
-    // to bump the version in their app.
-    compileSdk = 35
-
-    // Use the NDK version
-    // declared in /android/app/build.gradle file of the Flutter project.
-    // Replace it with a version number if this plugin requires a specific NDK version.
-    // (e.g. ndkVersion "23.1.7779620")
-    ndkVersion = android.ndkVersion
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     // Trigger the binary download/update over in CMakeLists.txt
     externalNativeBuild {
         cmake {
             path = "CMakeLists.txt"
         }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
 
     defaultConfig {
