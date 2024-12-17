@@ -1,3 +1,7 @@
+## 0.1.5
+
+ - **FIX**: loosen Android `compileSdk` and `ndkVersion`s ([#377](https://github.com/GregoryConrad/mimir/issues/377)). ([2b9048c5](https://github.com/GregoryConrad/mimir/commit/2b9048c5f6e1d25f18f588d7785c2db6837093de))
+
 ## 0.1.4
 
  - Bump "flutter_mimir" to `0.1.4`.

@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-12-17
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.1.5`](#mimir---v015)
+ - [`flutter_mimir` - `v0.1.5`](#flutter_mimir---v015)
+
+---
+
+#### `mimir` - `v0.1.5`
+
+ - Bump "mimir" to `0.1.5`.
+
+#### `flutter_mimir` - `v0.1.5`
+
+ - **FIX**: loosen Android `compileSdk` and `ndkVersion`s ([#377](https://github.com/GregoryConrad/mimir/issues/377)). ([2b9048c5](https://github.com/GregoryConrad/mimir/commit/2b9048c5f6e1d25f18f588d7785c2db6837093de))
+
+
 ## 2024-12-16
 
 ### Changes
