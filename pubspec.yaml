@@ -7,3 +7,4 @@ environment:
 dev_dependencies:
   analyzer: ^7.0.0
   melos: ^6.2.0
+  very_good_analysis: ^7.0.0
