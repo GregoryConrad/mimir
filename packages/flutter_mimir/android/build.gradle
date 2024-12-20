@@ -25,8 +25,7 @@ apply plugin: "com.android.library"
 android {
     namespace = "com.gsconrad.flutter_mimir"
 
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 34
 
     // Trigger the binary download/update over in CMakeLists.txt
     externalNativeBuild {
