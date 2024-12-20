@@ -1,3 +1,7 @@
+## 0.1.6
+
+ - **FIX**: remove ndk version and set android compile sdk to 34 ([#380](https://github.com/GregoryConrad/mimir/issues/380)). ([c0ab6c2e](https://github.com/GregoryConrad/mimir/commit/c0ab6c2e6eb13ce0296b38a6c5616cf44286bf68))
+
 ## 0.1.5
 
  - **FIX**: loosen Android `compileSdk` and `ndkVersion`s ([#377](https://github.com/GregoryConrad/mimir/issues/377)). ([2b9048c5](https://github.com/GregoryConrad/mimir/commit/2b9048c5f6e1d25f18f588d7785c2db6837093de))

@@ -1,4 +1,4 @@
-set(MimirVersion "mimir-v0.1.5") # generated; do not edit
+set(MimirVersion "mimir-v0.1.6") # generated; do not edit
 
 # The Flutter tooling requires that developers have a version of Visual Studio
 # installed that includes CMake 3.14 or later. You should not increase this
