@@ -2,27 +2,21 @@ version: 2
 enable-beta-ecosystems: true
 updates:
   - package-ecosystem: pub
-    directory: "/"
-    schedule:
-      interval: weekly
-  - package-ecosystem: pub
-    directory: "/packages/mimir"
     versioning-strategy: increase # https://github.com/dependabot/dependabot-core/issues/6446
+    directories:
+      - "**/*"
     schedule:
-      interval: weekly
-  - package-ecosystem: pub
-    directory: "/packages/mimir/example"
-    schedule:
-      interval: weekly
-  - package-ecosystem: pub
-    directory: "/packages/flutter_mimir"
-    schedule:
-      interval: weekly
-  - package-ecosystem: pub
-    directory: "/packages/flutter_mimir/example"
-    schedule:
-      interval: weekly
+      interval: "weekly"
+    groups:
+      all:
+        patterns:
+          - "*"
   - package-ecosystem: cargo
-    directory: "/packages/mimir/native"
+    directories:
+      - "**/*"
     schedule:
-      interval: weekly
+      interval: "weekly"
+    groups:
+      all:
+        patterns:
+          - "*"
