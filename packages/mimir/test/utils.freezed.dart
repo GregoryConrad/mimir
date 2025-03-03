@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,139 +10,86 @@ part of 'utils.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ComparableMimirIndexSettings {
-  Set<String>? get searchableFields => throw _privateConstructorUsedError;
-  Set<String> get filterableFields => throw _privateConstructorUsedError;
-  Set<String> get sortableFields => throw _privateConstructorUsedError;
-  List<String> get rankingRules => throw _privateConstructorUsedError;
-  Set<String> get stopWords => throw _privateConstructorUsedError;
-  Set<Synonyms> get synonyms => throw _privateConstructorUsedError;
-  bool get typosEnabled => throw _privateConstructorUsedError;
-  int get minWordSizeForOneTypo => throw _privateConstructorUsedError;
-  int get minWordSizeForTwoTypos => throw _privateConstructorUsedError;
-  Set<String> get disallowTyposOnWords => throw _privateConstructorUsedError;
-  Set<String> get disallowTyposOnFields => throw _privateConstructorUsedError;
+  Set<String>? get searchableFields;
+  Set<String> get filterableFields;
+  Set<String> get sortableFields;
+  List<String> get rankingRules;
+  Set<String> get stopWords;
+  Set<Synonyms> get synonyms;
+  bool get typosEnabled;
+  int get minWordSizeForOneTypo;
+  int get minWordSizeForTwoTypos;
+  Set<String> get disallowTyposOnWords;
+  Set<String> get disallowTyposOnFields;
 
   /// Create a copy of ComparableMimirIndexSettings
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ComparableMimirIndexSettingsCopyWith<ComparableMimirIndexSettings>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ComparableMimirIndexSettingsCopyWith<$Res> {
-  factory $ComparableMimirIndexSettingsCopyWith(
-          ComparableMimirIndexSettings value,
-          $Res Function(ComparableMimirIndexSettings) then) =
-      _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
-          ComparableMimirIndexSettings>;
-  @useResult
-  $Res call(
-      {Set<String>? searchableFields,
-      Set<String> filterableFields,
-      Set<String> sortableFields,
-      List<String> rankingRules,
-      Set<String> stopWords,
-      Set<Synonyms> synonyms,
-      bool typosEnabled,
-      int minWordSizeForOneTypo,
-      int minWordSizeForTwoTypos,
-      Set<String> disallowTyposOnWords,
-      Set<String> disallowTyposOnFields});
-}
-
-/// @nodoc
-class _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
-        $Val extends ComparableMimirIndexSettings>
-    implements $ComparableMimirIndexSettingsCopyWith<$Res> {
-  _$ComparableMimirIndexSettingsCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ComparableMimirIndexSettings
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $ComparableMimirIndexSettingsCopyWith<ComparableMimirIndexSettings>
+      get copyWith => _$ComparableMimirIndexSettingsCopyWithImpl<
+              ComparableMimirIndexSettings>(
+          this as ComparableMimirIndexSettings, _$identity);
+
   @override
-  $Res call({
-    Object? searchableFields = freezed,
-    Object? filterableFields = null,
-    Object? sortableFields = null,
-    Object? rankingRules = null,
-    Object? stopWords = null,
-    Object? synonyms = null,
-    Object? typosEnabled = null,
-    Object? minWordSizeForOneTypo = null,
-    Object? minWordSizeForTwoTypos = null,
-    Object? disallowTyposOnWords = null,
-    Object? disallowTyposOnFields = null,
-  }) {
-    return _then(_value.copyWith(
-      searchableFields: freezed == searchableFields
-          ? _value.searchableFields
-          : searchableFields // ignore: cast_nullable_to_non_nullable
-              as Set<String>?,
-      filterableFields: null == filterableFields
-          ? _value.filterableFields
-          : filterableFields // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
-      sortableFields: null == sortableFields
-          ? _value.sortableFields
-          : sortableFields // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
-      rankingRules: null == rankingRules
-          ? _value.rankingRules
-          : rankingRules // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      stopWords: null == stopWords
-          ? _value.stopWords
-          : stopWords // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
-      synonyms: null == synonyms
-          ? _value.synonyms
-          : synonyms // ignore: cast_nullable_to_non_nullable
-              as Set<Synonyms>,
-      typosEnabled: null == typosEnabled
-          ? _value.typosEnabled
-          : typosEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-      minWordSizeForOneTypo: null == minWordSizeForOneTypo
-          ? _value.minWordSizeForOneTypo
-          : minWordSizeForOneTypo // ignore: cast_nullable_to_non_nullable
-              as int,
-      minWordSizeForTwoTypos: null == minWordSizeForTwoTypos
-          ? _value.minWordSizeForTwoTypos
-          : minWordSizeForTwoTypos // ignore: cast_nullable_to_non_nullable
-              as int,
-      disallowTyposOnWords: null == disallowTyposOnWords
-          ? _value.disallowTyposOnWords
-          : disallowTyposOnWords // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
-      disallowTyposOnFields: null == disallowTyposOnFields
-          ? _value.disallowTyposOnFields
-          : disallowTyposOnFields // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ComparableMimirIndexSettings &&
+            const DeepCollectionEquality()
+                .equals(other.searchableFields, searchableFields) &&
+            const DeepCollectionEquality()
+                .equals(other.filterableFields, filterableFields) &&
+            const DeepCollectionEquality()
+                .equals(other.sortableFields, sortableFields) &&
+            const DeepCollectionEquality()
+                .equals(other.rankingRules, rankingRules) &&
+            const DeepCollectionEquality().equals(other.stopWords, stopWords) &&
+            const DeepCollectionEquality().equals(other.synonyms, synonyms) &&
+            (identical(other.typosEnabled, typosEnabled) ||
+                other.typosEnabled == typosEnabled) &&
+            (identical(other.minWordSizeForOneTypo, minWordSizeForOneTypo) ||
+                other.minWordSizeForOneTypo == minWordSizeForOneTypo) &&
+            (identical(other.minWordSizeForTwoTypos, minWordSizeForTwoTypos) ||
+                other.minWordSizeForTwoTypos == minWordSizeForTwoTypos) &&
+            const DeepCollectionEquality()
+                .equals(other.disallowTyposOnWords, disallowTyposOnWords) &&
+            const DeepCollectionEquality()
+                .equals(other.disallowTyposOnFields, disallowTyposOnFields));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(searchableFields),
+      const DeepCollectionEquality().hash(filterableFields),
+      const DeepCollectionEquality().hash(sortableFields),
+      const DeepCollectionEquality().hash(rankingRules),
+      const DeepCollectionEquality().hash(stopWords),
+      const DeepCollectionEquality().hash(synonyms),
+      typosEnabled,
+      minWordSizeForOneTypo,
+      minWordSizeForTwoTypos,
+      const DeepCollectionEquality().hash(disallowTyposOnWords),
+      const DeepCollectionEquality().hash(disallowTyposOnFields));
+
+  @override
+  String toString() {
+    return 'ComparableMimirIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
   }
 }
 
 /// @nodoc
-abstract class _$$ComparableMimirIndexSettingsImplCopyWith<$Res>
-    implements $ComparableMimirIndexSettingsCopyWith<$Res> {
-  factory _$$ComparableMimirIndexSettingsImplCopyWith(
-          _$ComparableMimirIndexSettingsImpl value,
-          $Res Function(_$ComparableMimirIndexSettingsImpl) then) =
-      __$$ComparableMimirIndexSettingsImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ComparableMimirIndexSettingsCopyWith<$Res> {
+  factory $ComparableMimirIndexSettingsCopyWith(
+          ComparableMimirIndexSettings value,
+          $Res Function(ComparableMimirIndexSettings) _then) =
+      _$ComparableMimirIndexSettingsCopyWithImpl;
   @useResult
   $Res call(
       {Set<String>? searchableFields,
@@ -158,14 +106,12 @@ abstract class _$$ComparableMimirIndexSettingsImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ComparableMimirIndexSettingsImplCopyWithImpl<$Res>
-    extends _$ComparableMimirIndexSettingsCopyWithImpl<$Res,
-        _$ComparableMimirIndexSettingsImpl>
-    implements _$$ComparableMimirIndexSettingsImplCopyWith<$Res> {
-  __$$ComparableMimirIndexSettingsImplCopyWithImpl(
-      _$ComparableMimirIndexSettingsImpl _value,
-      $Res Function(_$ComparableMimirIndexSettingsImpl) _then)
-      : super(_value, _then);
+class _$ComparableMimirIndexSettingsCopyWithImpl<$Res>
+    implements $ComparableMimirIndexSettingsCopyWith<$Res> {
+  _$ComparableMimirIndexSettingsCopyWithImpl(this._self, this._then);
+
+  final ComparableMimirIndexSettings _self;
+  final $Res Function(ComparableMimirIndexSettings) _then;
 
   /// Create a copy of ComparableMimirIndexSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -184,49 +130,49 @@ class __$$ComparableMimirIndexSettingsImplCopyWithImpl<$Res>
     Object? disallowTyposOnWords = null,
     Object? disallowTyposOnFields = null,
   }) {
-    return _then(_$ComparableMimirIndexSettingsImpl(
+    return _then(_self.copyWith(
       searchableFields: freezed == searchableFields
-          ? _value._searchableFields
+          ? _self.searchableFields
           : searchableFields // ignore: cast_nullable_to_non_nullable
               as Set<String>?,
       filterableFields: null == filterableFields
-          ? _value._filterableFields
+          ? _self.filterableFields
           : filterableFields // ignore: cast_nullable_to_non_nullable
               as Set<String>,
       sortableFields: null == sortableFields
-          ? _value._sortableFields
+          ? _self.sortableFields
           : sortableFields // ignore: cast_nullable_to_non_nullable
               as Set<String>,
       rankingRules: null == rankingRules
-          ? _value._rankingRules
+          ? _self.rankingRules
           : rankingRules // ignore: cast_nullable_to_non_nullable
               as List<String>,
       stopWords: null == stopWords
-          ? _value._stopWords
+          ? _self.stopWords
           : stopWords // ignore: cast_nullable_to_non_nullable
               as Set<String>,
       synonyms: null == synonyms
-          ? _value._synonyms
+          ? _self.synonyms
           : synonyms // ignore: cast_nullable_to_non_nullable
               as Set<Synonyms>,
       typosEnabled: null == typosEnabled
-          ? _value.typosEnabled
+          ? _self.typosEnabled
           : typosEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       minWordSizeForOneTypo: null == minWordSizeForOneTypo
-          ? _value.minWordSizeForOneTypo
+          ? _self.minWordSizeForOneTypo
           : minWordSizeForOneTypo // ignore: cast_nullable_to_non_nullable
               as int,
       minWordSizeForTwoTypos: null == minWordSizeForTwoTypos
-          ? _value.minWordSizeForTwoTypos
+          ? _self.minWordSizeForTwoTypos
           : minWordSizeForTwoTypos // ignore: cast_nullable_to_non_nullable
               as int,
       disallowTyposOnWords: null == disallowTyposOnWords
-          ? _value._disallowTyposOnWords
+          ? _self.disallowTyposOnWords
           : disallowTyposOnWords // ignore: cast_nullable_to_non_nullable
               as Set<String>,
       disallowTyposOnFields: null == disallowTyposOnFields
-          ? _value._disallowTyposOnFields
+          ? _self.disallowTyposOnFields
           : disallowTyposOnFields // ignore: cast_nullable_to_non_nullable
               as Set<String>,
     ));
@@ -235,9 +181,8 @@ class __$$ComparableMimirIndexSettingsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ComparableMimirIndexSettingsImpl
-    implements _ComparableMimirIndexSettings {
-  const _$ComparableMimirIndexSettingsImpl(
+class _ComparableMimirIndexSettings implements ComparableMimirIndexSettings {
+  const _ComparableMimirIndexSettings(
       {required final Set<String>? searchableFields,
       required final Set<String> filterableFields,
       required final Set<String> sortableFields,
@@ -332,16 +277,20 @@ class _$ComparableMimirIndexSettingsImpl
     return EqualUnmodifiableSetView(_disallowTyposOnFields);
   }
 
+  /// Create a copy of ComparableMimirIndexSettings
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ComparableMimirIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ComparableMimirIndexSettingsCopyWith<_ComparableMimirIndexSettings>
+      get copyWith => __$ComparableMimirIndexSettingsCopyWithImpl<
+          _ComparableMimirIndexSettings>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ComparableMimirIndexSettingsImpl &&
+            other is _ComparableMimirIndexSettings &&
             const DeepCollectionEquality()
                 .equals(other._searchableFields, _searchableFields) &&
             const DeepCollectionEquality()
@@ -380,61 +329,107 @@ class _$ComparableMimirIndexSettingsImpl
       const DeepCollectionEquality().hash(_disallowTyposOnWords),
       const DeepCollectionEquality().hash(_disallowTyposOnFields));
 
+  @override
+  String toString() {
+    return 'ComparableMimirIndexSettings(searchableFields: $searchableFields, filterableFields: $filterableFields, sortableFields: $sortableFields, rankingRules: $rankingRules, stopWords: $stopWords, synonyms: $synonyms, typosEnabled: $typosEnabled, minWordSizeForOneTypo: $minWordSizeForOneTypo, minWordSizeForTwoTypos: $minWordSizeForTwoTypos, disallowTyposOnWords: $disallowTyposOnWords, disallowTyposOnFields: $disallowTyposOnFields)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ComparableMimirIndexSettingsCopyWith<$Res>
+    implements $ComparableMimirIndexSettingsCopyWith<$Res> {
+  factory _$ComparableMimirIndexSettingsCopyWith(
+          _ComparableMimirIndexSettings value,
+          $Res Function(_ComparableMimirIndexSettings) _then) =
+      __$ComparableMimirIndexSettingsCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {Set<String>? searchableFields,
+      Set<String> filterableFields,
+      Set<String> sortableFields,
+      List<String> rankingRules,
+      Set<String> stopWords,
+      Set<Synonyms> synonyms,
+      bool typosEnabled,
+      int minWordSizeForOneTypo,
+      int minWordSizeForTwoTypos,
+      Set<String> disallowTyposOnWords,
+      Set<String> disallowTyposOnFields});
+}
+
+/// @nodoc
+class __$ComparableMimirIndexSettingsCopyWithImpl<$Res>
+    implements _$ComparableMimirIndexSettingsCopyWith<$Res> {
+  __$ComparableMimirIndexSettingsCopyWithImpl(this._self, this._then);
+
+  final _ComparableMimirIndexSettings _self;
+  final $Res Function(_ComparableMimirIndexSettings) _then;
+
   /// Create a copy of ComparableMimirIndexSettings
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ComparableMimirIndexSettingsImplCopyWith<
-          _$ComparableMimirIndexSettingsImpl>
-      get copyWith => __$$ComparableMimirIndexSettingsImplCopyWithImpl<
-          _$ComparableMimirIndexSettingsImpl>(this, _$identity);
+  $Res call({
+    Object? searchableFields = freezed,
+    Object? filterableFields = null,
+    Object? sortableFields = null,
+    Object? rankingRules = null,
+    Object? stopWords = null,
+    Object? synonyms = null,
+    Object? typosEnabled = null,
+    Object? minWordSizeForOneTypo = null,
+    Object? minWordSizeForTwoTypos = null,
+    Object? disallowTyposOnWords = null,
+    Object? disallowTyposOnFields = null,
+  }) {
+    return _then(_ComparableMimirIndexSettings(
+      searchableFields: freezed == searchableFields
+          ? _self._searchableFields
+          : searchableFields // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
+      filterableFields: null == filterableFields
+          ? _self._filterableFields
+          : filterableFields // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      sortableFields: null == sortableFields
+          ? _self._sortableFields
+          : sortableFields // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      rankingRules: null == rankingRules
+          ? _self._rankingRules
+          : rankingRules // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      stopWords: null == stopWords
+          ? _self._stopWords
+          : stopWords // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      synonyms: null == synonyms
+          ? _self._synonyms
+          : synonyms // ignore: cast_nullable_to_non_nullable
+              as Set<Synonyms>,
+      typosEnabled: null == typosEnabled
+          ? _self.typosEnabled
+          : typosEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      minWordSizeForOneTypo: null == minWordSizeForOneTypo
+          ? _self.minWordSizeForOneTypo
+          : minWordSizeForOneTypo // ignore: cast_nullable_to_non_nullable
+              as int,
+      minWordSizeForTwoTypos: null == minWordSizeForTwoTypos
+          ? _self.minWordSizeForTwoTypos
+          : minWordSizeForTwoTypos // ignore: cast_nullable_to_non_nullable
+              as int,
+      disallowTyposOnWords: null == disallowTyposOnWords
+          ? _self._disallowTyposOnWords
+          : disallowTyposOnWords // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      disallowTyposOnFields: null == disallowTyposOnFields
+          ? _self._disallowTyposOnFields
+          : disallowTyposOnFields // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+    ));
+  }
 }
 
-abstract class _ComparableMimirIndexSettings
-    implements ComparableMimirIndexSettings {
-  const factory _ComparableMimirIndexSettings(
-          {required final Set<String>? searchableFields,
-          required final Set<String> filterableFields,
-          required final Set<String> sortableFields,
-          required final List<String> rankingRules,
-          required final Set<String> stopWords,
-          required final Set<Synonyms> synonyms,
-          required final bool typosEnabled,
-          required final int minWordSizeForOneTypo,
-          required final int minWordSizeForTwoTypos,
-          required final Set<String> disallowTyposOnWords,
-          required final Set<String> disallowTyposOnFields}) =
-      _$ComparableMimirIndexSettingsImpl;
-
-  @override
-  Set<String>? get searchableFields;
-  @override
-  Set<String> get filterableFields;
-  @override
-  Set<String> get sortableFields;
-  @override
-  List<String> get rankingRules;
-  @override
-  Set<String> get stopWords;
-  @override
-  Set<Synonyms> get synonyms;
-  @override
-  bool get typosEnabled;
-  @override
-  int get minWordSizeForOneTypo;
-  @override
-  int get minWordSizeForTwoTypos;
-  @override
-  Set<String> get disallowTyposOnWords;
-  @override
-  Set<String> get disallowTyposOnFields;
-
-  /// Create a copy of ComparableMimirIndexSettings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ComparableMimirIndexSettingsImplCopyWith<
-          _$ComparableMimirIndexSettingsImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on
