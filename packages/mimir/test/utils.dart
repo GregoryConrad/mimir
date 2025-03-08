@@ -33,7 +33,7 @@ List<Map<String, dynamic>> useExercises() {
 }
 
 @freezed
-class ComparableMimirIndexSettings with _$ComparableMimirIndexSettings {
+sealed class ComparableMimirIndexSettings with _$ComparableMimirIndexSettings {
   const factory ComparableMimirIndexSettings({
     required Set<String>? searchableFields,
     required Set<String> filterableFields,
