@@ -200,7 +200,7 @@ sealed class Filter with _$Filter {
 
 /// The settings of a mimir index
 @freezed
-class MimirIndexSettings with _$MimirIndexSettings {
+sealed class MimirIndexSettings with _$MimirIndexSettings {
   const factory MimirIndexSettings({
     String? primaryKey,
     List<String>? searchableFields,
@@ -234,7 +234,7 @@ sealed class SortBy with _$SortBy {
 
 /// Represents the synonyms of a given word
 @freezed
-class Synonyms with _$Synonyms {
+sealed class Synonyms with _$Synonyms {
   const factory Synonyms({
     required String word,
     required List<String> synonyms,
