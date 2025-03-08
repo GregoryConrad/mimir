@@ -253,22 +253,22 @@ class MimirIndexImpl extends MimirIndex {
 
 extension on Filter {
   Iterable<String> _getFields(Filter filter) {
-    return filter.when(
-      or: (filters) => filters.expand(_getFields),
-      and: (filters) => filters.expand(_getFields),
-      not: _getFields,
-      exists: (field) => [field],
-      isNull: (field) => [field],
-      isEmpty: (field) => [field],
-      inValues: (field, _) => [field],
-      greaterThan: (field, _) => [field],
-      greaterThanOrEqual: (field, _) => [field],
-      equal: (field, _) => [field],
-      notEqual: (field, _) => [field],
-      lessThan: (field, _) => [field],
-      lessThanOrEqual: (field, _) => [field],
-      between: (field, _, __) => [field],
-    );
+    return switch (filter) {
+      api.Filter_Or(:final field0) => field0.expand(_getFields),
+      api.Filter_And(:final field0) => field0.expand(_getFields),
+      api.Filter_Not(:final field0) => _getFields(field0),
+      api.Filter_Exists(:final field) => [field],
+      api.Filter_InValues(:final field) => [field],
+      api.Filter_GreaterThan(:final field) => [field],
+      api.Filter_GreaterThanOrEqual(:final field) => [field],
+      api.Filter_Equal(:final field) => [field],
+      api.Filter_NotEqual(:final field) => [field],
+      api.Filter_LessThan(:final field) => [field],
+      api.Filter_LessThanOrEqual(:final field) => [field],
+      api.Filter_Between(:final field) => [field],
+      api.Filter_IsNull(:final field) => [field],
+      api.Filter_IsEmpty(:final field) => [field],
+    };
   }
 
   Iterable<String> getFields() => _getFields(this);
