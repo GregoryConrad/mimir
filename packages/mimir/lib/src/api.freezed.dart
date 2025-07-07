@@ -1,6 +1,5 @@
-// dart format width=80
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -33,6 +32,394 @@ mixin _$Filter {
 /// @nodoc
 class $FilterCopyWith<$Res> {
   $FilterCopyWith(Filter _, $Res Function(Filter) __);
+}
+
+/// Adds pattern-matching-related methods to [Filter].
+extension FilterPatterns on Filter {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Filter_Or value)? or,
+    TResult Function(Filter_And value)? and,
+    TResult Function(Filter_Not value)? not,
+    TResult Function(Filter_Exists value)? exists,
+    TResult Function(Filter_InValues value)? inValues,
+    TResult Function(Filter_GreaterThan value)? greaterThan,
+    TResult Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult Function(Filter_Equal value)? equal,
+    TResult Function(Filter_NotEqual value)? notEqual,
+    TResult Function(Filter_LessThan value)? lessThan,
+    TResult Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult Function(Filter_Between value)? between,
+    TResult Function(Filter_IsNull value)? isNull,
+    TResult Function(Filter_IsEmpty value)? isEmpty,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case Filter_Or() when or != null:
+        return or(_that);
+      case Filter_And() when and != null:
+        return and(_that);
+      case Filter_Not() when not != null:
+        return not(_that);
+      case Filter_Exists() when exists != null:
+        return exists(_that);
+      case Filter_InValues() when inValues != null:
+        return inValues(_that);
+      case Filter_GreaterThan() when greaterThan != null:
+        return greaterThan(_that);
+      case Filter_GreaterThanOrEqual() when greaterThanOrEqual != null:
+        return greaterThanOrEqual(_that);
+      case Filter_Equal() when equal != null:
+        return equal(_that);
+      case Filter_NotEqual() when notEqual != null:
+        return notEqual(_that);
+      case Filter_LessThan() when lessThan != null:
+        return lessThan(_that);
+      case Filter_LessThanOrEqual() when lessThanOrEqual != null:
+        return lessThanOrEqual(_that);
+      case Filter_Between() when between != null:
+        return between(_that);
+      case Filter_IsNull() when isNull != null:
+        return isNull(_that);
+      case Filter_IsEmpty() when isEmpty != null:
+        return isEmpty(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Filter_Or value) or,
+    required TResult Function(Filter_And value) and,
+    required TResult Function(Filter_Not value) not,
+    required TResult Function(Filter_Exists value) exists,
+    required TResult Function(Filter_InValues value) inValues,
+    required TResult Function(Filter_GreaterThan value) greaterThan,
+    required TResult Function(Filter_GreaterThanOrEqual value)
+        greaterThanOrEqual,
+    required TResult Function(Filter_Equal value) equal,
+    required TResult Function(Filter_NotEqual value) notEqual,
+    required TResult Function(Filter_LessThan value) lessThan,
+    required TResult Function(Filter_LessThanOrEqual value) lessThanOrEqual,
+    required TResult Function(Filter_Between value) between,
+    required TResult Function(Filter_IsNull value) isNull,
+    required TResult Function(Filter_IsEmpty value) isEmpty,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case Filter_Or():
+        return or(_that);
+      case Filter_And():
+        return and(_that);
+      case Filter_Not():
+        return not(_that);
+      case Filter_Exists():
+        return exists(_that);
+      case Filter_InValues():
+        return inValues(_that);
+      case Filter_GreaterThan():
+        return greaterThan(_that);
+      case Filter_GreaterThanOrEqual():
+        return greaterThanOrEqual(_that);
+      case Filter_Equal():
+        return equal(_that);
+      case Filter_NotEqual():
+        return notEqual(_that);
+      case Filter_LessThan():
+        return lessThan(_that);
+      case Filter_LessThanOrEqual():
+        return lessThanOrEqual(_that);
+      case Filter_Between():
+        return between(_that);
+      case Filter_IsNull():
+        return isNull(_that);
+      case Filter_IsEmpty():
+        return isEmpty(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Filter_Or value)? or,
+    TResult? Function(Filter_And value)? and,
+    TResult? Function(Filter_Not value)? not,
+    TResult? Function(Filter_Exists value)? exists,
+    TResult? Function(Filter_InValues value)? inValues,
+    TResult? Function(Filter_GreaterThan value)? greaterThan,
+    TResult? Function(Filter_GreaterThanOrEqual value)? greaterThanOrEqual,
+    TResult? Function(Filter_Equal value)? equal,
+    TResult? Function(Filter_NotEqual value)? notEqual,
+    TResult? Function(Filter_LessThan value)? lessThan,
+    TResult? Function(Filter_LessThanOrEqual value)? lessThanOrEqual,
+    TResult? Function(Filter_Between value)? between,
+    TResult? Function(Filter_IsNull value)? isNull,
+    TResult? Function(Filter_IsEmpty value)? isEmpty,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case Filter_Or() when or != null:
+        return or(_that);
+      case Filter_And() when and != null:
+        return and(_that);
+      case Filter_Not() when not != null:
+        return not(_that);
+      case Filter_Exists() when exists != null:
+        return exists(_that);
+      case Filter_InValues() when inValues != null:
+        return inValues(_that);
+      case Filter_GreaterThan() when greaterThan != null:
+        return greaterThan(_that);
+      case Filter_GreaterThanOrEqual() when greaterThanOrEqual != null:
+        return greaterThanOrEqual(_that);
+      case Filter_Equal() when equal != null:
+        return equal(_that);
+      case Filter_NotEqual() when notEqual != null:
+        return notEqual(_that);
+      case Filter_LessThan() when lessThan != null:
+        return lessThan(_that);
+      case Filter_LessThanOrEqual() when lessThanOrEqual != null:
+        return lessThanOrEqual(_that);
+      case Filter_Between() when between != null:
+        return between(_that);
+      case Filter_IsNull() when isNull != null:
+        return isNull(_that);
+      case Filter_IsEmpty() when isEmpty != null:
+        return isEmpty(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Filter> field0)? or,
+    TResult Function(List<Filter> field0)? and,
+    TResult Function(Filter field0)? not,
+    TResult Function(String field)? exists,
+    TResult Function(String field, List<String> values)? inValues,
+    TResult Function(String field, String value)? greaterThan,
+    TResult Function(String field, String value)? greaterThanOrEqual,
+    TResult Function(String field, String value)? equal,
+    TResult Function(String field, String value)? notEqual,
+    TResult Function(String field, String value)? lessThan,
+    TResult Function(String field, String value)? lessThanOrEqual,
+    TResult Function(String field, String from, String to)? between,
+    TResult Function(String field)? isNull,
+    TResult Function(String field)? isEmpty,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case Filter_Or() when or != null:
+        return or(_that.field0);
+      case Filter_And() when and != null:
+        return and(_that.field0);
+      case Filter_Not() when not != null:
+        return not(_that.field0);
+      case Filter_Exists() when exists != null:
+        return exists(_that.field);
+      case Filter_InValues() when inValues != null:
+        return inValues(_that.field, _that.values);
+      case Filter_GreaterThan() when greaterThan != null:
+        return greaterThan(_that.field, _that.value);
+      case Filter_GreaterThanOrEqual() when greaterThanOrEqual != null:
+        return greaterThanOrEqual(_that.field, _that.value);
+      case Filter_Equal() when equal != null:
+        return equal(_that.field, _that.value);
+      case Filter_NotEqual() when notEqual != null:
+        return notEqual(_that.field, _that.value);
+      case Filter_LessThan() when lessThan != null:
+        return lessThan(_that.field, _that.value);
+      case Filter_LessThanOrEqual() when lessThanOrEqual != null:
+        return lessThanOrEqual(_that.field, _that.value);
+      case Filter_Between() when between != null:
+        return between(_that.field, _that.from, _that.to);
+      case Filter_IsNull() when isNull != null:
+        return isNull(_that.field);
+      case Filter_IsEmpty() when isEmpty != null:
+        return isEmpty(_that.field);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Filter> field0) or,
+    required TResult Function(List<Filter> field0) and,
+    required TResult Function(Filter field0) not,
+    required TResult Function(String field) exists,
+    required TResult Function(String field, List<String> values) inValues,
+    required TResult Function(String field, String value) greaterThan,
+    required TResult Function(String field, String value) greaterThanOrEqual,
+    required TResult Function(String field, String value) equal,
+    required TResult Function(String field, String value) notEqual,
+    required TResult Function(String field, String value) lessThan,
+    required TResult Function(String field, String value) lessThanOrEqual,
+    required TResult Function(String field, String from, String to) between,
+    required TResult Function(String field) isNull,
+    required TResult Function(String field) isEmpty,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case Filter_Or():
+        return or(_that.field0);
+      case Filter_And():
+        return and(_that.field0);
+      case Filter_Not():
+        return not(_that.field0);
+      case Filter_Exists():
+        return exists(_that.field);
+      case Filter_InValues():
+        return inValues(_that.field, _that.values);
+      case Filter_GreaterThan():
+        return greaterThan(_that.field, _that.value);
+      case Filter_GreaterThanOrEqual():
+        return greaterThanOrEqual(_that.field, _that.value);
+      case Filter_Equal():
+        return equal(_that.field, _that.value);
+      case Filter_NotEqual():
+        return notEqual(_that.field, _that.value);
+      case Filter_LessThan():
+        return lessThan(_that.field, _that.value);
+      case Filter_LessThanOrEqual():
+        return lessThanOrEqual(_that.field, _that.value);
+      case Filter_Between():
+        return between(_that.field, _that.from, _that.to);
+      case Filter_IsNull():
+        return isNull(_that.field);
+      case Filter_IsEmpty():
+        return isEmpty(_that.field);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Filter> field0)? or,
+    TResult? Function(List<Filter> field0)? and,
+    TResult? Function(Filter field0)? not,
+    TResult? Function(String field)? exists,
+    TResult? Function(String field, List<String> values)? inValues,
+    TResult? Function(String field, String value)? greaterThan,
+    TResult? Function(String field, String value)? greaterThanOrEqual,
+    TResult? Function(String field, String value)? equal,
+    TResult? Function(String field, String value)? notEqual,
+    TResult? Function(String field, String value)? lessThan,
+    TResult? Function(String field, String value)? lessThanOrEqual,
+    TResult? Function(String field, String from, String to)? between,
+    TResult? Function(String field)? isNull,
+    TResult? Function(String field)? isEmpty,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case Filter_Or() when or != null:
+        return or(_that.field0);
+      case Filter_And() when and != null:
+        return and(_that.field0);
+      case Filter_Not() when not != null:
+        return not(_that.field0);
+      case Filter_Exists() when exists != null:
+        return exists(_that.field);
+      case Filter_InValues() when inValues != null:
+        return inValues(_that.field, _that.values);
+      case Filter_GreaterThan() when greaterThan != null:
+        return greaterThan(_that.field, _that.value);
+      case Filter_GreaterThanOrEqual() when greaterThanOrEqual != null:
+        return greaterThanOrEqual(_that.field, _that.value);
+      case Filter_Equal() when equal != null:
+        return equal(_that.field, _that.value);
+      case Filter_NotEqual() when notEqual != null:
+        return notEqual(_that.field, _that.value);
+      case Filter_LessThan() when lessThan != null:
+        return lessThan(_that.field, _that.value);
+      case Filter_LessThanOrEqual() when lessThanOrEqual != null:
+        return lessThanOrEqual(_that.field, _that.value);
+      case Filter_Between() when between != null:
+        return between(_that.field, _that.from, _that.to);
+      case Filter_IsNull() when isNull != null:
+        return isNull(_that.field);
+      case Filter_IsEmpty() when isEmpty != null:
+        return isEmpty(_that.field);
+      case _:
+        return null;
+    }
+  }
 }
 
 /// @nodoc
@@ -1206,6 +1593,234 @@ class _$MimirIndexSettingsCopyWithImpl<$Res>
   }
 }
 
+/// Adds pattern-matching-related methods to [MimirIndexSettings].
+extension MimirIndexSettingsPatterns on MimirIndexSettings {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_MimirIndexSettings value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _MimirIndexSettings() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_MimirIndexSettings value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MimirIndexSettings():
+        return $default(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_MimirIndexSettings value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MimirIndexSettings() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String? primaryKey,
+            List<String>? searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
+            List<String> rankingRules,
+            List<String> stopWords,
+            List<Synonyms> synonyms,
+            bool typosEnabled,
+            int minWordSizeForOneTypo,
+            int minWordSizeForTwoTypos,
+            List<String> disallowTyposOnWords,
+            List<String> disallowTyposOnFields)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _MimirIndexSettings() when $default != null:
+        return $default(
+            _that.primaryKey,
+            _that.searchableFields,
+            _that.filterableFields,
+            _that.sortableFields,
+            _that.rankingRules,
+            _that.stopWords,
+            _that.synonyms,
+            _that.typosEnabled,
+            _that.minWordSizeForOneTypo,
+            _that.minWordSizeForTwoTypos,
+            _that.disallowTyposOnWords,
+            _that.disallowTyposOnFields);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String? primaryKey,
+            List<String>? searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
+            List<String> rankingRules,
+            List<String> stopWords,
+            List<Synonyms> synonyms,
+            bool typosEnabled,
+            int minWordSizeForOneTypo,
+            int minWordSizeForTwoTypos,
+            List<String> disallowTyposOnWords,
+            List<String> disallowTyposOnFields)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MimirIndexSettings():
+        return $default(
+            _that.primaryKey,
+            _that.searchableFields,
+            _that.filterableFields,
+            _that.sortableFields,
+            _that.rankingRules,
+            _that.stopWords,
+            _that.synonyms,
+            _that.typosEnabled,
+            _that.minWordSizeForOneTypo,
+            _that.minWordSizeForTwoTypos,
+            _that.disallowTyposOnWords,
+            _that.disallowTyposOnFields);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String? primaryKey,
+            List<String>? searchableFields,
+            List<String> filterableFields,
+            List<String> sortableFields,
+            List<String> rankingRules,
+            List<String> stopWords,
+            List<Synonyms> synonyms,
+            bool typosEnabled,
+            int minWordSizeForOneTypo,
+            int minWordSizeForTwoTypos,
+            List<String> disallowTyposOnWords,
+            List<String> disallowTyposOnFields)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _MimirIndexSettings() when $default != null:
+        return $default(
+            _that.primaryKey,
+            _that.searchableFields,
+            _that.filterableFields,
+            _that.sortableFields,
+            _that.rankingRules,
+            _that.stopWords,
+            _that.synonyms,
+            _that.typosEnabled,
+            _that.minWordSizeForOneTypo,
+            _that.minWordSizeForTwoTypos,
+            _that.disallowTyposOnWords,
+            _that.disallowTyposOnFields);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 class _MimirIndexSettings implements MimirIndexSettings {
@@ -1530,6 +2145,177 @@ class _$SortByCopyWithImpl<$Res> implements $SortByCopyWith<$Res> {
   }
 }
 
+/// Adds pattern-matching-related methods to [SortBy].
+extension SortByPatterns on SortBy {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SortBy_Asc value)? asc,
+    TResult Function(SortBy_Desc value)? desc,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SortBy_Asc() when asc != null:
+        return asc(_that);
+      case SortBy_Desc() when desc != null:
+        return desc(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SortBy_Asc value) asc,
+    required TResult Function(SortBy_Desc value) desc,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SortBy_Asc():
+        return asc(_that);
+      case SortBy_Desc():
+        return desc(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SortBy_Asc value)? asc,
+    TResult? Function(SortBy_Desc value)? desc,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SortBy_Asc() when asc != null:
+        return asc(_that);
+      case SortBy_Desc() when desc != null:
+        return desc(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String field0)? asc,
+    TResult Function(String field0)? desc,
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SortBy_Asc() when asc != null:
+        return asc(_that.field0);
+      case SortBy_Desc() when desc != null:
+        return desc(_that.field0);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String field0) asc,
+    required TResult Function(String field0) desc,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SortBy_Asc():
+        return asc(_that.field0);
+      case SortBy_Desc():
+        return desc(_that.field0);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String field0)? asc,
+    TResult? Function(String field0)? desc,
+  }) {
+    final _that = this;
+    switch (_that) {
+      case SortBy_Asc() when asc != null:
+        return asc(_that.field0);
+      case SortBy_Desc() when desc != null:
+        return desc(_that.field0);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 class SortBy_Asc extends SortBy {
@@ -1728,6 +2514,159 @@ class _$SynonymsCopyWithImpl<$Res> implements $SynonymsCopyWith<$Res> {
           : synonyms // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [Synonyms].
+extension SynonymsPatterns on Synonyms {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Synonyms value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Synonyms() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Synonyms value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Synonyms():
+        return $default(_that);
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Synonyms value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Synonyms() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String word, List<String> synonyms)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Synonyms() when $default != null:
+        return $default(_that.word, _that.synonyms);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String word, List<String> synonyms) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Synonyms():
+        return $default(_that.word, _that.synonyms);
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(String word, List<String> synonyms)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Synonyms() when $default != null:
+        return $default(_that.word, _that.synonyms);
+      case _:
+        return null;
+    }
   }
 }
 
