@@ -657,21 +657,17 @@ class RustLibWire implements BaseWire {
 
   /// The symbols are looked up with [lookup].
   RustLibWire.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+    ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
+  ) : _lookup = lookup;
 
-  void store_dart_post_cobject(
-    DartPostCObjectFnType ptr,
-  ) {
-    return _store_dart_post_cobject(
-      ptr,
-    );
+  void store_dart_post_cobject(DartPostCObjectFnType ptr) {
+    return _store_dart_post_cobject(ptr);
   }
 
   late final _store_dart_post_cobjectPtr =
       _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
-          'store_dart_post_cobject');
+    'store_dart_post_cobject',
+  );
   late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
       .asFunction<void Function(DartPostCObjectFnType)>();
 
@@ -690,20 +686,21 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__add_documentsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_String>)>>(
-      'frbgen_mimir_wire__crate__api__add_documents');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_String>,
+          )>>('frbgen_mimir_wire__crate__api__add_documents');
   late final _wire__crate__api__add_documents =
       _wire__crate__api__add_documentsPtr.asFunction<
           void Function(
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_String>)>();
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_String>,
+          )>();
 
   void wire__crate__api__delete_all_documents(
     int port_,
@@ -718,16 +715,19 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__delete_all_documentsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
-      'frbgen_mimir_wire__crate__api__delete_all_documents');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>>('frbgen_mimir_wire__crate__api__delete_all_documents');
   late final _wire__crate__api__delete_all_documents =
       _wire__crate__api__delete_all_documentsPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+          void Function(
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>();
 
   void wire__crate__api__delete_documents(
     int port_,
@@ -744,20 +744,21 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__delete_documentsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_String>)>>(
-      'frbgen_mimir_wire__crate__api__delete_documents');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_String>,
+          )>>('frbgen_mimir_wire__crate__api__delete_documents');
   late final _wire__crate__api__delete_documents =
       _wire__crate__api__delete_documentsPtr.asFunction<
           void Function(
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_String>)>();
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_String>,
+          )>();
 
   void wire__crate__api__ensure_index_initialized(
     int port_,
@@ -772,16 +773,19 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__ensure_index_initializedPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
-      'frbgen_mimir_wire__crate__api__ensure_index_initialized');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>>('frbgen_mimir_wire__crate__api__ensure_index_initialized');
   late final _wire__crate__api__ensure_index_initialized =
       _wire__crate__api__ensure_index_initializedPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+          void Function(
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>();
 
   void wire__crate__api__ensure_instance_initialized(
     int port_,
@@ -796,16 +800,19 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__ensure_instance_initializedPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
-      'frbgen_mimir_wire__crate__api__ensure_instance_initialized');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>>('frbgen_mimir_wire__crate__api__ensure_instance_initialized');
   late final _wire__crate__api__ensure_instance_initialized =
       _wire__crate__api__ensure_instance_initializedPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+          void Function(
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>();
 
   void wire__crate__api__get_all_documents(
     int port_,
@@ -820,16 +827,19 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__get_all_documentsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
-      'frbgen_mimir_wire__crate__api__get_all_documents');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>>('frbgen_mimir_wire__crate__api__get_all_documents');
   late final _wire__crate__api__get_all_documents =
       _wire__crate__api__get_all_documentsPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+          void Function(
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>();
 
   void wire__crate__api__get_document(
     int port_,
@@ -846,44 +856,44 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__get_documentPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
-      'frbgen_mimir_wire__crate__api__get_document');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>>('frbgen_mimir_wire__crate__api__get_document');
   late final _wire__crate__api__get_document =
       _wire__crate__api__get_documentPtr.asFunction<
           void Function(
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>();
 
   void wire__crate__api__get_settings(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> instance_dir,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> index_name,
   ) {
-    return _wire__crate__api__get_settings(
-      port_,
-      instance_dir,
-      index_name,
-    );
+    return _wire__crate__api__get_settings(port_, instance_dir, index_name);
   }
 
   late final _wire__crate__api__get_settingsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
-      'frbgen_mimir_wire__crate__api__get_settings');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>>('frbgen_mimir_wire__crate__api__get_settings');
   late final _wire__crate__api__get_settings =
       _wire__crate__api__get_settingsPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+          void Function(
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>();
 
   void wire__crate__api__number_of_documents(
     int port_,
@@ -898,16 +908,19 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__number_of_documentsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>)>>(
-      'frbgen_mimir_wire__crate__api__number_of_documents');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>>('frbgen_mimir_wire__crate__api__number_of_documents');
   late final _wire__crate__api__number_of_documents =
       _wire__crate__api__number_of_documentsPtr.asFunction<
-          void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>)>();
+          void Function(
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )>();
 
   void wire__crate__api__search_documents(
     int port_,
@@ -934,30 +947,31 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__search_documentsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<ffi.Uint32>,
-                  ffi.Pointer<ffi.Uint32>,
-                  ffi.Pointer<wire_cst_list_sort_by>,
-                  ffi.Pointer<wire_cst_filter>,
-                  ffi.Pointer<ffi.Int32>)>>(
-      'frbgen_mimir_wire__crate__api__search_documents');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<wire_cst_list_sort_by>,
+            ffi.Pointer<wire_cst_filter>,
+            ffi.Pointer<ffi.Int32>,
+          )>>('frbgen_mimir_wire__crate__api__search_documents');
   late final _wire__crate__api__search_documents =
       _wire__crate__api__search_documentsPtr.asFunction<
           void Function(
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Pointer<ffi.Uint32>,
-              ffi.Pointer<wire_cst_list_sort_by>,
-              ffi.Pointer<wire_cst_filter>,
-              ffi.Pointer<ffi.Int32>)>();
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<wire_cst_list_sort_by>,
+            ffi.Pointer<wire_cst_filter>,
+            ffi.Pointer<ffi.Int32>,
+          )>();
 
   void wire__crate__api__set_documents(
     int port_,
@@ -974,20 +988,21 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__set_documentsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_String>)>>(
-      'frbgen_mimir_wire__crate__api__set_documents');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_String>,
+          )>>('frbgen_mimir_wire__crate__api__set_documents');
   late final _wire__crate__api__set_documents =
       _wire__crate__api__set_documentsPtr.asFunction<
           void Function(
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_String>)>();
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_String>,
+          )>();
 
   void wire__crate__api__set_settings(
     int port_,
@@ -1004,20 +1019,21 @@ class RustLibWire implements BaseWire {
   }
 
   late final _wire__crate__api__set_settingsPtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-                  ffi.Pointer<wire_cst_mimir_index_settings>)>>(
-      'frbgen_mimir_wire__crate__api__set_settings');
+      ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_mimir_index_settings>,
+          )>>('frbgen_mimir_wire__crate__api__set_settings');
   late final _wire__crate__api__set_settings =
       _wire__crate__api__set_settingsPtr.asFunction<
           void Function(
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_mimir_index_settings>)>();
+            int,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_mimir_index_settings>,
+          )>();
 
   ffi.Pointer<wire_cst_filter> cst_new_box_autoadd_filter() {
     return _cst_new_box_autoadd_filter();
@@ -1025,7 +1041,8 @@ class RustLibWire implements BaseWire {
 
   late final _cst_new_box_autoadd_filterPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_filter> Function()>>(
-          'frbgen_mimir_cst_new_box_autoadd_filter');
+    'frbgen_mimir_cst_new_box_autoadd_filter',
+  );
   late final _cst_new_box_autoadd_filter = _cst_new_box_autoadd_filterPtr
       .asFunction<ffi.Pointer<wire_cst_filter> Function()>();
 
@@ -1045,29 +1062,25 @@ class RustLibWire implements BaseWire {
   ffi.Pointer<ffi.Int32> cst_new_box_autoadd_terms_matching_strategy(
     int value,
   ) {
-    return _cst_new_box_autoadd_terms_matching_strategy(
-      value,
-    );
+    return _cst_new_box_autoadd_terms_matching_strategy(value);
   }
 
   late final _cst_new_box_autoadd_terms_matching_strategyPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int32> Function(ffi.Int32)>>(
-          'frbgen_mimir_cst_new_box_autoadd_terms_matching_strategy');
+    'frbgen_mimir_cst_new_box_autoadd_terms_matching_strategy',
+  );
   late final _cst_new_box_autoadd_terms_matching_strategy =
       _cst_new_box_autoadd_terms_matching_strategyPtr
           .asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
 
-  ffi.Pointer<ffi.Uint32> cst_new_box_autoadd_u_32(
-    int value,
-  ) {
-    return _cst_new_box_autoadd_u_32(
-      value,
-    );
+  ffi.Pointer<ffi.Uint32> cst_new_box_autoadd_u_32(int value) {
+    return _cst_new_box_autoadd_u_32(value);
   }
 
   late final _cst_new_box_autoadd_u_32Ptr =
       _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint32> Function(ffi.Uint32)>>(
-          'frbgen_mimir_cst_new_box_autoadd_u_32');
+    'frbgen_mimir_cst_new_box_autoadd_u_32',
+  );
   late final _cst_new_box_autoadd_u_32 = _cst_new_box_autoadd_u_32Ptr
       .asFunction<ffi.Pointer<ffi.Uint32> Function(int)>();
 
@@ -1077,16 +1090,13 @@ class RustLibWire implements BaseWire {
 
   late final _cst_new_box_filterPtr =
       _lookup<ffi.NativeFunction<ffi.Pointer<wire_cst_filter> Function()>>(
-          'frbgen_mimir_cst_new_box_filter');
+    'frbgen_mimir_cst_new_box_filter',
+  );
   late final _cst_new_box_filter = _cst_new_box_filterPtr
       .asFunction<ffi.Pointer<wire_cst_filter> Function()>();
 
-  ffi.Pointer<wire_cst_list_String> cst_new_list_String(
-    int len,
-  ) {
-    return _cst_new_list_String(
-      len,
-    );
+  ffi.Pointer<wire_cst_list_String> cst_new_list_String(int len) {
+    return _cst_new_list_String(len);
   }
 
   late final _cst_new_list_StringPtr = _lookup<
@@ -1096,12 +1106,8 @@ class RustLibWire implements BaseWire {
   late final _cst_new_list_String = _cst_new_list_StringPtr
       .asFunction<ffi.Pointer<wire_cst_list_String> Function(int)>();
 
-  ffi.Pointer<wire_cst_list_filter> cst_new_list_filter(
-    int len,
-  ) {
-    return _cst_new_list_filter(
-      len,
-    );
+  ffi.Pointer<wire_cst_list_filter> cst_new_list_filter(int len) {
+    return _cst_new_list_filter(len);
   }
 
   late final _cst_new_list_filterPtr = _lookup<
@@ -1114,9 +1120,7 @@ class RustLibWire implements BaseWire {
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_new_list_prim_u_8_strict(
     int len,
   ) {
-    return _cst_new_list_prim_u_8_strict(
-      len,
-    );
+    return _cst_new_list_prim_u_8_strict(len);
   }
 
   late final _cst_new_list_prim_u_8_strictPtr = _lookup<
@@ -1126,12 +1130,8 @@ class RustLibWire implements BaseWire {
   late final _cst_new_list_prim_u_8_strict = _cst_new_list_prim_u_8_strictPtr
       .asFunction<ffi.Pointer<wire_cst_list_prim_u_8_strict> Function(int)>();
 
-  ffi.Pointer<wire_cst_list_sort_by> cst_new_list_sort_by(
-    int len,
-  ) {
-    return _cst_new_list_sort_by(
-      len,
-    );
+  ffi.Pointer<wire_cst_list_sort_by> cst_new_list_sort_by(int len) {
+    return _cst_new_list_sort_by(len);
   }
 
   late final _cst_new_list_sort_byPtr = _lookup<
@@ -1141,12 +1141,8 @@ class RustLibWire implements BaseWire {
   late final _cst_new_list_sort_by = _cst_new_list_sort_byPtr
       .asFunction<ffi.Pointer<wire_cst_list_sort_by> Function(int)>();
 
-  ffi.Pointer<wire_cst_list_synonyms> cst_new_list_synonyms(
-    int len,
-  ) {
-    return _cst_new_list_synonyms(
-      len,
-    );
+  ffi.Pointer<wire_cst_list_synonyms> cst_new_list_synonyms(int len) {
+    return _cst_new_list_synonyms(len);
   }
 
   late final _cst_new_list_synonymsPtr = _lookup<
@@ -1162,7 +1158,8 @@ class RustLibWire implements BaseWire {
 
   late final _dummy_method_to_enforce_bundlingPtr =
       _lookup<ffi.NativeFunction<ffi.Int64 Function()>>(
-          'dummy_method_to_enforce_bundling');
+    'dummy_method_to_enforce_bundling',
+  );
   late final _dummy_method_to_enforce_bundling =
       _dummy_method_to_enforce_bundlingPtr.asFunction<int Function()>();
 }
