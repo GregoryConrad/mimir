@@ -1,3 +1,7 @@
+## 0.1.6+1
+
+ - Update a dependency to the latest release.
+
 ## 0.1.6
 
  - **FIX**: remove ndk version and set android compile sdk to 34 ([#380](https://github.com/GregoryConrad/mimir/issues/380)). ([c0ab6c2e](https://github.com/GregoryConrad/mimir/commit/c0ab6c2e6eb13ce0296b38a6c5616cf44286bf68))
