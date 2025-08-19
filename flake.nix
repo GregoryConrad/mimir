@@ -31,7 +31,6 @@
             fenix.packages.${system}.stable.toolchain
 
             flutter
-            melos
             zig
             llvm
           ];

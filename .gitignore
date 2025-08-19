@@ -39,3 +39,5 @@ pubspec_overrides.yaml
 /target/
 /Cargo.lock
 /platform-build
+
+.direnv/
