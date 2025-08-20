@@ -150,11 +150,11 @@ jobs:
           echo Copied file!
           rm -rf target/ platform-build/ # free up some space on the runner
 
-      - uses: futureware-tech/simulator-action@v3
+      - uses: futureware-tech/simulator-action@v4
         id: start_simulator
         name: Start iOS Simulator
         with:
-          model: 'iPhone 15'
+          model: 'iPhone 16'
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
         run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
