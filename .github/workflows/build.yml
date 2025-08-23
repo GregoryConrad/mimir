@@ -131,7 +131,7 @@ jobs:
         run: flutter test -d linux integration_test
 
   ios_integration_test:
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
       - uses: actions/checkout@v3
@@ -154,7 +154,7 @@ jobs:
         id: start_simulator
         name: Start iOS Simulator
         with:
-          model: 'iPhone 16'
+          model: 'iPhone 15'
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
         run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
