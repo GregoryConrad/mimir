@@ -4,10 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     utils.url = "github:numtide/flake-utils";
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -15,7 +11,6 @@
       self,
       nixpkgs,
       utils,
-      fenix,
     }:
     utils.lib.eachDefaultSystem (
       system:
@@ -23,16 +18,15 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        formatter = pkgs.nixfmt-rfc-style;
+        formatter = pkgs.nixfmt-tree;
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            # Switch "stable" to "complete" for nightly
-            fenix.packages.${system}.stable.toolchain
-
-            flutter
-            zig
-            llvm
+            rustup
+            buf
+            protobuf_31
+            # TODO flutter335 but at version where native assets works
+            # TODO LLVM
           ];
 
           env = {

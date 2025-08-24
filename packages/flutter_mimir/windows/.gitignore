@@ -1,6 +1,0 @@
-# Set up as allowlist
-*
-
-# Allowed files
-!.gitignore
-!CMakeLists.txt

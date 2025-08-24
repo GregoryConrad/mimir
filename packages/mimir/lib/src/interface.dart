@@ -47,14 +47,9 @@ class MimirInterface {
         ioDirectory: ioDirectory,
         webPrefix: webPrefix,
       );
-      // TODO(GregoryConrad): remove this once Flutter gets SPM or Native Assets
-      ExternalLibrary lib;
-      if (Platform.isIOS || Platform.isMacOS) {
-        lib = ExternalLibrary.process(iKnowHowToUseIt: true);
-      } else {
-        lib = await loadExternalLibrary(libraryLoaderConfig);
-      }
-      await RustLib.init(externalLibrary: lib);
+      await RustLib.init(
+        externalLibrary: await loadExternalLibrary(libraryLoaderConfig),
+      );
     }
 
     await ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
@@ -123,9 +118,9 @@ class MimirInterface {
       (
         isGreaterThanOrEqualTo != null,
         () => Filter.greaterThanOrEqual(
-              field: field,
-              value: isGreaterThanOrEqualTo!,
-            ),
+          field: field,
+          value: isGreaterThanOrEqualTo!,
+        ),
       ),
       (
         isLessThanOrEqualTo != null,
@@ -144,21 +139,21 @@ class MimirInterface {
         () {
           final existsFilter = Filter.exists(field: field);
           return exists! ? existsFilter : Filter.not(existsFilter);
-        }
+        },
       ),
       (
         isNull != null,
         () {
           final isNullFilter = Filter.isNull(field: field);
           return isNull! ? isNullFilter : Filter.not(isNullFilter);
-        }
+        },
       ),
       (
         isEmpty != null,
         () {
           final isEmptyFilter = Filter.isEmpty(field: field);
           return isEmpty! ? isEmptyFilter : Filter.not(isEmptyFilter);
-        }
+        },
       ),
       (
         containsAtLeastOneOf != null,
@@ -167,10 +162,10 @@ class MimirInterface {
       (
         isBetween != null,
         () => Filter.between(
-              field: field,
-              from: isBetween!.$1,
-              to: isBetween.$2,
-            ),
+          field: field,
+          from: isBetween!.$1,
+          to: isBetween.$2,
+        ),
       ),
     ].where((operator) => operator.$1);
     if (givenOperators.length != 1) {
