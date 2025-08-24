@@ -1,10 +1,28 @@
 name: mimir_workspace
+repository: https://github.com/GregoryConrad/mimir
 publish_to: none
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ^3.9.0
 
 dev_dependencies:
-  analyzer: ^8.1.0
-  melos: ^6.3.2
+  melos: ^7.0.0
   very_good_analysis: ^9.0.0
+
+workspace:
+  - packages/flutter_mimir
+  - packages/flutter_mimir/example
+  - packages/mimir
+  - packages/mimir/example
+
+melos:
+  scripts:
+    codegen:
+      run: flutter_rust_bridge_codegen generate
+      description: Run the flutter_rust_bridge code generation.
+
+    test:
+      run: melos exec -c 1 --fail-fast -- "flutter test test"
+      description: Run unit tests for a specific package in this project.
+      packageFilters:
+        dirExists: test

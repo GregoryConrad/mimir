@@ -6,9 +6,10 @@ version: 0.1.6+1
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
 issue_tracker: https://github.com/GregoryConrad/mimir/issues
+resolution: workspace
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
+  sdk: ^3.9.0
 
 dependencies:
   ffi: ^2.1.2
