@@ -15,8 +15,8 @@ Directory useTmpDir() {
 
 Future<MimirInstance> useInstance() {
   final dir = useTmpDir();
-  const ioDirectory = '../../target/release/';
-  return Mimir.getInstance(path: dir.path, ioDirectory: ioDirectory);
+  const ioDirectory = '';
+  return Mimir.getInstance(path: dir.path, ioDirectory: null);
 }
 
 Future<MimirIndex> useTestIndex() async =>

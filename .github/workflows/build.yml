@@ -16,12 +16,11 @@ jobs:
 
     steps:
       # Setup
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
-      - uses: actions-rs/toolchain@v1
+      - uses: bluefireteam/melos-action@v3
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
           components: rustfmt, clippy
 
       # Rust
@@ -32,36 +31,23 @@ jobs:
         run: cargo clippy -- -D warnings
       - name: Run Rust tests
         run: cargo test
-      - name: Build Rust code (embedded_milli) for Dart tests
-        run: cargo build -r
 
       # Dart/Flutter
-      - name: Check Dart format
+      - name: Check code format
         run: melos format --set-exit-if-changed
-      - name: Dart code analysis
-        run: melos analyze
-      - name: Run Dart tests
-        run: melos run test
+      - name: Run code analysis
+        run: flutter analyze --fatal-infos --fatal-warnings
+      - name: Run tests
+        run: melos run test --no-select
 
   macos_integration_test:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-
-      - name: Build the XCFramework
-        run: melos run build:apple
-      - name: Copy the XCFramework to the needed location
-        run: |
-          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
-          cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/macos/Frameworks/$CURR_VERSION.zip
-          echo Copied file!
-          rm -rf target/ platform-build/ # free up some space on the runner
+      - uses: bluefireteam/melos-action@v3
+      - uses: dtolnay/rust-toolchain@stable
 
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
@@ -71,26 +57,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
+      - uses: bluefireteam/melos-action@v3
+      - uses: dtolnay/rust-toolchain@stable
       - uses: KyleMayes/install-llvm-action@v1
         with:
           version: "15"
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-
-      - name: Build the binaries
-        run: dart pub global run melos run build:other
-        shell: bash
-      - name: Copy the binaries to the needed location
-        shell: bash
-        run: |
-          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
-          cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/windows/$CURR_VERSION.tar.gz
-          echo Copied file!
-          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Create Windows boilerplate
         run: flutter create . --platforms=windows
@@ -103,25 +76,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v3
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: pyvista/setup-headless-display-action@v3
       - name: Install dependencies for flutter integration test
         run: sudo apt update && sudo apt-get install -y libglu1-mesa ninja-build clang cmake pkg-config libgtk-3-dev liblzma-dev
-      - uses: pyvista/setup-headless-display-action@v3
-      - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
-      - uses: mlugg/setup-zig@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-
-      - name: Build the binaries
-        run: melos run build:other
-      - name: Copy the binaries to the needed location
-        run: |
-          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
-          cp platform-build/EmbeddedMilli.tar.gz packages/flutter_mimir/linux/$CURR_VERSION.tar.gz
-          echo Copied file!
-          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Create Linux boilerplate
         run: flutter create . --platforms=linux
@@ -134,21 +95,10 @@ jobs:
     runs-on: macos-14
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-
-      - name: Build the XCFramework
-        run: melos run build:apple
-      - name: Copy the XCFramework to the needed location
-        run: |
-          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
-          cp platform-build/EmbeddedMilli.xcframework.zip packages/flutter_mimir/ios/Frameworks/$CURR_VERSION.zip
-          echo Copied file!
-          rm -rf target/ platform-build/ # free up some space on the runner
+      - uses: bluefireteam/melos-action@v3
+      - uses: dtolnay/rust-toolchain@stable
 
       - uses: futureware-tech/simulator-action@v4
         id: start_simulator
@@ -163,12 +113,10 @@ jobs:
     runs-on: macos-13
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/melos-action@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+      - uses: bluefireteam/melos-action@v3
+      - uses: dtolnay/rust-toolchain@stable
       - uses: nttld/setup-ndk@v1
         with:
           ndk-version: r25b
@@ -176,15 +124,6 @@ jobs:
         with:
           distribution: zulu
           java-version: "17.x"
-
-      - name: Build the binaries
-        run: melos run build:android
-      - name: Copy the binaries to the needed location
-        run: |
-          CURR_VERSION=mimir-v`awk '/^version: /{print $2}' packages/mimir/pubspec.yaml`
-          cp platform-build/EmbeddedMilliAndroid.tar.gz packages/flutter_mimir/android/$CURR_VERSION.tar.gz
-          echo Copied file!
-          rm -rf target/ platform-build/ # free up some space on the runner
 
       - name: Create Android boilerplate
         run: flutter create . --platforms=android

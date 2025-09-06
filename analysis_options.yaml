@@ -3,9 +3,3 @@ include: package:very_good_analysis/analysis_options.yaml
 analyzer:
   errors:
     close_sinks: warning
-
-  exclude:
-    - '**.freezed.dart'
-    - '**/frb_generated.*dart'
-    - '**/src/api.dart'
-    - '**/src/lib.dart'
