@@ -18,8 +18,7 @@ void main() {
       (await index.search(
         query: 'benchp ress',
         resultsLimit: 1,
-      ))
-          .single,
+      )).single,
       exercises.where((e) => e['name'] == 'Barbell Bench Press').first,
     );
 
@@ -33,13 +32,12 @@ void main() {
         // should trigger the automatic filter field addition feature.
         // If this test fails because of the filterable fields, it means the
         // milli error text has changed and should be updated accordingly.
-        filter: const Filter.and([
-          Filter.equal(field: 'category', value: 'strength'),
-          Filter.inValues(field: 'primary_muscles', values: ['chest']),
-          Filter.inValues(field: 'equipment', values: ['dumbbell']),
+        filter: Mimir.and([
+          Mimir.where('category', isEqualTo: 'strength'),
+          Mimir.where('primary_muscles', containsAtLeastOneOf: ['chest']),
+          Mimir.where('equipment', containsAtLeastOneOf: ['dumbbell']),
         ]),
-      ))
-          .first,
+      )).first,
       exercises.where((e) => e['name'] == 'Incline Dumbbell Press').first,
     );
   });

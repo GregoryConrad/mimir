@@ -2,13 +2,18 @@ use milli_v1 as milli;
 
 use std::{convert::TryInto, io::Cursor, path::Path, str::FromStr};
 
-use anyhow::{anyhow, Result};
+use anyhow::{anyhow, Context, Result};
 use milli::{
     documents::{DocumentsBatchBuilder, DocumentsBatchReader},
     heed, update, AscDesc, Criterion, Index, Member, Search, SearchResult,
 };
 
-use crate::api::{Filter, MimirIndexSettings, SortBy, Synonyms, TermsMatchingStrategy};
+use crate::proto::{
+    filter,
+    instance_ffi_request::index_request::search_documents::{sort_by, TermsMatchingStrategy},
+    mimir_index_settings::{SearchableFields, Synonyms},
+    Filter, MimirIndexSettings,
+};
 
 use super::{
     Document, Dump, MAP_EXP_BACKOFF_AMOUNT, MAP_SIZE_TRIES, MAX_OS_PAGE_SIZE, MAX_POSSIBLE_SIZE,
@@ -170,7 +175,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
         query: Option<String>,
         limit: Option<u32>,
         offset: Option<u32>,
-        sort_criteria: Option<Vec<SortBy>>,
+        sort_criteria: Option<Vec<sort_by::Kind>>,
         filter: Option<Filter>,
         matching_strategy: Option<TermsMatchingStrategy>,
     ) -> Result<Vec<Document>> {
@@ -187,7 +192,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             search.query(query);
         }
         if let Some(ref filter) = filter {
-            let filter: milli::FilterCondition = filter.into();
+            let filter: milli::FilterCondition = filter.try_into()?;
             search.filter(filter.into());
         }
         if let Some(strat) = matching_strategy {
@@ -197,8 +202,8 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             let criteria = criteria
                 .iter()
                 .map(|criterion| match criterion {
-                    SortBy::Asc(field) => AscDesc::Asc(Member::Field(field.clone())),
-                    SortBy::Desc(field) => AscDesc::Desc(Member::Field(field.clone())),
+                    sort_by::Kind::Asc(field) => AscDesc::Asc(Member::Field(field.clone())),
+                    sort_by::Kind::Desc(field) => AscDesc::Desc(Member::Field(field.clone())),
                 })
                 .collect();
             search.sort_criteria(criteria);
@@ -228,7 +233,8 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             primary_key: index.primary_key(&rtxn)?.map(Into::into),
             searchable_fields: index
                 .searchable_fields(&rtxn)?
-                .map(|fields| fields.into_iter().map(String::from).collect()),
+                .map(|fields| fields.into_iter().map(String::from).collect())
+                .map(|searchable_fields| SearchableFields { searchable_fields }),
             filterable_fields: index.filterable_fields(&rtxn)?.into_iter().collect(),
             sortable_fields: index.sortable_fields(&rtxn)?.into_iter().collect(),
             ranking_rules: index
@@ -267,8 +273,8 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
                 .map(|(word, synonyms)| Synonyms { word, synonyms })
                 .collect(),
             typos_enabled: index.authorize_typos(&rtxn)?,
-            min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?,
-            min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?,
+            min_word_size_for_one_typo: index.min_word_len_one_typo(&rtxn)?.into(),
+            min_word_size_for_two_typos: index.min_word_len_two_typos(&rtxn)?.into(),
             disallow_typos_on_words: index
                 .exact_words(&rtxn)?
                 .map(|words| words.stream().into_strs())
@@ -309,7 +315,7 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             None => builder.reset_primary_key(),
         }
         match searchable_fields {
-            Some(fields) => builder.set_searchable_fields(fields),
+            Some(fields) => builder.set_searchable_fields(fields.searchable_fields),
             None => builder.reset_searchable_fields(),
         }
         builder.set_filterable_fields(filterable_fields.into_iter().collect());
@@ -325,8 +331,12 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
         builder.set_stop_words(stop_words.into_iter().collect());
         builder.set_synonyms(synonyms.into_iter().map(|s| (s.word, s.synonyms)).collect());
         builder.set_autorize_typos(typos_enabled);
-        builder.set_min_word_len_one_typo(min_word_size_for_one_typo);
-        builder.set_min_word_len_two_typos(min_word_size_for_two_typos);
+        builder.set_min_word_len_one_typo(u8::try_from(min_word_size_for_one_typo).context(
+            "MimirIndexSettings has out-of-bounds value for min_word_size_for_one_typo",
+        )?);
+        builder.set_min_word_len_two_typos(u8::try_from(min_word_size_for_two_typos).context(
+            "MimirIndexSettings has out-of-bounds value for min_word_size_for_two_typos",
+        )?);
         builder.set_exact_words(disallow_typos_on_words.into_iter().collect());
         builder.set_exact_attributes(disallow_typos_on_fields.into_iter().collect());
 
@@ -379,56 +389,74 @@ fn create_condition<'a>(s: &'a str, cond: milli::Condition<'a>) -> milli::Filter
     }
 }
 
-impl<'a> From<&'a Filter> for milli::FilterCondition<'a> {
-    fn from(f: &'a Filter) -> Self {
-        match f {
-            Filter::Or(filters) => {
-                milli::FilterCondition::Or(filters.iter().map(Self::from).collect())
+impl<'a> TryFrom<&'a Filter> for milli::FilterCondition<'a> {
+    type Error = anyhow::Error;
+
+    fn try_from(value: &'a Filter) -> std::result::Result<Self, Self::Error> {
+        match value
+            .kind
+            .as_ref()
+            .context("Filter missing required payload")?
+        {
+            filter::Kind::Or(filter::Filters { filters }) => Ok(milli::FilterCondition::Or(
+                filters.iter().map(Self::try_from).collect::<Result<_>>()?,
+            )),
+            filter::Kind::And(filter::Filters { filters }) => Ok(milli::FilterCondition::And(
+                filters.iter().map(Self::try_from).collect::<Result<_>>()?,
+            )),
+            filter::Kind::Not(filter) => Ok(milli::FilterCondition::Not(Box::new(Self::try_from(
+                filter.as_ref(),
+            )?))),
+            filter::Kind::InValues(filter::InValues { field, values }) => {
+                Ok(milli::FilterCondition::In {
+                    fid: field.as_str().into(),
+                    els: values.iter().map(String::as_str).map(Into::into).collect(),
+                })
             }
-            Filter::And(filters) => {
-                milli::FilterCondition::And(filters.iter().map(Self::from).collect())
-            }
-            Filter::Not(filter) => {
-                milli::FilterCondition::Not(Box::new(Self::from(filter.as_ref())))
-            }
-            Filter::InValues { field, values } => milli::FilterCondition::In {
-                fid: field.as_str().into(),
-                els: values.iter().map(String::as_str).map(Into::into).collect(),
-            },
-            Filter::GreaterThan { field, value } => create_condition(
+            filter::Kind::GreaterThan(filter::Comparison { field, value }) => Ok(create_condition(
                 field.as_str(),
                 milli::Condition::GreaterThan(value.as_str().into()),
-            ),
-            Filter::GreaterThanOrEqual { field, value } => create_condition(
-                field.as_str(),
-                milli::Condition::GreaterThanOrEqual(value.as_str().into()),
-            ),
-            Filter::Equal { field, value } => create_condition(
+            )),
+            filter::Kind::GreaterThanOrEqual(filter::Comparison { field, value }) => {
+                Ok(create_condition(
+                    field.as_str(),
+                    milli::Condition::GreaterThanOrEqual(value.as_str().into()),
+                ))
+            }
+            filter::Kind::Equal(filter::Comparison { field, value }) => Ok(create_condition(
                 field.as_str(),
                 milli::Condition::Equal(value.as_str().into()),
-            ),
-            Filter::NotEqual { field, value } => create_condition(
+            )),
+            filter::Kind::NotEqual(filter::Comparison { field, value }) => Ok(create_condition(
                 field.as_str(),
                 milli::Condition::NotEqual(value.as_str().into()),
-            ),
-            Filter::LessThan { field, value } => create_condition(
+            )),
+            filter::Kind::LessThan(filter::Comparison { field, value }) => Ok(create_condition(
                 field.as_str(),
                 milli::Condition::LowerThan(value.as_str().into()),
-            ),
-            Filter::LessThanOrEqual { field, value } => create_condition(
-                field.as_str(),
-                milli::Condition::LowerThanOrEqual(value.as_str().into()),
-            ),
-            Filter::Between { field, from, to } => create_condition(
+            )),
+            filter::Kind::LessThanOrEqual(filter::Comparison { field, value }) => {
+                Ok(create_condition(
+                    field.as_str(),
+                    milli::Condition::LowerThanOrEqual(value.as_str().into()),
+                ))
+            }
+            filter::Kind::Between(filter::Between { field, from, to }) => Ok(create_condition(
                 field.as_str(),
                 milli::Condition::Between {
                     from: from.as_str().into(),
                     to: to.as_str().into(),
                 },
-            ),
-            Filter::Exists { field } => create_condition(field.as_str(), milli::Condition::Exists),
-            Filter::IsNull { field } => create_condition(field.as_str(), milli::Condition::Null),
-            Filter::IsEmpty { field } => create_condition(field.as_str(), milli::Condition::Empty),
+            )),
+            filter::Kind::Exists(filter::Field { field }) => {
+                Ok(create_condition(field.as_str(), milli::Condition::Exists))
+            }
+            filter::Kind::IsNull(filter::Field { field }) => {
+                Ok(create_condition(field.as_str(), milli::Condition::Null))
+            }
+            filter::Kind::IsEmpty(filter::Field { field }) => {
+                Ok(create_condition(field.as_str(), milli::Condition::Empty))
+            }
         }
     }
 }

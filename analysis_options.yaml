@@ -5,7 +5,5 @@ analyzer:
     close_sinks: warning
 
   exclude:
-    - '**.freezed.dart'
-    - '**/frb_generated.*dart'
-    - '**/src/api.dart'
-    - '**/src/lib.dart'
+    # NOTE: a catch-all for generated Dart files
+    - '**/*.*.dart'

@@ -1,4 +1,4 @@
-import 'package:mimir/mimir.dart';
+part of 'interface.dart';
 
 /// Represents an instance (essentially a group of indices) of mimir.
 ///
@@ -10,7 +10,7 @@ import 'package:mimir/mimir.dart';
 /// make sense; you can just use ffi to access the engine, Milli, directly.
 /// With this approach, its easier on constrained resources (no http server)
 /// and more simple (no management of the server needed).
-abstract class MimirInstance {
+abstract interface class MimirInstance {
   /// The file-system path for the directory of this instance
   String get path;
 
@@ -47,4 +47,67 @@ abstract class MimirInstance {
     List<String> disallowTyposOnWords,
     List<String> disallowTyposOnFields,
   });
+}
+
+final class _MimirInstanceImpl implements MimirInstance {
+  _MimirInstanceImpl(this.path);
+
+  @override
+  final String path;
+
+  final _indices = <String, _MimirIndexImpl>{};
+
+  @override
+  _MimirIndexImpl getIndex(String name) =>
+      _indices.putIfAbsent(name, () => _MimirIndexImpl(this, name));
+
+  @override
+  Future<MimirIndex> openIndex(
+    String name, {
+    Object? primaryKey = _defaultOptionalValue,
+    Object? searchableFields = _defaultOptionalValue,
+    Object filterableFields = _defaultOptionalValue,
+    Object sortableFields = _defaultOptionalValue,
+    Object rankingRules = _defaultOptionalValue,
+    Object stopWords = _defaultOptionalValue,
+    Object synonyms = _defaultOptionalValue,
+    Object typosEnabled = _defaultOptionalValue,
+    Object minWordSizeForOneTypo = _defaultOptionalValue,
+    Object minWordSizeForTwoTypos = _defaultOptionalValue,
+    Object disallowTyposOnWords = _defaultOptionalValue,
+    Object disallowTyposOnFields = _defaultOptionalValue,
+  }) async {
+    final index = getIndex(name);
+    await index.updateSettings(
+      primaryKey: primaryKey is String? ? primaryKey : _defaultOptionalValue,
+      searchableFields: searchableFields is List<String>?
+          ? searchableFields
+          : _defaultOptionalValue,
+      filterableFields: filterableFields is List<String>
+          ? filterableFields
+          : _defaultOptionalValue,
+      sortableFields: sortableFields is List<String>
+          ? sortableFields
+          : _defaultOptionalValue,
+      rankingRules: rankingRules is List<String>
+          ? rankingRules
+          : _defaultOptionalValue,
+      stopWords: stopWords is List<String> ? stopWords : _defaultOptionalValue,
+      synonyms: synonyms is List<Synonyms> ? synonyms : _defaultOptionalValue,
+      typosEnabled: typosEnabled is bool ? typosEnabled : _defaultOptionalValue,
+      minWordSizeForOneTypo: minWordSizeForOneTypo is int
+          ? minWordSizeForOneTypo
+          : _defaultOptionalValue,
+      minWordSizeForTwoTypos: minWordSizeForTwoTypos is int
+          ? minWordSizeForTwoTypos
+          : _defaultOptionalValue,
+      disallowTyposOnWords: disallowTyposOnWords is List<String>
+          ? disallowTyposOnWords
+          : _defaultOptionalValue,
+      disallowTyposOnFields: disallowTyposOnFields is List<String>
+          ? disallowTyposOnFields
+          : _defaultOptionalValue,
+    );
+    return index;
+  }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mimir/flutter_mimir.dart';
 import 'package:flutter_rearch/flutter_rearch.dart';
+import 'package:mimir/mimir.dart';
 import 'package:rearch/rearch.dart';
 
 void main() => runApp(const DemoApp());
@@ -33,8 +34,8 @@ AsyncValue<MimirIndex> indexWarmUpCapsule(CapsuleHandle use) {
 /// Acts as a proxy to the warmed-up [indexAsyncCapsule].
 MimirIndex indexCapsule(CapsuleHandle use) {
   return use(indexWarmUpCapsule).data.unwrapOrElse(
-        () => throw StateError('indexAsyncCapsule was not warmed up!'),
-      );
+    () => throw StateError('indexAsyncCapsule was not warmed up!'),
+  );
 }
 
 /// Represents the current query to search for ('' for no current query).
@@ -186,10 +187,12 @@ class SearchResults extends RearchConsumer {
   Widget build(BuildContext context, WidgetHandle use) {
     return switch (use(searchResultsCapsule)) {
       AsyncData(data: final movies) => MoviesList(movies: movies),
-      AsyncLoading(previousData: None()) =>
-        const Center(child: CircularProgressIndicator.adaptive()),
-      AsyncLoading(previousData: Some(value: final movies)) =>
-        MoviesList(movies: movies),
+      AsyncLoading(previousData: None()) => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+      AsyncLoading(previousData: Some(value: final movies)) => MoviesList(
+        movies: movies,
+      ),
       AsyncError(:final error, :final stackTrace, :final previousData) =>
         Column(
           children: [
@@ -247,7 +250,7 @@ class MovieCard extends StatelessWidget {
                 'https://www.themoviedb.org/t/p/w188_and_h282_bestv2'
                 '${movie['poster_path']}',
                 fit: BoxFit.fill,
-                errorBuilder: (_, __, ___) => Center(
+                errorBuilder: (_, _, _) => Center(
                   child: Icon(
                     Icons.cancel,
                     color: Theme.of(context).colorScheme.error,
