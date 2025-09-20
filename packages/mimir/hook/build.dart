@@ -239,13 +239,6 @@ Map<String, String> createBuildEnvVars(CodeConfig codeConfig) {
           .join(':'),
     },
 
-    // TODO(GregoryConrad): remove this work-around for:
-    // https://github.com/dart-lang/native/issues/2623
-    if (targetOS == OS.macOS &&
-        (Platform.environment['PATH']?.contains('/nix/store/') ?? false))
-      'CARGO_TARGET_${targetTripleEnvVar.toUpperCase()}_LINKER':
-          '/usr/bin/clang',
-
     // TODO(GregoryConrad): check for NDK >= 27 and expected files existing?
     // inspo: https://github.com/isar/isar/blob/main/tool/build_android.sh
     if (targetOS == OS.android) ...{
