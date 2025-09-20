@@ -1,13 +1,8 @@
 import 'dart:io';
 
 import 'package:ffigen/ffigen.dart';
-import 'package:logging/logging.dart';
 
 void main() {
-  // NOTE: we want to get output for ffigen logs
-  // ignore: avoid_print
-  final logger = Logger('ffigen')..onRecord.listen(print);
-
   final packageRoot = Platform.script.resolve('../');
   FfiGenerator(
     headers: Headers(
@@ -25,5 +20,5 @@ void main() {
 
 ''',
     ),
-  ).generate(logger: logger);
+  ).generate();
 }
