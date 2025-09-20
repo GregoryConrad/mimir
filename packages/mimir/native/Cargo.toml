@@ -8,7 +8,7 @@ crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
 anyhow = "1.0.99"
-prost = "0.13.1" # WARN: this must match what is currently in use by protoc-gen-prost
+prost = "0.14.1" # WARN: this must match what is currently in use by protoc-gen-prost
 serde = "1.0.219"
 serde_json = "1.0.143"
 milli_v1 = { git = "https://github.com/meilisearch/meilisearch", package = "milli", tag = "v1.2.0" }
