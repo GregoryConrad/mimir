@@ -233,10 +233,19 @@ Map<String, String> createBuildEnvVars(CodeConfig codeConfig) {
       );
     }
 
-    return path.join(
+    final binaryPath = path.join(
       path.dirname(path.fromUri(cCompiler.compiler)),
       OS.current.executableFileName(binaryName),
     );
+
+    if (!File(binaryPath).existsSync()) {
+      throw RustupBuildException(
+        'Expected binary $binaryPath not found; '
+        'is your installed compiler too old?',
+      );
+    }
+
+    return binaryPath;
   }
 
   return {
@@ -250,7 +259,11 @@ Map<String, String> createBuildEnvVars(CodeConfig codeConfig) {
           .join(':'),
     },
 
-    // NOTE: we need to point to the NDK-vended LLVM when we build for Android
+    // NOTE: we need to point to NDK >=27 vended LLVM for Android.
+    // The `${targetTriple}35-clang`s were introduced in NDK 27,
+    // so using these binaries:
+    // 1. Ensures we are using a compatible NDK
+    // 2. Also fixes build issues when just using the `clang`s directly
     if (targetOS == OS.android) ...{
       'AR_$targetTripleEnvVar': getBinary('llvm-ar'),
       'CC_$targetTripleEnvVar': getBinary('${targetTriple}35-clang'),
