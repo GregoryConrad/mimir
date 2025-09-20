@@ -125,9 +125,12 @@ jobs:
       - name: Create iOS boilerplate
         working-directory: packages/flutter_mimir/example
         run: flutter create . --platforms=ios
-      - name: Run Flutter integration tests
-        working-directory: packages/flutter_mimir/example
-        run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test --verbose
+      - name: Run Flutter integration tests # NOTE: we often get timeouts otherwise
+        uses: Wandalen/wretry.action@v3
+        with:
+          attempt_limit: 5
+          current_path: packages/flutter_mimir/example
+          command: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
 
   android_integration_test:
     runs-on: ubuntu-latest
