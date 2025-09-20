@@ -111,7 +111,7 @@ jobs:
         run: flutter test -d linux integration_test
 
   ios_integration_test:
-    runs-on: macos-26 # TODO switch to macos-latest when out of beta
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
