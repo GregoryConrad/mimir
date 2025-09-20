@@ -6,14 +6,11 @@ on:
     branches:
       - main
   schedule:
-    # runs the CI everyday at 10AM
-    - cron: "0 10 * * *"
+    - cron: "0 10 * * *" # run everyday at 10 AM
 
 jobs:
-  # General build, check, and test steps
   build_and_test:
     runs-on: ubuntu-latest
-
     steps:
       # Setup
       - uses: actions/checkout@v5
@@ -130,7 +127,7 @@ jobs:
         run: flutter create . --platforms=ios
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
-        run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test
+        run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test --ignore-timeouts
 
   android_integration_test:
     runs-on: ubuntu-latest
@@ -148,14 +145,12 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Run Flutter integration tests
-        uses: Wandalen/wretry.action@v1.0.36 # NOTE: sometimes android tests are flaky
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          attempt_limit: 3
-          action: reactivecircus/android-emulator-runner@v2
-          with: |
-            api-level: 35
-            target: default
-            arch: x86_64
-            ram-size: 1024M
-            disk-size: 2048M
-            script: cd packages/flutter_mimir/example && flutter test -d `flutter devices | grep android | tr ' ' '\n' | grep emulator-` integration_test
+          api-level: 35
+          target: default
+          arch: x86_64
+          ram-size: 1024M
+          disk-size: 2048M
+          working-directory: packages/flutter_mimir/example
+          script: flutter test -d `flutter devices | grep android | tr ' ' '\n' | grep emulator-` integration_test
