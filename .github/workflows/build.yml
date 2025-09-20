@@ -127,7 +127,7 @@ jobs:
         run: flutter create . --platforms=ios
       - name: Run Flutter integration tests
         working-directory: packages/flutter_mimir/example
-        run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test --ignore-timeouts
+        run: flutter test -d ${{ steps.start_simulator.outputs.udid }} integration_test --verbose
 
   android_integration_test:
     runs-on: ubuntu-latest

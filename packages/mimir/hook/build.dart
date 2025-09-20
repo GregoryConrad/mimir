@@ -192,7 +192,7 @@ final class RustTargetResolver {
   final Logger logger;
   final ProcessRunner processRunner;
 
-  /// Returns the list of installed targets for the given [rustToolchain].
+  /// Returns the list of installed targets for the given [rustToolchain]
   Future<Set<String>> resolveInstalledTargetsForToolchain(
     String rustToolchain,
   ) async {
@@ -225,12 +225,23 @@ final class RustTargetResolver {
 Map<String, String> createBuildEnvVars(CodeConfig codeConfig) {
   final CodeConfig(:targetOS, :targetTriple, :cCompiler) = codeConfig;
   final targetTripleEnvVar = targetTriple.replaceAll('-', '_');
-  final cCompilerBinDir = cCompiler == null
-      ? null
-      : path.dirname(path.fromUri(cCompiler.compiler));
+
+  String getBinary(String binaryName) {
+    if (cCompiler == null) {
+      throw RustupBuildException(
+        'CCompilerConfig was not provided but is required for $targetTriple',
+      );
+    }
+
+    return path.join(
+      path.dirname(path.fromUri(cCompiler.compiler)),
+      OS.current.executableFileName(binaryName),
+    );
+  }
+
   return {
     // NOTE: XCode makes some injections into PATH that break host build
-    // for crates with a build.rs.
+    // for crates with a build.rs
     // See also: https://github.com/irondash/native_toolchain_rust/issues/17
     if (Platform.isMacOS) ...{
       'PATH': Platform.environment['PATH']!
@@ -239,24 +250,13 @@ Map<String, String> createBuildEnvVars(CodeConfig codeConfig) {
           .join(':'),
     },
 
-    // TODO(GregoryConrad): check for NDK >= 27 and expected files existing?
-    // inspo: https://github.com/isar/isar/blob/main/tool/build_android.sh
+    // NOTE: we need to point to the NDK-vended LLVM when we build for Android
     if (targetOS == OS.android) ...{
-      'AR_$targetTripleEnvVar': path.join(
-        cCompilerBinDir!,
-        OS.current.executableFileName('llvm-ar'),
-      ),
-      'CC_$targetTripleEnvVar': path.join(
-        cCompilerBinDir,
-        OS.current.executableFileName('${targetTriple}35-clang'),
-      ),
-      'CXX_$targetTripleEnvVar': path.join(
-        cCompilerBinDir,
-        OS.current.executableFileName('${targetTriple}35-clang++'),
-      ),
-      'CARGO_TARGET_${targetTripleEnvVar.toUpperCase()}_LINKER': path.join(
-        cCompilerBinDir,
-        OS.current.executableFileName('${targetTriple}35-clang'),
+      'AR_$targetTripleEnvVar': getBinary('llvm-ar'),
+      'CC_$targetTripleEnvVar': getBinary('${targetTriple}35-clang'),
+      'CXX_$targetTripleEnvVar': getBinary('${targetTriple}35-clang++'),
+      'CARGO_TARGET_${targetTripleEnvVar.toUpperCase()}_LINKER': getBinary(
+        '${targetTriple}35-clang',
       ),
     },
   };
