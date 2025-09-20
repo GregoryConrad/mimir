@@ -1,4 +1,5 @@
 import 'package:mimir/mimir.dart';
+import 'package:mimir/src/native/proto/instance/request.pb.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -10,59 +11,75 @@ void main() {
 
     expect(
       where('f', isEqualTo: 'abc'),
-      const Filter.equal(field: 'f', value: 'abc'),
+      Filter(
+        equal: Filter_Comparison(field_1: 'f', value: 'abc'),
+      ),
     );
     expect(
       where('f', isNotEqualTo: 'abc'),
-      const Filter.notEqual(field: 'f', value: 'abc'),
+      Filter(
+        notEqual: Filter_Comparison(field_1: 'f', value: 'abc'),
+      ),
     );
     expect(
       where('f', isGreaterThanOrEqualTo: 'abc'),
-      const Filter.greaterThanOrEqual(field: 'f', value: 'abc'),
+      Filter(
+        greaterThanOrEqual: Filter_Comparison(field_1: 'f', value: 'abc'),
+      ),
     );
     expect(
       where('f', isLessThanOrEqualTo: 'abc'),
-      const Filter.lessThanOrEqual(field: 'f', value: 'abc'),
+      Filter(
+        lessThanOrEqual: Filter_Comparison(field_1: 'f', value: 'abc'),
+      ),
     );
     expect(
       where('f', isGreaterThan: 'abc'),
-      const Filter.greaterThan(field: 'f', value: 'abc'),
+      Filter(
+        greaterThan: Filter_Comparison(field_1: 'f', value: 'abc'),
+      ),
     );
     expect(
       where('f', isLessThan: 'abc'),
-      const Filter.lessThan(field: 'f', value: 'abc'),
+      Filter(
+        lessThan: Filter_Comparison(field_1: 'f', value: 'abc'),
+      ),
     );
     expect(
       where('f', exists: true),
-      const Filter.exists(field: 'f'),
+      Filter(exists: Filter_Field(field_1: 'f')),
     );
     expect(
       where('f', exists: false),
-      const Filter.not(Filter.exists(field: 'f')),
+      Mimir.not(Filter(exists: Filter_Field(field_1: 'f'))),
     );
     expect(
       where('f', isNull: true),
-      const Filter.isNull(field: 'f'),
+      Filter(isNull: Filter_Field(field_1: 'f')),
     );
     expect(
       where('f', isNull: false),
-      const Filter.not(Filter.isNull(field: 'f')),
+      Mimir.not(Filter(isNull: Filter_Field(field_1: 'f'))),
     );
     expect(
       where('f', isEmpty: true),
-      const Filter.isEmpty(field: 'f'),
+      Filter(isEmpty: Filter_Field(field_1: 'f')),
     );
     expect(
       where('f', isEmpty: false),
-      const Filter.not(Filter.isEmpty(field: 'f')),
+      Mimir.not(Filter(isEmpty: Filter_Field(field_1: 'f'))),
     );
     expect(
       where('f', containsAtLeastOneOf: ['123']),
-      const Filter.inValues(field: 'f', values: ['123']),
+      Filter(
+        inValues: Filter_InValues(field_1: 'f', values: ['123']),
+      ),
     );
     expect(
       where('year', isBetween: ('1990', '1999')),
-      const Filter.between(field: 'year', from: '1990', to: '1999'),
+      Filter(
+        between: Filter_Between(field_1: 'year', from: '1990', to: '1999'),
+      ),
     );
 
     expect(
@@ -73,13 +90,36 @@ void main() {
         ]),
         not(where('colors', containsAtLeastOneOf: ['red', 'green'])),
       ]),
-      const Filter.or([
-        Filter.and([
-          Filter.equal(field: 'fruit', value: 'apple'),
-          Filter.between(field: 'year', from: '2000', to: '2009'),
-        ]),
-        Filter.not(Filter.inValues(field: 'colors', values: ['red', 'green'])),
-      ]),
+      Filter(
+        or: Filter_Filters(
+          filters: [
+            Filter(
+              and: Filter_Filters(
+                filters: [
+                  Filter(
+                    equal: Filter_Comparison(field_1: 'fruit', value: 'apple'),
+                  ),
+                  Filter(
+                    between: Filter_Between(
+                      field_1: 'year',
+                      from: '2000',
+                      to: '2009',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Filter(
+              not: Filter(
+                inValues: Filter_InValues(
+                  field_1: 'colors',
+                  values: ['red', 'green'],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       reason: 'Aggregate filters should build properly',
     );
   });

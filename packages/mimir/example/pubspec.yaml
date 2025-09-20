@@ -1,19 +1,13 @@
 name: mimir_example
-description: mimir example application
-version: 1.0.0
 publish_to: none
+resolution: workspace
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ^3.9.0
 
 dependencies:
-  # These two are needed for the example; they are not required by mimir
-  collection: ^1.17.0
   http: ^1.0.0
-
-  # You can replace this with the current version of mimir
   mimir: ^0.1.6+1
 
 dev_dependencies:
-  lints: ^6.0.0
   test: ^1.16.0

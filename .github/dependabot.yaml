@@ -2,7 +2,6 @@ version: 2
 enable-beta-ecosystems: true
 updates:
   - package-ecosystem: pub
-    versioning-strategy: increase # https://github.com/dependabot/dependabot-core/issues/6446
     directories:
       - "**/*"
     schedule:

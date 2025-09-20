@@ -1,10 +1,9 @@
-import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:mimir/mimir.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
 
-const allDocs = [
+const List<Map<String, Object>> allDocs = [
   // Test data taken from the example at:
   // https://github.com/meilisearch/milli/blob/main/README.md
   {
@@ -45,63 +44,6 @@ void main() {
       foundDocs,
       [allDocs[3]],
       reason: 'Search for horry should only return harry',
-    );
-  });
-
-  test('Get and set all settings', () async {
-    final index = await useTestIndex();
-    const originalSettings = MimirIndexSettings(
-      filterableFields: ['quantity'],
-      sortableFields: ['price'],
-      searchableFields: ['title'],
-      stopWords: ['the', 'of'],
-      rankingRules: ['proximity', 'typo', 'words'],
-      synonyms: [
-        Synonyms(word: 'a', synonyms: ['b']),
-        Synonyms(word: 'b', synonyms: ['a']),
-        Synonyms(word: 'x', synonyms: ['a']),
-        Synonyms(word: 'c', synonyms: ['d', 'e', 'f']),
-        Synonyms(word: 'y', synonyms: ['d', 'e', 'f']),
-      ],
-      typosEnabled: true,
-      disallowTyposOnWords: ['importantword1', 'foobar'],
-      disallowTyposOnFields: ['importantField'],
-      minWordSizeForOneTypo: 3,
-      minWordSizeForTwoTypos: 4,
-    );
-    final newSettings = originalSettings.copyWith(
-      filterableFields: [],
-      sortableFields: [],
-      searchableFields: null,
-      stopWords: [],
-      synonyms: [],
-      rankingRules: [
-        'words',
-        'typo',
-        'proximity',
-        'attribute',
-        'sort',
-        'exactness',
-      ],
-      typosEnabled: false,
-      disallowTyposOnWords: [],
-      disallowTyposOnFields: [],
-      minWordSizeForOneTypo: 4,
-      minWordSizeForTwoTypos: 5,
-    );
-
-    await index.setSettings(originalSettings);
-    final actualSettings = await index.getSettings();
-    expect(
-      ComparableMimirIndexSettings.from(actualSettings),
-      ComparableMimirIndexSettings.from(originalSettings),
-    );
-
-    await index.setSettings(newSettings);
-    final actualNewSettings = await index.getSettings();
-    expect(
-      ComparableMimirIndexSettings.from(actualNewSettings),
-      ComparableMimirIndexSettings.from(newSettings),
     );
   });
 
@@ -159,16 +101,16 @@ void main() {
 
     // Add docs concurrently
     await Future.wait(
-      Iterable<int>.generate(concurrentDocs)
-          .map((i) => {'id': i})
-          .map(index.addDocument),
+      Iterable<int>.generate(
+        concurrentDocs,
+      ).map((i) => {'id': i}).map(index.addDocument),
     );
 
     // Add docs in batch
     await index.addDocuments(
-      Iterable<int>.generate(batchDocs)
-          .map((i) => {'id': i + concurrentDocs})
-          .toList(),
+      Iterable<int>.generate(
+        batchDocs,
+      ).map((i) => {'id': i + concurrentDocs}).toList(),
     );
 
     final allDocs = await index.getAllDocuments();
@@ -190,8 +132,9 @@ void main() {
 
   test('Search stream', () async {
     final index = await useTestIndex();
-    final actualDocumentsStream =
-        index.searchStream(query: 'horry botter').asBroadcastStream();
+    final actualDocumentsStream = index
+        .searchStream(query: 'horry botter')
+        .asBroadcastStream();
 
     await expectLater(actualDocumentsStream, emits(equals([])));
     await index.addDocuments(allDocs);
@@ -216,11 +159,11 @@ void main() {
     const invalidIdDoc = {'id': 'abc123='};
     expect(
       () => index.addDocument(missingIdDoc),
-      throwsA(const TypeMatcher<AnyhowException>()),
+      throwsA(const TypeMatcher<MimirException>()),
     );
     expect(
       () => index.addDocument(invalidIdDoc),
-      throwsA(const TypeMatcher<AnyhowException>()),
+      throwsA(const TypeMatcher<MimirException>()),
     );
   });
 
@@ -230,11 +173,11 @@ void main() {
     const invalidIdDoc = {'id': 'abc123='};
     expect(
       () => index.setDocuments([missingIdDoc]),
-      throwsA(const TypeMatcher<AnyhowException>()),
+      throwsA(const TypeMatcher<MimirException>()),
     );
     expect(
       () => index.setDocuments([invalidIdDoc]),
-      throwsA(const TypeMatcher<AnyhowException>()),
+      throwsA(const TypeMatcher<MimirException>()),
     );
   });
 
@@ -244,13 +187,15 @@ void main() {
       {'id': '1234'},
       {'id': 'abc123='},
     ];
-    try {
-      await index.setDocuments(invalidBatch);
-    } catch (_) {}
-    try {
-      await index.addDocuments(invalidBatch);
-    } catch (_) {}
-    expect((await index.getAllDocuments()).length, 0);
+    await expectLater(
+      index.setDocuments(invalidBatch),
+      throwsA(const TypeMatcher<MimirException>()),
+    );
+    await expectLater(
+      index.addDocuments(invalidBatch),
+      throwsA(const TypeMatcher<MimirException>()),
+    );
+    await expectLater(index.numberOfDocuments, completion(BigInt.zero));
   });
 
   test('Queries with 0 & 1 and/or sub-filter(s) work', () async {
@@ -274,7 +219,7 @@ void main() {
       'id': 1234,
       'anotherId': 4321,
     };
-    expect(index.addDocument(doc), throwsA(isA<AnyhowException>()));
+    expect(index.addDocument(doc), throwsA(isA<MimirException>()));
   });
 
   test('openIndex should use the supplied PK', () async {
@@ -312,7 +257,7 @@ void main() {
     await index.updateSettings(primaryKey: 'id'); // should be a no-op
     expect(
       index.updateSettings(primaryKey: 'anotherId'),
-      throwsA(isA<AnyhowException>()),
+      throwsA(isA<MimirException>()),
     );
   });
 
@@ -325,7 +270,7 @@ void main() {
 
     expect(
       index.addDocument(doc),
-      throwsA(isA<AnyhowException>()),
+      throwsA(isA<MimirException>()),
     );
   });
 
@@ -412,7 +357,7 @@ void main() {
       {
         'id': 2,
         'field': [1234],
-      }
+      },
     ];
     final index = await useTestIndex();
     await index.addDocuments(docs);

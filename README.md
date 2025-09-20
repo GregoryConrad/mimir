@@ -18,7 +18,7 @@ A batteries-included NoSQL database for Dart & Flutter based on an embedded
 - 🔥 Blazingly fast search and reads (written in Rust)
 - 🤝 Flutter friendly with a super easy-to-use API (see demo below!)
 - 🔱 Powerful, declarative, and reactive queries
-- 🔌 Cross-platform support ([web hopefully coming soon!](https://github.com/GregoryConrad/mimir/issues/10))
+- 🔌 Cross-platform support
 - 🉑️ Diverse language support, [including CJK, Hebrew, and more!](https://www.meilisearch.com/docs/learn/what_is_meilisearch/language)
 
 ## Getting Started
@@ -62,11 +62,7 @@ The methods are fail-fast, so you should be aware of any issues early on during 
 final instance = await Mimir.defaultInstance;
 
 // Dart-only (just mimir)
-final instance = await Mimir.getInstance(
-  path: instanceDirectory,
-  // Following line will change based on your platform
-  library: DynamicLibrary.open('libembedded_milli.so'),
-); 
+final instance = await Mimir.getInstance(path: instanceDirectory); 
 
 // Get an index (creates one lazily if not already created)
 final index = instance.getIndex('movies');
@@ -78,9 +74,7 @@ final index = await instance.openIndex('movies', primaryKey: 'CustomIdField');
 
 #### Configuring an Index
 ```dart
-await index.updateSettings(...); // see setSettings below for arguments
-final currSettings = await index.getSettings();
-await index.setSettings(currSettings.copyWith(
+await index.updateSettings(
   // The primary key (PK) is the "ID field" of documents added to mimir.
   // When null, it is automatically inferred for you, but sometimes you may
   // need to specify it manually. See the Important Caveats section for more.
@@ -105,11 +99,11 @@ await index.setSettings(currSettings.copyWith(
   // A list of synonyms to link words with the same meaning together.
   // Note: in most cases, you probably want to add synonyms both ways, like below:
   synonyms: <Synonyms>[
-    Synonyms(
+    (
       word: 'automobile',
       synonyms: ['vehicle'],
     ),
-    Synonyms(
+    (
       word: 'vehicle',
       synonyms: ['automobile'],
     ),
@@ -130,7 +124,7 @@ await index.setSettings(currSettings.copyWith(
   // Fields that disallow typos. See disableOnAttributes here:
   // https://docs.meilisearch.com/reference/api/settings.html#typo-tolerance-object
   disallowTyposOnFields: <String>[],
-));
+);
 ```
 
 #### Manipulating Documents
@@ -185,17 +179,12 @@ final movies = index.search(
 ```
 
 #### Filtering Search/Query Results
-There is a "raw" filtering API in mimir provided by `Filter`,
-but it is recommended to use the following API that creates `Filter`s for you instead.
-
 Here are the methods you need to be aware of:
 - `Mimir.or(subFilters)` creates an "or" filter (like `||`) of the sub-filters
 - `Mimir.and(subFilters)` creates an "and" filter (like `&&`) of the sub-filters
 - `Mimir.not(subFilter)` creates a "not" filter (like `!someCondition`) of the sub-filter
 - `Mimir.where(condition)` creates a single filter from a given condition.
 - The above can be composed together to create powerful, declarative queries!
-
-Heres an example that shows these methods in practice.
 
 Say our Dart boolean logic is (formatted to show intent):
 ```dart
@@ -210,19 +199,7 @@ Say our Dart boolean logic is (formatted to show intent):
 )
 ```
 
-Then our "raw" filter API logic would be:
-```dart
-final filter = Filter.or([
-  Filter.and([
-    Filter.equal(field: 'fruit', value: 'apple'),
-    Filter.between(field: 'year', from: '2000', to: '2009'),
-  ]),
-  Filter.inValues(field: 'colors', values: ['red', 'green']),
-])
-```
-Which is somewhat hard to read.
-
-Here's what the recommended approach would look like:
+Here's what our filter composition would look like:
 ```dart
 final filter = Mimir.or([
   Mimir.and([
@@ -232,8 +209,11 @@ final filter = Mimir.or([
   Mimir.where('colors', containsAtLeastOneOf: ['red', 'green']),
 ])
 ```
-I think most would agree that this is the easiest of the three to understand,
-as it almost reads as pure English, even for complex conditions.
+
+Mimir's filters also support "dot syntax" for nested fields, e.g.:
+```dart
+Mimir.where('content.title', isEqualTo: 'foobar')
+```
 
 ## Important Caveats
 Please read these caveats _before_ adding mimir to your project.
@@ -243,8 +223,8 @@ Please read these caveats _before_ adding mimir to your project.
   - If you have multiple fields ending in `id`, use `instance.openIndex('indexName', primaryKey: 'theActualId')`
   - The contents of the PK field can be a number, or a string matching the regex `^[a-zA-Z0-9-_]*$`
     - In English: PKs can be alphanumeric and contain `-` and `_`
-- Unfortunately, you can only open *1* index on iOS devices at the moment; see [here for more details and a workaround](https://github.com/GregoryConrad/mimir/issues/227).
-- macOS App Sandbox is *not supported* at the moment, meaning you will not be able to submit apps to the *Mac* App Store
+- Unfortunately, you can only open *1* index on iOS devices; see [here for more details and a workaround](https://github.com/GregoryConrad/mimir/issues/227).
+- macOS App Sandbox is *not supported*, meaning you will not be able to submit apps to the *Mac* App Store
   - You will still be able to distribute macOS applications on your own
   - See more details [here](https://github.com/GregoryConrad/mimir/issues/101)
 - Resource usage

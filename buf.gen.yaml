@@ -1,0 +1,7 @@
+version: v2
+plugins:
+  - local: protoc-gen-dart
+    out: packages/mimir/lib/src/native/proto
+
+  - local: protoc-gen-prost
+    out: packages/mimir/native/src/proto
