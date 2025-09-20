@@ -117,11 +117,11 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: beta # TODO remove
-      - uses: futureware-tech/simulator-action@v4
+      - name: Start iOS Simulator
+        uses: futureware-tech/simulator-action@v4
         id: start_simulator
-        name: Start iOS Simulator
         with:
-          model: 'iPhone 17'
+          wait_for_boot: true
       - name: Create iOS boilerplate
         working-directory: packages/flutter_mimir/example
         run: flutter create . --platforms=ios
