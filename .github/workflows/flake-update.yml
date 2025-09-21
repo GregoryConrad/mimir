@@ -3,7 +3,7 @@ name: Update flake.lock
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 6 * * 0'
 
 jobs:
   nix-flake-update:
@@ -19,3 +19,4 @@ jobs:
       - uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: "chore(deps): update nix flake.lock"
+          token: ${{ secrets.BOT_ACCESS_TOKEN }}
