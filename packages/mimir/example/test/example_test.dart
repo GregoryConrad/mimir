@@ -4,9 +4,9 @@ import 'package:mimir_example/mimir_example.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('Example runs without error', () {
+  test('Example runs without error', () async {
     final tmpDir = useTmpDir();
-    run(tmpDir.path);
+    await run(tmpDir.path);
   });
 }
 
