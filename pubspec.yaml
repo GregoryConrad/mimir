@@ -7,7 +7,7 @@ environment:
 
 dev_dependencies:
   melos: ^7.1.1
-  very_good_analysis: ^9.0.0
+  very_good_analysis: ^10.0.0
 
 workspace:
   - packages/flutter_mimir

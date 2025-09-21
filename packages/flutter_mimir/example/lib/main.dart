@@ -291,8 +291,8 @@ class MovieCard extends StatelessWidget {
 }
 
 /// Displays the movie data info dialog
-void showInfoDialog(BuildContext context) {
-  showDialog<void>(
+Future<void> showInfoDialog(BuildContext context) async {
+  await showDialog<void>(
     context: context,
     builder: (context) => AlertDialog(
       title: const Text('info'),
