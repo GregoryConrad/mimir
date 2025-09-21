@@ -1,3 +1,10 @@
+## 0.2.0
+
+> Note: This release has breaking changes.
+
+ - **FEAT**: finish build script with improved Android error message.
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
 ## 0.1.6+1
 
  - Bump "mimir" to `0.1.6+1`.

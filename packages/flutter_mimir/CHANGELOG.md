@@ -1,3 +1,9 @@
+## 0.2.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
 ## 0.1.6+2
 
  - Update a dependency to the latest release.

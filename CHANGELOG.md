@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-09-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`flutter_mimir` - `v0.2.0`](#flutter_mimir---v020)
+ - [`mimir` - `v0.2.0`](#mimir---v020)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `flutter_mimir` - `v0.2.0`
+
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
+#### `mimir` - `v0.2.0`
+
+ - **FEAT**: finish build script with improved Android error message.
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
+
 ## 2025-08-18
 
 ### Changes
