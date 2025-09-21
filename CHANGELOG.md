@@ -11,6 +11,32 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 Packages with breaking changes:
 
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.2.0+1`](#flutter_mimir---v0201)
+ - [`mimir` - `v0.2.0+1`](#mimir---v0201)
+
+---
+
+#### `flutter_mimir` - `v0.2.0+1`
+
+ - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
+
+#### `mimir` - `v0.2.0+1`
+
+ - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
+
+
+## 2025-09-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
  - [`flutter_mimir` - `v0.2.0`](#flutter_mimir---v020)
  - [`mimir` - `v0.2.0`](#mimir---v020)
 

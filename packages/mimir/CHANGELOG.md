@@ -1,3 +1,7 @@
+## 0.2.0+1
+
+ - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
+
 ## 0.2.0
 
 > Note: This release has breaking changes.
