@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-10-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.2.1`](#mimir---v021)
+ - [`flutter_mimir` - `v0.2.0+2`](#flutter_mimir---v0202)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.2.0+2`
+
+---
+
+#### `mimir` - `v0.2.1`
+
+ - **FEAT**: switch to native_toolchain_rs instead of custom build script ([#454](https://github.com/GregoryConrad/mimir/issues/454)).
+
+
 ## 2025-09-20
 
 ### Changes

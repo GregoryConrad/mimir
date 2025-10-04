@@ -1,3 +1,7 @@
+## 0.2.1
+
+ - **FEAT**: switch to native_toolchain_rs instead of custom build script ([#454](https://github.com/GregoryConrad/mimir/issues/454)).
+
 ## 0.2.0+1
 
  - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).

@@ -1,3 +1,7 @@
+## 0.2.0+2
+
+ - Update a dependency to the latest release.
+
 ## 0.2.0+1
 
  - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
