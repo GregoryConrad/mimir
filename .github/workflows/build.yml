@@ -18,13 +18,6 @@ jobs:
       - uses: subosito/flutter-action@v2 # TODO remove this once flutter is in flake
         with:
           channel: beta
-      - run: |
-          # TODO remove this once patch lands
-          flutter --version
-          cd ${{ env.FLUTTER_ROOT }}
-          curl https://patch-diff.githubusercontent.com/raw/flutter/flutter/pull/175323.patch | git apply
-          git status
-          rm bin/cache/flutter_tools.stamp bin/cache/flutter_tools.snapshot
       - name: Install direnv
         run: |
           curl -sfL https://direnv.net/install.sh | bash
