@@ -60,8 +60,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-        with:
-          channel: beta # TODO remove
       - name: Create macOS boilerplate
         working-directory: packages/flutter_mimir/example
         run: flutter create . --platforms=macos
@@ -77,8 +75,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-        with:
-          channel: beta # TODO remove
       - name: Create Windows boilerplate
         working-directory: packages/flutter_mimir/example
         run: flutter create . --platforms=windows
@@ -91,8 +87,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-        with:
-          channel: beta # TODO remove
       - uses: pyvista/setup-headless-display-action@v3
       - name: Install dependencies for flutter integration test
         run: sudo apt update && sudo apt-get install -y libglu1-mesa ninja-build clang cmake pkg-config libgtk-3-dev liblzma-dev
@@ -108,8 +102,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-        with:
-          channel: beta # TODO remove
       - name: Start iOS Simulator
         uses: futureware-tech/simulator-action@v4
         id: start_simulator
@@ -130,8 +122,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
-        with:
-          channel: beta # TODO remove
       - name: Create Android boilerplate
         working-directory: packages/flutter_mimir/example
         run: flutter create . --platforms=android
