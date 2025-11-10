@@ -180,12 +180,11 @@ packages:
   ffigen:
     dependency: transitive
     description:
-      path: "pkgs/ffigen"
-      ref: "85fa542"
-      resolved-ref: "85fa542e038fd569c3418971bb7034552a98d53a"
-      url: "https://github.com/dart-lang/native"
-    source: git
-    version: "20.0.0-dev.0"
+      name: ffigen
+      sha256: c880c7cda18808b10304ecbd3e3867b29a8da0d58fd2d03080829e3b65bc567c
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.0.0"
   file:
     dependency: transitive
     description:
