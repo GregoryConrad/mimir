@@ -6,7 +6,7 @@ environment:
   sdk: ^3.9.0
 
 dependencies:
-  http: ^1.0.0
+  http: ^1.6.0
   mimir: ^0.2.1
 
 dev_dependencies:
