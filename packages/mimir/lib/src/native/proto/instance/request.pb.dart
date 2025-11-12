@@ -50,8 +50,7 @@ class MimirIndexSettings_SearchableFields extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  MimirIndexSettings_SearchableFields clone() =>
-      MimirIndexSettings_SearchableFields()..mergeFromMessage(this);
+  MimirIndexSettings_SearchableFields clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   MimirIndexSettings_SearchableFields copyWith(
           void Function(MimirIndexSettings_SearchableFields) updates) =>
@@ -67,8 +66,6 @@ class MimirIndexSettings_SearchableFields extends $pb.GeneratedMessage {
       MimirIndexSettings_SearchableFields._();
   @$core.override
   MimirIndexSettings_SearchableFields createEmptyInstance() => create();
-  static $pb.PbList<MimirIndexSettings_SearchableFields> createRepeated() =>
-      $pb.PbList<MimirIndexSettings_SearchableFields>();
   @$core.pragma('dart2js:noInline')
   static MimirIndexSettings_SearchableFields getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -109,8 +106,7 @@ class MimirIndexSettings_Synonyms extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  MimirIndexSettings_Synonyms clone() =>
-      MimirIndexSettings_Synonyms()..mergeFromMessage(this);
+  MimirIndexSettings_Synonyms clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   MimirIndexSettings_Synonyms copyWith(
           void Function(MimirIndexSettings_Synonyms) updates) =>
@@ -126,8 +122,6 @@ class MimirIndexSettings_Synonyms extends $pb.GeneratedMessage {
       MimirIndexSettings_Synonyms._();
   @$core.override
   MimirIndexSettings_Synonyms createEmptyInstance() => create();
-  static $pb.PbList<MimirIndexSettings_Synonyms> createRepeated() =>
-      $pb.PbList<MimirIndexSettings_Synonyms>();
   @$core.pragma('dart2js:noInline')
   static MimirIndexSettings_Synonyms getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<MimirIndexSettings_Synonyms>(create);
@@ -204,20 +198,19 @@ class MimirIndexSettings extends $pb.GeneratedMessage {
     ..pPS(4, _omitFieldNames ? '' : 'sortableFields')
     ..pPS(5, _omitFieldNames ? '' : 'rankingRules')
     ..pPS(6, _omitFieldNames ? '' : 'stopWords')
-    ..pc<MimirIndexSettings_Synonyms>(
-        7, _omitFieldNames ? '' : 'synonyms', $pb.PbFieldType.PM,
+    ..pPM<MimirIndexSettings_Synonyms>(7, _omitFieldNames ? '' : 'synonyms',
         subBuilder: MimirIndexSettings_Synonyms.create)
     ..aOB(8, _omitFieldNames ? '' : 'typosEnabled')
-    ..a<$core.int>(
-        9, _omitFieldNames ? '' : 'minWordSizeForOneTypo', $pb.PbFieldType.OU3)
-    ..a<$core.int>(10, _omitFieldNames ? '' : 'minWordSizeForTwoTypos',
-        $pb.PbFieldType.OU3)
+    ..aI(9, _omitFieldNames ? '' : 'minWordSizeForOneTypo',
+        fieldType: $pb.PbFieldType.OU3)
+    ..aI(10, _omitFieldNames ? '' : 'minWordSizeForTwoTypos',
+        fieldType: $pb.PbFieldType.OU3)
     ..pPS(11, _omitFieldNames ? '' : 'disallowTyposOnWords')
     ..pPS(12, _omitFieldNames ? '' : 'disallowTyposOnFields')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  MimirIndexSettings clone() => MimirIndexSettings()..mergeFromMessage(this);
+  MimirIndexSettings clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   MimirIndexSettings copyWith(void Function(MimirIndexSettings) updates) =>
       super.copyWith((message) => updates(message as MimirIndexSettings))
@@ -230,8 +223,6 @@ class MimirIndexSettings extends $pb.GeneratedMessage {
   static MimirIndexSettings create() => MimirIndexSettings._();
   @$core.override
   MimirIndexSettings createEmptyInstance() => create();
-  static $pb.PbList<MimirIndexSettings> createRepeated() =>
-      $pb.PbList<MimirIndexSettings>();
   @$core.pragma('dart2js:noInline')
   static MimirIndexSettings getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<MimirIndexSettings>(create);
@@ -330,12 +321,12 @@ class Filter_Filters extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'Filter.Filters',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
       createEmptyInstance: create)
-    ..pc<Filter>(1, _omitFieldNames ? '' : 'filters', $pb.PbFieldType.PM,
+    ..pPM<Filter>(1, _omitFieldNames ? '' : 'filters',
         subBuilder: Filter.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Filter_Filters clone() => Filter_Filters()..mergeFromMessage(this);
+  Filter_Filters clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Filter_Filters copyWith(void Function(Filter_Filters) updates) =>
       super.copyWith((message) => updates(message as Filter_Filters))
@@ -348,8 +339,6 @@ class Filter_Filters extends $pb.GeneratedMessage {
   static Filter_Filters create() => Filter_Filters._();
   @$core.override
   Filter_Filters createEmptyInstance() => create();
-  static $pb.PbList<Filter_Filters> createRepeated() =>
-      $pb.PbList<Filter_Filters>();
   @$core.pragma('dart2js:noInline')
   static Filter_Filters getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Filter_Filters>(create);
@@ -386,7 +375,7 @@ class Filter_Field extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Filter_Field clone() => Filter_Field()..mergeFromMessage(this);
+  Filter_Field clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Filter_Field copyWith(void Function(Filter_Field) updates) =>
       super.copyWith((message) => updates(message as Filter_Field))
@@ -399,8 +388,6 @@ class Filter_Field extends $pb.GeneratedMessage {
   static Filter_Field create() => Filter_Field._();
   @$core.override
   Filter_Field createEmptyInstance() => create();
-  static $pb.PbList<Filter_Field> createRepeated() =>
-      $pb.PbList<Filter_Field>();
   @$core.pragma('dart2js:noInline')
   static Filter_Field getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Filter_Field>(create);
@@ -446,7 +433,7 @@ class Filter_InValues extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Filter_InValues clone() => Filter_InValues()..mergeFromMessage(this);
+  Filter_InValues clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Filter_InValues copyWith(void Function(Filter_InValues) updates) =>
       super.copyWith((message) => updates(message as Filter_InValues))
@@ -459,8 +446,6 @@ class Filter_InValues extends $pb.GeneratedMessage {
   static Filter_InValues create() => Filter_InValues._();
   @$core.override
   Filter_InValues createEmptyInstance() => create();
-  static $pb.PbList<Filter_InValues> createRepeated() =>
-      $pb.PbList<Filter_InValues>();
   @$core.pragma('dart2js:noInline')
   static Filter_InValues getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Filter_InValues>(create);
@@ -509,7 +494,7 @@ class Filter_Comparison extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Filter_Comparison clone() => Filter_Comparison()..mergeFromMessage(this);
+  Filter_Comparison clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Filter_Comparison copyWith(void Function(Filter_Comparison) updates) =>
       super.copyWith((message) => updates(message as Filter_Comparison))
@@ -522,8 +507,6 @@ class Filter_Comparison extends $pb.GeneratedMessage {
   static Filter_Comparison create() => Filter_Comparison._();
   @$core.override
   Filter_Comparison createEmptyInstance() => create();
-  static $pb.PbList<Filter_Comparison> createRepeated() =>
-      $pb.PbList<Filter_Comparison>();
   @$core.pragma('dart2js:noInline')
   static Filter_Comparison getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Filter_Comparison>(create);
@@ -581,7 +564,7 @@ class Filter_Between extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Filter_Between clone() => Filter_Between()..mergeFromMessage(this);
+  Filter_Between clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Filter_Between copyWith(void Function(Filter_Between) updates) =>
       super.copyWith((message) => updates(message as Filter_Between))
@@ -594,8 +577,6 @@ class Filter_Between extends $pb.GeneratedMessage {
   static Filter_Between create() => Filter_Between._();
   @$core.override
   Filter_Between createEmptyInstance() => create();
-  static $pb.PbList<Filter_Between> createRepeated() =>
-      $pb.PbList<Filter_Between>();
   @$core.pragma('dart2js:noInline')
   static Filter_Between getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<Filter_Between>(create);
@@ -745,7 +726,7 @@ class Filter extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Filter clone() => Filter()..mergeFromMessage(this);
+  Filter clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   Filter copyWith(void Function(Filter) updates) =>
       super.copyWith((message) => updates(message as Filter)) as Filter;
@@ -757,13 +738,40 @@ class Filter extends $pb.GeneratedMessage {
   static Filter create() => Filter._();
   @$core.override
   Filter createEmptyInstance() => create();
-  static $pb.PbList<Filter> createRepeated() => $pb.PbList<Filter>();
   @$core.pragma('dart2js:noInline')
   static Filter getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Filter>(create);
   static Filter? _defaultInstance;
 
+  @$pb.TagNumber(1)
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
+  @$pb.TagNumber(10)
+  @$pb.TagNumber(11)
+  @$pb.TagNumber(12)
+  @$pb.TagNumber(13)
+  @$pb.TagNumber(14)
+  @$pb.TagNumber(15)
+  @$pb.TagNumber(16)
+  @$pb.TagNumber(17)
+  @$pb.TagNumber(18)
+  @$pb.TagNumber(19)
+  @$pb.TagNumber(20)
   Filter_Kind whichKind() => _Filter_KindByTag[$_whichOneof(0)]!;
+  @$pb.TagNumber(1)
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
+  @$pb.TagNumber(10)
+  @$pb.TagNumber(11)
+  @$pb.TagNumber(12)
+  @$pb.TagNumber(13)
+  @$pb.TagNumber(14)
+  @$pb.TagNumber(15)
+  @$pb.TagNumber(16)
+  @$pb.TagNumber(17)
+  @$pb.TagNumber(18)
+  @$pb.TagNumber(19)
+  @$pb.TagNumber(20)
   void clearKind() => $_clearField($_whichOneof(0));
 
   /// Creates an "or" [Filter] of the given sub-filters.
@@ -966,8 +974,7 @@ class InstanceFfiRequest_EnsureInitialized extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_EnsureInitialized clone() =>
-      InstanceFfiRequest_EnsureInitialized()..mergeFromMessage(this);
+  InstanceFfiRequest_EnsureInitialized clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_EnsureInitialized copyWith(
           void Function(InstanceFfiRequest_EnsureInitialized) updates) =>
@@ -983,8 +990,6 @@ class InstanceFfiRequest_EnsureInitialized extends $pb.GeneratedMessage {
       InstanceFfiRequest_EnsureInitialized._();
   @$core.override
   InstanceFfiRequest_EnsureInitialized createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiRequest_EnsureInitialized> createRepeated() =>
-      $pb.PbList<InstanceFfiRequest_EnsureInitialized>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_EnsureInitialized getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1026,9 +1031,7 @@ class InstanceFfiRequest_IndexRequest_EnsureInitialized
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_EnsureInitialized clone() =>
-      InstanceFfiRequest_IndexRequest_EnsureInitialized()
-        ..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_EnsureInitialized clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_EnsureInitialized copyWith(
           void Function(InstanceFfiRequest_IndexRequest_EnsureInitialized)
@@ -1046,9 +1049,6 @@ class InstanceFfiRequest_IndexRequest_EnsureInitialized
   @$core.override
   InstanceFfiRequest_IndexRequest_EnsureInitialized createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_EnsureInitialized>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_EnsureInitialized>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_EnsureInitialized getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1088,8 +1088,7 @@ class InstanceFfiRequest_IndexRequest_AddDocuments
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_AddDocuments clone() =>
-      InstanceFfiRequest_IndexRequest_AddDocuments()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_AddDocuments clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_AddDocuments copyWith(
           void Function(InstanceFfiRequest_IndexRequest_AddDocuments)
@@ -1107,9 +1106,6 @@ class InstanceFfiRequest_IndexRequest_AddDocuments
   @$core.override
   InstanceFfiRequest_IndexRequest_AddDocuments createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_AddDocuments>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_AddDocuments>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_AddDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1152,8 +1148,7 @@ class InstanceFfiRequest_IndexRequest_DeleteDocuments
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_DeleteDocuments clone() =>
-      InstanceFfiRequest_IndexRequest_DeleteDocuments()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_DeleteDocuments clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_DeleteDocuments copyWith(
           void Function(InstanceFfiRequest_IndexRequest_DeleteDocuments)
@@ -1171,9 +1166,6 @@ class InstanceFfiRequest_IndexRequest_DeleteDocuments
   @$core.override
   InstanceFfiRequest_IndexRequest_DeleteDocuments createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_DeleteDocuments>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_DeleteDocuments>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_DeleteDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1209,9 +1201,7 @@ class InstanceFfiRequest_IndexRequest_DeleteAllDocuments
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_DeleteAllDocuments clone() =>
-      InstanceFfiRequest_IndexRequest_DeleteAllDocuments()
-        ..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_DeleteAllDocuments clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_DeleteAllDocuments copyWith(
           void Function(InstanceFfiRequest_IndexRequest_DeleteAllDocuments)
@@ -1229,9 +1219,6 @@ class InstanceFfiRequest_IndexRequest_DeleteAllDocuments
   @$core.override
   InstanceFfiRequest_IndexRequest_DeleteAllDocuments createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_DeleteAllDocuments>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_DeleteAllDocuments>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_DeleteAllDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1269,8 +1256,7 @@ class InstanceFfiRequest_IndexRequest_SetDocuments
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_SetDocuments clone() =>
-      InstanceFfiRequest_IndexRequest_SetDocuments()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_SetDocuments clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_SetDocuments copyWith(
           void Function(InstanceFfiRequest_IndexRequest_SetDocuments)
@@ -1288,9 +1274,6 @@ class InstanceFfiRequest_IndexRequest_SetDocuments
   @$core.override
   InstanceFfiRequest_IndexRequest_SetDocuments createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_SetDocuments>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_SetDocuments>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SetDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1330,8 +1313,7 @@ class InstanceFfiRequest_IndexRequest_GetDocument extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_GetDocument clone() =>
-      InstanceFfiRequest_IndexRequest_GetDocument()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_GetDocument clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_GetDocument copyWith(
           void Function(InstanceFfiRequest_IndexRequest_GetDocument) updates) =>
@@ -1347,9 +1329,6 @@ class InstanceFfiRequest_IndexRequest_GetDocument extends $pb.GeneratedMessage {
       InstanceFfiRequest_IndexRequest_GetDocument._();
   @$core.override
   InstanceFfiRequest_IndexRequest_GetDocument createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_GetDocument>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_GetDocument>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_GetDocument getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1391,8 +1370,7 @@ class InstanceFfiRequest_IndexRequest_GetAllDocuments
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_GetAllDocuments clone() =>
-      InstanceFfiRequest_IndexRequest_GetAllDocuments()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_GetAllDocuments clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_GetAllDocuments copyWith(
           void Function(InstanceFfiRequest_IndexRequest_GetAllDocuments)
@@ -1410,9 +1388,6 @@ class InstanceFfiRequest_IndexRequest_GetAllDocuments
   @$core.override
   InstanceFfiRequest_IndexRequest_GetAllDocuments createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_GetAllDocuments>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_GetAllDocuments>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_GetAllDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1448,16 +1423,15 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
           : 'InstanceFfiRequest.IndexRequest.SearchDocuments.SortCriteria',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
       createEmptyInstance: create)
-    ..pc<InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>(
-        1, _omitFieldNames ? '' : 'sortCriteria', $pb.PbFieldType.PM,
+    ..pPM<InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>(
+        1, _omitFieldNames ? '' : 'sortCriteria',
         subBuilder:
             InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria clone() =>
-      InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria()
-        ..mergeFromMessage(this);
+      deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria copyWith(
           void Function(
@@ -1477,10 +1451,6 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
   @$core.override
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
       createEmptyInstance() => create();
-  static $pb
-      .PbList<InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria>
-      createRepeated() => $pb.PbList<
-          InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
       getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1543,9 +1513,7 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy clone() =>
-      InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy()
-        ..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy copyWith(
           void Function(InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy)
@@ -1563,9 +1531,6 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
   @$core.override
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
       createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1573,9 +1538,13 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy?
       _defaultInstance;
 
+  @$pb.TagNumber(1)
+  @$pb.TagNumber(2)
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy_Kind whichKind() =>
       _InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy_KindByTag[
           $_whichOneof(0)]!;
+  @$pb.TagNumber(1)
+  @$pb.TagNumber(2)
   void clearKind() => $_clearField($_whichOneof(0));
 
   /// Sort by the given field in ascending order
@@ -1640,17 +1609,11 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'query')
-    ..a<$core.int>(2, _omitFieldNames ? '' : 'limit', $pb.PbFieldType.OU3)
-    ..a<$core.int>(3, _omitFieldNames ? '' : 'offset', $pb.PbFieldType.OU3)
+    ..aI(2, _omitFieldNames ? '' : 'limit', fieldType: $pb.PbFieldType.OU3)
+    ..aI(3, _omitFieldNames ? '' : 'offset', fieldType: $pb.PbFieldType.OU3)
     ..aOM<Filter>(4, _omitFieldNames ? '' : 'filter', subBuilder: Filter.create)
-    ..e<InstanceFfiRequest_IndexRequest_SearchDocuments_TermsMatchingStrategy>(
-        5, _omitFieldNames ? '' : 'termsMatchingStrategy', $pb.PbFieldType.OE,
-        defaultOrMaker:
-            InstanceFfiRequest_IndexRequest_SearchDocuments_TermsMatchingStrategy
-                .TERMS_MATCHING_STRATEGY_LAST,
-        valueOf:
-            InstanceFfiRequest_IndexRequest_SearchDocuments_TermsMatchingStrategy
-                .valueOf,
+    ..aE<InstanceFfiRequest_IndexRequest_SearchDocuments_TermsMatchingStrategy>(
+        5, _omitFieldNames ? '' : 'termsMatchingStrategy',
         enumValues:
             InstanceFfiRequest_IndexRequest_SearchDocuments_TermsMatchingStrategy
                 .values)
@@ -1661,8 +1624,7 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_SearchDocuments clone() =>
-      InstanceFfiRequest_IndexRequest_SearchDocuments()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_SearchDocuments clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_SearchDocuments copyWith(
           void Function(InstanceFfiRequest_IndexRequest_SearchDocuments)
@@ -1680,9 +1642,6 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
   @$core.override
   InstanceFfiRequest_IndexRequest_SearchDocuments createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_SearchDocuments>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_SearchDocuments>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SearchDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1781,9 +1740,7 @@ class InstanceFfiRequest_IndexRequest_NumberOfDocuments
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_NumberOfDocuments clone() =>
-      InstanceFfiRequest_IndexRequest_NumberOfDocuments()
-        ..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_NumberOfDocuments clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_NumberOfDocuments copyWith(
           void Function(InstanceFfiRequest_IndexRequest_NumberOfDocuments)
@@ -1801,9 +1758,6 @@ class InstanceFfiRequest_IndexRequest_NumberOfDocuments
   @$core.override
   InstanceFfiRequest_IndexRequest_NumberOfDocuments createEmptyInstance() =>
       create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_NumberOfDocuments>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_NumberOfDocuments>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_NumberOfDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1833,8 +1787,7 @@ class InstanceFfiRequest_IndexRequest_GetSettings extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_GetSettings clone() =>
-      InstanceFfiRequest_IndexRequest_GetSettings()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_GetSettings clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_GetSettings copyWith(
           void Function(InstanceFfiRequest_IndexRequest_GetSettings) updates) =>
@@ -1850,9 +1803,6 @@ class InstanceFfiRequest_IndexRequest_GetSettings extends $pb.GeneratedMessage {
       InstanceFfiRequest_IndexRequest_GetSettings._();
   @$core.override
   InstanceFfiRequest_IndexRequest_GetSettings createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_GetSettings>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_GetSettings>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_GetSettings getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -1890,8 +1840,7 @@ class InstanceFfiRequest_IndexRequest_SetSettings extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest_SetSettings clone() =>
-      InstanceFfiRequest_IndexRequest_SetSettings()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest_SetSettings clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest_SetSettings copyWith(
           void Function(InstanceFfiRequest_IndexRequest_SetSettings) updates) =>
@@ -1907,9 +1856,6 @@ class InstanceFfiRequest_IndexRequest_SetSettings extends $pb.GeneratedMessage {
       InstanceFfiRequest_IndexRequest_SetSettings._();
   @$core.override
   InstanceFfiRequest_IndexRequest_SetSettings createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest_SetSettings>
-      createRepeated() =>
-          $pb.PbList<InstanceFfiRequest_IndexRequest_SetSettings>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SetSettings getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -2043,8 +1989,7 @@ class InstanceFfiRequest_IndexRequest extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest_IndexRequest clone() =>
-      InstanceFfiRequest_IndexRequest()..mergeFromMessage(this);
+  InstanceFfiRequest_IndexRequest clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest_IndexRequest copyWith(
           void Function(InstanceFfiRequest_IndexRequest) updates) =>
@@ -2060,16 +2005,36 @@ class InstanceFfiRequest_IndexRequest extends $pb.GeneratedMessage {
       InstanceFfiRequest_IndexRequest._();
   @$core.override
   InstanceFfiRequest_IndexRequest createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiRequest_IndexRequest> createRepeated() =>
-      $pb.PbList<InstanceFfiRequest_IndexRequest>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<InstanceFfiRequest_IndexRequest>(
           create);
   static InstanceFfiRequest_IndexRequest? _defaultInstance;
 
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
+  @$pb.TagNumber(4)
+  @$pb.TagNumber(5)
+  @$pb.TagNumber(6)
+  @$pb.TagNumber(7)
+  @$pb.TagNumber(8)
+  @$pb.TagNumber(9)
+  @$pb.TagNumber(10)
+  @$pb.TagNumber(11)
+  @$pb.TagNumber(12)
   InstanceFfiRequest_IndexRequest_Kind whichKind() =>
       _InstanceFfiRequest_IndexRequest_KindByTag[$_whichOneof(0)]!;
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
+  @$pb.TagNumber(4)
+  @$pb.TagNumber(5)
+  @$pb.TagNumber(6)
+  @$pb.TagNumber(7)
+  @$pb.TagNumber(8)
+  @$pb.TagNumber(9)
+  @$pb.TagNumber(10)
+  @$pb.TagNumber(11)
+  @$pb.TagNumber(12)
   void clearKind() => $_clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -2281,7 +2246,7 @@ class InstanceFfiRequest extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiRequest clone() => InstanceFfiRequest()..mergeFromMessage(this);
+  InstanceFfiRequest clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiRequest copyWith(void Function(InstanceFfiRequest) updates) =>
       super.copyWith((message) => updates(message as InstanceFfiRequest))
@@ -2294,15 +2259,17 @@ class InstanceFfiRequest extends $pb.GeneratedMessage {
   static InstanceFfiRequest create() => InstanceFfiRequest._();
   @$core.override
   InstanceFfiRequest createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiRequest> createRepeated() =>
-      $pb.PbList<InstanceFfiRequest>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<InstanceFfiRequest>(create);
   static InstanceFfiRequest? _defaultInstance;
 
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
   InstanceFfiRequest_Kind whichKind() =>
       _InstanceFfiRequest_KindByTag[$_whichOneof(0)]!;
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
   void clearKind() => $_clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -2368,8 +2335,7 @@ class InstanceFfiResponse_OptionalDocument extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiResponse_OptionalDocument clone() =>
-      InstanceFfiResponse_OptionalDocument()..mergeFromMessage(this);
+  InstanceFfiResponse_OptionalDocument clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiResponse_OptionalDocument copyWith(
           void Function(InstanceFfiResponse_OptionalDocument) updates) =>
@@ -2385,8 +2351,6 @@ class InstanceFfiResponse_OptionalDocument extends $pb.GeneratedMessage {
       InstanceFfiResponse_OptionalDocument._();
   @$core.override
   InstanceFfiResponse_OptionalDocument createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiResponse_OptionalDocument> createRepeated() =>
-      $pb.PbList<InstanceFfiResponse_OptionalDocument>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiResponse_OptionalDocument getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
@@ -2429,8 +2393,7 @@ class InstanceFfiResponse_Documents extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiResponse_Documents clone() =>
-      InstanceFfiResponse_Documents()..mergeFromMessage(this);
+  InstanceFfiResponse_Documents clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiResponse_Documents copyWith(
           void Function(InstanceFfiResponse_Documents) updates) =>
@@ -2446,8 +2409,6 @@ class InstanceFfiResponse_Documents extends $pb.GeneratedMessage {
       InstanceFfiResponse_Documents._();
   @$core.override
   InstanceFfiResponse_Documents createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiResponse_Documents> createRepeated() =>
-      $pb.PbList<InstanceFfiResponse_Documents>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiResponse_Documents getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<InstanceFfiResponse_Documents>(create);
@@ -2518,7 +2479,7 @@ class InstanceFfiResponse extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  InstanceFfiResponse clone() => InstanceFfiResponse()..mergeFromMessage(this);
+  InstanceFfiResponse clone() => deepCopy();
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
   InstanceFfiResponse copyWith(void Function(InstanceFfiResponse) updates) =>
       super.copyWith((message) => updates(message as InstanceFfiResponse))
@@ -2531,15 +2492,21 @@ class InstanceFfiResponse extends $pb.GeneratedMessage {
   static InstanceFfiResponse create() => InstanceFfiResponse._();
   @$core.override
   InstanceFfiResponse createEmptyInstance() => create();
-  static $pb.PbList<InstanceFfiResponse> createRepeated() =>
-      $pb.PbList<InstanceFfiResponse>();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiResponse getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<InstanceFfiResponse>(create);
   static InstanceFfiResponse? _defaultInstance;
 
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
+  @$pb.TagNumber(4)
+  @$pb.TagNumber(5)
   InstanceFfiResponse_Kind whichKind() =>
       _InstanceFfiResponse_KindByTag[$_whichOneof(0)]!;
+  @$pb.TagNumber(2)
+  @$pb.TagNumber(3)
+  @$pb.TagNumber(4)
+  @$pb.TagNumber(5)
   void clearKind() => $_clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
