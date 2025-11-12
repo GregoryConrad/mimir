@@ -18,7 +18,7 @@ dependencies:
   hooks: ^1.0.0
   logging: ^1.3.0
   native_toolchain_rs: ^0.1.2+4
-  protobuf: ^4.2.0 # WARN: this must match what is currently in use by protoc-gen-dart
+  protobuf: ^5.1.0 # WARN: this must match what is currently in use by protoc-gen-dart
 
 dev_dependencies:
   ffigen: ^20.0.0
