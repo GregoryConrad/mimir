@@ -1,3 +1,7 @@
+## 0.2.1+0
+
+ - Bump dependencies
+
 ## 0.2.1
 
  - **FEAT**: switch to native_toolchain_rs instead of custom build script ([#454](https://github.com/GregoryConrad/mimir/issues/454)).
