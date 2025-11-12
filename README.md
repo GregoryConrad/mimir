@@ -24,9 +24,8 @@ A batteries-included NoSQL database for Dart & Flutter based on an embedded
 ## Getting Started
 1. Install [rustup](https://rustup.rs), for Rust, on your development computer
 2. Run `flutter pub add mimir flutter_mimir` for Flutter or `dart pub add mimir` for Dart-only
-3. (Until [Native Assets](https://github.com/dart-lang/sdk/issues/50565) is fully released) Switch to Flutter's beta channel: `flutter channel beta`
-4. For Flutter macOS apps, [disable "App Sandbox"](https://stackoverflow.com/a/59752583/10003008)
-5. Read the [caveats below](#important-caveats)
+3. For Flutter macOS apps, [disable "App Sandbox"](https://stackoverflow.com/a/59752583/10003008)
+4. Read the [caveats below](#important-caveats)
 
 ## Demo
 With Flutter, you can get started with as little as:
