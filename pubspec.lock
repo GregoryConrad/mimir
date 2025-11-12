@@ -398,10 +398,10 @@ packages:
     dependency: transitive
     description:
       name: native_toolchain_rs
-      sha256: "19e8af09471ce827b167cdbc9413a59dff2819f01f7a92e0dbde45700a83f8f7"
+      sha256: "1aae78f43508d16b40f4c9c574f9bc52fac9be1550f60b760a279d2bcbca643e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2+4"
+    version: "1.0.0"
   node_preamble:
     dependency: transitive
     description:
