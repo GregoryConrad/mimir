@@ -21,5 +21,5 @@ dependencies:
   protobuf: ^5.1.0 # WARN: this must match what is currently in use by protoc-gen-dart
 
 dev_dependencies:
-  ffigen: ^20.0.0
+  ffigen: ^20.1.0
   test: ^1.22.0
