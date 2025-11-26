@@ -26,7 +26,7 @@
         devShells = {
           default = pkgs.mkShell {
             packages = with pkgs; [
-              # TODO flutter335 but at version where native assets works
+              flutter
               rustup
               buf
               protoc-gen-dart
@@ -36,6 +36,7 @@
 
             env = {
               RUST_BACKTRACE = "1";
+              FLUTTER_ROOT = "${pkgs.flutter}";
             };
 
             shellHook = ''

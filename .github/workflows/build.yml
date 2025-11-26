@@ -15,7 +15,6 @@ jobs:
       # Setup
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
-      - uses: subosito/flutter-action@v2 # TODO remove this once flutter is in flake
       - name: Install direnv
         run: |
           curl -sfL https://direnv.net/install.sh | bash
