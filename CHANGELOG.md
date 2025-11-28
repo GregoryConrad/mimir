@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2025-11-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.2.1+1`](#mimir---v0211)
+ - [`flutter_mimir` - `v0.2.0+4`](#flutter_mimir---v0204)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.2.0+4`
+
+---
+
+#### `mimir` - `v0.2.1+1`
+
+ - Switch to native_toolchain_rust
+
+
 ## 2025-11-12
 
 ### Changes

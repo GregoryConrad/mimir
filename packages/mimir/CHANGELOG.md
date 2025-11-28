@@ -1,3 +1,7 @@
+## 0.2.1+1
+
+ - Switch to native_toolchain_rust
+
 ## 0.2.1+0
 
  - Bump dependencies

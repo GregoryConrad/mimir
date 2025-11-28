@@ -2,7 +2,7 @@ name: flutter_mimir
 description: >
   Extremely powerful, reactive NoSQL database with
   typo-tolerant full-text search and declarative queries.
-version: 0.2.0+3
+version: 0.2.0+4
 homepage: https://github.com/GregoryConrad/mimir
 repository: https://github.com/GregoryConrad/mimir
 issue_tracker: https://github.com/GregoryConrad/mimir/issues
@@ -15,7 +15,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  mimir: ^0.2.1+0
+  mimir: ^0.2.1+1
   path: ^1.8.3
   path_provider: ^2.0.15
 
