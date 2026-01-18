@@ -15,6 +15,7 @@ jobs:
       # Setup
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
+      - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Install direnv
         run: |
           curl -sfL https://direnv.net/install.sh | bash
