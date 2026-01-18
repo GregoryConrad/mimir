@@ -6,7 +6,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 10 * * *" # run everyday at 10 AM
+    - cron: "0 10 * * 0" # every Sunday at 10 AM UTC
 
 jobs:
   build_and_test:
