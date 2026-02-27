@@ -1,8 +1,14 @@
+use cbindgen::Language;
 use std::env;
 
-use cbindgen::Language;
-
 fn main() {
+    let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
+    let target_arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap_or_default();
+
+    if target_os == "android" && (target_arch == "aarch64" || target_arch == "x86_64") {
+        println!("cargo:rustc-link-arg=-Wl,-z,max-page-size=16384");
+    }
+
     let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
 
     cbindgen::Builder::new()
