@@ -1,3 +1,7 @@
+## 0.2.1+2
+
+ - **FIX**: add 16kb config for Android 15 ([#486](https://github.com/GregoryConrad/mimir/issues/486)).
+
 ## 0.2.1+1
 
  - Switch to native_toolchain_rust
