@@ -6,7 +6,7 @@ environment:
   sdk: ^3.9.0
 
 dev_dependencies:
-  melos: ^7.4.0
+  melos: ^7.5.1
   very_good_analysis: ^10.1.0
 
 workspace:
