@@ -398,10 +398,10 @@ packages:
     dependency: transitive
     description:
       name: native_toolchain_rust
-      sha256: e53ef1025e2c190333ec61f638513c890c1becf11222e27b115b03bac369c6be
+      sha256: "26d4dcae954328af4ebfa8fc56cca0bf74b9ae8b4a6132de5da2071ac3d237b3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
   node_preamble:
     dependency: transitive
     description:
