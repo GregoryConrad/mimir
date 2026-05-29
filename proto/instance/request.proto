@@ -1,0 +1,239 @@
+syntax = "proto3";
+
+package instance;
+
+// The settings of a mimir index
+message MimirIndexSettings {
+  optional string primary_key = 1;
+  optional SearchableFields searchable_fields = 2;
+  repeated string filterable_fields = 3;
+  repeated string sortable_fields = 4;
+  repeated string ranking_rules = 5;
+  repeated string stop_words = 6;
+  repeated Synonyms synonyms = 7;
+  bool typos_enabled = 8;
+  uint32 min_word_size_for_one_typo = 9;
+  uint32 min_word_size_for_two_typos = 10;
+  repeated string disallow_typos_on_words = 11;
+  repeated string disallow_typos_on_fields = 12;
+
+  // Represents the searchable fields
+  message SearchableFields {
+    repeated string searchable_fields = 1;
+  }
+
+  // Represents the synonyms of a given word
+  message Synonyms {
+    string word = 1;
+    repeated string synonyms = 2;
+  }
+}
+
+// The filters to be used in a search/query
+message Filter {
+  oneof kind {
+    // Creates an "or" [Filter] of the given sub-filters.
+    Filters or = 1;
+
+    // Creates an "and" [Filter] of the given sub-filters.
+    Filters and = 2;
+
+    // Creates a "not" [Filter] of the given sub-filter.
+    Filter not = 3;
+
+    // Creates a [Filter] that specifies the given field exists.
+    Field exists = 10;
+
+    // Creates a [Filter] for the "IN" operator.
+    InValues in_values = 11;
+
+    // Creates a [Filter] for the ">" operator.
+    Comparison greater_than = 12;
+
+    // Creates a [Filter] for the ">=" operator.
+    Comparison greater_than_or_equal = 13;
+
+    // Creates a [Filter] for the "==" operator.
+    Comparison equal = 14;
+
+    // Creates a [Filter] for the "!=" operator.
+    Comparison not_equal = 15;
+
+    // Creates a [Filter] for the "<" operator.
+    Comparison less_than = 16;
+
+    // Creates a [Filter] for the "<=" operator.
+    Comparison less_than_or_equal = 17;
+
+    // Creates a [Filter] for the "BETWEEN" operator.
+    Between between = 18;
+
+    // Creates a [Filter] for the "IS NULL" operator.
+    Field is_null = 19;
+
+    // Creates a [Filter] for the "IS EMPTY" operator.
+    Field is_empty = 20;
+  }
+
+  // For Or/And, when we need repeated sub-filters
+  message Filters {
+    repeated Filter filters = 1;
+  }
+
+  // For field-only cases (IsNull, IsEmpty, Exists)
+  message Field {
+    string field = 1;
+  }
+
+  // For IN operator
+  message InValues {
+    string field = 1;
+    repeated string values = 2;
+  }
+
+  // For comparisons like >, >=, ==, etc.
+  message Comparison {
+    string field = 1;
+    string value = 2;
+  }
+
+  // For BETWEEN operator
+  message Between {
+    string field = 1;
+    string from = 2;
+    string to = 3;
+  }
+}
+
+// A request that operates on an instance.
+message InstanceFfiRequest {
+  string instance_dir = 1;
+
+  oneof kind {
+    EnsureInitialized ensure_instance_initialized = 2;
+    IndexRequest index_request = 3;
+  }
+
+  // Ensures an instance of milli (represented by just a directory) is initialized
+  //
+  // `tmp_dir`, if specified, is the directory used to store all temporary files
+  // (see https://github.com/GregoryConrad/mimir/issues/170)
+  message EnsureInitialized {
+    optional string tmp_dir = 1;
+  }
+
+  // A request that operates on an index.
+  message IndexRequest {
+    string index_name = 1;
+
+    oneof kind {
+      EnsureInitialized ensure_index_initialized = 2;
+      AddDocuments add_documents = 3;
+      DeleteDocuments delete_documents = 4;
+      DeleteAllDocuments delete_all_documents = 5;
+      SetDocuments set_documents = 6;
+      GetDocument get_document = 7;
+      GetAllDocuments get_all_documents = 8;
+      SearchDocuments search_documents = 9;
+      NumberOfDocuments number_of_documents = 10;
+      GetSettings get_settings = 11;
+      SetSettings set_settings = 12;
+    }
+
+    // Ensures a milli index is initialized
+    message EnsureInitialized {}
+
+    // Adds the given list of documents to the specified milli index
+    //
+    // Replaces documents that already exist in the index based on document ids
+    message AddDocuments {
+      repeated string documents = 1;
+    }
+
+    // Deletes the documents with the given ids from the milli index
+    message DeleteDocuments {
+      repeated string document_ids = 1;
+    }
+
+    // Deletes all the documents from the milli index
+    message DeleteAllDocuments {}
+
+    // Replaces all documents with the given documents
+    message SetDocuments {
+      repeated string documents = 1;
+    }
+
+    // Returns the document with the specified id from the index, if one exists
+    message GetDocument {
+      string document_id = 1;
+    }
+
+    // Returns all documents stored in the index
+    message GetAllDocuments {}
+
+    // Performs a search against the index and returns the documents found
+    message SearchDocuments {
+      optional string query = 1;
+      optional uint32 limit = 2;
+      optional uint32 offset = 3;
+      optional Filter filter = 4;
+      optional TermsMatchingStrategy terms_matching_strategy = 5;
+      optional SortCriteria sort_criteria = 6;
+
+      message SortCriteria {
+        repeated SortBy sort_criteria = 1;
+      }
+
+      // See https://docs.meilisearch.com/reference/api/search.html#matching-strategy
+      enum TermsMatchingStrategy {
+        // Remove last word first
+        // buf:lint:ignore ENUM_ZERO_VALUE_SUFFIX
+        TERMS_MATCHING_STRATEGY_LAST = 0;
+
+        // All words are mandatory
+        TERMS_MATCHING_STRATEGY_ALL = 1;
+      }
+
+      // Whether to sort by a field in ascending or descending order.
+      // See https://docs.meilisearch.com/reference/api/search.html#sort
+      message SortBy {
+        oneof kind {
+          // Sort by the given field in ascending order
+          string asc = 1;
+
+          // Sort by the given field in descending order
+          string desc = 2;
+        }
+      }
+    }
+
+    // Returns the number of documents stored in the index
+    message NumberOfDocuments {}
+
+    // Gets the settings of the specified index
+    message GetSettings {}
+
+    // Sets the settings of the specified index
+    message SetSettings {
+      MimirIndexSettings settings = 1;
+    }
+  }
+}
+
+message InstanceFfiResponse {
+  optional string error = 1;
+  oneof kind {
+    OptionalDocument document = 2;
+    Documents documents = 3;
+    uint64 number_of_documents = 4;
+    MimirIndexSettings index_settings = 5;
+  }
+
+  message OptionalDocument {
+    optional string document = 1;
+  }
+
+  message Documents {
+    repeated string documents = 1;
+  }
+}

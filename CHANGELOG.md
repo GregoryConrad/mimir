@@ -3,6 +3,225 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-03-03
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.2.1+2`](#mimir---v0212)
+ - [`flutter_mimir` - `v0.2.0+5`](#flutter_mimir---v0205)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.2.0+5`
+
+---
+
+#### `mimir` - `v0.2.1+2`
+
+ - **FIX**: add 16kb config for Android 15 ([#486](https://github.com/GregoryConrad/mimir/issues/486)).
+
+
+## 2025-11-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.2.1+1`](#mimir---v0211)
+ - [`flutter_mimir` - `v0.2.0+4`](#flutter_mimir---v0204)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.2.0+4`
+
+---
+
+#### `mimir` - `v0.2.1+1`
+
+ - Switch to native_toolchain_rust
+
+
+## 2025-11-12
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.2.1+0`](#mimir---v0210)
+ - [`flutter_mimir` - `v0.2.0+3`](#flutter_mimir---v0203)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.2.0+3`
+
+---
+
+#### `mimir` - `v0.2.1+0`
+
+ - Bump dependencies
+
+
+## 2025-10-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.2.1`](#mimir---v021)
+ - [`flutter_mimir` - `v0.2.0+2`](#flutter_mimir---v0202)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.2.0+2`
+
+---
+
+#### `mimir` - `v0.2.1`
+
+ - **FEAT**: switch to native_toolchain_rs instead of custom build script ([#454](https://github.com/GregoryConrad/mimir/issues/454)).
+
+
+## 2025-09-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_mimir` - `v0.2.0+1`](#flutter_mimir---v0201)
+ - [`mimir` - `v0.2.0+1`](#mimir---v0201)
+
+---
+
+#### `flutter_mimir` - `v0.2.0+1`
+
+ - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
+
+#### `mimir` - `v0.2.0+1`
+
+ - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
+
+
+## 2025-09-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`flutter_mimir` - `v0.2.0`](#flutter_mimir---v020)
+ - [`mimir` - `v0.2.0`](#mimir---v020)
+
+Packages with other changes:
+
+ - There are no other changes in this release.
+
+---
+
+#### `flutter_mimir` - `v0.2.0`
+
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
+#### `mimir` - `v0.2.0`
+
+ - **FEAT**: finish build script with improved Android error message.
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
+
+## 2025-08-18
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.1.6+1`](#mimir---v0161)
+ - [`flutter_mimir` - `v0.1.6+2`](#flutter_mimir---v0162)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.1.6+2`
+
+---
+
+#### `mimir` - `v0.1.6+1`
+
+ - Bump "mimir" to `0.1.6+1`.
+
+
+## 2025-08-18
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.1.6+0`](#mimir---v0160)
+ - [`flutter_mimir` - `v0.1.6+1`](#flutter_mimir---v0161)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.1.6+1`
+
+---
+
+#### `mimir` - `v0.1.6+0`
+
+
 ## 2024-12-20
 
 ### Changes

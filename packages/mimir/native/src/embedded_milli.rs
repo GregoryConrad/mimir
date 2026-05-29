@@ -1,11 +1,17 @@
-use std::{collections::HashMap, fs, path::Path};
+use std::{
+    collections::HashMap,
+    fs,
+    path::Path,
+    sync::{LazyLock, RwLock},
+};
 
 use anyhow::Result;
-use lazy_static::lazy_static;
 use milli_v1::heed;
-use parking_lot::RwLock;
 
-use crate::api::{Filter, MimirIndexSettings, SortBy, TermsMatchingStrategy};
+use crate::proto::{
+    instance_ffi_request::index_request::search_documents::{sort_by, TermsMatchingStrategy},
+    Filter, MimirIndexSettings,
+};
 
 // The available implementations of embedded milli
 mod v1;
@@ -60,7 +66,7 @@ pub(crate) trait EmbeddedMilli<Index> {
         query: Option<String>,
         limit: Option<u32>,
         offset: Option<u32>,
-        sort_criteria: Option<Vec<SortBy>>,
+        sort_criteria: Option<Vec<sort_by::Kind>>,
         filter: Option<Filter>,
         matching_strategy: Option<TermsMatchingStrategy>,
     ) -> Result<Vec<Document>>;
@@ -76,10 +82,11 @@ pub(crate) trait EmbeddedMilli<Index> {
     fn import_dump(dir: &Path, dump: Dump) -> Result<()>;
 }
 
-lazy_static! {
-    /// The mapping of instance paths (directories) to instances
-    static ref INSTANCES: RwLock<HashMap<String, Instance>> = RwLock::new(HashMap::new());
-}
+/// The mapping of instance paths (directories) to instances
+static INSTANCES: LazyLock<RwLock<HashMap<String, Instance>>> =
+    LazyLock::new(|| RwLock::new(HashMap::new()));
+
+static LOCK_POISONED_ERROR: &str = "Lock should not be poisoned";
 
 struct Instance {
     env: heed::Env,
@@ -141,12 +148,12 @@ pub(crate) fn ensure_instance_initialized(
         std::env::set_var("TMPDIR", tmp_dir);
     }
 
-    let instances = INSTANCES.read();
+    let instances = INSTANCES.read().expect(LOCK_POISONED_ERROR);
 
     // If this instance does not yet exist, create it
     if !instances.contains_key(instance_dir) {
         drop(instances); // prevent deadlock with the prev read lock and now write lock
-        let mut instances = INSTANCES.write();
+        let mut instances = INSTANCES.write().expect(LOCK_POISONED_ERROR);
 
         // Perhaps the instance was initialized while we were waiting to get the lock
         // Now that we have the write lock, check that we actually need to do anything
@@ -160,7 +167,7 @@ pub(crate) fn ensure_instance_initialized(
 }
 
 fn ensure_index_migrated(instance_dir: &str, index_name: &str) -> Result<()> {
-    let instances = INSTANCES.read();
+    let instances = INSTANCES.read().expect(LOCK_POISONED_ERROR);
     let instance = instances.get(instance_dir).unwrap();
     let milli_version = instance.milli_index_version(index_name)?;
     match milli_version {
@@ -168,14 +175,14 @@ fn ensure_index_migrated(instance_dir: &str, index_name: &str) -> Result<()> {
         None => {
             // Registering a new index, let's put it in the database
             drop(instances);
-            let mut instances = INSTANCES.write();
+            let mut instances = INSTANCES.write().expect(LOCK_POISONED_ERROR);
             let instance = instances.get_mut(instance_dir).unwrap();
             instance.update_milli_index_version(index_name)
         }
         Some(old_milli_version) => {
             // Index using an old version of milli, let's migrate it to the latest
             drop(instances);
-            let mut instances = INSTANCES.write();
+            let mut instances = INSTANCES.write().expect(LOCK_POISONED_ERROR);
             let instance = instances.get_mut(instance_dir).unwrap();
 
             // First, let's check to see if the index was already migrated
@@ -223,11 +230,11 @@ pub(crate) fn ensure_index_initialized(instance_dir: &str, index_name: &str) -> 
     ensure_index_migrated(instance_dir, index_name)?;
 
     // If this index does not yet exist in memory or on disk, create it
-    let instances = INSTANCES.read();
+    let instances = INSTANCES.read().expect(LOCK_POISONED_ERROR);
     let indexes = &instances.get(instance_dir).unwrap().indexes;
     if !indexes.contains_key(index_name) {
         drop(instances); // prevent deadlock with the prev read lock and now write lock
-        let mut instances = INSTANCES.write();
+        let mut instances = INSTANCES.write().expect(LOCK_POISONED_ERROR);
         let indexes = &mut instances.get_mut(instance_dir).unwrap().indexes;
 
         // Perhaps the index was initialized while we were waiting to get the lock
@@ -248,7 +255,7 @@ fn run_with_index_lock<T>(
     to_run: impl FnOnce(&RwLock<Index>) -> Result<T>,
 ) -> Result<T> {
     ensure_index_initialized(instance_dir, index_name)?;
-    let instances = INSTANCES.read();
+    let instances = INSTANCES.read().expect(LOCK_POISONED_ERROR);
     let instance = instances.get(instance_dir).unwrap();
     let index_lock = instance.indexes.get(index_name).unwrap();
     to_run(index_lock)
@@ -260,7 +267,7 @@ pub(crate) fn add_documents(
     documents: Vec<Document>,
 ) -> Result<()> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::add_documents(&index_lock.write(), documents)
+        CurrEmbeddedMilli::add_documents(&index_lock.write().expect(LOCK_POISONED_ERROR), documents)
     })
 }
 
@@ -270,13 +277,16 @@ pub(crate) fn delete_documents(
     document_ids: Vec<String>,
 ) -> Result<()> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::delete_documents(&index_lock.write(), document_ids)
+        CurrEmbeddedMilli::delete_documents(
+            &index_lock.write().expect(LOCK_POISONED_ERROR),
+            document_ids,
+        )
     })
 }
 
 pub(crate) fn delete_all_documents(instance_dir: &str, index_name: &str) -> Result<()> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::delete_all_documents(&index_lock.write())
+        CurrEmbeddedMilli::delete_all_documents(&index_lock.write().expect(LOCK_POISONED_ERROR))
     })
 }
 
@@ -286,7 +296,7 @@ pub(crate) fn set_documents(
     documents: Vec<Document>,
 ) -> Result<()> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::set_documents(&index_lock.write(), documents)
+        CurrEmbeddedMilli::set_documents(&index_lock.write().expect(LOCK_POISONED_ERROR), documents)
     })
 }
 
@@ -296,13 +306,13 @@ pub(crate) fn get_document(
     document_id: String,
 ) -> Result<Option<Document>> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::get_document(&index_lock.read(), document_id)
+        CurrEmbeddedMilli::get_document(&index_lock.read().expect(LOCK_POISONED_ERROR), document_id)
     })
 }
 
 pub(crate) fn get_all_documents(instance_dir: &str, index_name: &str) -> Result<Vec<Document>> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::get_all_documents(&index_lock.read())
+        CurrEmbeddedMilli::get_all_documents(&index_lock.read().expect(LOCK_POISONED_ERROR))
     })
 }
 
@@ -313,13 +323,13 @@ pub(crate) fn search_documents(
     query: Option<String>,
     limit: Option<u32>,
     offset: Option<u32>,
-    sort_criteria: Option<Vec<SortBy>>,
+    sort_criteria: Option<Vec<sort_by::Kind>>,
     filter: Option<Filter>,
     matching_strategy: Option<TermsMatchingStrategy>,
 ) -> Result<Vec<Document>> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
         CurrEmbeddedMilli::search_documents(
-            &index_lock.read(),
+            &index_lock.read().expect(LOCK_POISONED_ERROR),
             query,
             limit,
             offset,
@@ -332,13 +342,13 @@ pub(crate) fn search_documents(
 
 pub(crate) fn number_of_documents(instance_dir: &str, index_name: &str) -> Result<u64> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::number_of_documents(&index_lock.read())
+        CurrEmbeddedMilli::number_of_documents(&index_lock.read().expect(LOCK_POISONED_ERROR))
     })
 }
 
 pub(crate) fn get_settings(instance_dir: &str, index_name: &str) -> Result<MimirIndexSettings> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::get_settings(&index_lock.read())
+        CurrEmbeddedMilli::get_settings(&index_lock.read().expect(LOCK_POISONED_ERROR))
     })
 }
 
@@ -348,17 +358,17 @@ pub(crate) fn set_settings(
     settings: MimirIndexSettings,
 ) -> Result<()> {
     run_with_index_lock(instance_dir, index_name, |index_lock| {
-        CurrEmbeddedMilli::set_settings(&index_lock.write(), settings)
+        CurrEmbeddedMilli::set_settings(&index_lock.write().expect(LOCK_POISONED_ERROR), settings)
     })
 }
 
 #[cfg(test)]
 mod tests {
     use crate::{
-        api::MimirIndexSettings,
         embedded_milli::{
             ensure_index_initialized, get_all_documents, get_settings, EmbeddedMilli, Instance,
         },
+        proto::MimirIndexSettings,
     };
     use anyhow::Result;
     use serde_json::json;
@@ -388,7 +398,7 @@ mod tests {
             disallow_typos_on_words: Vec::new(),
             disallow_typos_on_fields: Vec::new(),
         };
-        let actual_documents = vec![json!({
+        let actual_documents = [json!({
             "id": 1234,
             "some-field": "some test text data",
         })]

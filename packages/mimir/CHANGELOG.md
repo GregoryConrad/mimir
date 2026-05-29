@@ -1,3 +1,36 @@
+## 0.2.1+2
+
+ - **FIX**: add 16kb config for Android 15 ([#486](https://github.com/GregoryConrad/mimir/issues/486)).
+
+## 0.2.1+1
+
+ - Switch to native_toolchain_rust
+
+## 0.2.1+0
+
+ - Bump dependencies
+
+## 0.2.1
+
+ - **FEAT**: switch to native_toolchain_rs instead of custom build script ([#454](https://github.com/GregoryConrad/mimir/issues/454)).
+
+## 0.2.0+1
+
+ - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
+
+## 0.2.0
+
+> Note: This release has breaking changes.
+
+ - **FEAT**: finish build script with improved Android error message.
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
+## 0.1.6+1
+
+ - Bump "mimir" to `0.1.6+1`.
+
+## 0.1.6+0
+
 ## 0.1.6
 
  - Bump "mimir" to `0.1.6`.

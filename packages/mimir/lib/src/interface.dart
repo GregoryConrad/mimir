@@ -1,14 +1,22 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-import 'package:mimir/src/api.dart';
-import 'package:mimir/src/frb_generated.dart';
-import 'package:mimir/src/impl/instance_impl.dart';
-import 'package:mimir/src/instance.dart';
+import 'package:mimir/src/dispatch.dart';
+import 'package:mimir/src/exception.dart';
+import 'package:mimir/src/native/proto/instance/request.pb.dart';
+import 'package:mimir/src/wrapper_types.dart';
 
-// ignore: directives_ordering
-import 'package:mimir/src/impl/ffi/stub.dart'
-    if (dart.library.io) 'package:mimir/src/impl/ffi/io.dart';
+part 'index.dart';
+part 'instance.dart';
+
+/// A default value to use for optional function parameters
+const _defaultOptionalValue = Object();
+
+/// Throws the error contained in [response], if there is one.
+void _handleResponseError(InstanceFfiResponse response) {
+  if (response.hasError()) throw MimirException(response.error);
+}
 
 /// The exposed API to interact with mimir
 // Instead of just having a Mimir namespace, we have to do this instead,
@@ -31,59 +39,36 @@ class MimirInterface {
   ///
   /// The [path] has to point to a directory; a directory will be
   /// created for you at the given path if one does not already exist.
-  ///
-  /// In io (native), [ioDirectory] is the directory path used to locate
-  /// the compiled rust library file.
-  ///
-  /// In Web, [webPrefix] is the prefix path for the wasm.
-  Future<MimirInstance> getInstance({
-    required String path,
-    String? ioDirectory,
-    String? webPrefix,
-  }) async {
-    if (!RustLib.instance.initialized) {
-      final libraryLoaderConfig = ExternalLibraryLoaderConfig(
-        stem: 'embedded_milli',
-        ioDirectory: ioDirectory,
-        webPrefix: webPrefix,
-      );
-      // TODO(GregoryConrad): remove this once Flutter gets SPM or Native Assets
-      ExternalLibrary lib;
-      if (Platform.isIOS || Platform.isMacOS) {
-        lib = ExternalLibrary.process(iKnowHowToUseIt: true);
-      } else {
-        lib = await loadExternalLibrary(libraryLoaderConfig);
-      }
-      await RustLib.init(externalLibrary: lib);
-    }
-
-    await ensureInstanceInitialized(instanceDir: path, tmpDir: tmpDir());
-    return _instances.putIfAbsent(path, () => MimirInstanceImpl(path));
+  Future<MimirInstance> getInstance({required String path}) async {
+    await processInstanceRequest(
+      InstanceFfiRequest(
+        instanceDir: path,
+        ensureInstanceInitialized: InstanceFfiRequest_EnsureInitialized(
+          // NOTE: Needed by https://github.com/GregoryConrad/mimir/issues/170
+          tmpDir: Platform.isAndroid ? Directory.systemTemp.path : null,
+        ),
+      ),
+      _handleResponseError,
+    );
+    return _instances.putIfAbsent(path, () => _MimirInstanceImpl(path));
   }
 
   /// Creates an "or" [Filter] of the given sub-filters.
-  Filter or(List<Filter> filters) => Filter.or(filters);
+  Filter or(List<Filter> filters) =>
+      Filter(or: Filter_Filters(filters: filters));
 
   /// Creates an "and" [Filter] of the given sub-filters.
-  Filter and(List<Filter> filters) => Filter.and(filters);
+  Filter and(List<Filter> filters) =>
+      Filter(and: Filter_Filters(filters: filters));
 
   /// Creates a "not" [Filter] of the given sub-filter.
-  Filter not(Filter filter) => Filter.not(filter);
+  Filter not(Filter filter) => Filter(not: filter);
 
   /// Creates a [Filter] in a declarative manner.
-  /// Simply wraps around the underlying [Filter] API to make it easier to use.
+  /// Simply wraps around the underlying [Filter] API.
   ///
   /// Example:
   /// ```dart
-  /// // Instead of:
-  /// Filter.or([
-  ///   Filter.and([
-  ///     Filter.equal(field: 'fruit', value: 'apple'),
-  ///     Filter.between(field: 'year', from: '2000', to: '2009'),
-  ///   ]),
-  ///   Filter.inValues(field: 'colors', values: ['red', 'green']),
-  /// ])
-  /// // Which is somewhat hard to read, you can do:
   /// Mimir.or([
   ///   Mimir.and([
   ///     Mimir.where('fruit', isEqualTo: 'apple'),
@@ -114,63 +99,85 @@ class MimirInterface {
     final givenOperators = [
       (
         isEqualTo != null,
-        () => Filter.equal(field: field, value: isEqualTo!),
+        () => Filter(
+          equal: Filter_Comparison(field_1: field, value: isEqualTo),
+        ),
       ),
       (
         isNotEqualTo != null,
-        () => Filter.notEqual(field: field, value: isNotEqualTo!),
+        () => Filter(
+          notEqual: Filter_Comparison(field_1: field, value: isNotEqualTo),
+        ),
       ),
       (
         isGreaterThanOrEqualTo != null,
-        () => Filter.greaterThanOrEqual(
-              field: field,
-              value: isGreaterThanOrEqualTo!,
-            ),
+        () => Filter(
+          greaterThanOrEqual: Filter_Comparison(
+            field_1: field,
+            value: isGreaterThanOrEqualTo,
+          ),
+        ),
       ),
       (
         isLessThanOrEqualTo != null,
-        () => Filter.lessThanOrEqual(field: field, value: isLessThanOrEqualTo!),
+        () => Filter(
+          lessThanOrEqual: Filter_Comparison(
+            field_1: field,
+            value: isLessThanOrEqualTo,
+          ),
+        ),
       ),
       (
         isGreaterThan != null,
-        () => Filter.greaterThan(field: field, value: isGreaterThan!),
+        () => Filter(
+          greaterThan: Filter_Comparison(field_1: field, value: isGreaterThan),
+        ),
       ),
       (
         isLessThan != null,
-        () => Filter.lessThan(field: field, value: isLessThan!),
+        () => Filter(
+          lessThan: Filter_Comparison(field_1: field, value: isLessThan),
+        ),
       ),
       (
         exists != null,
         () {
-          final existsFilter = Filter.exists(field: field);
-          return exists! ? existsFilter : Filter.not(existsFilter);
-        }
+          final existsFilter = Filter(exists: Filter_Field(field_1: field));
+          return exists! ? existsFilter : not(existsFilter);
+        },
       ),
       (
         isNull != null,
         () {
-          final isNullFilter = Filter.isNull(field: field);
-          return isNull! ? isNullFilter : Filter.not(isNullFilter);
-        }
+          final isNullFilter = Filter(isNull: Filter_Field(field_1: field));
+          return isNull! ? isNullFilter : not(isNullFilter);
+        },
       ),
       (
         isEmpty != null,
         () {
-          final isEmptyFilter = Filter.isEmpty(field: field);
-          return isEmpty! ? isEmptyFilter : Filter.not(isEmptyFilter);
-        }
+          final isEmptyFilter = Filter(isEmpty: Filter_Field(field_1: field));
+          return isEmpty! ? isEmptyFilter : not(isEmptyFilter);
+        },
       ),
       (
         containsAtLeastOneOf != null,
-        () => Filter.inValues(field: field, values: containsAtLeastOneOf!),
+        () => Filter(
+          inValues: Filter_InValues(
+            field_1: field,
+            values: containsAtLeastOneOf,
+          ),
+        ),
       ),
       (
         isBetween != null,
-        () => Filter.between(
-              field: field,
-              from: isBetween!.$1,
-              to: isBetween.$2,
-            ),
+        () => Filter(
+          between: Filter_Between(
+            field_1: field,
+            from: isBetween!.$1,
+            to: isBetween.$2,
+          ),
+        ),
       ),
     ].where((operator) => operator.$1);
     if (givenOperators.length != 1) {

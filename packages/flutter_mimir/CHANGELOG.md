@@ -1,3 +1,37 @@
+## 0.2.0+5
+
+ - Update a dependency to the latest release.
+
+## 0.2.0+4
+
+ - Update a dependency to the latest release.
+
+## 0.2.0+3
+
+ - Update a dependency to the latest release.
+
+## 0.2.0+2
+
+ - Update a dependency to the latest release.
+
+## 0.2.0+1
+
+ - **FIX**: update and fix lints ([#453](https://github.com/GregoryConrad/mimir/issues/453)).
+
+## 0.2.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **REFACTOR**: migrate to Native Assets in Dart ([#433](https://github.com/GregoryConrad/mimir/issues/433)).
+
+## 0.1.6+2
+
+ - Update a dependency to the latest release.
+
+## 0.1.6+1
+
+ - Update a dependency to the latest release.
+
 ## 0.1.6
 
  - **FIX**: remove ndk version and set android compile sdk to 34 ([#380](https://github.com/GregoryConrad/mimir/issues/380)). ([c0ab6c2e](https://github.com/GregoryConrad/mimir/commit/c0ab6c2e6eb13ce0296b38a6c5616cf44286bf68))

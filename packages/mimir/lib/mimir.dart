@@ -1,8 +1,4 @@
-// Rust FFI related
-export 'src/api.dart'
-    show Filter, MimirIndexSettings, SortBy, Synonyms, TermsMatchingStrategy;
-
-// Dart API related
-export 'src/index.dart';
-export 'src/instance.dart';
+export 'src/exception.dart';
 export 'src/interface.dart';
+export 'src/native/proto/instance/request.pb.dart' show Filter;
+export 'src/wrapper_types.dart';
