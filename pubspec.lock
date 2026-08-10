@@ -181,10 +181,10 @@ packages:
     dependency: transitive
     description:
       name: ffigen
-      sha256: b7803707faeec4ce3c1b0c2274906504b796e3b70ad573577e72333bd1c9b3ba
+      sha256: "56fc0be88937409839a59c133dfdee4165e80da324c9e39f59013060249ffb44"
       url: "https://pub.dev"
     source: hosted
-    version: "20.1.1"
+    version: "21.0.0"
   file:
     dependency: transitive
     description:
@@ -386,6 +386,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  native_toolchain_c:
+    dependency: transitive
+    description:
+      name: native_toolchain_c
+      sha256: f9c168717100ae6d9fee9ffb0be379bf1f8b26b0f6bcbd4fdddcd931993a6a72
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.2"
   native_toolchain_rust:
     dependency: transitive
     description:
@@ -731,10 +739,10 @@ packages:
     dependency: "direct dev"
     description:
       name: very_good_analysis
-      sha256: d1cb1d66a5aae2c702d68caca6c8347306d35e728fd94555fa21fa0448a972e0
+      sha256: "481af67ab5877af20325251dc215a4ebac7666a1c8cf09198ffd457bc612b33d"
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.0"
+    version: "10.3.0"
   vm_service:
     dependency: transitive
     description:
