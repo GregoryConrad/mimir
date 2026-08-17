@@ -16,7 +16,7 @@ extension FlutterMimirInterface on MimirInterface {
       const defaultSubDir = 'mimir';
       final appSupportDir = await pp.getApplicationSupportDirectory();
       final path = p.join(appSupportDir.path, defaultSubDir, name);
-      return getInstance(path: path);
+      return await getInstance(path: path);
     } on pp.MissingPlatformDirectoryException {
       throw UnsupportedError(
         'Looks like this platform does not have an application support '
