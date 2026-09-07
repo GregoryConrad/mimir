@@ -265,7 +265,7 @@ final class _MimirIndexImpl extends MimirIndex {
     bool overwriteSortableFields = false,
   }) async {
     final currSettings = await getSettings();
-    return setSettings(
+    return await setSettings(
       MimirIndexSettings(
         primaryKey: primaryKey is String?
             ? primaryKey
@@ -358,7 +358,7 @@ final class _MimirIndexImpl extends MimirIndex {
       overwriteSortableFields: false,
     );
 
-    return processInstanceRequest(
+    return await processInstanceRequest(
       createRequest(
         InstanceFfiRequest_IndexRequest(
           indexName: name,
