@@ -5,9 +5,7 @@ import 'package:ffigen/ffigen.dart';
 void main() {
   final packageRoot = Platform.script.resolve('../');
   FfiGenerator(
-    headers: Headers(
-      entryPoints: [packageRoot.resolve('native/bindings.h')],
-    ),
+    headers: Headers(entryPoints: [packageRoot.resolve('native/bindings.h')]),
     functions: Functions.includeSet({
       'embedded_milli_process_instance_request',
       'embedded_milli_free_buffer',
