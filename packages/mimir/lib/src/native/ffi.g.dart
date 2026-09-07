@@ -7,9 +7,7 @@
 import 'dart:ffi' as ffi;
 
 @ffi.Native<ffi.Void Function(RustBuffer)>()
-external void embedded_milli_free_buffer(
-  RustBuffer buffer,
-);
+external void embedded_milli_free_buffer(RustBuffer buffer);
 
 /// # Safety
 /// Caller must ensure provided ptr and len point to a valid memory buffer.

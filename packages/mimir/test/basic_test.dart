@@ -40,11 +40,9 @@ void main() {
     final index = await useTestIndex();
     await index.addDocuments(allDocs);
     final foundDocs = await index.search(query: 'horry');
-    expect(
-      foundDocs,
-      [allDocs[3]],
-      reason: 'Search for horry should only return harry',
-    );
+    expect(foundDocs, [
+      allDocs[3],
+    ], reason: 'Search for horry should only return harry');
   });
 
   test('Use multiple instances', () async {
@@ -215,20 +213,14 @@ void main() {
 
   test('Adding a document with multiple possible PKs errors out', () async {
     final index = await useTestIndex();
-    final doc = {
-      'id': 1234,
-      'anotherId': 4321,
-    };
+    final doc = {'id': 1234, 'anotherId': 4321};
     expect(index.addDocument(doc), throwsA(isA<MimirException>()));
   });
 
   test('openIndex should use the supplied PK', () async {
     final instance = await useInstance();
     final index = await instance.openIndex('docs', primaryKey: 'id');
-    final doc = {
-      'id': 1234,
-      '_id': 4321,
-    };
+    final doc = {'id': 1234, '_id': 4321};
     await index.addDocument(doc);
     expect(await index.getDocument('1234'), doc);
   });
@@ -236,11 +228,7 @@ void main() {
   test('Setting a primary key should use that primary key', () async {
     final index = await useTestIndex();
     await index.updateSettings(primaryKey: 'someKey');
-    final doc = {
-      'someKey': 0,
-      'id': 1234,
-      'anotherId': 4321,
-    };
+    final doc = {'someKey': 0, 'id': 1234, 'anotherId': 4321};
     await index.addDocument(doc);
     expect(await index.getDocument('0'), doc);
   });
@@ -248,10 +236,7 @@ void main() {
   test('Changing a PK after one is already set will error out', () async {
     final index = await useTestIndex();
     await index.updateSettings(primaryKey: 'id');
-    final doc = {
-      'id': 1234,
-      'anotherId': 4321,
-    };
+    final doc = {'id': 1234, 'anotherId': 4321};
     await index.addDocument(doc);
 
     await index.updateSettings(primaryKey: 'id'); // should be a no-op
@@ -264,14 +249,9 @@ void main() {
   test('Adding a document without the PK will error out', () async {
     final index = await useTestIndex();
     await index.updateSettings(primaryKey: 'id');
-    final doc = {
-      '_id': 4321,
-    };
+    final doc = {'_id': 4321};
 
-    expect(
-      index.addDocument(doc),
-      throwsA(isA<MimirException>()),
-    );
+    expect(index.addDocument(doc), throwsA(isA<MimirException>()));
   });
 
   test('Full text search with CJK works as expected', () async {
@@ -283,25 +263,13 @@ void main() {
     await index.addDocuments(docs);
 
     // Test to make sure specific nouns return the right documents
-    expect(
-      await index.search(query: '妈妈'),
-      [docs[0]],
-    );
-    expect(
-      await index.search(query: '饺子'),
-      [docs[1]],
-    );
+    expect(await index.search(query: '妈妈'), [docs[0]]);
+    expect(await index.search(query: '饺子'), [docs[1]]);
 
     // hao should not return nihao...
-    expect(
-      await index.search(query: '好'),
-      [docs[1]],
-    );
+    expect(await index.search(query: '好'), [docs[1]]);
     // ...but nihao directly should no longer return haochi
-    expect(
-      await index.search(query: '你好'),
-      [docs[0]],
-    );
+    expect(await index.search(query: '你好'), [docs[0]]);
   });
 
   test('Searching can be done with pagination', () async {
@@ -313,14 +281,12 @@ void main() {
     await index.addDocuments(docs);
 
     // Test to make sure specific offsets return the right documents
-    expect(
-      await index.search(query: 'a', offset: 0, resultsLimit: 1),
-      [docs[0]],
-    );
-    expect(
-      await index.search(query: 'a', offset: 1, resultsLimit: 1),
-      [docs[1]],
-    );
+    expect(await index.search(query: 'a', offset: 0, resultsLimit: 1), [
+      docs[0],
+    ]);
+    expect(await index.search(query: 'a', offset: 1, resultsLimit: 1), [
+      docs[1],
+    ]);
   });
 
   test('numberOfDocuments returns the correct number of documents', () async {
@@ -341,14 +307,12 @@ void main() {
     ];
     final index = await useTestIndex();
     await index.addDocuments(docs);
-    expect(
-      await index.search(filter: Mimir.where('field', isNull: true)),
-      [docs[0]],
-    );
-    expect(
-      await index.search(filter: Mimir.where('field', isNull: false)),
-      [docs[1]],
-    );
+    expect(await index.search(filter: Mimir.where('field', isNull: true)), [
+      docs[0],
+    ]);
+    expect(await index.search(filter: Mimir.where('field', isNull: false)), [
+      docs[1],
+    ]);
   });
 
   test('isEmpty filter returns only documents where field is empty', () async {
@@ -361,13 +325,11 @@ void main() {
     ];
     final index = await useTestIndex();
     await index.addDocuments(docs);
-    expect(
-      await index.search(filter: Mimir.where('field', isEmpty: true)),
-      [docs[0]],
-    );
-    expect(
-      await index.search(filter: Mimir.where('field', isEmpty: false)),
-      [docs[1]],
-    );
+    expect(await index.search(filter: Mimir.where('field', isEmpty: true)), [
+      docs[0],
+    ]);
+    expect(await index.search(filter: Mimir.where('field', isEmpty: false)), [
+      docs[1],
+    ]);
   });
 }

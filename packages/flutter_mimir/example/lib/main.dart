@@ -48,10 +48,10 @@ AsyncValue<List<Map<String, dynamic>>> searchResultsCapsule(CapsuleHandle use) {
   final query = use(queryCapsule);
 
   // When query is null/empty, all docs will be returned.
-  final stream = use.memo(
-    () => index.searchStream(query: query.$1),
-    [index, query.$1],
-  );
+  final stream = use.memo(() => index.searchStream(query: query.$1), [
+    index,
+    query.$1,
+  ]);
   return use.stream(stream);
 }
 
@@ -88,9 +88,7 @@ final class GlobalWarmUps extends RearchConsumer {
 
   @override
   Widget build(BuildContext context, WidgetHandle use) {
-    return [
-      use(indexWarmUpCapsule),
-    ].toWarmUpWidget(
+    return [use(indexWarmUpCapsule)].toWarmUpWidget(
       child: child,
       loading: const Center(child: CircularProgressIndicator.adaptive()),
       errorBuilder: (errors) => Column(

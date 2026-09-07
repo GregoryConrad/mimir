@@ -15,13 +15,7 @@ void main(List<String> args) async {
 
     await RustBuilder(
       assetName: 'src/native/ffi.g.dart',
-      features: [
-        if (isAppleOS) 'posix-sem',
-      ],
-    ).run(
-      input: input,
-      output: output,
-      logger: logger,
-    );
+      features: [if (isAppleOS) 'posix-sem'],
+    ).run(input: input, output: output, logger: logger);
   });
 }

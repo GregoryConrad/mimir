@@ -15,10 +15,7 @@ void main() {
 
     // Perform a basic search that should only return the most likely exercise
     expect(
-      (await index.search(
-        query: 'benchp ress',
-        resultsLimit: 1,
-      )).single,
+      (await index.search(query: 'benchp ress', resultsLimit: 1)).single,
       exercises.where((e) => e['name'] == 'Barbell Bench Press').first,
     );
 
