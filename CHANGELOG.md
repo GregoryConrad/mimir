@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-09-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`mimir` - `v0.2.1+3`](#mimir---v0213)
+ - [`flutter_mimir` - `v0.2.0+6`](#flutter_mimir---v0206)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `flutter_mimir` - `v0.2.0+6`
+
+---
+
+#### `mimir` - `v0.2.1+3`
+
+
 ## 2026-03-03
 
 ### Changes

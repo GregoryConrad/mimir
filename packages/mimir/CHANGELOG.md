@@ -1,3 +1,5 @@
+## 0.2.1+3
+
 ## 0.2.1+2
 
  - **FIX**: add 16kb config for Android 15 ([#486](https://github.com/GregoryConrad/mimir/issues/486)).
