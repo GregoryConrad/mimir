@@ -6,7 +6,7 @@ environment:
   sdk: ^3.9.0
 
 dev_dependencies:
-  melos: ^7.8.1
+  melos: ^8.9.0
   very_good_analysis: ^11.0.0
 
 workspace:
@@ -26,9 +26,9 @@ melos:
 
     test:
       description: Run unit tests for a specific package in this project.
-      run: flutter test test
       packageFilters:
         dirExists: test
       exec:
+        command: flutter test test
         concurrency: 1
         failFast: true
