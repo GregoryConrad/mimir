@@ -26,9 +26,9 @@ melos:
 
     test:
       description: Run unit tests for a specific package in this project.
-      run: flutter test test
       packageFilters:
         dirExists: test
       exec:
+        command: flutter test test
         concurrency: 1
         failFast: true
