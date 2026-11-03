@@ -26,7 +26,7 @@ class MimirIndexSettings_SearchableFields extends $pb.GeneratedMessage {
   factory MimirIndexSettings_SearchableFields({
     $core.Iterable<$core.String>? searchableFields,
   }) {
-    final result = create();
+    final result = MimirIndexSettings_SearchableFields._();
     if (searchableFields != null)
       result.searchableFields.addAll(searchableFields);
     return result;
@@ -37,15 +37,15 @@ class MimirIndexSettings_SearchableFields extends $pb.GeneratedMessage {
   factory MimirIndexSettings_SearchableFields.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      MimirIndexSettings_SearchableFields()..mergeFromBuffer(data, registry);
   factory MimirIndexSettings_SearchableFields.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      MimirIndexSettings_SearchableFields()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'MimirIndexSettings.SearchableFields',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: MimirIndexSettings_SearchableFields.$_createMessage)
     ..pPS(1, _omitFieldNames ? '' : 'searchableFields')
     ..hasRequiredFields = false;
 
@@ -62,14 +62,20 @@ class MimirIndexSettings_SearchableFields extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use MimirIndexSettings_SearchableFields() / MimirIndexSettings_SearchableFields.new instead')
   static MimirIndexSettings_SearchableFields create() =>
       MimirIndexSettings_SearchableFields._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      MimirIndexSettings_SearchableFields._();
   @$core.override
-  MimirIndexSettings_SearchableFields createEmptyInstance() => create();
+  MimirIndexSettings_SearchableFields createEmptyInstance() =>
+      MimirIndexSettings_SearchableFields._();
   @$core.pragma('dart2js:noInline')
   static MimirIndexSettings_SearchableFields getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          MimirIndexSettings_SearchableFields>(create);
+              MimirIndexSettings_SearchableFields>(
+          MimirIndexSettings_SearchableFields.$_createMessage);
   static MimirIndexSettings_SearchableFields? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -82,7 +88,7 @@ class MimirIndexSettings_Synonyms extends $pb.GeneratedMessage {
     $core.String? word,
     $core.Iterable<$core.String>? synonyms,
   }) {
-    final result = create();
+    final result = MimirIndexSettings_Synonyms._();
     if (word != null) result.word = word;
     if (synonyms != null) result.synonyms.addAll(synonyms);
     return result;
@@ -92,15 +98,15 @@ class MimirIndexSettings_Synonyms extends $pb.GeneratedMessage {
 
   factory MimirIndexSettings_Synonyms.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      MimirIndexSettings_Synonyms()..mergeFromBuffer(data, registry);
   factory MimirIndexSettings_Synonyms.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      MimirIndexSettings_Synonyms()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'MimirIndexSettings.Synonyms',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: MimirIndexSettings_Synonyms.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'word')
     ..pPS(2, _omitFieldNames ? '' : 'synonyms')
     ..hasRequiredFields = false;
@@ -118,13 +124,19 @@ class MimirIndexSettings_Synonyms extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use MimirIndexSettings_Synonyms() / MimirIndexSettings_Synonyms.new instead')
   static MimirIndexSettings_Synonyms create() =>
       MimirIndexSettings_Synonyms._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      MimirIndexSettings_Synonyms._();
   @$core.override
-  MimirIndexSettings_Synonyms createEmptyInstance() => create();
+  MimirIndexSettings_Synonyms createEmptyInstance() =>
+      MimirIndexSettings_Synonyms._();
   @$core.pragma('dart2js:noInline')
   static MimirIndexSettings_Synonyms getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<MimirIndexSettings_Synonyms>(create);
+      $pb.GeneratedMessage.$_defaultFor<MimirIndexSettings_Synonyms>(
+          MimirIndexSettings_Synonyms.$_createMessage);
   static MimirIndexSettings_Synonyms? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -156,7 +168,7 @@ class MimirIndexSettings extends $pb.GeneratedMessage {
     $core.Iterable<$core.String>? disallowTyposOnWords,
     $core.Iterable<$core.String>? disallowTyposOnFields,
   }) {
-    final result = create();
+    final result = MimirIndexSettings._();
     if (primaryKey != null) result.primaryKey = primaryKey;
     if (searchableFields != null) result.searchableFields = searchableFields;
     if (filterableFields != null)
@@ -181,25 +193,25 @@ class MimirIndexSettings extends $pb.GeneratedMessage {
 
   factory MimirIndexSettings.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      MimirIndexSettings()..mergeFromBuffer(data, registry);
   factory MimirIndexSettings.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      MimirIndexSettings()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'MimirIndexSettings',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: MimirIndexSettings.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'primaryKey')
     ..aOM<MimirIndexSettings_SearchableFields>(
         2, _omitFieldNames ? '' : 'searchableFields',
-        subBuilder: MimirIndexSettings_SearchableFields.create)
+        subBuilder: MimirIndexSettings_SearchableFields.$_createMessage)
     ..pPS(3, _omitFieldNames ? '' : 'filterableFields')
     ..pPS(4, _omitFieldNames ? '' : 'sortableFields')
     ..pPS(5, _omitFieldNames ? '' : 'rankingRules')
     ..pPS(6, _omitFieldNames ? '' : 'stopWords')
     ..pPM<MimirIndexSettings_Synonyms>(7, _omitFieldNames ? '' : 'synonyms',
-        subBuilder: MimirIndexSettings_Synonyms.create)
+        subBuilder: MimirIndexSettings_Synonyms.$_createMessage)
     ..aOB(8, _omitFieldNames ? '' : 'typosEnabled')
     ..aI(9, _omitFieldNames ? '' : 'minWordSizeForOneTypo',
         fieldType: $pb.PbFieldType.OU3)
@@ -220,12 +232,15 @@ class MimirIndexSettings extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use MimirIndexSettings() / MimirIndexSettings.new instead')
   static MimirIndexSettings create() => MimirIndexSettings._();
+  static $pb.GeneratedMessage $_createMessage() => MimirIndexSettings._();
   @$core.override
-  MimirIndexSettings createEmptyInstance() => create();
+  MimirIndexSettings createEmptyInstance() => MimirIndexSettings._();
   @$core.pragma('dart2js:noInline')
   static MimirIndexSettings getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<MimirIndexSettings>(create);
+      $pb.GeneratedMessage.$_defaultFor<MimirIndexSettings>(
+          MimirIndexSettings.$_createMessage);
   static MimirIndexSettings? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -303,7 +318,7 @@ class Filter_Filters extends $pb.GeneratedMessage {
   factory Filter_Filters({
     $core.Iterable<Filter>? filters,
   }) {
-    final result = create();
+    final result = Filter_Filters._();
     if (filters != null) result.filters.addAll(filters);
     return result;
   }
@@ -312,17 +327,17 @@ class Filter_Filters extends $pb.GeneratedMessage {
 
   factory Filter_Filters.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      Filter_Filters()..mergeFromBuffer(data, registry);
   factory Filter_Filters.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      Filter_Filters()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Filter.Filters',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: Filter_Filters.$_createMessage)
     ..pPM<Filter>(1, _omitFieldNames ? '' : 'filters',
-        subBuilder: Filter.create)
+        subBuilder: Filter.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -336,12 +351,15 @@ class Filter_Filters extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use Filter_Filters() / Filter_Filters.new instead')
   static Filter_Filters create() => Filter_Filters._();
+  static $pb.GeneratedMessage $_createMessage() => Filter_Filters._();
   @$core.override
-  Filter_Filters createEmptyInstance() => create();
+  Filter_Filters createEmptyInstance() => Filter_Filters._();
   @$core.pragma('dart2js:noInline')
-  static Filter_Filters getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Filter_Filters>(create);
+  static Filter_Filters getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Filter_Filters>(
+          Filter_Filters.$_createMessage);
   static Filter_Filters? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -353,7 +371,7 @@ class Filter_Field extends $pb.GeneratedMessage {
   factory Filter_Field({
     $core.String? field_1,
   }) {
-    final result = create();
+    final result = Filter_Field._();
     if (field_1 != null) result.field_1 = field_1;
     return result;
   }
@@ -362,15 +380,15 @@ class Filter_Field extends $pb.GeneratedMessage {
 
   factory Filter_Field.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      Filter_Field()..mergeFromBuffer(data, registry);
   factory Filter_Field.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      Filter_Field()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Filter.Field',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: Filter_Field.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'field')
     ..hasRequiredFields = false;
 
@@ -385,12 +403,15 @@ class Filter_Field extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use Filter_Field() / Filter_Field.new instead')
   static Filter_Field create() => Filter_Field._();
+  static $pb.GeneratedMessage $_createMessage() => Filter_Field._();
   @$core.override
-  Filter_Field createEmptyInstance() => create();
+  Filter_Field createEmptyInstance() => Filter_Field._();
   @$core.pragma('dart2js:noInline')
-  static Filter_Field getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Filter_Field>(create);
+  static Filter_Field getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Filter_Field>(
+          Filter_Field.$_createMessage);
   static Filter_Field? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -409,7 +430,7 @@ class Filter_InValues extends $pb.GeneratedMessage {
     $core.String? field_1,
     $core.Iterable<$core.String>? values,
   }) {
-    final result = create();
+    final result = Filter_InValues._();
     if (field_1 != null) result.field_1 = field_1;
     if (values != null) result.values.addAll(values);
     return result;
@@ -419,15 +440,15 @@ class Filter_InValues extends $pb.GeneratedMessage {
 
   factory Filter_InValues.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      Filter_InValues()..mergeFromBuffer(data, registry);
   factory Filter_InValues.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      Filter_InValues()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Filter.InValues',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: Filter_InValues.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'field')
     ..pPS(2, _omitFieldNames ? '' : 'values')
     ..hasRequiredFields = false;
@@ -443,12 +464,15 @@ class Filter_InValues extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use Filter_InValues() / Filter_InValues.new instead')
   static Filter_InValues create() => Filter_InValues._();
+  static $pb.GeneratedMessage $_createMessage() => Filter_InValues._();
   @$core.override
-  Filter_InValues createEmptyInstance() => create();
+  Filter_InValues createEmptyInstance() => Filter_InValues._();
   @$core.pragma('dart2js:noInline')
-  static Filter_InValues getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Filter_InValues>(create);
+  static Filter_InValues getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Filter_InValues>(
+          Filter_InValues.$_createMessage);
   static Filter_InValues? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -470,7 +494,7 @@ class Filter_Comparison extends $pb.GeneratedMessage {
     $core.String? field_1,
     $core.String? value,
   }) {
-    final result = create();
+    final result = Filter_Comparison._();
     if (field_1 != null) result.field_1 = field_1;
     if (value != null) result.value = value;
     return result;
@@ -480,15 +504,15 @@ class Filter_Comparison extends $pb.GeneratedMessage {
 
   factory Filter_Comparison.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      Filter_Comparison()..mergeFromBuffer(data, registry);
   factory Filter_Comparison.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      Filter_Comparison()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Filter.Comparison',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: Filter_Comparison.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'field')
     ..aOS(2, _omitFieldNames ? '' : 'value')
     ..hasRequiredFields = false;
@@ -504,12 +528,15 @@ class Filter_Comparison extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use Filter_Comparison() / Filter_Comparison.new instead')
   static Filter_Comparison create() => Filter_Comparison._();
+  static $pb.GeneratedMessage $_createMessage() => Filter_Comparison._();
   @$core.override
-  Filter_Comparison createEmptyInstance() => create();
+  Filter_Comparison createEmptyInstance() => Filter_Comparison._();
   @$core.pragma('dart2js:noInline')
-  static Filter_Comparison getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Filter_Comparison>(create);
+  static Filter_Comparison getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Filter_Comparison>(
+          Filter_Comparison.$_createMessage);
   static Filter_Comparison? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -538,7 +565,7 @@ class Filter_Between extends $pb.GeneratedMessage {
     $core.String? from,
     $core.String? to,
   }) {
-    final result = create();
+    final result = Filter_Between._();
     if (field_1 != null) result.field_1 = field_1;
     if (from != null) result.from = from;
     if (to != null) result.to = to;
@@ -549,15 +576,15 @@ class Filter_Between extends $pb.GeneratedMessage {
 
   factory Filter_Between.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      Filter_Between()..mergeFromBuffer(data, registry);
   factory Filter_Between.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      Filter_Between()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Filter.Between',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: Filter_Between.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'field')
     ..aOS(2, _omitFieldNames ? '' : 'from')
     ..aOS(3, _omitFieldNames ? '' : 'to')
@@ -574,12 +601,15 @@ class Filter_Between extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use Filter_Between() / Filter_Between.new instead')
   static Filter_Between create() => Filter_Between._();
+  static $pb.GeneratedMessage $_createMessage() => Filter_Between._();
   @$core.override
-  Filter_Between createEmptyInstance() => create();
+  Filter_Between createEmptyInstance() => Filter_Between._();
   @$core.pragma('dart2js:noInline')
-  static Filter_Between getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Filter_Between>(create);
+  static Filter_Between getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Filter_Between>(
+          Filter_Between.$_createMessage);
   static Filter_Between? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -646,7 +676,7 @@ class Filter extends $pb.GeneratedMessage {
     Filter_Field? isNull,
     Filter_Field? isEmpty,
   }) {
-    final result = create();
+    final result = Filter._();
     if (or != null) result.or = or;
     if (and != null) result.and = and;
     if (not != null) result.not = not;
@@ -669,10 +699,10 @@ class Filter extends $pb.GeneratedMessage {
 
   factory Filter.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      Filter()..mergeFromBuffer(data, registry);
   factory Filter.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      Filter()..mergeFromJson(json, registry);
 
   static const $core.Map<$core.int, Filter_Kind> _Filter_KindByTag = {
     1: Filter_Kind.or,
@@ -694,35 +724,36 @@ class Filter extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Filter',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: Filter.$_createMessage)
     ..oo(0, [1, 2, 3, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
     ..aOM<Filter_Filters>(1, _omitFieldNames ? '' : 'or',
-        subBuilder: Filter_Filters.create)
+        subBuilder: Filter_Filters.$_createMessage)
     ..aOM<Filter_Filters>(2, _omitFieldNames ? '' : 'and',
-        subBuilder: Filter_Filters.create)
-    ..aOM<Filter>(3, _omitFieldNames ? '' : 'not', subBuilder: Filter.create)
+        subBuilder: Filter_Filters.$_createMessage)
+    ..aOM<Filter>(3, _omitFieldNames ? '' : 'not',
+        subBuilder: Filter.$_createMessage)
     ..aOM<Filter_Field>(10, _omitFieldNames ? '' : 'exists',
-        subBuilder: Filter_Field.create)
+        subBuilder: Filter_Field.$_createMessage)
     ..aOM<Filter_InValues>(11, _omitFieldNames ? '' : 'inValues',
-        subBuilder: Filter_InValues.create)
+        subBuilder: Filter_InValues.$_createMessage)
     ..aOM<Filter_Comparison>(12, _omitFieldNames ? '' : 'greaterThan',
-        subBuilder: Filter_Comparison.create)
+        subBuilder: Filter_Comparison.$_createMessage)
     ..aOM<Filter_Comparison>(13, _omitFieldNames ? '' : 'greaterThanOrEqual',
-        subBuilder: Filter_Comparison.create)
+        subBuilder: Filter_Comparison.$_createMessage)
     ..aOM<Filter_Comparison>(14, _omitFieldNames ? '' : 'equal',
-        subBuilder: Filter_Comparison.create)
+        subBuilder: Filter_Comparison.$_createMessage)
     ..aOM<Filter_Comparison>(15, _omitFieldNames ? '' : 'notEqual',
-        subBuilder: Filter_Comparison.create)
+        subBuilder: Filter_Comparison.$_createMessage)
     ..aOM<Filter_Comparison>(16, _omitFieldNames ? '' : 'lessThan',
-        subBuilder: Filter_Comparison.create)
+        subBuilder: Filter_Comparison.$_createMessage)
     ..aOM<Filter_Comparison>(17, _omitFieldNames ? '' : 'lessThanOrEqual',
-        subBuilder: Filter_Comparison.create)
+        subBuilder: Filter_Comparison.$_createMessage)
     ..aOM<Filter_Between>(18, _omitFieldNames ? '' : 'between',
-        subBuilder: Filter_Between.create)
+        subBuilder: Filter_Between.$_createMessage)
     ..aOM<Filter_Field>(19, _omitFieldNames ? '' : 'isNull',
-        subBuilder: Filter_Field.create)
+        subBuilder: Filter_Field.$_createMessage)
     ..aOM<Filter_Field>(20, _omitFieldNames ? '' : 'isEmpty',
-        subBuilder: Filter_Field.create)
+        subBuilder: Filter_Field.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -735,12 +766,14 @@ class Filter extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use Filter() / Filter.new instead')
   static Filter create() => Filter._();
+  static $pb.GeneratedMessage $_createMessage() => Filter._();
   @$core.override
-  Filter createEmptyInstance() => create();
+  Filter createEmptyInstance() => Filter._();
   @$core.pragma('dart2js:noInline')
-  static Filter getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Filter>(create);
+  static Filter getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<Filter>(Filter.$_createMessage);
   static Filter? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -951,7 +984,7 @@ class InstanceFfiRequest_EnsureInitialized extends $pb.GeneratedMessage {
   factory InstanceFfiRequest_EnsureInitialized({
     $core.String? tmpDir,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_EnsureInitialized._();
     if (tmpDir != null) result.tmpDir = tmpDir;
     return result;
   }
@@ -961,15 +994,15 @@ class InstanceFfiRequest_EnsureInitialized extends $pb.GeneratedMessage {
   factory InstanceFfiRequest_EnsureInitialized.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_EnsureInitialized()..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_EnsureInitialized.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_EnsureInitialized()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest.EnsureInitialized',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: InstanceFfiRequest_EnsureInitialized.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'tmpDir')
     ..hasRequiredFields = false;
 
@@ -986,14 +1019,20 @@ class InstanceFfiRequest_EnsureInitialized extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_EnsureInitialized() / InstanceFfiRequest_EnsureInitialized.new instead')
   static InstanceFfiRequest_EnsureInitialized create() =>
       InstanceFfiRequest_EnsureInitialized._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiRequest_EnsureInitialized._();
   @$core.override
-  InstanceFfiRequest_EnsureInitialized createEmptyInstance() => create();
+  InstanceFfiRequest_EnsureInitialized createEmptyInstance() =>
+      InstanceFfiRequest_EnsureInitialized._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_EnsureInitialized getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_EnsureInitialized>(create);
+              InstanceFfiRequest_EnsureInitialized>(
+          InstanceFfiRequest_EnsureInitialized.$_createMessage);
   static InstanceFfiRequest_EnsureInitialized? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1009,25 +1048,29 @@ class InstanceFfiRequest_EnsureInitialized extends $pb.GeneratedMessage {
 /// Ensures a milli index is initialized
 class InstanceFfiRequest_IndexRequest_EnsureInitialized
     extends $pb.GeneratedMessage {
-  factory InstanceFfiRequest_IndexRequest_EnsureInitialized() => create();
+  factory InstanceFfiRequest_IndexRequest_EnsureInitialized() =>
+      InstanceFfiRequest_IndexRequest_EnsureInitialized._();
 
   InstanceFfiRequest_IndexRequest_EnsureInitialized._();
 
   factory InstanceFfiRequest_IndexRequest_EnsureInitialized.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_EnsureInitialized()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_EnsureInitialized.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_EnsureInitialized()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames
           ? ''
           : 'InstanceFfiRequest.IndexRequest.EnsureInitialized',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_EnsureInitialized.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1044,15 +1087,20 @@ class InstanceFfiRequest_IndexRequest_EnsureInitialized
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_EnsureInitialized() / InstanceFfiRequest_IndexRequest_EnsureInitialized.new instead')
   static InstanceFfiRequest_IndexRequest_EnsureInitialized create() =>
+      InstanceFfiRequest_IndexRequest_EnsureInitialized._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_EnsureInitialized._();
   @$core.override
   InstanceFfiRequest_IndexRequest_EnsureInitialized createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_EnsureInitialized._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_EnsureInitialized getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_EnsureInitialized>(create);
+              InstanceFfiRequest_IndexRequest_EnsureInitialized>(
+          InstanceFfiRequest_IndexRequest_EnsureInitialized.$_createMessage);
   static InstanceFfiRequest_IndexRequest_EnsureInitialized? _defaultInstance;
 }
 
@@ -1064,7 +1112,7 @@ class InstanceFfiRequest_IndexRequest_AddDocuments
   factory InstanceFfiRequest_IndexRequest_AddDocuments({
     $core.Iterable<$core.String>? documents,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest_AddDocuments._();
     if (documents != null) result.documents.addAll(documents);
     return result;
   }
@@ -1074,16 +1122,19 @@ class InstanceFfiRequest_IndexRequest_AddDocuments
   factory InstanceFfiRequest_IndexRequest_AddDocuments.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_AddDocuments()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_AddDocuments.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_AddDocuments()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest.IndexRequest.AddDocuments',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_AddDocuments.$_createMessage)
     ..pPS(1, _omitFieldNames ? '' : 'documents')
     ..hasRequiredFields = false;
 
@@ -1101,15 +1152,20 @@ class InstanceFfiRequest_IndexRequest_AddDocuments
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_AddDocuments() / InstanceFfiRequest_IndexRequest_AddDocuments.new instead')
   static InstanceFfiRequest_IndexRequest_AddDocuments create() =>
+      InstanceFfiRequest_IndexRequest_AddDocuments._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_AddDocuments._();
   @$core.override
   InstanceFfiRequest_IndexRequest_AddDocuments createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_AddDocuments._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_AddDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_AddDocuments>(create);
+              InstanceFfiRequest_IndexRequest_AddDocuments>(
+          InstanceFfiRequest_IndexRequest_AddDocuments.$_createMessage);
   static InstanceFfiRequest_IndexRequest_AddDocuments? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1122,7 +1178,7 @@ class InstanceFfiRequest_IndexRequest_DeleteDocuments
   factory InstanceFfiRequest_IndexRequest_DeleteDocuments({
     $core.Iterable<$core.String>? documentIds,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest_DeleteDocuments._();
     if (documentIds != null) result.documentIds.addAll(documentIds);
     return result;
   }
@@ -1132,18 +1188,21 @@ class InstanceFfiRequest_IndexRequest_DeleteDocuments
   factory InstanceFfiRequest_IndexRequest_DeleteDocuments.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_DeleteDocuments()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_DeleteDocuments.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_DeleteDocuments()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames
           ? ''
           : 'InstanceFfiRequest.IndexRequest.DeleteDocuments',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_DeleteDocuments.$_createMessage)
     ..pPS(1, _omitFieldNames ? '' : 'documentIds')
     ..hasRequiredFields = false;
 
@@ -1161,15 +1220,20 @@ class InstanceFfiRequest_IndexRequest_DeleteDocuments
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_DeleteDocuments() / InstanceFfiRequest_IndexRequest_DeleteDocuments.new instead')
   static InstanceFfiRequest_IndexRequest_DeleteDocuments create() =>
+      InstanceFfiRequest_IndexRequest_DeleteDocuments._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_DeleteDocuments._();
   @$core.override
   InstanceFfiRequest_IndexRequest_DeleteDocuments createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_DeleteDocuments._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_DeleteDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_DeleteDocuments>(create);
+              InstanceFfiRequest_IndexRequest_DeleteDocuments>(
+          InstanceFfiRequest_IndexRequest_DeleteDocuments.$_createMessage);
   static InstanceFfiRequest_IndexRequest_DeleteDocuments? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1179,25 +1243,29 @@ class InstanceFfiRequest_IndexRequest_DeleteDocuments
 /// Deletes all the documents from the milli index
 class InstanceFfiRequest_IndexRequest_DeleteAllDocuments
     extends $pb.GeneratedMessage {
-  factory InstanceFfiRequest_IndexRequest_DeleteAllDocuments() => create();
+  factory InstanceFfiRequest_IndexRequest_DeleteAllDocuments() =>
+      InstanceFfiRequest_IndexRequest_DeleteAllDocuments._();
 
   InstanceFfiRequest_IndexRequest_DeleteAllDocuments._();
 
   factory InstanceFfiRequest_IndexRequest_DeleteAllDocuments.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_DeleteAllDocuments()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_DeleteAllDocuments.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_DeleteAllDocuments()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames
           ? ''
           : 'InstanceFfiRequest.IndexRequest.DeleteAllDocuments',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_DeleteAllDocuments.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1214,15 +1282,20 @@ class InstanceFfiRequest_IndexRequest_DeleteAllDocuments
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_DeleteAllDocuments() / InstanceFfiRequest_IndexRequest_DeleteAllDocuments.new instead')
   static InstanceFfiRequest_IndexRequest_DeleteAllDocuments create() =>
+      InstanceFfiRequest_IndexRequest_DeleteAllDocuments._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_DeleteAllDocuments._();
   @$core.override
   InstanceFfiRequest_IndexRequest_DeleteAllDocuments createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_DeleteAllDocuments._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_DeleteAllDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_DeleteAllDocuments>(create);
+              InstanceFfiRequest_IndexRequest_DeleteAllDocuments>(
+          InstanceFfiRequest_IndexRequest_DeleteAllDocuments.$_createMessage);
   static InstanceFfiRequest_IndexRequest_DeleteAllDocuments? _defaultInstance;
 }
 
@@ -1232,7 +1305,7 @@ class InstanceFfiRequest_IndexRequest_SetDocuments
   factory InstanceFfiRequest_IndexRequest_SetDocuments({
     $core.Iterable<$core.String>? documents,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest_SetDocuments._();
     if (documents != null) result.documents.addAll(documents);
     return result;
   }
@@ -1242,16 +1315,19 @@ class InstanceFfiRequest_IndexRequest_SetDocuments
   factory InstanceFfiRequest_IndexRequest_SetDocuments.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_SetDocuments()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_SetDocuments.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_SetDocuments()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest.IndexRequest.SetDocuments',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_SetDocuments.$_createMessage)
     ..pPS(1, _omitFieldNames ? '' : 'documents')
     ..hasRequiredFields = false;
 
@@ -1269,15 +1345,20 @@ class InstanceFfiRequest_IndexRequest_SetDocuments
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_SetDocuments() / InstanceFfiRequest_IndexRequest_SetDocuments.new instead')
   static InstanceFfiRequest_IndexRequest_SetDocuments create() =>
+      InstanceFfiRequest_IndexRequest_SetDocuments._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_SetDocuments._();
   @$core.override
   InstanceFfiRequest_IndexRequest_SetDocuments createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_SetDocuments._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SetDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_SetDocuments>(create);
+              InstanceFfiRequest_IndexRequest_SetDocuments>(
+          InstanceFfiRequest_IndexRequest_SetDocuments.$_createMessage);
   static InstanceFfiRequest_IndexRequest_SetDocuments? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1289,7 +1370,7 @@ class InstanceFfiRequest_IndexRequest_GetDocument extends $pb.GeneratedMessage {
   factory InstanceFfiRequest_IndexRequest_GetDocument({
     $core.String? documentId,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest_GetDocument._();
     if (documentId != null) result.documentId = documentId;
     return result;
   }
@@ -1299,16 +1380,19 @@ class InstanceFfiRequest_IndexRequest_GetDocument extends $pb.GeneratedMessage {
   factory InstanceFfiRequest_IndexRequest_GetDocument.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_GetDocument()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_GetDocument.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_GetDocument()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest.IndexRequest.GetDocument',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_GetDocument.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'documentId')
     ..hasRequiredFields = false;
 
@@ -1325,14 +1409,20 @@ class InstanceFfiRequest_IndexRequest_GetDocument extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_GetDocument() / InstanceFfiRequest_IndexRequest_GetDocument.new instead')
   static InstanceFfiRequest_IndexRequest_GetDocument create() =>
       InstanceFfiRequest_IndexRequest_GetDocument._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiRequest_IndexRequest_GetDocument._();
   @$core.override
-  InstanceFfiRequest_IndexRequest_GetDocument createEmptyInstance() => create();
+  InstanceFfiRequest_IndexRequest_GetDocument createEmptyInstance() =>
+      InstanceFfiRequest_IndexRequest_GetDocument._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_GetDocument getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_GetDocument>(create);
+              InstanceFfiRequest_IndexRequest_GetDocument>(
+          InstanceFfiRequest_IndexRequest_GetDocument.$_createMessage);
   static InstanceFfiRequest_IndexRequest_GetDocument? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1348,25 +1438,29 @@ class InstanceFfiRequest_IndexRequest_GetDocument extends $pb.GeneratedMessage {
 /// Returns all documents stored in the index
 class InstanceFfiRequest_IndexRequest_GetAllDocuments
     extends $pb.GeneratedMessage {
-  factory InstanceFfiRequest_IndexRequest_GetAllDocuments() => create();
+  factory InstanceFfiRequest_IndexRequest_GetAllDocuments() =>
+      InstanceFfiRequest_IndexRequest_GetAllDocuments._();
 
   InstanceFfiRequest_IndexRequest_GetAllDocuments._();
 
   factory InstanceFfiRequest_IndexRequest_GetAllDocuments.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_GetAllDocuments()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_GetAllDocuments.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_GetAllDocuments()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames
           ? ''
           : 'InstanceFfiRequest.IndexRequest.GetAllDocuments',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_GetAllDocuments.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1383,15 +1477,20 @@ class InstanceFfiRequest_IndexRequest_GetAllDocuments
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_GetAllDocuments() / InstanceFfiRequest_IndexRequest_GetAllDocuments.new instead')
   static InstanceFfiRequest_IndexRequest_GetAllDocuments create() =>
+      InstanceFfiRequest_IndexRequest_GetAllDocuments._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_GetAllDocuments._();
   @$core.override
   InstanceFfiRequest_IndexRequest_GetAllDocuments createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_GetAllDocuments._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_GetAllDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_GetAllDocuments>(create);
+              InstanceFfiRequest_IndexRequest_GetAllDocuments>(
+          InstanceFfiRequest_IndexRequest_GetAllDocuments.$_createMessage);
   static InstanceFfiRequest_IndexRequest_GetAllDocuments? _defaultInstance;
 }
 
@@ -1401,7 +1500,8 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
     $core.Iterable<InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>?
         sortCriteria,
   }) {
-    final result = create();
+    final result =
+        InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria._();
     if (sortCriteria != null) result.sortCriteria.addAll(sortCriteria);
     return result;
   }
@@ -1411,22 +1511,26 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
   factory InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames
           ? ''
           : 'InstanceFfiRequest.IndexRequest.SearchDocuments.SortCriteria',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
+              .$_createMessage)
     ..pPM<InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>(
         1, _omitFieldNames ? '' : 'sortCriteria',
-        subBuilder:
-            InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy.create)
+        subBuilder: InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
+            .$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1445,16 +1549,23 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria() / InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria.new instead')
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
       create() =>
           InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria._();
   @$core.override
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
-      createEmptyInstance() => create();
+      createEmptyInstance() =>
+          InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
       getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria>(create);
+              InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria>(
+          InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
+              .$_createMessage);
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria?
       _defaultInstance;
 
@@ -1477,7 +1588,7 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
     $core.String? asc,
     $core.String? desc,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy._();
     if (asc != null) result.asc = asc;
     if (desc != null) result.desc = desc;
     return result;
@@ -1488,11 +1599,13 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
   factory InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy()
+        ..mergeFromJson(json, registry);
 
   static const $core.Map<$core.int,
           InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy_Kind>
@@ -1506,7 +1619,9 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
           ? ''
           : 'InstanceFfiRequest.IndexRequest.SearchDocuments.SortBy',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
+              .$_createMessage)
     ..oo(0, [1, 2])
     ..aOS(1, _omitFieldNames ? '' : 'asc')
     ..aOS(2, _omitFieldNames ? '' : 'desc')
@@ -1526,15 +1641,22 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy() / InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy.new instead')
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy create() =>
+      InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy._();
   @$core.override
   InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
-      createEmptyInstance() => create();
+      createEmptyInstance() =>
+          InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>(create);
+              InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy>(
+          InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy
+              .$_createMessage);
   static InstanceFfiRequest_IndexRequest_SearchDocuments_SortBy?
       _defaultInstance;
 
@@ -1580,7 +1702,7 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
         termsMatchingStrategy,
     InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria? sortCriteria,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest_SearchDocuments._();
     if (query != null) result.query = query;
     if (limit != null) result.limit = limit;
     if (offset != null) result.offset = offset;
@@ -1596,22 +1718,26 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
   factory InstanceFfiRequest_IndexRequest_SearchDocuments.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_SearchDocuments()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_SearchDocuments.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_SearchDocuments()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames
           ? ''
           : 'InstanceFfiRequest.IndexRequest.SearchDocuments',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_SearchDocuments.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'query')
     ..aI(2, _omitFieldNames ? '' : 'limit', fieldType: $pb.PbFieldType.OU3)
     ..aI(3, _omitFieldNames ? '' : 'offset', fieldType: $pb.PbFieldType.OU3)
-    ..aOM<Filter>(4, _omitFieldNames ? '' : 'filter', subBuilder: Filter.create)
+    ..aOM<Filter>(4, _omitFieldNames ? '' : 'filter',
+        subBuilder: Filter.$_createMessage)
     ..aE<InstanceFfiRequest_IndexRequest_SearchDocuments_TermsMatchingStrategy>(
         5, _omitFieldNames ? '' : 'termsMatchingStrategy',
         enumValues:
@@ -1619,8 +1745,8 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
                 .values)
     ..aOM<InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria>(
         6, _omitFieldNames ? '' : 'sortCriteria',
-        subBuilder:
-            InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria.create)
+        subBuilder: InstanceFfiRequest_IndexRequest_SearchDocuments_SortCriteria
+            .$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1637,15 +1763,20 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_SearchDocuments() / InstanceFfiRequest_IndexRequest_SearchDocuments.new instead')
   static InstanceFfiRequest_IndexRequest_SearchDocuments create() =>
+      InstanceFfiRequest_IndexRequest_SearchDocuments._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_SearchDocuments._();
   @$core.override
   InstanceFfiRequest_IndexRequest_SearchDocuments createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_SearchDocuments._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SearchDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_SearchDocuments>(create);
+              InstanceFfiRequest_IndexRequest_SearchDocuments>(
+          InstanceFfiRequest_IndexRequest_SearchDocuments.$_createMessage);
   static InstanceFfiRequest_IndexRequest_SearchDocuments? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1718,25 +1849,29 @@ class InstanceFfiRequest_IndexRequest_SearchDocuments
 /// Returns the number of documents stored in the index
 class InstanceFfiRequest_IndexRequest_NumberOfDocuments
     extends $pb.GeneratedMessage {
-  factory InstanceFfiRequest_IndexRequest_NumberOfDocuments() => create();
+  factory InstanceFfiRequest_IndexRequest_NumberOfDocuments() =>
+      InstanceFfiRequest_IndexRequest_NumberOfDocuments._();
 
   InstanceFfiRequest_IndexRequest_NumberOfDocuments._();
 
   factory InstanceFfiRequest_IndexRequest_NumberOfDocuments.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_NumberOfDocuments()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_NumberOfDocuments.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_NumberOfDocuments()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames
           ? ''
           : 'InstanceFfiRequest.IndexRequest.NumberOfDocuments',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_NumberOfDocuments.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1753,37 +1888,46 @@ class InstanceFfiRequest_IndexRequest_NumberOfDocuments
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_NumberOfDocuments() / InstanceFfiRequest_IndexRequest_NumberOfDocuments.new instead')
   static InstanceFfiRequest_IndexRequest_NumberOfDocuments create() =>
+      InstanceFfiRequest_IndexRequest_NumberOfDocuments._();
+  static $pb.GeneratedMessage $_createMessage() =>
       InstanceFfiRequest_IndexRequest_NumberOfDocuments._();
   @$core.override
   InstanceFfiRequest_IndexRequest_NumberOfDocuments createEmptyInstance() =>
-      create();
+      InstanceFfiRequest_IndexRequest_NumberOfDocuments._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_NumberOfDocuments getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_NumberOfDocuments>(create);
+              InstanceFfiRequest_IndexRequest_NumberOfDocuments>(
+          InstanceFfiRequest_IndexRequest_NumberOfDocuments.$_createMessage);
   static InstanceFfiRequest_IndexRequest_NumberOfDocuments? _defaultInstance;
 }
 
 /// Gets the settings of the specified index
 class InstanceFfiRequest_IndexRequest_GetSettings extends $pb.GeneratedMessage {
-  factory InstanceFfiRequest_IndexRequest_GetSettings() => create();
+  factory InstanceFfiRequest_IndexRequest_GetSettings() =>
+      InstanceFfiRequest_IndexRequest_GetSettings._();
 
   InstanceFfiRequest_IndexRequest_GetSettings._();
 
   factory InstanceFfiRequest_IndexRequest_GetSettings.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_GetSettings()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_GetSettings.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_GetSettings()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest.IndexRequest.GetSettings',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_GetSettings.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1799,14 +1943,20 @@ class InstanceFfiRequest_IndexRequest_GetSettings extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_GetSettings() / InstanceFfiRequest_IndexRequest_GetSettings.new instead')
   static InstanceFfiRequest_IndexRequest_GetSettings create() =>
       InstanceFfiRequest_IndexRequest_GetSettings._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiRequest_IndexRequest_GetSettings._();
   @$core.override
-  InstanceFfiRequest_IndexRequest_GetSettings createEmptyInstance() => create();
+  InstanceFfiRequest_IndexRequest_GetSettings createEmptyInstance() =>
+      InstanceFfiRequest_IndexRequest_GetSettings._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_GetSettings getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_GetSettings>(create);
+              InstanceFfiRequest_IndexRequest_GetSettings>(
+          InstanceFfiRequest_IndexRequest_GetSettings.$_createMessage);
   static InstanceFfiRequest_IndexRequest_GetSettings? _defaultInstance;
 }
 
@@ -1815,7 +1965,7 @@ class InstanceFfiRequest_IndexRequest_SetSettings extends $pb.GeneratedMessage {
   factory InstanceFfiRequest_IndexRequest_SetSettings({
     MimirIndexSettings? settings,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest_SetSettings._();
     if (settings != null) result.settings = settings;
     return result;
   }
@@ -1825,18 +1975,21 @@ class InstanceFfiRequest_IndexRequest_SetSettings extends $pb.GeneratedMessage {
   factory InstanceFfiRequest_IndexRequest_SetSettings.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest_SetSettings()
+        ..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest_SetSettings.fromJson(
           $core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest_SetSettings()
+        ..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest.IndexRequest.SetSettings',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance:
+          InstanceFfiRequest_IndexRequest_SetSettings.$_createMessage)
     ..aOM<MimirIndexSettings>(1, _omitFieldNames ? '' : 'settings',
-        subBuilder: MimirIndexSettings.create)
+        subBuilder: MimirIndexSettings.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1852,14 +2005,20 @@ class InstanceFfiRequest_IndexRequest_SetSettings extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest_SetSettings() / InstanceFfiRequest_IndexRequest_SetSettings.new instead')
   static InstanceFfiRequest_IndexRequest_SetSettings create() =>
       InstanceFfiRequest_IndexRequest_SetSettings._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiRequest_IndexRequest_SetSettings._();
   @$core.override
-  InstanceFfiRequest_IndexRequest_SetSettings createEmptyInstance() => create();
+  InstanceFfiRequest_IndexRequest_SetSettings createEmptyInstance() =>
+      InstanceFfiRequest_IndexRequest_SetSettings._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest_SetSettings getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiRequest_IndexRequest_SetSettings>(create);
+              InstanceFfiRequest_IndexRequest_SetSettings>(
+          InstanceFfiRequest_IndexRequest_SetSettings.$_createMessage);
   static InstanceFfiRequest_IndexRequest_SetSettings? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -1905,7 +2064,7 @@ class InstanceFfiRequest_IndexRequest extends $pb.GeneratedMessage {
     InstanceFfiRequest_IndexRequest_GetSettings? getSettings,
     InstanceFfiRequest_IndexRequest_SetSettings? setSettings,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest_IndexRequest._();
     if (indexName != null) result.indexName = indexName;
     if (ensureIndexInitialized != null)
       result.ensureIndexInitialized = ensureIndexInitialized;
@@ -1927,10 +2086,10 @@ class InstanceFfiRequest_IndexRequest extends $pb.GeneratedMessage {
 
   factory InstanceFfiRequest_IndexRequest.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest_IndexRequest()..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest_IndexRequest.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest_IndexRequest()..mergeFromJson(json, registry);
 
   static const $core.Map<$core.int, InstanceFfiRequest_IndexRequest_Kind>
       _InstanceFfiRequest_IndexRequest_KindByTag = {
@@ -1950,42 +2109,50 @@ class InstanceFfiRequest_IndexRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest.IndexRequest',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: InstanceFfiRequest_IndexRequest.$_createMessage)
     ..oo(0, [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
     ..aOS(1, _omitFieldNames ? '' : 'indexName')
     ..aOM<InstanceFfiRequest_IndexRequest_EnsureInitialized>(
         2, _omitFieldNames ? '' : 'ensureIndexInitialized',
-        subBuilder: InstanceFfiRequest_IndexRequest_EnsureInitialized.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_EnsureInitialized.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_AddDocuments>(
         3, _omitFieldNames ? '' : 'addDocuments',
-        subBuilder: InstanceFfiRequest_IndexRequest_AddDocuments.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_AddDocuments.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_DeleteDocuments>(
         4, _omitFieldNames ? '' : 'deleteDocuments',
-        subBuilder: InstanceFfiRequest_IndexRequest_DeleteDocuments.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_DeleteDocuments.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_DeleteAllDocuments>(
         5, _omitFieldNames ? '' : 'deleteAllDocuments',
-        subBuilder: InstanceFfiRequest_IndexRequest_DeleteAllDocuments.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_DeleteAllDocuments.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_SetDocuments>(
         6, _omitFieldNames ? '' : 'setDocuments',
-        subBuilder: InstanceFfiRequest_IndexRequest_SetDocuments.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_SetDocuments.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_GetDocument>(
         7, _omitFieldNames ? '' : 'getDocument',
-        subBuilder: InstanceFfiRequest_IndexRequest_GetDocument.create)
+        subBuilder: InstanceFfiRequest_IndexRequest_GetDocument.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_GetAllDocuments>(
         8, _omitFieldNames ? '' : 'getAllDocuments',
-        subBuilder: InstanceFfiRequest_IndexRequest_GetAllDocuments.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_GetAllDocuments.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_SearchDocuments>(
         9, _omitFieldNames ? '' : 'searchDocuments',
-        subBuilder: InstanceFfiRequest_IndexRequest_SearchDocuments.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_SearchDocuments.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_NumberOfDocuments>(
         10, _omitFieldNames ? '' : 'numberOfDocuments',
-        subBuilder: InstanceFfiRequest_IndexRequest_NumberOfDocuments.create)
+        subBuilder:
+            InstanceFfiRequest_IndexRequest_NumberOfDocuments.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_GetSettings>(
         11, _omitFieldNames ? '' : 'getSettings',
-        subBuilder: InstanceFfiRequest_IndexRequest_GetSettings.create)
+        subBuilder: InstanceFfiRequest_IndexRequest_GetSettings.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest_SetSettings>(
         12, _omitFieldNames ? '' : 'setSettings',
-        subBuilder: InstanceFfiRequest_IndexRequest_SetSettings.create)
+        subBuilder: InstanceFfiRequest_IndexRequest_SetSettings.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -2001,14 +2168,19 @@ class InstanceFfiRequest_IndexRequest extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiRequest_IndexRequest() / InstanceFfiRequest_IndexRequest.new instead')
   static InstanceFfiRequest_IndexRequest create() =>
       InstanceFfiRequest_IndexRequest._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiRequest_IndexRequest._();
   @$core.override
-  InstanceFfiRequest_IndexRequest createEmptyInstance() => create();
+  InstanceFfiRequest_IndexRequest createEmptyInstance() =>
+      InstanceFfiRequest_IndexRequest._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest_IndexRequest getDefault() => _defaultInstance ??=
       $pb.GeneratedMessage.$_defaultFor<InstanceFfiRequest_IndexRequest>(
-          create);
+          InstanceFfiRequest_IndexRequest.$_createMessage);
   static InstanceFfiRequest_IndexRequest? _defaultInstance;
 
   @$pb.TagNumber(2)
@@ -2208,7 +2380,7 @@ class InstanceFfiRequest extends $pb.GeneratedMessage {
     InstanceFfiRequest_EnsureInitialized? ensureInstanceInitialized,
     InstanceFfiRequest_IndexRequest? indexRequest,
   }) {
-    final result = create();
+    final result = InstanceFfiRequest._();
     if (instanceDir != null) result.instanceDir = instanceDir;
     if (ensureInstanceInitialized != null)
       result.ensureInstanceInitialized = ensureInstanceInitialized;
@@ -2220,10 +2392,10 @@ class InstanceFfiRequest extends $pb.GeneratedMessage {
 
   factory InstanceFfiRequest.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiRequest()..mergeFromBuffer(data, registry);
   factory InstanceFfiRequest.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiRequest()..mergeFromJson(json, registry);
 
   static const $core.Map<$core.int, InstanceFfiRequest_Kind>
       _InstanceFfiRequest_KindByTag = {
@@ -2234,15 +2406,15 @@ class InstanceFfiRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiRequest',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: InstanceFfiRequest.$_createMessage)
     ..oo(0, [2, 3])
     ..aOS(1, _omitFieldNames ? '' : 'instanceDir')
     ..aOM<InstanceFfiRequest_EnsureInitialized>(
         2, _omitFieldNames ? '' : 'ensureInstanceInitialized',
-        subBuilder: InstanceFfiRequest_EnsureInitialized.create)
+        subBuilder: InstanceFfiRequest_EnsureInitialized.$_createMessage)
     ..aOM<InstanceFfiRequest_IndexRequest>(
         3, _omitFieldNames ? '' : 'indexRequest',
-        subBuilder: InstanceFfiRequest_IndexRequest.create)
+        subBuilder: InstanceFfiRequest_IndexRequest.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -2256,12 +2428,15 @@ class InstanceFfiRequest extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated('Use InstanceFfiRequest() / InstanceFfiRequest.new instead')
   static InstanceFfiRequest create() => InstanceFfiRequest._();
+  static $pb.GeneratedMessage $_createMessage() => InstanceFfiRequest._();
   @$core.override
-  InstanceFfiRequest createEmptyInstance() => create();
+  InstanceFfiRequest createEmptyInstance() => InstanceFfiRequest._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<InstanceFfiRequest>(create);
+      $pb.GeneratedMessage.$_defaultFor<InstanceFfiRequest>(
+          InstanceFfiRequest.$_createMessage);
   static InstanceFfiRequest? _defaultInstance;
 
   @$pb.TagNumber(2)
@@ -2312,7 +2487,7 @@ class InstanceFfiResponse_OptionalDocument extends $pb.GeneratedMessage {
   factory InstanceFfiResponse_OptionalDocument({
     $core.String? document,
   }) {
-    final result = create();
+    final result = InstanceFfiResponse_OptionalDocument._();
     if (document != null) result.document = document;
     return result;
   }
@@ -2322,15 +2497,15 @@ class InstanceFfiResponse_OptionalDocument extends $pb.GeneratedMessage {
   factory InstanceFfiResponse_OptionalDocument.fromBuffer(
           $core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiResponse_OptionalDocument()..mergeFromBuffer(data, registry);
   factory InstanceFfiResponse_OptionalDocument.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiResponse_OptionalDocument()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiResponse.OptionalDocument',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: InstanceFfiResponse_OptionalDocument.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'document')
     ..hasRequiredFields = false;
 
@@ -2347,14 +2522,20 @@ class InstanceFfiResponse_OptionalDocument extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiResponse_OptionalDocument() / InstanceFfiResponse_OptionalDocument.new instead')
   static InstanceFfiResponse_OptionalDocument create() =>
       InstanceFfiResponse_OptionalDocument._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiResponse_OptionalDocument._();
   @$core.override
-  InstanceFfiResponse_OptionalDocument createEmptyInstance() => create();
+  InstanceFfiResponse_OptionalDocument createEmptyInstance() =>
+      InstanceFfiResponse_OptionalDocument._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiResponse_OptionalDocument getDefault() =>
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
-          InstanceFfiResponse_OptionalDocument>(create);
+              InstanceFfiResponse_OptionalDocument>(
+          InstanceFfiResponse_OptionalDocument.$_createMessage);
   static InstanceFfiResponse_OptionalDocument? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -2371,7 +2552,7 @@ class InstanceFfiResponse_Documents extends $pb.GeneratedMessage {
   factory InstanceFfiResponse_Documents({
     $core.Iterable<$core.String>? documents,
   }) {
-    final result = create();
+    final result = InstanceFfiResponse_Documents._();
     if (documents != null) result.documents.addAll(documents);
     return result;
   }
@@ -2380,15 +2561,15 @@ class InstanceFfiResponse_Documents extends $pb.GeneratedMessage {
 
   factory InstanceFfiResponse_Documents.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiResponse_Documents()..mergeFromBuffer(data, registry);
   factory InstanceFfiResponse_Documents.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiResponse_Documents()..mergeFromJson(json, registry);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiResponse.Documents',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: InstanceFfiResponse_Documents.$_createMessage)
     ..pPS(1, _omitFieldNames ? '' : 'documents')
     ..hasRequiredFields = false;
 
@@ -2405,13 +2586,19 @@ class InstanceFfiResponse_Documents extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core.Deprecated(
+      'Use InstanceFfiResponse_Documents() / InstanceFfiResponse_Documents.new instead')
   static InstanceFfiResponse_Documents create() =>
       InstanceFfiResponse_Documents._();
+  static $pb.GeneratedMessage $_createMessage() =>
+      InstanceFfiResponse_Documents._();
   @$core.override
-  InstanceFfiResponse_Documents createEmptyInstance() => create();
+  InstanceFfiResponse_Documents createEmptyInstance() =>
+      InstanceFfiResponse_Documents._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiResponse_Documents getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<InstanceFfiResponse_Documents>(create);
+      $pb.GeneratedMessage.$_defaultFor<InstanceFfiResponse_Documents>(
+          InstanceFfiResponse_Documents.$_createMessage);
   static InstanceFfiResponse_Documents? _defaultInstance;
 
   @$pb.TagNumber(1)
@@ -2434,7 +2621,7 @@ class InstanceFfiResponse extends $pb.GeneratedMessage {
     $fixnum.Int64? numberOfDocuments,
     MimirIndexSettings? indexSettings,
   }) {
-    final result = create();
+    final result = InstanceFfiResponse._();
     if (error != null) result.error = error;
     if (document != null) result.document = document;
     if (documents != null) result.documents = documents;
@@ -2447,10 +2634,10 @@ class InstanceFfiResponse extends $pb.GeneratedMessage {
 
   factory InstanceFfiResponse.fromBuffer($core.List<$core.int> data,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
+      InstanceFfiResponse()..mergeFromBuffer(data, registry);
   factory InstanceFfiResponse.fromJson($core.String json,
           [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
+      InstanceFfiResponse()..mergeFromJson(json, registry);
 
   static const $core.Map<$core.int, InstanceFfiResponse_Kind>
       _InstanceFfiResponse_KindByTag = {
@@ -2463,19 +2650,19 @@ class InstanceFfiResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'InstanceFfiResponse',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'instance'),
-      createEmptyInstance: create)
+      createEmptyInstance: InstanceFfiResponse.$_createMessage)
     ..oo(0, [2, 3, 4, 5])
     ..aOS(1, _omitFieldNames ? '' : 'error')
     ..aOM<InstanceFfiResponse_OptionalDocument>(
         2, _omitFieldNames ? '' : 'document',
-        subBuilder: InstanceFfiResponse_OptionalDocument.create)
+        subBuilder: InstanceFfiResponse_OptionalDocument.$_createMessage)
     ..aOM<InstanceFfiResponse_Documents>(3, _omitFieldNames ? '' : 'documents',
-        subBuilder: InstanceFfiResponse_Documents.create)
+        subBuilder: InstanceFfiResponse_Documents.$_createMessage)
     ..a<$fixnum.Int64>(
         4, _omitFieldNames ? '' : 'numberOfDocuments', $pb.PbFieldType.OU6,
         defaultOrMaker: $fixnum.Int64.ZERO)
     ..aOM<MimirIndexSettings>(5, _omitFieldNames ? '' : 'indexSettings',
-        subBuilder: MimirIndexSettings.create)
+        subBuilder: MimirIndexSettings.$_createMessage)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -2489,12 +2676,16 @@ class InstanceFfiResponse extends $pb.GeneratedMessage {
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
+  @$core
+      .Deprecated('Use InstanceFfiResponse() / InstanceFfiResponse.new instead')
   static InstanceFfiResponse create() => InstanceFfiResponse._();
+  static $pb.GeneratedMessage $_createMessage() => InstanceFfiResponse._();
   @$core.override
-  InstanceFfiResponse createEmptyInstance() => create();
+  InstanceFfiResponse createEmptyInstance() => InstanceFfiResponse._();
   @$core.pragma('dart2js:noInline')
   static InstanceFfiResponse getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<InstanceFfiResponse>(create);
+      $pb.GeneratedMessage.$_defaultFor<InstanceFfiResponse>(
+          InstanceFfiResponse.$_createMessage);
   static InstanceFfiResponse? _defaultInstance;
 
   @$pb.TagNumber(2)
